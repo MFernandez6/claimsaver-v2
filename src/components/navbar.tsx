@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
+import { SignInButton, UserButton, useUser } from "@clerk/nextjs";
 
 const navItems = [
   { name: "Who We Are", href: "/who-we-are" },
@@ -16,6 +17,7 @@ export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const pathname = usePathname();
+  const { isSignedIn } = useUser();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -88,14 +90,62 @@ export default function Navbar() {
               </motion.div>
             ))}
 
-            {/* Sign In Button */}
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Button
-                variant="outline"
-                className="bg-white/80 backdrop-blur-sm border-gray-200 hover:bg-white hover:border-blue-300 dark:bg-gray-800/80 dark:border-gray-700 dark:hover:bg-gray-800 dark:hover:border-blue-600 transition-all duration-200"
+            {/* Dashboard Link - Only show when signed in */}
+            {isSignedIn && (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.8 }}
+                whileHover={{ y: -2 }}
+                whileTap={{ scale: 0.95 }}
               >
-                Sign In
-              </Button>
+                <Link
+                  href="/dashboard"
+                  className={`relative px-3 py-2 text-sm font-medium transition-colors duration-200 ${
+                    pathname === "/dashboard"
+                      ? "text-blue-600 dark:text-blue-400"
+                      : "text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400"
+                  }`}
+                >
+                  Dashboard
+                  {pathname === "/dashboard" && (
+                    <motion.div
+                      layoutId="activeTab"
+                      className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-blue-600 to-blue-800 rounded-full"
+                      initial={false}
+                      transition={{
+                        type: "spring",
+                        stiffness: 500,
+                        damping: 30,
+                      }}
+                    />
+                  )}
+                </Link>
+              </motion.div>
+            )}
+
+            {/* Authentication Button */}
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              {isSignedIn ? (
+                <UserButton
+                  appearance={{
+                    elements: {
+                      avatarBox: "w-10 h-10",
+                      userButtonPopoverCard:
+                        "shadow-lg border border-gray-200 dark:border-gray-700",
+                    },
+                  }}
+                />
+              ) : (
+                <SignInButton mode="modal">
+                  <Button
+                    variant="outline"
+                    className="bg-white/80 backdrop-blur-sm border-gray-200 hover:bg-white hover:border-blue-300 dark:bg-gray-800/80 dark:border-gray-700 dark:hover:bg-gray-800 dark:hover:border-blue-600 transition-all duration-200"
+                  >
+                    Sign In
+                  </Button>
+                </SignInButton>
+              )}
             </motion.div>
           </div>
 
@@ -162,18 +212,58 @@ export default function Navbar() {
                     </Link>
                   </motion.div>
                 ))}
+
+                {/* Dashboard Link in Mobile Menu - Only show when signed in */}
+                {isSignedIn && (
+                  <motion.div
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: navItems.length * 0.1 }}
+                  >
+                    <Link
+                      href="/dashboard"
+                      className={`block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200 ${
+                        pathname === "/dashboard"
+                          ? "text-blue-600 bg-blue-50 dark:text-blue-400 dark:bg-blue-950/50"
+                          : "text-gray-700 hover:text-blue-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-blue-400 dark:hover:bg-gray-800"
+                      }`}
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      Dashboard
+                    </Link>
+                  </motion.div>
+                )}
+
                 <motion.div
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: navItems.length * 0.1 }}
+                  transition={{
+                    delay: (navItems.length + (isSignedIn ? 1 : 0)) * 0.1,
+                  }}
                   className="pt-2"
                 >
-                  <Button
-                    variant="outline"
-                    className="w-full bg-white/80 backdrop-blur-sm border-gray-200 hover:bg-white hover:border-blue-300 dark:bg-gray-800/80 dark:border-gray-700 dark:hover:bg-gray-800 dark:hover:border-blue-600"
-                  >
-                    Sign In
-                  </Button>
+                  {isSignedIn ? (
+                    <div className="flex justify-center">
+                      <UserButton
+                        appearance={{
+                          elements: {
+                            avatarBox: "w-10 h-10",
+                            userButtonPopoverCard:
+                              "shadow-lg border border-gray-200 dark:border-gray-700",
+                          },
+                        }}
+                      />
+                    </div>
+                  ) : (
+                    <SignInButton mode="modal">
+                      <Button
+                        variant="outline"
+                        className="w-full bg-white/80 backdrop-blur-sm border-gray-200 hover:bg-white hover:border-blue-300 dark:bg-gray-800/80 dark:border-gray-700 dark:hover:bg-gray-800 dark:hover:border-blue-600"
+                      >
+                        Sign In
+                      </Button>
+                    </SignInButton>
+                  )}
                 </motion.div>
               </div>
             </motion.div>
