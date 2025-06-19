@@ -4,7 +4,7 @@ import Image from "next/image";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white to-blue-50 dark:from-gray-950 dark:to-blue-950 flex flex-col items-center justify-between py-8 px-4 sm:px-8">
+    <div className="min-h-screen bg-gradient-to-b from-white to-blue-50 dark:from-gray-950 dark:to-blue-950 flex flex-col items-center justify-between py-8 px-4 sm:px-8 pt-24">
       {/* Hero Section */}
       <header className="w-full max-w-4xl mx-auto flex flex-col items-center text-center gap-6 mt-12 mb-16">
         <div className="flex items-center gap-3">
