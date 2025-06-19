@@ -16,37 +16,52 @@ import {
 } from "lucide-react";
 
 export default function Dashboard() {
-  const { user, isLoaded } = useUser();
+  const { user, isLoaded, isSignedIn } = useUser();
 
+  // Show loading state while Clerk is initializing
   if (!isLoaded) {
     return (
       <div className="min-h-screen bg-gradient-to-b from-white to-blue-50 dark:from-gray-950 dark:to-blue-950 flex items-center justify-center pt-16">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <p className="text-gray-600 dark:text-gray-300">
+            Loading dashboard...
+          </p>
+        </div>
       </div>
     );
   }
 
-  if (!user) {
+  // Show sign-in prompt if user is not authenticated
+  if (!isSignedIn) {
     return (
       <div className="min-h-screen bg-gradient-to-b from-white to-blue-50 dark:from-gray-950 dark:to-blue-950 flex items-center justify-center pt-16">
         <Card className="w-full max-w-md">
           <CardContent className="pt-6">
-            <p className="text-center text-gray-600 dark:text-gray-300">
-              Please sign in to access your dashboard.
-            </p>
+            <div className="text-center">
+              <Shield className="w-12 h-12 text-blue-600 mx-auto mb-4" />
+              <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+                Authentication Required
+              </h2>
+              <p className="text-gray-600 dark:text-gray-300 mb-4">
+                Please sign in to access your dashboard.
+              </p>
+              <Button className="w-full">Sign In</Button>
+            </div>
           </CardContent>
         </Card>
       </div>
     );
   }
 
+  // Show dashboard content for authenticated users
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-blue-50 dark:from-gray-950 dark:to-blue-950 pt-24 px-4 sm:px-8">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="mb-8 animate-in fade-in slide-in-from-bottom-4 duration-600">
           <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-2">
-            Welcome back, {user.firstName || user.username || "User"}!
+            Welcome back, {user?.firstName || user?.username || "User"}!
           </h1>
           <p className="text-gray-600 dark:text-gray-300">
             Manage your accident claims and track your recovery progress.
