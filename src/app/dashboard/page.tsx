@@ -15,6 +15,9 @@ import {
   Bell,
 } from "lucide-react";
 
+// Force dynamic rendering to prevent static generation
+export const dynamic = "force-dynamic";
+
 export default function Dashboard() {
   const { user, isLoaded, isSignedIn } = useUser();
 
@@ -206,44 +209,62 @@ export default function Dashboard() {
             </CardContent>
           </Card>
 
-          {/* Recent Activity */}
+          {/* Recent Messages */}
           <Card className="shadow-md border-blue-100 dark:border-blue-900">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <MessageSquare className="w-5 h-5 text-blue-600" />
-                Recent Activity
+                Recent Messages
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="flex items-start gap-3 p-3 bg-green-50 dark:bg-green-950/30 rounded-lg">
-                <div className="w-2 h-2 bg-green-500 rounded-full mt-2"></div>
-                <div>
-                  <p className="text-sm font-medium text-gray-900 dark:text-white">
-                    Attorney assigned to Auto Accident case
+              <div className="flex items-start gap-3 p-3 bg-blue-50 dark:bg-blue-950/30 rounded-lg hover:bg-blue-100 dark:hover:bg-blue-950/50 transition-colors duration-200">
+                <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white text-sm font-medium">
+                  JD
+                </div>
+                <div className="flex-1">
+                  <h4 className="font-medium text-gray-900 dark:text-white">
+                    John Davis, Esq.
+                  </h4>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                    &ldquo;I&apos;ve reviewed your case and we have a strong
+                    position. Let&apos;s schedule a consultation.&rdquo;
                   </p>
-                  <p className="text-xs text-gray-600 dark:text-gray-400">
+                  <p className="text-xs text-gray-500 dark:text-gray-500 mt-1">
                     2 hours ago
                   </p>
                 </div>
               </div>
-              <div className="flex items-start gap-3 p-3 bg-blue-50 dark:bg-blue-950/30 rounded-lg">
-                <div className="w-2 h-2 bg-blue-500 rounded-full mt-2"></div>
-                <div>
-                  <p className="text-sm font-medium text-gray-900 dark:text-white">
-                    New document uploaded: Medical Report
+              <div className="flex items-start gap-3 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200">
+                <div className="w-8 h-8 bg-green-600 rounded-full flex items-center justify-center text-white text-sm font-medium">
+                  SM
+                </div>
+                <div className="flex-1">
+                  <h4 className="font-medium text-gray-900 dark:text-white">
+                    Sarah Martinez
+                  </h4>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                    &ldquo;Your medical records have been received. We&apos;re
+                    processing your claim.&rdquo;
                   </p>
-                  <p className="text-xs text-gray-600 dark:text-gray-400">
+                  <p className="text-xs text-gray-500 dark:text-gray-500 mt-1">
                     1 day ago
                   </p>
                 </div>
               </div>
-              <div className="flex items-start gap-3 p-3 bg-yellow-50 dark:bg-yellow-950/30 rounded-lg">
-                <div className="w-2 h-2 bg-yellow-500 rounded-full mt-2"></div>
-                <div>
-                  <p className="text-sm font-medium text-gray-900 dark:text-white">
-                    Hearing scheduled for March 15, 2024
+              <div className="flex items-start gap-3 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200">
+                <div className="w-8 h-8 bg-purple-600 rounded-full flex items-center justify-center text-white text-sm font-medium">
+                  RJ
+                </div>
+                <div className="flex-1">
+                  <h4 className="font-medium text-gray-900 dark:text-white">
+                    Robert Johnson
+                  </h4>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                    &ldquo;The insurance company has made an initial offer.
+                    I&apos;ll call you tomorrow.&rdquo;
                   </p>
-                  <p className="text-xs text-gray-600 dark:text-gray-400">
+                  <p className="text-xs text-gray-500 dark:text-gray-500 mt-1">
                     3 days ago
                   </p>
                 </div>
@@ -252,21 +273,48 @@ export default function Dashboard() {
           </Card>
         </div>
 
-        {/* Security Notice */}
+        {/* Upcoming Events */}
         <div className="mt-8 animate-in fade-in slide-in-from-bottom-4 duration-600 delay-400">
-          <Card className="border-orange-200 dark:border-orange-800 bg-orange-50 dark:bg-orange-950/30">
-            <CardContent className="pt-6">
-              <div className="flex items-start gap-3">
-                <Shield className="w-5 h-5 text-orange-600 mt-0.5" />
-                <div>
-                  <h3 className="font-semibold text-orange-900 dark:text-orange-100 mb-1">
-                    Security Notice
-                  </h3>
-                  <p className="text-sm text-orange-800 dark:text-orange-200">
-                    Your personal information is protected with bank-level
-                    encryption. We never share your data with third parties
-                    without your explicit consent.
-                  </p>
+          <Card className="shadow-md border-blue-100 dark:border-blue-900">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Calendar className="w-5 h-5 text-blue-600" />
+                Upcoming Events
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                <div className="flex items-center justify-between p-4 bg-orange-50 dark:bg-orange-950/30 rounded-lg border-l-4 border-orange-500">
+                  <div>
+                    <h4 className="font-medium text-gray-900 dark:text-white">
+                      Court Hearing - Auto Accident Case
+                    </h4>
+                    <p className="text-sm text-gray-600 dark:text-gray-400">
+                      March 15, 2024 at 10:00 AM
+                    </p>
+                    <p className="text-sm text-gray-600 dark:text-gray-400">
+                      County Courthouse, Room 302
+                    </p>
+                  </div>
+                  <Button variant="outline" size="sm">
+                    View Details
+                  </Button>
+                </div>
+                <div className="flex items-center justify-between p-4 bg-blue-50 dark:bg-blue-950/30 rounded-lg border-l-4 border-blue-500">
+                  <div>
+                    <h4 className="font-medium text-gray-900 dark:text-white">
+                      Medical Evaluation
+                    </h4>
+                    <p className="text-sm text-gray-600 dark:text-gray-400">
+                      March 20, 2024 at 2:00 PM
+                    </p>
+                    <p className="text-sm text-gray-600 dark:text-gray-400">
+                      Dr. Smith&apos;s Office
+                    </p>
+                  </div>
+                  <Button variant="outline" size="sm">
+                    View Details
+                  </Button>
                 </div>
               </div>
             </CardContent>
