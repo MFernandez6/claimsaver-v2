@@ -3,7 +3,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {
-  DollarSign,
   CheckCircle,
   X,
   TrendingUp,
@@ -14,7 +13,6 @@ import {
   Calculator,
   Award,
   Users,
-  Zap,
 } from "lucide-react";
 
 export default function Pricing() {
@@ -302,7 +300,7 @@ export default function Pricing() {
                       ))}
                     </div>
                     <p className="text-gray-600 dark:text-gray-300 mb-4 italic">
-                      "{testimonial.text}"
+                      &ldquo;{testimonial.text}&rdquo;
                     </p>
                     <div className="flex items-center justify-between">
                       <div>
