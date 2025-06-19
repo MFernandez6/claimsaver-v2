@@ -12,15 +12,178 @@ const navItems = [
   { name: "Pricing", href: "/pricing" },
 ];
 
+// Wrapper component to handle Clerk authentication
+function AuthSection() {
+  const { isSignedIn, isLoaded } = useUser();
+
+  if (!isLoaded) {
+    return (
+      <div className="w-20 h-10 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
+    );
+  }
+
+  return (
+    <div className="hover:scale-105 transition-transform duration-200">
+      {isSignedIn ? (
+        <UserButton
+          appearance={{
+            elements: {
+              avatarBox: "w-10 h-10",
+              userButtonPopoverCard:
+                "shadow-lg border border-gray-200 dark:border-gray-700",
+            },
+          }}
+        />
+      ) : (
+        <SignInButton mode="modal">
+          <Button
+            variant="outline"
+            className="bg-white/80 backdrop-blur-sm border-gray-200 hover:bg-white hover:border-blue-300 dark:bg-gray-800/80 dark:border-gray-700 dark:hover:bg-gray-800 dark:hover:border-blue-600 transition-all duration-200"
+          >
+            Sign In
+          </Button>
+        </SignInButton>
+      )}
+    </div>
+  );
+}
+
+// Fallback auth section when Clerk is not available
+function FallbackAuthSection() {
+  return (
+    <div className="hover:scale-105 transition-transform duration-200">
+      <Button
+        variant="outline"
+        className="bg-white/80 backdrop-blur-sm border-gray-200 hover:bg-white hover:border-blue-300 dark:bg-gray-800/80 dark:border-gray-700 dark:hover:bg-gray-800 dark:hover:border-blue-600 transition-all duration-200"
+      >
+        Sign In
+      </Button>
+    </div>
+  );
+}
+
+// Dashboard link component
+function DashboardLink({ pathname }: { pathname: string }) {
+  const { isSignedIn, isLoaded } = useUser();
+
+  if (!isLoaded || !isSignedIn) {
+    return null;
+  }
+
+  return (
+    <div className="hover:-translate-y-0.5 transition-transform duration-200">
+      <Link
+        href="/dashboard"
+        className={`relative px-3 py-2 text-sm font-medium transition-colors duration-200 ${
+          pathname === "/dashboard"
+            ? "text-blue-600 dark:text-blue-400"
+            : "text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400"
+        }`}
+      >
+        Dashboard
+        {pathname === "/dashboard" && (
+          <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-blue-600 to-blue-800 rounded-full" />
+        )}
+      </Link>
+    </div>
+  );
+}
+
+// Mobile auth section
+function MobileAuthSection() {
+  const { isSignedIn, isLoaded } = useUser();
+
+  if (!isLoaded) {
+    return (
+      <div className="w-full h-10 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
+    );
+  }
+
+  return (
+    <>
+      {isSignedIn ? (
+        <div className="flex justify-center">
+          <UserButton
+            appearance={{
+              elements: {
+                avatarBox: "w-10 h-10",
+                userButtonPopoverCard:
+                  "shadow-lg border border-gray-200 dark:border-gray-700",
+              },
+            }}
+          />
+        </div>
+      ) : (
+        <SignInButton mode="modal">
+          <Button
+            variant="outline"
+            className="w-full bg-white/80 backdrop-blur-sm border-gray-200 hover:bg-white hover:border-blue-300 dark:bg-gray-800/80 dark:border-gray-700 dark:hover:bg-gray-800 dark:hover:border-blue-600"
+          >
+            Sign In
+          </Button>
+        </SignInButton>
+      )}
+    </>
+  );
+}
+
+// Mobile dashboard link
+function MobileDashboardLink({
+  pathname,
+  onClick,
+}: {
+  pathname: string;
+  onClick: () => void;
+}) {
+  const { isSignedIn, isLoaded } = useUser();
+
+  if (!isLoaded || !isSignedIn) {
+    return null;
+  }
+
+  return (
+    <div
+      className="animate-in slide-in-from-left-2 duration-300"
+      style={{ animationDelay: `${navItems.length * 100}ms` }}
+    >
+      <Link
+        href="/dashboard"
+        className={`block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200 ${
+          pathname === "/dashboard"
+            ? "text-blue-600 bg-blue-50 dark:text-blue-400 dark:bg-blue-950/50"
+            : "text-gray-700 hover:text-blue-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-blue-400 dark:hover:bg-gray-800"
+        }`}
+        onClick={onClick}
+      >
+        Dashboard
+      </Link>
+    </div>
+  );
+}
+
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
+  const [isClerkAvailable, setIsClerkAvailable] = useState(true);
   const pathname = usePathname();
-  const { isSignedIn, isLoaded } = useUser();
 
   useEffect(() => {
     setIsMounted(true);
+
+    // Check if Clerk is available
+    try {
+      // This will throw if Clerk is not properly initialized
+      if (
+        typeof window !== "undefined" &&
+        !process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
+      ) {
+        setIsClerkAvailable(false);
+      }
+    } catch {
+      setIsClerkAvailable(false);
+    }
+
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 10);
     };
@@ -156,50 +319,11 @@ export default function Navbar() {
               </div>
             ))}
 
-            {/* Dashboard Link - Only show when signed in */}
-            {isLoaded && isSignedIn && (
-              <div className="hover:-translate-y-0.5 transition-transform duration-200">
-                <Link
-                  href="/dashboard"
-                  className={`relative px-3 py-2 text-sm font-medium transition-colors duration-200 ${
-                    pathname === "/dashboard"
-                      ? "text-blue-600 dark:text-blue-400"
-                      : "text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400"
-                  }`}
-                >
-                  Dashboard
-                  {pathname === "/dashboard" && (
-                    <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-blue-600 to-blue-800 rounded-full" />
-                  )}
-                </Link>
-              </div>
-            )}
+            {/* Dashboard Link - Only show when signed in and Clerk is available */}
+            {isClerkAvailable && <DashboardLink pathname={pathname} />}
 
             {/* Authentication Button */}
-            {isLoaded && (
-              <div className="hover:scale-105 transition-transform duration-200">
-                {isSignedIn ? (
-                  <UserButton
-                    appearance={{
-                      elements: {
-                        avatarBox: "w-10 h-10",
-                        userButtonPopoverCard:
-                          "shadow-lg border border-gray-200 dark:border-gray-700",
-                      },
-                    }}
-                  />
-                ) : (
-                  <SignInButton mode="modal">
-                    <Button
-                      variant="outline"
-                      className="bg-white/80 backdrop-blur-sm border-gray-200 hover:bg-white hover:border-blue-300 dark:bg-gray-800/80 dark:border-gray-700 dark:hover:bg-gray-800 dark:hover:border-blue-600 transition-all duration-200"
-                    >
-                      Sign In
-                    </Button>
-                  </SignInButton>
-                )}
-              </div>
-            )}
+            {isClerkAvailable ? <AuthSection /> : <FallbackAuthSection />}
           </div>
 
           {/* Mobile menu button */}
@@ -253,59 +377,32 @@ export default function Navbar() {
                 </div>
               ))}
 
-              {/* Dashboard Link in Mobile Menu - Only show when signed in */}
-              {isLoaded && isSignedIn && (
-                <div
-                  className="animate-in slide-in-from-left-2 duration-300"
-                  style={{ animationDelay: `${navItems.length * 100}ms` }}
-                >
-                  <Link
-                    href="/dashboard"
-                    className={`block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200 ${
-                      pathname === "/dashboard"
-                        ? "text-blue-600 bg-blue-50 dark:text-blue-400 dark:bg-blue-950/50"
-                        : "text-gray-700 hover:text-blue-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-blue-400 dark:hover:bg-gray-800"
-                    }`}
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    Dashboard
-                  </Link>
-                </div>
+              {/* Dashboard Link in Mobile Menu - Only show when signed in and Clerk is available */}
+              {isClerkAvailable && (
+                <MobileDashboardLink
+                  pathname={pathname}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                />
               )}
 
               <div
                 className="pt-2 animate-in slide-in-from-left-2 duration-300"
                 style={{
                   animationDelay: `${
-                    (navItems.length + (isLoaded && isSignedIn ? 1 : 0)) * 100
+                    (navItems.length + (isClerkAvailable ? 1 : 0)) * 100
                   }ms`,
                 }}
               >
-                {isLoaded ? (
-                  isSignedIn ? (
-                    <div className="flex justify-center">
-                      <UserButton
-                        appearance={{
-                          elements: {
-                            avatarBox: "w-10 h-10",
-                            userButtonPopoverCard:
-                              "shadow-lg border border-gray-200 dark:border-gray-700",
-                          },
-                        }}
-                      />
-                    </div>
-                  ) : (
-                    <SignInButton mode="modal">
-                      <Button
-                        variant="outline"
-                        className="w-full bg-white/80 backdrop-blur-sm border-gray-200 hover:bg-white hover:border-blue-300 dark:bg-gray-800/80 dark:border-gray-700 dark:hover:bg-gray-800 dark:hover:border-blue-600"
-                      >
-                        Sign In
-                      </Button>
-                    </SignInButton>
-                  )
+                {isClerkAvailable ? (
+                  <MobileAuthSection />
                 ) : (
-                  <div className="w-full h-10 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
+                  // Fallback when Clerk is not available
+                  <Button
+                    variant="outline"
+                    className="w-full bg-white/80 backdrop-blur-sm border-gray-200 hover:bg-white hover:border-blue-300 dark:bg-gray-800/80 dark:border-gray-700 dark:hover:bg-gray-800 dark:hover:border-blue-600"
+                  >
+                    Sign In
+                  </Button>
                 )}
               </div>
             </div>
