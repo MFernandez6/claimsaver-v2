@@ -18,7 +18,8 @@ import {
 // Force dynamic rendering to prevent static generation
 export const dynamic = "force-dynamic";
 
-export default function Dashboard() {
+// Wrapper component to handle Clerk availability
+function DashboardContent() {
   const { user, isLoaded, isSignedIn } = useUser();
 
   // Show loading state while Clerk is initializing
@@ -323,4 +324,28 @@ export default function Dashboard() {
       </div>
     </div>
   );
+}
+
+// Main dashboard component that handles Clerk availability
+export default function Dashboard() {
+  // Check if we're in a browser environment and Clerk is available
+  const isClient = typeof window !== "undefined";
+  const isClerkAvailable =
+    isClient && process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
+
+  // If Clerk is not available, show a loading state
+  if (!isClerkAvailable) {
+    return (
+      <div className="min-h-screen bg-gradient-to-b from-white to-blue-50 dark:from-gray-950 dark:to-blue-950 flex items-center justify-center pt-16">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <p className="text-gray-600 dark:text-gray-300">
+            Loading dashboard...
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  return <DashboardContent />;
 }
