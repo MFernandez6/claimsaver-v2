@@ -26,7 +26,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider>
+    <ClerkProvider
+      publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY}
+      appearance={{
+        elements: {
+          formButtonPrimary: "bg-blue-600 hover:bg-blue-700 text-white",
+          card: "shadow-lg border border-gray-200 dark:border-gray-700",
+          headerTitle: "text-gray-900 dark:text-white",
+          headerSubtitle: "text-gray-600 dark:text-gray-300",
+        },
+      }}
+    >
       <html lang="en">
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
