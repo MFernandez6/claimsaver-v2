@@ -1,102 +1,107 @@
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Image from "next/image";
 
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <div className="min-h-screen bg-gradient-to-b from-white to-blue-50 dark:from-gray-950 dark:to-blue-950 flex flex-col items-center justify-between py-8 px-4 sm:px-8">
+      {/* Hero Section */}
+      <header className="w-full max-w-4xl mx-auto flex flex-col items-center text-center gap-6 mt-12 mb-16">
+        <div className="flex items-center gap-3">
+          <Image
+            src="/favicon.ico"
+            alt="ClaimSaver+ Logo"
+            width={48}
+            height={48}
+            className="rounded-xl"
+          />
+          <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-blue-700 dark:text-blue-300">
+            ClaimSaver+
+          </h1>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+        <h2 className="text-2xl sm:text-3xl font-semibold text-gray-800 dark:text-gray-100">
+          Accident Form Filing and Recovery App
+        </h2>
+        <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-300 max-w-2xl">
+          ClaimSaver+ is a user-friendly application that simplifies the process
+          of filing no-fault accident forms and recovering compensation. Connect
+          with experienced attorneys nationwide and get professional assistance
+          every step of the way.
+        </p>
+        <Button
+          size="lg"
+          className="mt-4 px-8 py-6 text-lg font-semibold shadow-lg"
         >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+          Get Started
+        </Button>
+      </header>
+
+      {/* Features Section */}
+      <section className="w-full max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-24">
+        <Card className="shadow-md border-blue-100 dark:border-blue-900">
+          <CardHeader>
+            <CardTitle>No-Fault Accident Form Filing</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="text-gray-600 dark:text-gray-300">
+              Easily fill out and submit no-fault accident forms. Input accident
+              details, personal info, and securely upload supporting documents
+              for a streamlined, efficient process.
+            </p>
+          </CardContent>
+        </Card>
+        <Card className="shadow-md border-blue-100 dark:border-blue-900">
+          <CardHeader>
+            <CardTitle>Attorney Matching</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="text-gray-600 dark:text-gray-300">
+              Get matched with specialized attorneys nationwide. Our intelligent
+              algorithms pair you with legal experts tailored to your unique
+              case needs.
+            </p>
+          </CardContent>
+        </Card>
+        <Card className="shadow-md border-blue-100 dark:border-blue-900">
+          <CardHeader>
+            <CardTitle>Secure Document Management</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="text-gray-600 dark:text-gray-300">
+              Upload, store, and share all your accident-related documents
+              securely. Keep everything organized and accessible for you and
+              your attorney.
+            </p>
+          </CardContent>
+        </Card>
+        <Card className="shadow-md border-blue-100 dark:border-blue-900">
+          <CardHeader>
+            <CardTitle>Real-Time Case Updates</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="text-gray-600 dark:text-gray-300">
+              Stay informed with real-time updates from your attorney. Receive
+              notifications on new developments, hearing dates, and requests for
+              information.
+            </p>
+          </CardContent>
+        </Card>
+        <Card className="shadow-md border-blue-100 dark:border-blue-900">
+          <CardHeader>
+            <CardTitle>Recovery Assistance</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="text-gray-600 dark:text-gray-300">
+              Our network of attorneys works to negotiate fair compensation for
+              medical expenses, property damage, lost wages, and more.
+            </p>
+          </CardContent>
+        </Card>
+      </section>
+
+      {/* Footer */}
+      <footer className="w-full text-center text-gray-400 text-sm pb-4">
+        &copy; {new Date().getFullYear()} ClaimSaver+. All rights reserved.
       </footer>
     </div>
   );
