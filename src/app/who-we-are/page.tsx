@@ -126,7 +126,6 @@ export default function WhoWeAre() {
 
                 <div className="relative animate-in fade-in slide-in-from-right-4 duration-600 delay-200">
                   <div className="relative rounded-2xl overflow-hidden shadow-2xl hover:shadow-3xl transition-shadow duration-300">
-                    <div className="absolute inset-0 bg-gradient-to-br from-blue-600/20 to-purple-600/20 z-10"></div>
                     <Image
                       src="/images/family.jpg"
                       alt="ClaimSaver+ Family"
