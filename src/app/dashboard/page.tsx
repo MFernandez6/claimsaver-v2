@@ -11,7 +11,6 @@ import {
   Calendar,
   DollarSign,
   Shield,
-  MessageSquare,
   Plus,
   Search,
   Bell,
@@ -24,6 +23,13 @@ import {
   Clock,
   MapPin,
   CalendarPlus,
+  Upload,
+  File,
+  FileImage,
+  FileVideo,
+  FileAudio,
+  Download,
+  Eye,
 } from "lucide-react";
 
 // Force dynamic rendering to prevent static generation
@@ -34,6 +40,7 @@ function DashboardContent() {
   const { user, isLoaded, isSignedIn } = useUser();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isEventModalOpen, setIsEventModalOpen] = useState(false);
+  const [isDocumentModalOpen, setIsDocumentModalOpen] = useState(false);
   const [editingEvent, setEditingEvent] = useState<{
     id: number;
     title: string;
@@ -66,6 +73,59 @@ function DashboardContent() {
       reminder: "2 hours before",
     },
   ]);
+  const [documents, setDocuments] = useState<
+    Array<{
+      _id: string;
+      name: string;
+      type: string;
+      fileType: string;
+      size: string;
+      uploadDate: string;
+      description: string;
+      url: string;
+    }>
+  >([
+    {
+      _id: "1",
+      name: "Medical Records - Dr. Smith",
+      type: "medical",
+      fileType: "pdf",
+      size: "2.4 MB",
+      uploadDate: "2024-03-01",
+      description: "Complete medical evaluation and treatment records",
+      url: "#",
+    },
+    {
+      _id: "2",
+      name: "Police Report - Auto Accident",
+      type: "legal",
+      fileType: "pdf",
+      size: "1.8 MB",
+      uploadDate: "2024-02-28",
+      description: "Official police report from the accident scene",
+      url: "#",
+    },
+    {
+      _id: "3",
+      name: "Insurance Policy Document",
+      type: "insurance",
+      fileType: "pdf",
+      size: "3.2 MB",
+      uploadDate: "2024-02-25",
+      description: "Complete insurance policy and coverage details",
+      url: "#",
+    },
+    {
+      _id: "4",
+      name: "Accident Photos",
+      type: "evidence",
+      fileType: "image",
+      size: "5.6 MB",
+      uploadDate: "2024-02-20",
+      description: "Photographic evidence from the accident scene",
+      url: "#",
+    },
+  ]);
   const [eventFormData, setEventFormData] = useState({
     title: "",
     date: "",
@@ -96,11 +156,36 @@ function DashboardContent() {
     witnesses: "",
     policeReport: "",
   });
+  const [documentFormData, setDocumentFormData] = useState({
+    name: "",
+    type: "medical",
+    description: "",
+    file: null as File | null,
+  });
 
   // Auto-open modal when user signs in
   useEffect(() => {
     if (isSignedIn && isLoaded) {
       setIsModalOpen(true);
+    }
+  }, [isSignedIn, isLoaded]);
+
+  // Fetch documents from MongoDB
+  useEffect(() => {
+    const fetchDocuments = async () => {
+      try {
+        const response = await fetch("/api/documents");
+        if (response.ok) {
+          const data = await response.json();
+          setDocuments(data);
+        }
+      } catch (error) {
+        console.error("Error fetching documents:", error);
+      }
+    };
+
+    if (isSignedIn && isLoaded) {
+      fetchDocuments();
     }
   }, [isSignedIn, isLoaded]);
 
@@ -214,6 +299,108 @@ function DashboardContent() {
         return "👨‍💼";
       default:
         return "📅";
+    }
+  };
+
+  const handleAddDocument = () => {
+    setDocumentFormData({
+      name: "",
+      type: "medical",
+      description: "",
+      file: null,
+    });
+    setIsDocumentModalOpen(true);
+  };
+
+  const handleDocumentInputChange = (
+    field: string,
+    value: string | File | null
+  ) => {
+    setDocumentFormData((prev) => ({ ...prev, [field]: value }));
+  };
+
+  const handleDocumentSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (documentFormData.file) {
+      try {
+        const formData = new FormData();
+        formData.append("name", documentFormData.name);
+        formData.append("type", documentFormData.type);
+        formData.append("description", documentFormData.description);
+        formData.append("file", documentFormData.file);
+
+        const response = await fetch("/api/documents", {
+          method: "POST",
+          body: formData,
+        });
+
+        if (response.ok) {
+          const newDocument = await response.json();
+          setDocuments((prev) => [newDocument, ...prev]);
+          setIsDocumentModalOpen(false);
+          setDocumentFormData({
+            name: "",
+            type: "medical",
+            description: "",
+            file: null,
+          });
+        } else {
+          const errorData = await response.json();
+          console.error(
+            "Error uploading document:",
+            response.status,
+            errorData
+          );
+        }
+      } catch (error) {
+        console.error("Error uploading document:", error);
+      }
+    }
+  };
+
+  const handleDeleteDocument = async (documentId: string) => {
+    try {
+      const response = await fetch(`/api/documents/${documentId}`, {
+        method: "DELETE",
+      });
+
+      if (response.ok) {
+        setDocuments((prev) => prev.filter((doc) => doc._id !== documentId));
+      } else {
+        console.error("Error deleting document");
+      }
+    } catch (error) {
+      console.error("Error deleting document:", error);
+    }
+  };
+
+  const getDocumentTypeColor = (type: string) => {
+    switch (type) {
+      case "medical":
+        return "blue";
+      case "legal":
+        return "orange";
+      case "insurance":
+        return "green";
+      case "evidence":
+        return "purple";
+      default:
+        return "gray";
+    }
+  };
+
+  const getDocumentTypeIcon = (fileType: string) => {
+    switch (fileType) {
+      case "pdf":
+        return <FileText className="w-5 h-5" />;
+      case "image":
+        return <FileImage className="w-5 h-5" />;
+      case "video":
+        return <FileVideo className="w-5 h-5" />;
+      case "audio":
+        return <FileAudio className="w-5 h-5" />;
+      default:
+        return <File className="w-5 h-5" />;
     }
   };
 
@@ -451,63 +638,109 @@ function DashboardContent() {
               {/* Recent Messages */}
               <Card className="shadow-md border-blue-100 dark:border-blue-900">
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <MessageSquare className="w-5 h-5 text-blue-600" />
-                    Recent Messages
-                  </CardTitle>
+                  <div className="flex items-center justify-between">
+                    <CardTitle className="flex items-center gap-2">
+                      <FileText className="w-5 h-5 text-blue-600" />
+                      Document Repository
+                    </CardTitle>
+                    <Button
+                      onClick={handleAddDocument}
+                      size="sm"
+                      className="bg-blue-600 hover:bg-blue-700 text-white"
+                    >
+                      <Upload className="w-4 h-4 mr-2" />
+                      Upload Document
+                    </Button>
+                  </div>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <div className="flex items-start gap-3 p-3 bg-blue-50 dark:bg-blue-950/30 rounded-lg hover:bg-blue-100 dark:hover:bg-blue-950/50 transition-colors duration-200">
-                    <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white text-sm font-medium">
-                      JD
-                    </div>
-                    <div className="flex-1">
-                      <h4 className="font-medium text-gray-900 dark:text-white">
-                        John Davis, Esq.
-                      </h4>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">
-                        &ldquo;I&apos;ve reviewed your case and we have a strong
-                        position. Let&apos;s schedule a consultation.&rdquo;
-                      </p>
-                      <p className="text-xs text-gray-500 dark:text-gray-500 mt-1">
-                        2 hours ago
+                  {documents.length === 0 ? (
+                    <div className="text-center py-8 text-gray-500 dark:text-gray-400">
+                      <FileText className="w-12 h-12 mx-auto mb-4 text-gray-300" />
+                      <p>No documents uploaded</p>
+                      <p className="text-sm">
+                        Click &ldquo;Upload Document&rdquo; to add your first
+                        file
                       </p>
                     </div>
-                  </div>
-                  <div className="flex items-start gap-3 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200">
-                    <div className="w-8 h-8 bg-green-600 rounded-full flex items-center justify-center text-white text-sm font-medium">
-                      SM
-                    </div>
-                    <div className="flex-1">
-                      <h4 className="font-medium text-gray-900 dark:text-white">
-                        Sarah Martinez
-                      </h4>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">
-                        &ldquo;Your medical records have been received.
-                        We&apos;re processing your claim.&rdquo;
-                      </p>
-                      <p className="text-xs text-gray-500 dark:text-gray-500 mt-1">
-                        1 day ago
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-3 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200">
-                    <div className="w-8 h-8 bg-purple-600 rounded-full flex items-center justify-center text-white text-sm font-medium">
-                      RJ
-                    </div>
-                    <div className="flex-1">
-                      <h4 className="font-medium text-gray-900 dark:text-white">
-                        Robert Johnson
-                      </h4>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">
-                        &ldquo;The insurance company has made an initial offer.
-                        I&apos;ll call you tomorrow.&rdquo;
-                      </p>
-                      <p className="text-xs text-gray-500 dark:text-gray-500 mt-1">
-                        3 days ago
-                      </p>
-                    </div>
-                  </div>
+                  ) : (
+                    documents.map((document) => (
+                      <div
+                        key={document._id}
+                        className={`flex items-center justify-between p-4 rounded-lg border-l-4 transition-all duration-200 hover:shadow-md ${
+                          getDocumentTypeColor(document.type) === "blue"
+                            ? "bg-blue-50 dark:bg-blue-950/30 border-blue-500"
+                            : getDocumentTypeColor(document.type) === "orange"
+                            ? "bg-orange-50 dark:bg-orange-950/30 border-orange-500"
+                            : getDocumentTypeColor(document.type) === "green"
+                            ? "bg-green-50 dark:bg-green-950/30 border-green-500"
+                            : getDocumentTypeColor(document.type) === "purple"
+                            ? "bg-purple-50 dark:bg-purple-950/30 border-purple-500"
+                            : "bg-gray-50 dark:bg-gray-800 border-gray-500"
+                        }`}
+                      >
+                        <div className="flex items-center gap-3 flex-1">
+                          <div
+                            className={`p-2 rounded-lg ${
+                              getDocumentTypeColor(document.type) === "blue"
+                                ? "bg-blue-100 dark:bg-blue-900/50 text-blue-600"
+                                : getDocumentTypeColor(document.type) ===
+                                  "orange"
+                                ? "bg-orange-100 dark:bg-orange-900/50 text-orange-600"
+                                : getDocumentTypeColor(document.type) ===
+                                  "green"
+                                ? "bg-green-100 dark:bg-green-900/50 text-green-600"
+                                : getDocumentTypeColor(document.type) ===
+                                  "purple"
+                                ? "bg-purple-100 dark:bg-purple-900/50 text-purple-600"
+                                : "bg-gray-100 dark:bg-gray-800 text-gray-600"
+                            }`}
+                          >
+                            {getDocumentTypeIcon(document.fileType)}
+                          </div>
+                          <div className="flex-1">
+                            <h4 className="font-medium text-gray-900 dark:text-white">
+                              {document.name}
+                            </h4>
+                            <div className="flex items-center gap-4 text-sm text-gray-600 dark:text-gray-400 mt-1">
+                              <span>{document.size}</span>
+                              <span>•</span>
+                              <span>Uploaded: {document.uploadDate}</span>
+                            </div>
+                            {document.description && (
+                              <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                                {document.description}
+                              </p>
+                            )}
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            className="text-gray-600 hover:text-blue-600"
+                          >
+                            <Eye className="w-4 h-4" />
+                          </Button>
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            className="text-gray-600 hover:text-green-600"
+                          >
+                            <Download className="w-4 h-4" />
+                          </Button>
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => handleDeleteDocument(document._id)}
+                            className="text-gray-600 hover:text-red-600"
+                          >
+                            <Trash2 className="w-4 h-4" />
+                          </Button>
+                        </div>
+                      </div>
+                    ))
+                  )}
                 </CardContent>
               </Card>
             </div>
@@ -1157,6 +1390,144 @@ function DashboardContent() {
                     className="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white"
                   >
                     {editingEvent ? "Update Event" : "Add Event"}
+                    <CheckCircle className="ml-2 w-4 h-4" />
+                  </Button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Document Upload Modal */}
+      {isDocumentModalOpen && (
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-in fade-in duration-300">
+          <div className="bg-white dark:bg-gray-900 rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-hidden shadow-2xl border border-gray-200 dark:border-gray-700 animate-in zoom-in-95 duration-300">
+            {/* Header */}
+            <div className="bg-gradient-to-r from-blue-600 to-purple-600 p-6 text-white relative">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
+                    <Upload className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <h2 className="text-2xl font-black tracking-tight">
+                      Upload Document
+                    </h2>
+                    <p className="text-blue-100 text-sm">
+                      Add important documents to your repository
+                    </p>
+                  </div>
+                </div>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setIsDocumentModalOpen(false)}
+                  className="text-white hover:bg-white/20 rounded-full w-10 h-10 p-0 transition-all duration-300 hover:scale-110"
+                >
+                  <X className="w-5 h-5" />
+                </Button>
+              </div>
+            </div>
+
+            {/* Form Content */}
+            <div className="p-8 overflow-y-auto max-h-[calc(90vh-120px)] bg-gradient-to-br from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
+              <form onSubmit={handleDocumentSubmit} className="space-y-6">
+                <div className="grid grid-cols-1 gap-6">
+                  <div>
+                    <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                      Document Name *
+                    </label>
+                    <input
+                      type="text"
+                      value={documentFormData.name}
+                      onChange={(e) =>
+                        handleDocumentInputChange("name", e.target.value)
+                      }
+                      placeholder="e.g., Medical Records, Police Report"
+                      className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white transition-all duration-200"
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                      Document Type *
+                    </label>
+                    <select
+                      value={documentFormData.type}
+                      onChange={(e) =>
+                        handleDocumentInputChange("type", e.target.value)
+                      }
+                      className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white transition-all duration-200"
+                      required
+                    >
+                      <option value="medical">Medical Records</option>
+                      <option value="legal">Legal Documents</option>
+                      <option value="insurance">Insurance Documents</option>
+                      <option value="evidence">Evidence/Photos</option>
+                      <option value="other">Other</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                      File *
+                    </label>
+                    <div className="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg p-6 text-center hover:border-blue-500 dark:hover:border-blue-500 transition-colors duration-200">
+                      <input
+                        type="file"
+                        onChange={(e) =>
+                          handleDocumentInputChange(
+                            "file",
+                            e.target.files?.[0] || null
+                          )
+                        }
+                        className="hidden"
+                        id="file-upload"
+                        accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.gif,.mp4,.mp3,.wav"
+                        required
+                      />
+                      <label htmlFor="file-upload" className="cursor-pointer">
+                        <Upload className="w-8 h-8 text-gray-400 mx-auto mb-2" />
+                        <p className="text-sm text-gray-600 dark:text-gray-400">
+                          Click to upload or drag and drop
+                        </p>
+                        <p className="text-xs text-gray-500 dark:text-gray-500 mt-1">
+                          PDF, DOC, Images, Videos, Audio (max 10MB)
+                        </p>
+                      </label>
+                    </div>
+                  </div>
+                  <div>
+                    <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                      Description
+                    </label>
+                    <textarea
+                      rows={3}
+                      value={documentFormData.description}
+                      onChange={(e) =>
+                        handleDocumentInputChange("description", e.target.value)
+                      }
+                      placeholder="Brief description of the document..."
+                      className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white transition-all duration-200"
+                    />
+                  </div>
+                </div>
+
+                {/* Form Actions */}
+                <div className="flex gap-4 pt-6">
+                  <Button
+                    type="button"
+                    variant="outline"
+                    onClick={() => setIsDocumentModalOpen(false)}
+                    className="flex-1"
+                  >
+                    Cancel
+                  </Button>
+                  <Button
+                    type="submit"
+                    className="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white"
+                  >
+                    Upload Document
                     <CheckCircle className="ml-2 w-4 h-4" />
                   </Button>
                 </div>
