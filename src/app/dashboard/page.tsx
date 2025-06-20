@@ -7,9 +7,7 @@ import { Button } from "@/components/ui/button";
 import Footer from "@/components/footer";
 import {
   FileText,
-  Users,
   Calendar,
-  DollarSign,
   Shield,
   Plus,
   Search,
@@ -162,6 +160,50 @@ function DashboardContent() {
     description: "",
     file: null as File | null,
   });
+  const [claims] = useState([
+    {
+      id: 1,
+      title: "Auto Accident - I-95",
+      type: "auto",
+      status: "active",
+      filedDate: "2024-03-01",
+      nextStep: "Medical Evaluation",
+      progress: 65,
+      policyLimit: 25000,
+      currentAmount: 16250,
+      description:
+        "Rear-end collision on I-95 near Exit 15. Vehicle totaled, minor injuries sustained.",
+      priority: "high",
+    },
+    {
+      id: 2,
+      title: "Slip & Fall - Mall",
+      type: "premises",
+      status: "pending",
+      filedDate: "2024-02-15",
+      nextStep: "Attorney Review",
+      progress: 25,
+      policyLimit: 50000,
+      currentAmount: 12500,
+      description:
+        "Slip and fall accident at local shopping mall. Wet floor without proper signage.",
+      priority: "medium",
+    },
+    {
+      id: 3,
+      title: "Medical Malpractice",
+      type: "medical",
+      status: "review",
+      filedDate: "2024-01-20",
+      nextStep: "Expert Consultation",
+      progress: 10,
+      policyLimit: 100000,
+      currentAmount: 10000,
+      description:
+        "Surgical error during routine procedure. Additional corrective surgery required.",
+      priority: "high",
+    },
+  ]);
 
   // Auto-open modal when user signs in
   useEffect(() => {
@@ -518,68 +560,102 @@ function DashboardContent() {
             </div>
 
             {/* Stats Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8 animate-in fade-in slide-in-from-bottom-4 duration-600 delay-200">
-              <Card className="shadow-md border-blue-100 dark:border-blue-900 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">
-                    Active Claims
-                  </CardTitle>
-                  <FileText className="h-4 w-4 text-blue-600" />
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold text-blue-600">3</div>
-                  <p className="text-xs text-gray-600 dark:text-gray-400">
-                    +2 from last month
-                  </p>
-                </CardContent>
-              </Card>
+            <div className="w-full flex justify-center">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8 animate-in fade-in slide-in-from-bottom-4 duration-600 delay-200 max-w-4xl w-full">
+                {/* Active Claim */}
+                <Card className="shadow-md border-blue-100 dark:border-blue-900 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 w-full min-w-[260px]">
+                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                    <CardTitle className="text-sm font-medium">
+                      Active Claim
+                    </CardTitle>
+                    <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
+                      <FileText className="h-4 w-4 text-white" />
+                    </div>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-lg font-bold text-blue-600 mb-1">
+                      Auto Accident - I-95
+                    </div>
+                    <div className="text-xs text-gray-600 dark:text-gray-400 mb-2">
+                      Filed: March 1, 2024
+                    </div>
+                    <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 mb-2">
+                      <div
+                        className="bg-blue-600 h-2 rounded-full transition-all duration-300"
+                        style={{
+                          width: `${
+                            claims.find((c) => c.status === "active")
+                              ?.progress || 0
+                          }%`,
+                        }}
+                      ></div>
+                    </div>
+                    <p className="text-xs text-gray-600 dark:text-gray-400">
+                      {claims.find((c) => c.status === "active")?.progress || 0}
+                      % Complete
+                    </p>
+                  </CardContent>
+                </Card>
 
-              <Card className="shadow-md border-blue-100 dark:border-blue-900 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">
-                    Attorneys Assigned
-                  </CardTitle>
-                  <Users className="h-4 w-4 text-green-600" />
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold text-green-600">2</div>
-                  <p className="text-xs text-gray-600 dark:text-gray-400">
-                    Specialized in your cases
-                  </p>
-                </CardContent>
-              </Card>
+                {/* Next Step */}
+                <Card className="shadow-md border-green-100 dark:border-green-900 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 w-full min-w-[260px]">
+                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                    <CardTitle className="text-sm font-medium">
+                      Next Step
+                    </CardTitle>
+                    <div className="w-8 h-8 bg-green-600 rounded-full flex items-center justify-center">
+                      <Calendar className="h-4 w-4 text-white" />
+                    </div>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-lg font-bold text-green-600 mb-1">
+                      Medical Evaluation
+                    </div>
+                    <p className="text-xs text-gray-600 dark:text-gray-400">
+                      Scheduled for March 20, 2024
+                    </p>
+                    <div className="mt-2">
+                      <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
+                        High Priority
+                      </span>
+                    </div>
+                  </CardContent>
+                </Card>
 
-              <Card className="shadow-md border-blue-100 dark:border-blue-900 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">
-                    Upcoming Hearings
-                  </CardTitle>
-                  <Calendar className="h-4 w-4 text-orange-600" />
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold text-orange-600">1</div>
-                  <p className="text-xs text-gray-600 dark:text-gray-400">
-                    Next: March 15, 2024
-                  </p>
-                </CardContent>
-              </Card>
-
-              <Card className="shadow-md border-blue-100 dark:border-blue-900 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">
-                    Total Recovery
-                  </CardTitle>
-                  <DollarSign className="h-4 w-4 text-emerald-600" />
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold text-emerald-600">
-                    $12,450
-                  </div>
-                  <p className="text-xs text-gray-600 dark:text-gray-400">
-                    +$2,100 this month
-                  </p>
-                </CardContent>
-              </Card>
+                {/* Policy Limits */}
+                <Card className="shadow-md border-purple-100 dark:border-purple-900 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 w-full min-w-[260px]">
+                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                    <CardTitle className="text-sm font-medium">
+                      Policy Limits
+                    </CardTitle>
+                    <div className="w-8 h-8 bg-purple-600 rounded-full flex items-center justify-center">
+                      <Shield className="h-4 w-4 text-white" />
+                    </div>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="text-lg font-bold text-purple-600 mb-1">
+                      $25,000
+                    </div>
+                    <p className="text-xs text-gray-600 dark:text-gray-400 mb-2">
+                      Auto Liability Limit
+                    </p>
+                    <div className="space-y-1">
+                      <div className="flex justify-between text-xs">
+                        <span className="text-gray-600 dark:text-gray-400">
+                          Medical:
+                        </span>
+                        <span className="font-medium">$10,000</span>
+                      </div>
+                      <div className="flex justify-between text-xs">
+                        <span className="text-gray-600 dark:text-gray-400">
+                          Property:
+                        </span>
+                        <span className="font-medium">$15,000</span>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
             </div>
 
             {/* Recent Activity and Claims */}
@@ -589,49 +665,102 @@ function DashboardContent() {
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <FileText className="w-5 h-5 text-blue-600" />
-                    Recent Claims
+                    Claim Status
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <div className="flex items-center justify-between p-3 bg-blue-50 dark:bg-blue-950/30 rounded-lg hover:bg-blue-100 dark:hover:bg-blue-950/50 transition-colors duration-200">
-                    <div>
-                      <h4 className="font-medium text-gray-900 dark:text-white">
-                        Auto Accident - I-95
-                      </h4>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">
-                        Filed: March 1, 2024
-                      </p>
+                  {/* Active Claim - Highlighted */}
+                  {claims
+                    .filter((claim) => claim.status === "active")
+                    .map((claim) => (
+                      <div
+                        key={claim.id}
+                        className="p-4 bg-blue-50 dark:bg-blue-950/30 rounded-lg border-l-4 border-blue-500 hover:bg-blue-100 dark:hover:bg-blue-950/50 transition-colors duration-200"
+                      >
+                        <div className="flex items-center justify-between mb-2">
+                          <h4 className="font-semibold text-gray-900 dark:text-white">
+                            {claim.title}
+                          </h4>
+                          <span className="px-2 py-1 text-xs bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 rounded-full font-medium">
+                            Active
+                          </span>
+                        </div>
+                        <p className="text-sm text-gray-700 dark:text-gray-300 mb-2">
+                          {claim.description}
+                        </p>
+                        <div className="flex items-center justify-between text-xs text-gray-600 dark:text-gray-400">
+                          <span>Filed: {claim.filedDate}</span>
+                          <span>Next: {claim.nextStep}</span>
+                        </div>
+                        <div className="mt-2">
+                          <div className="flex justify-between text-xs text-gray-600 dark:text-gray-400 mb-1">
+                            <span>Progress</span>
+                            <span>{claim.progress}%</span>
+                          </div>
+                          <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                            <div
+                              className="bg-blue-600 h-2 rounded-full transition-all duration-300"
+                              style={{ width: `${claim.progress}%` }}
+                            ></div>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+
+                  {/* Previous Claims - Shaded */}
+                  {claims.filter((claim) => claim.status !== "active").length >
+                    0 && (
+                    <div className="mt-6">
+                      <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">
+                        History
+                      </h3>
+                      {claims
+                        .filter((claim) => claim.status !== "active")
+                        .map((claim) => (
+                          <div
+                            key={claim.id}
+                            className="p-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg border-l-4 border-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700/50 transition-colors duration-200 opacity-75"
+                          >
+                            <div className="flex items-center justify-between mb-2">
+                              <h4 className="font-medium text-gray-700 dark:text-gray-300">
+                                {claim.title}
+                              </h4>
+                              <span
+                                className={`px-2 py-1 text-xs rounded-full font-medium ${
+                                  claim.status === "pending"
+                                    ? "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200"
+                                    : claim.status === "review"
+                                    ? "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200"
+                                    : "bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200"
+                                }`}
+                              >
+                                {claim.status.charAt(0).toUpperCase() +
+                                  claim.status.slice(1)}
+                              </span>
+                            </div>
+                            <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">
+                              {claim.description}
+                            </p>
+                            <div className="flex items-center justify-between text-xs text-gray-500 dark:text-gray-500">
+                              <span>Filed: {claim.filedDate}</span>
+                              <span>Next: {claim.nextStep}</span>
+                            </div>
+                            <div className="mt-2">
+                              <div className="flex justify-between text-xs text-gray-500 dark:text-gray-500 mb-1">
+                                <span>Progress</span>
+                                <span>{claim.progress}%</span>
+                              </div>
+                              <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                                <div
+                                  className="bg-gray-400 h-2 rounded-full transition-all duration-300"
+                                  style={{ width: `${claim.progress}%` }}
+                                ></div>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
                     </div>
-                    <span className="px-2 py-1 text-xs bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200 rounded-full">
-                      Active
-                    </span>
-                  </div>
-                  <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200">
-                    <div>
-                      <h4 className="font-medium text-gray-900 dark:text-white">
-                        Slip & Fall - Mall
-                      </h4>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">
-                        Filed: February 15, 2024
-                      </p>
-                    </div>
-                    <span className="px-2 py-1 text-xs bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200 rounded-full">
-                      Pending
-                    </span>
-                  </div>
-                  <div className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200">
-                    <div>
-                      <h4 className="font-medium text-gray-900 dark:text-white">
-                        Medical Malpractice
-                      </h4>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">
-                        Filed: January 20, 2024
-                      </p>
-                    </div>
-                    <span className="px-2 py-1 text-xs bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 rounded-full">
-                      Review
-                    </span>
-                  </div>
+                  )}
                 </CardContent>
               </Card>
 

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { SignInButton, UserButton, useUser } from "@clerk/nextjs";
+import { Sun, Moon } from "lucide-react";
 
 const navItems = [
   { name: "Who We Are", href: "/who-we-are" },
@@ -159,6 +160,50 @@ function MobileDashboardLink({
         Dashboard
       </Link>
     </div>
+  );
+}
+
+// Theme toggle component
+function ThemeToggle() {
+  const [theme, setTheme] = useState<"light" | "dark">("light");
+
+  useEffect(() => {
+    // Check for saved theme preference or default to light mode
+    const savedTheme = localStorage.getItem("theme") as "light" | "dark";
+    const prefersDark = window.matchMedia(
+      "(prefers-color-scheme: dark)"
+    ).matches;
+
+    if (savedTheme) {
+      setTheme(savedTheme);
+      document.documentElement.classList.toggle("dark", savedTheme === "dark");
+    } else if (prefersDark) {
+      setTheme("dark");
+      document.documentElement.classList.add("dark");
+    }
+  }, []);
+
+  const toggleTheme = () => {
+    const newTheme = theme === "light" ? "dark" : "light";
+    setTheme(newTheme);
+    localStorage.setItem("theme", newTheme);
+    document.documentElement.classList.toggle("dark");
+  };
+
+  return (
+    <Button
+      variant="ghost"
+      size="sm"
+      onClick={toggleTheme}
+      className="w-9 h-9 p-0 rounded-full bg-white/80 backdrop-blur-sm border border-gray-200 hover:bg-white hover:border-blue-300 dark:bg-gray-800/80 dark:border-gray-700 dark:hover:bg-gray-800 dark:hover:border-blue-600 transition-all duration-200 hover:scale-105"
+      aria-label="Toggle theme"
+    >
+      {theme === "light" ? (
+        <Moon className="h-4 w-4 text-gray-700 dark:text-gray-300" />
+      ) : (
+        <Sun className="h-4 w-4 text-gray-700 dark:text-gray-300" />
+      )}
+    </Button>
   );
 }
 
@@ -320,6 +365,11 @@ export default function Navbar() {
               </div>
             ))}
 
+            {/* Theme Toggle */}
+            <div className="hover:scale-105 transition-transform duration-200">
+              <ThemeToggle />
+            </div>
+
             {/* Dashboard Link - Only show when signed in and Clerk is available */}
             {isClerkAvailable && <DashboardLink pathname={pathname} />}
 
@@ -386,11 +436,25 @@ export default function Navbar() {
                 />
               )}
 
+              {/* Theme Toggle in Mobile Menu */}
               <div
                 className="pt-2 animate-in slide-in-from-left-2 duration-300"
                 style={{
                   animationDelay: `${
                     (navItems.length + (isClerkAvailable ? 1 : 0)) * 100
+                  }ms`,
+                }}
+              >
+                <div className="flex justify-center">
+                  <ThemeToggle />
+                </div>
+              </div>
+
+              <div
+                className="pt-2 animate-in slide-in-from-left-2 duration-300"
+                style={{
+                  animationDelay: `${
+                    (navItems.length + (isClerkAvailable ? 2 : 1)) * 100
                   }ms`,
                 }}
               >

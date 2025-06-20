@@ -12,6 +12,7 @@ import {
   X,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export default function Footer() {
   const [activeModal, setActiveModal] = useState<string | null>(null);
@@ -125,28 +126,28 @@ export default function Footer() {
               </h4>
               <ul className="space-y-4">
                 <li>
-                  <a
+                  <Link
                     href="/who-we-are"
                     className="text-gray-300 hover:text-blue-400 transition-colors duration-300 hover:translate-x-1 inline-block"
                   >
                     Who We Are
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a
+                  <Link
                     href="/what-we-do"
                     className="text-gray-300 hover:text-blue-400 transition-colors duration-300 hover:translate-x-1 inline-block"
                   >
                     What We Do
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a
+                  <Link
                     href="/pricing"
                     className="text-gray-300 hover:text-blue-400 transition-colors duration-300 hover:translate-x-1 inline-block"
                   >
                     Pricing
-                  </a>
+                  </Link>
                 </li>
                 <li>
                   <a
