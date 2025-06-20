@@ -12,7 +12,6 @@ import {
   DollarSign,
   Upload,
   CheckCircle,
-  Search,
   Star,
   Lock,
   Smartphone,
@@ -48,15 +47,15 @@ export default function WhatWeDo() {
     },
     {
       icon: <Users className="w-8 h-8 text-green-600" />,
-      title: "Attorney Matching",
+      title: "Attorney Connection Service",
       description:
-        "Connect with specialized attorneys nationwide through our intelligent matching system.",
+        "Connect with qualified attorneys nationwide through our referral system.",
       features: [
-        "Nationwide network of experienced attorneys",
-        "Specialized in no-fault accident cases",
-        "Intelligent matching algorithm",
+        "Nationwide network of qualified attorneys",
+        "Specialized in accident cases",
         "Attorney profiles and ratings",
         "Free initial consultation",
+        "Direct attorney contact",
       ],
       color: "green",
     },
@@ -68,7 +67,7 @@ export default function WhatWeDo() {
       features: [
         "Cloud-based document storage",
         "End-to-end encryption",
-        "Easy document sharing with attorneys",
+        "Easy document sharing",
         "Version control and history",
         "Mobile access to documents",
       ],
@@ -76,15 +75,15 @@ export default function WhatWeDo() {
     },
     {
       icon: <DollarSign className="w-8 h-8 text-orange-600" />,
-      title: "Recovery Assistance",
+      title: "Recovery Process Support",
       description:
-        "Comprehensive support throughout your recovery and compensation process.",
+        "Administrative support throughout your recovery and claims process.",
       features: [
-        "Insurance negotiation support",
+        "Document organization assistance",
         "Medical expense tracking",
         "Wage loss documentation",
-        "Property damage assessment",
-        "Settlement agreement review",
+        "Property damage documentation",
+        "Process guidance and support",
       ],
       color: "orange",
     },
@@ -100,24 +99,24 @@ export default function WhatWeDo() {
     },
     {
       step: "02",
-      title: "Get Matched with Attorneys",
+      title: "Begin Recovery Process",
       description:
-        "Our intelligent system connects you with specialized attorneys in your area.",
-      icon: <Search className="w-6 h-6" />,
+        "Focus on physical therapy, pain relief methodologies, and following your medical treatment plan.",
+      icon: <TrendingUp className="w-6 h-6" />,
     },
     {
       step: "03",
-      title: "Review and Approve",
+      title: "Follow Medical Guidance",
       description:
-        "Review attorney profiles, ratings, and schedule your free consultation.",
+        "Continue following your doctors' and medical professionals' treatment plans and recommendations.",
       icon: <CheckCircle className="w-6 h-6" />,
     },
     {
       step: "04",
-      title: "Begin Recovery Process",
+      title: "Submit Claim & Receive Compensation",
       description:
-        "Your attorney takes over, handling negotiations and maximizing your recovery.",
-      icon: <TrendingUp className="w-6 h-6" />,
+        "Submit your completed claim and receive compensation for your injuries and damages.",
+      icon: <DollarSign className="w-6 h-6" />,
     },
   ];
 
@@ -147,14 +146,14 @@ export default function WhatWeDo() {
                 <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6">
                   Comprehensive{" "}
                   <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                    Accident Recovery Services
+                    Accident Recovery Support
                   </span>
                 </h1>
                 <p className="text-xl text-gray-600 dark:text-gray-300 max-w-4xl mx-auto leading-relaxed">
-                  From initial form filing to final settlement, we provide
-                  end-to-end support for accident victims. Our platform combines
-                  cutting-edge technology with expert legal assistance to
-                  maximize your recovery.
+                  We provide administrative support and technology solutions to
+                  help accident victims navigate the claims process. Our
+                  platform connects you with qualified attorneys and streamlines
+                  document management for your recovery journey.
                 </p>
               </div>
             </div>
@@ -224,8 +223,8 @@ export default function WhatWeDo() {
                   How It Works
                 </h2>
                 <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-                  A simple, four-step process to get you the compensation you
-                  deserve
+                  A simple, four-step process to help you navigate your recovery
+                  journey
                 </p>
               </div>
 
@@ -315,8 +314,8 @@ export default function WhatWeDo() {
                           Nationwide Network
                         </h3>
                         <p className="text-gray-600 dark:text-gray-300">
-                          Access to experienced attorneys across all 50 states,
-                          specialized in no-fault cases.
+                          Access to qualified attorneys across all 50 states,
+                          specialized in accident cases.
                         </p>
                       </div>
                     </div>
@@ -334,7 +333,7 @@ export default function WhatWeDo() {
                     <div className="space-y-4">
                       <div className="flex items-center gap-3">
                         <CheckCircle className="w-5 h-5 text-green-300" />
-                        <span>No upfront legal fees</span>
+                        <span>No upfront platform fees</span>
                       </div>
                       <div className="flex items-center gap-3">
                         <CheckCircle className="w-5 h-5 text-green-300" />
@@ -426,12 +425,12 @@ export default function WhatWeDo() {
             <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
               <div className="animate-in fade-in slide-in-from-bottom-4 duration-600">
                 <h2 className="text-3xl sm:text-4xl font-bold text-white mb-6">
-                  Ready to Start Your Recovery?
+                  Ready to Start Your Recovery Journey?
                 </h2>
                 <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
-                  Join thousands of accident victims who have successfully
-                  recovered compensation with ClaimSaver+. Get started today
-                  with our free consultation.
+                  Join thousands of accident victims who have used ClaimSaver+
+                  to navigate their recovery process. Get started today with our
+                  free consultation.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <Button
