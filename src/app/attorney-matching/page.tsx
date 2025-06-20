@@ -4,7 +4,6 @@ import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Footer from "@/components/footer";
-import { useClerk } from "@clerk/nextjs";
 import {
   Users,
   Search,
@@ -12,7 +11,6 @@ import {
   Shield,
   Clock,
   Award,
-  CheckCircle,
   ArrowRight,
   Phone,
   GraduationCap,
@@ -29,17 +27,37 @@ import {
   Gavel,
 } from "lucide-react";
 
-export default function AttorneyMatching() {
-  const { openSignIn } = useClerk();
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [currentStep, setCurrentStep] = useState<"practice" | "details">(
-    "practice"
-  );
-  const [selectedPractice, setSelectedPractice] = useState<string>("");
+interface Attorney {
+  id: number;
+  name: string;
+  specialization: string;
+  location: string;
+  rating: number;
+  reviews: number;
+  experience: string;
+  phone: string;
+  website: string;
+  description: string;
+  image: string;
+}
 
-  const handleStartMatching = () => {
-    openSignIn();
-  };
+export default function AttorneyMatching() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [currentStep, setCurrentStep] = useState<
+    "practice" | "details" | "results"
+  >("practice");
+  const [selectedPractice, setSelectedPractice] = useState<string>("");
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    location: "",
+    incidentDate: "",
+    description: "",
+  });
+  const [attorneys, setAttorneys] = useState<Attorney[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleOpenModal = () => {
     setIsModalOpen(true);
@@ -51,6 +69,16 @@ export default function AttorneyMatching() {
     setIsModalOpen(false);
     setCurrentStep("practice");
     setSelectedPractice("");
+    setFormData({
+      firstName: "",
+      lastName: "",
+      email: "",
+      phone: "",
+      location: "",
+      incidentDate: "",
+      description: "",
+    });
+    setAttorneys([]);
   };
 
   const handlePracticeSelect = (practice: string) => {
@@ -61,6 +89,87 @@ export default function AttorneyMatching() {
   const handleBackToPractice = () => {
     setCurrentStep("practice");
     setSelectedPractice("");
+  };
+
+  const handleBackToDetails = () => {
+    setCurrentStep("details");
+  };
+
+  const handleFormSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
+
+    // Simulate attorney search based on location and practice area
+    const mockAttorneys = await searchAttorneys(
+      formData.location,
+      selectedPractice
+    );
+    setAttorneys(mockAttorneys);
+    setCurrentStep("results");
+    setIsLoading(false);
+  };
+
+  const searchAttorneys = async (
+    location: string,
+    practiceArea: string
+  ): Promise<Attorney[]> => {
+    // Simulate API call delay
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+
+    // Mock attorney data based on location and practice area
+    const practiceAreaName =
+      practiceAreas.find((p) => p.id === practiceArea)?.title || "Legal";
+
+    return [
+      {
+        id: 1,
+        name: `Johnson & Associates`,
+        specialization: practiceAreaName,
+        location: location,
+        rating: 4.8,
+        reviews: 127,
+        experience: "15+ years",
+        phone: "(555) 123-4567",
+        website: "www.johnsonlaw.com",
+        description: `Specialized in ${practiceAreaName} with over 15 years of experience. Known for aggressive representation and high success rates.`,
+        image: "/images/attorney1.jpg",
+      },
+      {
+        id: 2,
+        name: `Smith Legal Group`,
+        specialization: practiceAreaName,
+        location: location,
+        rating: 4.6,
+        reviews: 89,
+        experience: "12+ years",
+        phone: "(555) 234-5678",
+        website: "www.smithlegal.com",
+        description: `Dedicated ${practiceAreaName} attorneys with a track record of securing maximum compensation for clients.`,
+        image: "/images/attorney2.jpg",
+      },
+      {
+        id: 3,
+        name: `Williams Law Firm`,
+        specialization: practiceAreaName,
+        location: location,
+        rating: 4.7,
+        reviews: 156,
+        experience: "18+ years",
+        phone: "(555) 345-6789",
+        website: "www.williamslaw.com",
+        description: `Premier ${practiceAreaName} practice with extensive courtroom experience and personalized client care.`,
+        image: "/images/attorney3.jpg",
+      },
+    ];
+  };
+
+  const handleConnectAttorney = (attorneyId: number) => {
+    // This would integrate with ClaimSaver+ backend
+    console.log(`Connecting to attorney ${attorneyId}`);
+    // For now, just show a success message
+    alert(
+      "Connection request sent! The attorney will contact you within 24 hours."
+    );
   };
 
   const practiceAreas = [
@@ -444,11 +553,20 @@ export default function AttorneyMatching() {
           <section className="py-20 animate-in fade-in duration-800">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="text-center mb-16 animate-in fade-in slide-in-from-bottom-4 duration-600">
-                <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-6">
-                  Specialized Attorney Types
+                <div className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-2 rounded-full text-sm font-semibold mb-4">
+                  <Award className="w-4 h-4" />
+                  Specialized Expertise
+                </div>
+                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-gray-900 dark:text-white mb-6">
+                  Expert Attorneys for{" "}
+                  <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                    Every Case Type
+                  </span>
                 </h2>
-                <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-                  Find attorneys who specialize in your specific type of case
+                <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
+                  Our network includes top-tier attorneys specializing in every
+                  area of personal injury and civil law, ensuring you get the
+                  right expertise for your specific case.
                 </p>
               </div>
 
@@ -457,45 +575,93 @@ export default function AttorneyMatching() {
                   <div
                     key={index}
                     className="animate-in fade-in slide-in-from-bottom-4 duration-600"
-                    style={{ animationDelay: `${index * 100}ms` }}
+                    style={{ animationDelay: `${index * 150}ms` }}
                   >
-                    <Card className="h-full shadow-lg border-blue-100 dark:border-blue-900 hover:shadow-xl hover:-translate-y-2 transition-all duration-300">
-                      <CardHeader className="pb-4">
-                        <div className="flex items-center gap-4 mb-4">
-                          <div className="p-3 bg-blue-50 dark:bg-blue-950/30 rounded-xl">
-                            {type.icon}
+                    <Card className="h-full shadow-2xl border-0 bg-gradient-to-br from-white to-gray-50 dark:from-gray-900 dark:to-gray-800 hover:shadow-3xl hover:-translate-y-3 transition-all duration-500 group overflow-hidden relative">
+                      {/* Gradient overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-br from-blue-600/5 to-purple-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+                      {/* Top accent line */}
+                      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-600 to-purple-600 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
+
+                      <CardHeader className="pb-6 relative">
+                        <div className="flex items-start gap-6 mb-6">
+                          <div className="flex-shrink-0">
+                            <div className="w-16 h-16 bg-gradient-to-br from-blue-100/80 to-purple-100/80 dark:from-blue-900/40 dark:to-purple-900/40 rounded-2xl flex items-center justify-center text-blue-600 dark:text-blue-400 shadow-sm group-hover:scale-110 transition-transform duration-300 border border-blue-200/50 dark:border-blue-700/50">
+                              {type.icon}
+                            </div>
                           </div>
-                          <CardTitle className="text-xl font-semibold text-gray-900 dark:text-white">
-                            {type.title}
-                          </CardTitle>
+                          <div className="flex-1">
+                            <CardTitle className="text-2xl font-black text-gray-900 dark:text-white mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">
+                              {type.title}
+                            </CardTitle>
+                            <p className="text-gray-600 dark:text-gray-300 text-lg leading-relaxed">
+                              {type.description}
+                            </p>
+                          </div>
                         </div>
-                        <p className="text-gray-600 dark:text-gray-300 mb-4">
-                          {type.description}
-                        </p>
                       </CardHeader>
-                      <CardContent>
-                        <div className="space-y-2">
-                          <h4 className="font-semibold text-gray-900 dark:text-white mb-3">
-                            Common Cases:
-                          </h4>
-                          <ul className="space-y-2">
+
+                      <CardContent className="pt-0">
+                        <div className="space-y-4">
+                          <div className="flex items-center gap-2 mb-4">
+                            <div className="w-2 h-2 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full"></div>
+                            <h4 className="font-bold text-gray-900 dark:text-white text-lg">
+                              Common Case Types:
+                            </h4>
+                          </div>
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                             {type.cases.map((caseType, caseIndex) => (
-                              <li
+                              <div
                                 key={caseIndex}
-                                className="flex items-center gap-3"
+                                className="flex items-center gap-3 p-3 bg-white dark:bg-gray-800 rounded-lg shadow-sm hover:shadow-md transition-all duration-200 group/item"
                               >
-                                <CheckCircle className="w-4 h-4 text-green-500 flex-shrink-0" />
-                                <span className="text-gray-600 dark:text-gray-300 text-sm">
+                                <div className="w-2 h-2 bg-green-500 rounded-full group-hover/item:scale-150 transition-transform duration-200"></div>
+                                <span className="text-gray-700 dark:text-gray-300 font-medium text-sm">
                                   {caseType}
                                 </span>
-                              </li>
+                              </div>
                             ))}
-                          </ul>
+                          </div>
+
+                          <div className="mt-6 pt-4 border-t border-gray-200 dark:border-gray-700">
+                            <div className="flex items-center justify-between">
+                              <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
+                                <Users className="w-4 h-4" />
+                                <span>500+ Attorneys</span>
+                              </div>
+                              <div className="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
+                                <Star className="w-4 h-4 text-yellow-500 fill-current" />
+                                <span>4.8+ Rating</span>
+                              </div>
+                            </div>
+                          </div>
                         </div>
                       </CardContent>
                     </Card>
                   </div>
                 ))}
+              </div>
+
+              {/* Bottom CTA */}
+              <div className="text-center mt-16 animate-in fade-in slide-in-from-bottom-4 duration-600">
+                <div className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-950/30 dark:to-purple-950/30 rounded-2xl p-8 border border-blue-100 dark:border-blue-900">
+                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+                    Can&apos;t Find Your Case Type?
+                  </h3>
+                  <p className="text-gray-600 dark:text-gray-300 mb-6 max-w-2xl mx-auto">
+                    Our network includes attorneys for virtually every legal
+                    need. Contact us to find specialized representation for your
+                    unique case.
+                  </p>
+                  <Button
+                    onClick={handleOpenModal}
+                    className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-3 text-lg font-semibold hover:scale-105 transition-all duration-200 shadow-lg"
+                  >
+                    Find Your Attorney
+                    <ArrowRight className="ml-2 w-5 h-5" />
+                  </Button>
+                </div>
               </div>
             </div>
           </section>
@@ -516,7 +682,7 @@ export default function AttorneyMatching() {
                   <Button
                     size="lg"
                     className="bg-white text-blue-600 hover:bg-gray-100 px-8 py-4 text-lg font-semibold hover:scale-105 transition-transform duration-200"
-                    onClick={handleStartMatching}
+                    onClick={handleOpenModal}
                   >
                     Start Attorney Matching
                     <ArrowRight className="ml-2 w-5 h-5" />
@@ -550,7 +716,9 @@ export default function AttorneyMatching() {
                 <h2 className="text-2xl font-black tracking-tight">
                   {currentStep === "practice"
                     ? "Select Practice Area"
-                    : "Case Details"}
+                    : currentStep === "details"
+                    ? "Case Details"
+                    : "Attorney Results"}
                 </h2>
                 <Button
                   variant="ghost"
@@ -616,7 +784,7 @@ export default function AttorneyMatching() {
                     ))}
                   </div>
                 </div>
-              ) : (
+              ) : currentStep === "details" ? (
                 <div className="space-y-6">
                   <div className="text-center mb-8">
                     <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
@@ -660,6 +828,13 @@ export default function AttorneyMatching() {
                           type="text"
                           className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:text-white"
                           required
+                          value={formData.firstName}
+                          onChange={(e) =>
+                            setFormData({
+                              ...formData,
+                              firstName: e.target.value,
+                            })
+                          }
                         />
                       </div>
                       <div>
@@ -670,6 +845,13 @@ export default function AttorneyMatching() {
                           type="text"
                           className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:text-white"
                           required
+                          value={formData.lastName}
+                          onChange={(e) =>
+                            setFormData({
+                              ...formData,
+                              lastName: e.target.value,
+                            })
+                          }
                         />
                       </div>
                     </div>
@@ -683,6 +865,10 @@ export default function AttorneyMatching() {
                           type="email"
                           className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:text-white"
                           required
+                          value={formData.email}
+                          onChange={(e) =>
+                            setFormData({ ...formData, email: e.target.value })
+                          }
                         />
                       </div>
                       <div>
@@ -693,6 +879,10 @@ export default function AttorneyMatching() {
                           type="tel"
                           className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:text-white"
                           required
+                          value={formData.phone}
+                          onChange={(e) =>
+                            setFormData({ ...formData, phone: e.target.value })
+                          }
                         />
                       </div>
                     </div>
@@ -706,6 +896,10 @@ export default function AttorneyMatching() {
                         className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:text-white"
                         placeholder="e.g., Miami, FL"
                         required
+                        value={formData.location}
+                        onChange={(e) =>
+                          setFormData({ ...formData, location: e.target.value })
+                        }
                       />
                     </div>
 
@@ -717,6 +911,13 @@ export default function AttorneyMatching() {
                         type="date"
                         className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:text-white"
                         required
+                        value={formData.incidentDate}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            incidentDate: e.target.value,
+                          })
+                        }
                       />
                     </div>
 
@@ -729,6 +930,13 @@ export default function AttorneyMatching() {
                         className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:text-white"
                         placeholder="Please describe what happened, any injuries sustained, and what you're seeking..."
                         required
+                        value={formData.description}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            description: e.target.value,
+                          })
+                        }
                       />
                     </div>
 
@@ -744,13 +952,141 @@ export default function AttorneyMatching() {
                       <Button
                         type="submit"
                         className="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white"
-                        onClick={handleStartMatching}
+                        onClick={handleFormSubmit}
                       >
                         Submit & Find Attorneys
                         <ArrowRight className="ml-2 w-4 h-4" />
                       </Button>
                     </div>
                   </form>
+                </div>
+              ) : (
+                <div className="space-y-6">
+                  <div className="text-center mb-8">
+                    <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+                      Top Attorneys Found
+                    </h3>
+                    <p className="text-gray-600 dark:text-gray-300">
+                      Based on your location in {formData.location} and{" "}
+                      {
+                        practiceAreas.find((p) => p.id === selectedPractice)
+                          ?.title
+                      }{" "}
+                      specialization
+                    </p>
+                  </div>
+
+                  {isLoading ? (
+                    <div className="text-center py-12">
+                      <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+                      <p className="text-gray-600 dark:text-gray-300">
+                        Searching for attorneys in your area...
+                      </p>
+                    </div>
+                  ) : (
+                    <div className="space-y-6">
+                      {attorneys.map((attorney, index) => (
+                        <div
+                          key={attorney.id}
+                          className="animate-in fade-in slide-in-from-bottom-4 duration-600"
+                          style={{ animationDelay: `${index * 100}ms` }}
+                        >
+                          <Card className="shadow-lg border-blue-100 dark:border-blue-900 hover:shadow-xl transition-all duration-300">
+                            <CardContent className="p-6">
+                              <div className="flex flex-col md:flex-row gap-6">
+                                <div className="flex-shrink-0">
+                                  <div className="w-20 h-20 bg-gradient-to-br from-blue-600 to-purple-600 rounded-full flex items-center justify-center text-white font-bold text-xl">
+                                    {attorney.name.split(" ")[0][0]}
+                                  </div>
+                                </div>
+
+                                <div className="flex-1">
+                                  <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-4">
+                                    <div>
+                                      <h4 className="text-xl font-semibold text-gray-900 dark:text-white mb-1">
+                                        {attorney.name}
+                                      </h4>
+                                      <p className="text-blue-600 dark:text-blue-400 font-medium">
+                                        {attorney.specialization} •{" "}
+                                        {attorney.location}
+                                      </p>
+                                    </div>
+                                    <div className="flex items-center gap-2">
+                                      <div className="flex items-center">
+                                        <Star className="w-4 h-4 text-yellow-500 fill-current" />
+                                        <span className="ml-1 font-semibold text-gray-900 dark:text-white">
+                                          {attorney.rating}
+                                        </span>
+                                      </div>
+                                      <span className="text-gray-500 dark:text-gray-400">
+                                        ({attorney.reviews} reviews)
+                                      </span>
+                                    </div>
+                                  </div>
+
+                                  <p className="text-gray-600 dark:text-gray-300 mb-4">
+                                    {attorney.description}
+                                  </p>
+
+                                  <div className="flex flex-wrap gap-4 text-sm text-gray-500 dark:text-gray-400 mb-4">
+                                    <div className="flex items-center gap-1">
+                                      <Clock className="w-4 h-4" />
+                                      <span>
+                                        {attorney.experience} experience
+                                      </span>
+                                    </div>
+                                    <div className="flex items-center gap-1">
+                                      <Phone className="w-4 h-4" />
+                                      <span>{attorney.phone}</span>
+                                    </div>
+                                  </div>
+
+                                  <div className="flex gap-3">
+                                    <Button
+                                      onClick={() =>
+                                        handleConnectAttorney(attorney.id)
+                                      }
+                                      className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white"
+                                    >
+                                      Connect via ClaimSaver+
+                                      <ArrowRight className="ml-2 w-4 h-4" />
+                                    </Button>
+                                    <Button
+                                      variant="outline"
+                                      onClick={() =>
+                                        window.open(
+                                          `https://${attorney.website}`,
+                                          "_blank"
+                                        )
+                                      }
+                                    >
+                                      Visit Website
+                                    </Button>
+                                  </div>
+                                </div>
+                              </div>
+                            </CardContent>
+                          </Card>
+                        </div>
+                      ))}
+
+                      <div className="text-center pt-6">
+                        <Button
+                          variant="outline"
+                          onClick={handleBackToDetails}
+                          className="mr-4"
+                        >
+                          ← Back to Details
+                        </Button>
+                        <Button
+                          onClick={handleCloseModal}
+                          className="bg-gray-600 hover:bg-gray-700 text-white"
+                        >
+                          Close
+                        </Button>
+                      </div>
+                    </div>
+                  )}
                 </div>
               )}
             </div>
