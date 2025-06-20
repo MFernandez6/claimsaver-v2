@@ -35,8 +35,11 @@ async function connectDB() {
     const opts = {
       bufferCommands: false,
       maxPoolSize: 10,
-      serverSelectionTimeoutMS: 5000,
+      serverSelectionTimeoutMS: 10000,
       socketTimeoutMS: 45000,
+      connectTimeoutMS: 10000,
+      retryWrites: true,
+      retryReads: true,
     };
 
     cached.promise = mongoose
@@ -44,6 +47,29 @@ async function connectDB() {
       .then((mongoose) => {
         console.log("MongoDB connected successfully");
         return mongoose;
+      })
+      .catch((error) => {
+        console.error("MongoDB connection failed:", error);
+
+        if (error.message.includes("whitelist")) {
+          throw new Error(
+            "MongoDB Atlas IP whitelist error. Please add your deployment IP to MongoDB Atlas whitelist or use 0.0.0.0/0 for all IPs. See: https://www.mongodb.com/docs/atlas/security-whitelist/"
+          );
+        }
+
+        if (error.message.includes("authentication")) {
+          throw new Error(
+            "MongoDB authentication failed. Please check your connection string and credentials."
+          );
+        }
+
+        if (error.message.includes("ENOTFOUND")) {
+          throw new Error(
+            "MongoDB host not found. Please check your connection string."
+          );
+        }
+
+        throw error;
       });
   }
 

@@ -32,8 +32,51 @@ export async function DELETE(
     return NextResponse.json({ message: "Document deleted successfully" });
   } catch (error) {
     console.error("Error deleting document:", error);
+
+    // Provide specific error messages for common MongoDB issues
+    if (error instanceof Error) {
+      if (error.message.includes("whitelist")) {
+        return NextResponse.json(
+          {
+            error: "Database connection error",
+            details:
+              "MongoDB Atlas IP whitelist issue. Please contact support or check your MongoDB Atlas configuration.",
+            code: "IP_WHITELIST_ERROR",
+          },
+          { status: 500 }
+        );
+      }
+
+      if (error.message.includes("authentication")) {
+        return NextResponse.json(
+          {
+            error: "Database authentication error",
+            details:
+              "MongoDB credentials are invalid. Please check your connection string.",
+            code: "AUTH_ERROR",
+          },
+          { status: 500 }
+        );
+      }
+
+      if (error.message.includes("ENOTFOUND")) {
+        return NextResponse.json(
+          {
+            error: "Database connection error",
+            details:
+              "MongoDB host not found. Please check your connection string.",
+            code: "HOST_NOT_FOUND",
+          },
+          { status: 500 }
+        );
+      }
+    }
+
     return NextResponse.json(
-      { error: "Internal server error" },
+      {
+        error: "Internal server error",
+        details: error instanceof Error ? error.message : "Unknown error",
+      },
       { status: 500 }
     );
   }

@@ -365,16 +365,16 @@ export default function Navbar() {
               </div>
             ))}
 
-            {/* Theme Toggle */}
-            <div className="hover:scale-105 transition-transform duration-200">
-              <ThemeToggle />
-            </div>
-
             {/* Dashboard Link - Only show when signed in and Clerk is available */}
             {isClerkAvailable && <DashboardLink pathname={pathname} />}
 
             {/* Authentication Button */}
             {isClerkAvailable ? <AuthSection /> : <FallbackAuthSection />}
+
+            {/* Theme Toggle - always at the far right */}
+            <div className="hover:scale-105 transition-transform duration-200 ml-2">
+              <ThemeToggle />
+            </div>
           </div>
 
           {/* Mobile menu button */}
