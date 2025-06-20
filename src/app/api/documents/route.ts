@@ -39,6 +39,15 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
+    // Check if MongoDB URI is configured
+    if (!process.env.MONGO_URI) {
+      console.error("MONGO_URI environment variable is not set");
+      return NextResponse.json(
+        { error: "Database configuration error" },
+        { status: 500 }
+      );
+    }
+
     const formData = await request.formData();
     const name = formData.get("name") as string;
     const type = formData.get("type") as string;
