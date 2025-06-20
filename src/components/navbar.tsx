@@ -9,6 +9,7 @@ import { SignInButton, UserButton, useUser } from "@clerk/nextjs";
 const navItems = [
   { name: "Who We Are", href: "/who-we-are" },
   { name: "What We Do", href: "/what-we-do" },
+  { name: "Attorney Matching", href: "/attorney-matching" },
   { name: "Pricing", href: "/pricing" },
 ];
 
