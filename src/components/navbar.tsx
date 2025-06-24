@@ -91,6 +91,67 @@ function DashboardLink({ pathname }: { pathname: string }) {
   );
 }
 
+// Admin link component
+function AdminLink({ pathname }: { pathname: string }) {
+  const { isSignedIn, isLoaded, user } = useUser();
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [checkingRole, setCheckingRole] = useState(true);
+
+  useEffect(() => {
+    async function checkAdminRole() {
+      if (isLoaded && isSignedIn && user) {
+        try {
+          // For now, we'll check if the user's email is in a list of admin emails
+          // In production, you should check against your database
+          const adminEmails = [
+            "claimsaverplus@gmail.com",
+            // "miguel@claimsaver.com",
+            // Add more admin emails as needed
+          ];
+
+          const userEmail = user.primaryEmailAddress?.emailAddress;
+          setIsAdmin(adminEmails.includes(userEmail || ""));
+        } catch (error) {
+          console.error("Error checking admin role:", error);
+          setIsAdmin(false);
+        } finally {
+          setCheckingRole(false);
+        }
+      } else {
+        setCheckingRole(false);
+      }
+    }
+
+    checkAdminRole();
+  }, [isLoaded, isSignedIn, user]);
+
+  if (!isLoaded || !isSignedIn || checkingRole) {
+    return null;
+  }
+
+  if (!isAdmin) {
+    return null;
+  }
+
+  return (
+    <div className="hover:-translate-y-0.5 transition-transform duration-200">
+      <Link
+        href="/admin"
+        className={`relative px-3 py-2 text-sm font-medium transition-colors duration-200 ${
+          pathname === "/admin"
+            ? "text-blue-600 dark:text-blue-400"
+            : "text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400"
+        }`}
+      >
+        Admin
+        {pathname === "/admin" && (
+          <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-blue-600 to-blue-800 rounded-full" />
+        )}
+      </Link>
+    </div>
+  );
+}
+
 // Mobile auth section
 function MobileAuthSection() {
   const { isSignedIn, isLoaded } = useUser();
@@ -371,6 +432,9 @@ export default function Navbar() {
             {/* Authentication Button */}
             {isClerkAvailable ? <AuthSection /> : <FallbackAuthSection />}
 
+            {/* Admin Link - Only show when signed in and Clerk is available */}
+            {isClerkAvailable && <AdminLink pathname={pathname} />}
+
             {/* Theme Toggle - always at the far right */}
             <div className="hover:scale-105 transition-transform duration-200 ml-2">
               <ThemeToggle />
@@ -434,6 +498,26 @@ export default function Navbar() {
                   pathname={pathname}
                   onClick={() => setIsMobileMenuOpen(false)}
                 />
+              )}
+
+              {/* Admin Link in Mobile Menu - Only show when signed in and Clerk is available */}
+              {isClerkAvailable && (
+                <div
+                  className="animate-in slide-in-from-left-2 duration-300"
+                  style={{ animationDelay: `${navItems.length * 100}ms` }}
+                >
+                  <Link
+                    href="/admin"
+                    className={`block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200 ${
+                      pathname === "/admin"
+                        ? "text-blue-600 dark:text-blue-400"
+                        : "text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400"
+                    }`}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    Admin
+                  </Link>
+                </div>
               )}
 
               {/* Theme Toggle in Mobile Menu */}
