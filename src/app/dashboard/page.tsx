@@ -2,1703 +2,502 @@
 
 import { useState, useEffect } from "react";
 import { useUser } from "@clerk/nextjs";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useRouter } from "next/navigation";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import Footer from "@/components/footer";
+import { Badge } from "@/components/ui/badge";
 import {
   FileText,
-  Calendar,
-  Shield,
   Plus,
-  Search,
-  Bell,
-  X,
-  CheckCircle,
-  Car,
-  User,
-  Edit,
-  Trash2,
   Clock,
+  CheckCircle,
+  AlertTriangle,
+  DollarSign,
+  User,
+  Calendar,
   MapPin,
-  CalendarPlus,
-  Upload,
-  File,
-  FileImage,
-  FileVideo,
-  FileAudio,
-  Download,
-  Eye,
+  Car,
+  Loader2,
+  RefreshCw,
 } from "lucide-react";
 
-// Force dynamic rendering to prevent static generation
-export const dynamic = "force-dynamic";
+interface UserClaim {
+  _id: string;
+  claimNumber: string;
+  status: string;
+  priority: string;
+  claimantName: string;
+  accidentDate: string;
+  accidentLocation: string;
+  estimatedValue: number;
+  submittedAt: string;
+  lastUpdated: string;
+  vehicleMake: string;
+  vehicleModel: string;
+  vehicleYear: string;
+}
 
-// Wrapper component to handle Clerk availability
-function DashboardContent() {
-  const { user, isLoaded, isSignedIn } = useUser();
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isEventModalOpen, setIsEventModalOpen] = useState(false);
-  const [isDocumentModalOpen, setIsDocumentModalOpen] = useState(false);
-  const [editingEvent, setEditingEvent] = useState<{
-    id: number;
-    title: string;
-    date: string;
-    time: string;
-    location: string;
-    type: string;
-    description: string;
-    reminder: string;
-  } | null>(null);
-  const [events, setEvents] = useState([
-    {
-      id: 1,
-      title: "Court Hearing - Auto Accident Case",
-      date: "2024-03-15",
-      time: "10:00",
-      location: "County Courthouse, Room 302",
-      type: "court",
-      description: "Important court hearing for auto accident case",
-      reminder: "1 day before",
-    },
-    {
-      id: 2,
-      title: "Medical Evaluation",
-      date: "2024-03-20",
-      time: "14:00",
-      location: "Dr. Smith's Office",
-      type: "medical",
-      description: "Follow-up medical evaluation appointment",
-      reminder: "2 hours before",
-    },
-  ]);
-  const [documents, setDocuments] = useState<
-    Array<{
-      _id: string;
-      name: string;
-      type: string;
-      fileType: string;
-      size: string;
-      uploadDate: string;
-      description: string;
-      url: string;
-    }>
-  >([
-    {
-      _id: "1",
-      name: "Medical Records - Dr. Smith",
-      type: "medical",
-      fileType: "pdf",
-      size: "2.4 MB",
-      uploadDate: "2024-03-01",
-      description: "Complete medical evaluation and treatment records",
-      url: "#",
-    },
-    {
-      _id: "2",
-      name: "Police Report - Auto Accident",
-      type: "legal",
-      fileType: "pdf",
-      size: "1.8 MB",
-      uploadDate: "2024-02-28",
-      description: "Official police report from the accident scene",
-      url: "#",
-    },
-    {
-      _id: "3",
-      name: "Insurance Policy Document",
-      type: "insurance",
-      fileType: "pdf",
-      size: "3.2 MB",
-      uploadDate: "2024-02-25",
-      description: "Complete insurance policy and coverage details",
-      url: "#",
-    },
-    {
-      _id: "4",
-      name: "Accident Photos",
-      type: "evidence",
-      fileType: "image",
-      size: "5.6 MB",
-      uploadDate: "2024-02-20",
-      description: "Photographic evidence from the accident scene",
-      url: "#",
-    },
-  ]);
-  const [eventFormData, setEventFormData] = useState({
-    title: "",
-    date: "",
-    time: "",
-    location: "",
-    type: "medical",
-    description: "",
-    reminder: "1 day before",
-  });
-  const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    phone: "",
-    address: "",
-    city: "",
-    state: "",
-    zipCode: "",
-    dateOfBirth: "",
-    accidentDate: "",
-    accidentLocation: "",
-    accidentDescription: "",
-    injuries: "",
-    medicalProvider: "",
-    insuranceCompany: "",
-    policyNumber: "",
-    vehicleInfo: "",
-    witnesses: "",
-    policeReport: "",
-  });
-  const [documentFormData, setDocumentFormData] = useState({
-    name: "",
-    type: "medical",
-    description: "",
-    file: null as File | null,
-  });
-  const [claims] = useState([
-    {
-      id: 1,
-      title: "Auto Accident - I-95",
-      type: "auto",
-      status: "active",
-      filedDate: "2024-03-01",
-      nextStep: "Medical Evaluation",
-      progress: 65,
-      policyLimit: 25000,
-      currentAmount: 16250,
-      description:
-        "Rear-end collision on I-95 near Exit 15. Vehicle totaled, minor injuries sustained.",
-      priority: "high",
-    },
-    {
-      id: 2,
-      title: "Slip & Fall - Mall",
-      type: "premises",
-      status: "pending",
-      filedDate: "2024-02-15",
-      nextStep: "Attorney Review",
-      progress: 25,
-      policyLimit: 50000,
-      currentAmount: 12500,
-      description:
-        "Slip and fall accident at local shopping mall. Wet floor without proper signage.",
-      priority: "medium",
-    },
-    {
-      id: 3,
-      title: "Medical Malpractice",
-      type: "medical",
-      status: "review",
-      filedDate: "2024-01-20",
-      nextStep: "Expert Consultation",
-      progress: 10,
-      policyLimit: 100000,
-      currentAmount: 10000,
-      description:
-        "Surgical error during routine procedure. Additional corrective surgery required.",
-      priority: "high",
-    },
-  ]);
+export default function DashboardPage() {
+  const { user, isLoaded } = useUser();
+  const router = useRouter();
+  const [claims, setClaims] = useState<UserClaim[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [refreshing, setRefreshing] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [checkingRole, setCheckingRole] = useState(true);
 
-  // Auto-open modal when user signs in
+  // Check if user is admin
   useEffect(() => {
-    if (isSignedIn && isLoaded) {
-      setIsModalOpen(true);
-    }
-  }, [isSignedIn, isLoaded]);
+    async function checkAdminRole() {
+      if (isLoaded && user) {
+        try {
+          // Check if the user's email is in the admin emails list
+          const adminEmails = [
+            "claimsaverplus@gmail.com",
+            // Add more admin emails as needed
+          ];
 
-  // Fetch documents from MongoDB
-  useEffect(() => {
-    const fetchDocuments = async () => {
-      try {
-        const response = await fetch("/api/documents");
-        if (response.ok) {
-          const data = await response.json();
-          setDocuments(data);
+          const userEmail = user.primaryEmailAddress?.emailAddress;
+          const adminStatus = adminEmails.includes(userEmail || "");
+          setIsAdmin(adminStatus);
+
+          // If user is admin, redirect to admin page
+          if (adminStatus) {
+            router.push("/admin");
+            return;
+          }
+        } catch (error) {
+          console.error("Error checking admin role:", error);
+          setIsAdmin(false);
+        } finally {
+          setCheckingRole(false);
         }
-      } catch (error) {
-        console.error("Error fetching documents:", error);
-      }
-    };
-
-    if (isSignedIn && isLoaded) {
-      fetchDocuments();
-    }
-  }, [isSignedIn, isLoaded]);
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-  };
-
-  const handleFormSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Handle form submission
-    console.log("Form submitted:", formData);
-    setIsModalOpen(false);
-  };
-
-  const handleInputChange = (field: string, value: string) => {
-    setFormData((prev) => ({ ...prev, [field]: value }));
-  };
-
-  const handleEventInputChange = (field: string, value: string) => {
-    setEventFormData((prev) => ({ ...prev, [field]: value }));
-  };
-
-  const handleAddEvent = () => {
-    setEditingEvent(null);
-    setEventFormData({
-      title: "",
-      date: "",
-      time: "",
-      location: "",
-      type: "medical",
-      description: "",
-      reminder: "1 day before",
-    });
-    setIsEventModalOpen(true);
-  };
-
-  const handleEditEvent = (event: {
-    id: number;
-    title: string;
-    date: string;
-    time: string;
-    location: string;
-    type: string;
-    description: string;
-    reminder: string;
-  }) => {
-    setEditingEvent(event);
-    setEventFormData({
-      title: event.title,
-      date: event.date,
-      time: event.time,
-      location: event.location,
-      type: event.type,
-      description: event.description,
-      reminder: event.reminder,
-    });
-    setIsEventModalOpen(true);
-  };
-
-  const handleDeleteEvent = (eventId: number) => {
-    setEvents((prev) => prev.filter((event) => event.id !== eventId));
-  };
-
-  const handleEventSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (editingEvent) {
-      // Update existing event
-      setEvents((prev) =>
-        prev.map((event) =>
-          event.id === editingEvent.id
-            ? { ...eventFormData, id: event.id }
-            : event
-        )
-      );
-    } else {
-      // Add new event
-      const newEvent = {
-        ...eventFormData,
-        id: Date.now(),
-      };
-      setEvents((prev) => [...prev, newEvent]);
-    }
-    setIsEventModalOpen(false);
-    setEditingEvent(null);
-  };
-
-  const getEventTypeColor = (type: string) => {
-    switch (type) {
-      case "court":
-        return "orange";
-      case "medical":
-        return "blue";
-      case "therapy":
-        return "green";
-      case "consultation":
-        return "purple";
-      default:
-        return "gray";
-    }
-  };
-
-  const getEventTypeIcon = (type: string) => {
-    switch (type) {
-      case "court":
-        return "⚖️";
-      case "medical":
-        return "🏥";
-      case "therapy":
-        return "💆";
-      case "consultation":
-        return "👨‍💼";
-      default:
-        return "📅";
-    }
-  };
-
-  const handleAddDocument = () => {
-    setDocumentFormData({
-      name: "",
-      type: "medical",
-      description: "",
-      file: null,
-    });
-    setIsDocumentModalOpen(true);
-  };
-
-  const handleDocumentInputChange = (
-    field: string,
-    value: string | File | null
-  ) => {
-    setDocumentFormData((prev) => ({ ...prev, [field]: value }));
-  };
-
-  const handleDocumentSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (documentFormData.file) {
-      try {
-        const formData = new FormData();
-        formData.append("name", documentFormData.name);
-        formData.append("type", documentFormData.type);
-        formData.append("description", documentFormData.description);
-        formData.append("file", documentFormData.file);
-
-        const response = await fetch("/api/documents", {
-          method: "POST",
-          body: formData,
-        });
-
-        if (response.ok) {
-          const newDocument = await response.json();
-          setDocuments((prev) => [newDocument, ...prev]);
-          setIsDocumentModalOpen(false);
-          setDocumentFormData({
-            name: "",
-            type: "medical",
-            description: "",
-            file: null,
-          });
-        } else {
-          const errorData = await response.json();
-          console.error(
-            "Error uploading document:",
-            response.status,
-            errorData
-          );
-        }
-      } catch (error) {
-        console.error("Error uploading document:", error);
-      }
-    }
-  };
-
-  const handleDeleteDocument = async (documentId: string) => {
-    try {
-      const response = await fetch(`/api/documents/${documentId}`, {
-        method: "DELETE",
-      });
-
-      if (response.ok) {
-        setDocuments((prev) => prev.filter((doc) => doc._id !== documentId));
       } else {
-        console.error("Error deleting document");
+        setCheckingRole(false);
       }
-    } catch (error) {
-      console.error("Error deleting document:", error);
+    }
+
+    checkAdminRole();
+  }, [isLoaded, user, router]);
+
+  const loadClaims = async () => {
+    try {
+      setError(null);
+      setRefreshing(true);
+
+      const response = await fetch("/api/claims");
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Failed to load claims");
+      }
+
+      setClaims(data.claims || []);
+    } catch (err) {
+      console.error("Error loading claims:", err);
+      setError(err instanceof Error ? err.message : "Failed to load claims");
+    } finally {
+      setLoading(false);
+      setRefreshing(false);
     }
   };
 
-  const getDocumentTypeColor = (type: string) => {
-    switch (type) {
-      case "medical":
-        return "blue";
-      case "legal":
-        return "orange";
-      case "insurance":
-        return "green";
-      case "evidence":
-        return "purple";
+  useEffect(() => {
+    if (isLoaded && !user) {
+      router.push("/");
+      return;
+    }
+
+    if (isLoaded && user && !isAdmin && !checkingRole) {
+      loadClaims();
+    }
+  }, [isLoaded, user, router, isAdmin, checkingRole]);
+
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case "pending":
+        return "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300";
+      case "reviewing":
+        return "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300";
+      case "approved":
+        return "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300";
+      case "rejected":
+        return "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300";
+      case "in_progress":
+        return "bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-300";
+      case "completed":
+        return "bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-300";
       default:
-        return "gray";
+        return "bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-300";
     }
   };
 
-  const getDocumentTypeIcon = (fileType: string) => {
-    switch (fileType) {
-      case "pdf":
-        return <FileText className="w-5 h-5" />;
-      case "image":
-        return <FileImage className="w-5 h-5" />;
-      case "video":
-        return <FileVideo className="w-5 h-5" />;
-      case "audio":
-        return <FileAudio className="w-5 h-5" />;
+  const getPriorityColor = (priority: string) => {
+    switch (priority) {
+      case "urgent":
+        return "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300";
+      case "high":
+        return "bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-300";
+      case "medium":
+        return "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300";
+      case "low":
+        return "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300";
       default:
-        return <File className="w-5 h-5" />;
+        return "bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-300";
     }
   };
 
-  // Show loading state while Clerk is initializing
-  if (!isLoaded) {
+  const getStatusIcon = (status: string) => {
+    switch (status) {
+      case "pending":
+        return <Clock className="h-4 w-4" />;
+      case "reviewing":
+        return <AlertTriangle className="h-4 w-4" />;
+      case "approved":
+        return <CheckCircle className="h-4 w-4" />;
+      case "rejected":
+        return <AlertTriangle className="h-4 w-4" />;
+      case "in_progress":
+        return <Clock className="h-4 w-4" />;
+      case "completed":
+        return <CheckCircle className="h-4 w-4" />;
+      default:
+        return <Clock className="h-4 w-4" />;
+    }
+  };
+
+  const stats = {
+    totalClaims: claims.length,
+    pendingClaims: claims.filter((c) => c.status === "pending").length,
+    approvedClaims: claims.filter((c) => c.status === "approved").length,
+    totalValue: claims.reduce((sum, c) => sum + c.estimatedValue, 0),
+  };
+
+  // Show loading while checking admin role or loading data
+  if (!isLoaded || checkingRole || (isAdmin && loading)) {
     return (
-      <div
-        className="min-h-screen flex flex-col items-center justify-center pt-16"
-        style={{
-          backgroundImage: "url('/images/long-logo-ClaimSaver.jpg')",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundAttachment: "fixed",
-          backgroundRepeat: "no-repeat",
-        }}
-      >
-        <div className="absolute inset-0 bg-white/90 dark:bg-gray-900/90 pointer-events-none"></div>
-        <div className="relative z-10 text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-          <p className="text-gray-600 dark:text-gray-300">
-            Loading dashboard...
-          </p>
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-950 dark:to-gray-900">
+        <div className="container mx-auto px-4 py-8 pt-24">
+          <div className="flex items-center justify-center min-h-[400px]">
+            <Loader2 className="h-8 w-8 animate-spin" />
+          </div>
         </div>
       </div>
     );
   }
 
-  // Show sign-in prompt if user is not authenticated
-  if (!isSignedIn) {
+  // If user is admin, they should be redirected to admin page
+  // This is a fallback in case the redirect didn't work
+  if (isAdmin) {
     return (
-      <div
-        className="min-h-screen flex flex-col items-center justify-center pt-16"
-        style={{
-          backgroundImage: "url('/images/long-logo-ClaimSaver.jpg')",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundAttachment: "fixed",
-          backgroundRepeat: "no-repeat",
-        }}
-      >
-        <div className="absolute inset-0 bg-white/90 dark:bg-gray-900/90 pointer-events-none"></div>
-        <div className="relative z-10">
-          <Card className="w-full max-w-md">
-            <CardContent className="pt-6">
-              <div className="text-center">
-                <Shield className="w-12 h-12 text-blue-600 mx-auto mb-4" />
-                <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
-                  Authentication Required
-                </h2>
-                <p className="text-gray-600 dark:text-gray-300 mb-4">
-                  Please sign in to access your dashboard.
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-950 dark:to-gray-900">
+        <div className="container mx-auto px-4 py-8 pt-24">
+          <div className="flex items-center justify-center min-h-[400px]">
+            <div className="text-center">
+              <Loader2 className="h-8 w-8 animate-spin mx-auto mb-4" />
+              <p className="text-gray-600 dark:text-gray-400">
+                Redirecting to admin dashboard...
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-950 dark:to-gray-900">
+      <div className="container mx-auto px-4 py-8">
+        {/* Header */}
+        <div className="mb-8">
+          <div className="flex items-center justify-between mb-4">
+            <div>
+              <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-2">
+                Welcome back, {user?.firstName || "User"}!
+              </h1>
+              <p className="text-gray-600 dark:text-gray-400">
+                Track your claims and manage your accident recovery process
+              </p>
+            </div>
+            <div className="flex gap-4">
+              <Button
+                onClick={loadClaims}
+                disabled={refreshing}
+                variant="outline"
+                className="flex items-center gap-2"
+              >
+                <RefreshCw
+                  className={`h-4 w-4 ${refreshing ? "animate-spin" : ""}`}
+                />
+                Refresh
+              </Button>
+              <Button
+                onClick={() => router.push("/claim-form")}
+                className="flex items-center gap-2"
+              >
+                <Plus className="h-4 w-4" />
+                Submit New Claim
+              </Button>
+            </div>
+          </div>
+
+          {error && (
+            <div className="mb-4 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
+              <p className="text-red-800 dark:text-red-200">{error}</p>
+            </div>
+          )}
+        </div>
+
+        {/* Stats Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+          <Card className="hover:shadow-lg transition-shadow duration-200">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                Total Claims
+              </CardTitle>
+              <FileText className="h-4 w-4 text-blue-600" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold text-gray-900 dark:text-white">
+                {stats.totalClaims}
+              </div>
+              <p className="text-xs text-gray-600 dark:text-gray-400">
+                +{stats.pendingClaims} pending
+              </p>
+            </CardContent>
+          </Card>
+
+          <Card className="hover:shadow-lg transition-shadow duration-200">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                Total Value
+              </CardTitle>
+              <DollarSign className="h-4 w-4 text-green-600" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold text-gray-900 dark:text-white">
+                ${stats.totalValue.toLocaleString()}
+              </div>
+              <p className="text-xs text-gray-600 dark:text-gray-400">
+                Average: $
+                {stats.totalClaims > 0
+                  ? Math.round(
+                      stats.totalValue / stats.totalClaims
+                    ).toLocaleString()
+                  : 0}
+              </p>
+            </CardContent>
+          </Card>
+
+          <Card className="hover:shadow-lg transition-shadow duration-200">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                Pending Claims
+              </CardTitle>
+              <Clock className="h-4 w-4 text-yellow-600" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold text-gray-900 dark:text-white">
+                {stats.pendingClaims}
+              </div>
+              <p className="text-xs text-gray-600 dark:text-gray-400">
+                Under review
+              </p>
+            </CardContent>
+          </Card>
+
+          <Card className="hover:shadow-lg transition-shadow duration-200">
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                Approved Claims
+              </CardTitle>
+              <CheckCircle className="h-4 w-4 text-green-600" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold text-gray-900 dark:text-white">
+                {stats.approvedClaims}
+              </div>
+              <p className="text-xs text-gray-600 dark:text-gray-400">
+                Successfully processed
+              </p>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Claims List */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <FileText className="h-5 w-5" />
+              Your Claims
+            </CardTitle>
+            <CardDescription>
+              Track the status of all your submitted claims
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            {loading ? (
+              <div className="flex items-center justify-center py-8">
+                <Loader2 className="h-8 w-8 animate-spin" />
+              </div>
+            ) : claims.length === 0 ? (
+              <div className="text-center py-12">
+                <FileText className="h-16 w-16 text-gray-400 mx-auto mb-4" />
+                <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">
+                  No claims yet
+                </h3>
+                <p className="text-gray-600 dark:text-gray-400 mb-6">
+                  Submit your first claim to get started with your accident
+                  recovery process.
                 </p>
-                <Button className="w-full">Sign In</Button>
+                <Button onClick={() => router.push("/claim-form")}>
+                  <Plus className="h-4 w-4 mr-2" />
+                  Submit Your First Claim
+                </Button>
+              </div>
+            ) : (
+              <div className="space-y-4">
+                {claims.map((claim) => (
+                  <div
+                    key={claim._id}
+                    className="p-6 border border-gray-200 dark:border-gray-700 rounded-lg hover:shadow-md transition-shadow duration-200"
+                  >
+                    <div className="flex items-start justify-between mb-4">
+                      <div className="flex items-center gap-3">
+                        <div className="flex items-center gap-2">
+                          {getStatusIcon(claim.status)}
+                          <span className="font-mono text-lg font-bold text-gray-900 dark:text-white">
+                            {claim.claimNumber}
+                          </span>
+                        </div>
+                        <Badge className={getStatusColor(claim.status)}>
+                          {claim.status.replace("_", " ")}
+                        </Badge>
+                        <Badge className={getPriorityColor(claim.priority)}>
+                          {claim.priority}
+                        </Badge>
+                      </div>
+                      <div className="text-right">
+                        <p className="text-sm text-gray-500 dark:text-gray-400">
+                          Submitted
+                        </p>
+                        <p className="text-sm font-medium text-gray-900 dark:text-white">
+                          {new Date(claim.submittedAt).toLocaleDateString()}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+                      <div className="flex items-center gap-2">
+                        <Calendar className="h-4 w-4 text-gray-400" />
+                        <div>
+                          <p className="text-sm text-gray-500 dark:text-gray-400">
+                            Accident Date
+                          </p>
+                          <p className="font-medium text-gray-900 dark:text-white">
+                            {new Date(claim.accidentDate).toLocaleDateString()}
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="flex items-center gap-2">
+                        <MapPin className="h-4 w-4 text-gray-400" />
+                        <div>
+                          <p className="text-sm text-gray-500 dark:text-gray-400">
+                            Location
+                          </p>
+                          <p className="font-medium text-gray-900 dark:text-white">
+                            {claim.accidentLocation}
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="flex items-center gap-2">
+                        <Car className="h-4 w-4 text-gray-400" />
+                        <div>
+                          <p className="text-sm text-gray-500 dark:text-gray-400">
+                            Vehicle
+                          </p>
+                          <p className="font-medium text-gray-900 dark:text-white">
+                            {claim.vehicleYear} {claim.vehicleMake}{" "}
+                            {claim.vehicleModel}
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="flex items-center gap-2">
+                        <DollarSign className="h-4 w-4 text-gray-400" />
+                        <div>
+                          <p className="text-sm text-gray-500 dark:text-gray-400">
+                            Estimated Value
+                          </p>
+                          <p className="font-medium text-gray-900 dark:text-white">
+                            ${claim.estimatedValue.toLocaleString()}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center justify-between pt-4 border-t border-gray-200 dark:border-gray-700">
+                      <p className="text-sm text-gray-500 dark:text-gray-400">
+                        Last updated:{" "}
+                        {new Date(claim.lastUpdated).toLocaleDateString()}
+                      </p>
+                      <Button variant="outline" size="sm">
+                        View Details
+                      </Button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </CardContent>
+        </Card>
+
+        {/* Quick Actions */}
+        <div className="mt-8">
+          <Card>
+            <CardHeader>
+              <CardTitle>Quick Actions</CardTitle>
+              <CardDescription>
+                Common actions for managing your claims
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <Button
+                  onClick={() => router.push("/claim-form")}
+                  className="h-20 flex flex-col items-center justify-center gap-2"
+                >
+                  <Plus className="h-5 w-5" />
+                  <span className="text-sm">Submit New Claim</span>
+                </Button>
+                <Button
+                  variant="outline"
+                  className="h-20 flex flex-col items-center justify-center gap-2"
+                >
+                  <FileText className="h-5 w-5" />
+                  <span className="text-sm">Download Documents</span>
+                </Button>
+                <Button
+                  variant="outline"
+                  className="h-20 flex flex-col items-center justify-center gap-2"
+                >
+                  <User className="h-5 w-5" />
+                  <span className="text-sm">Contact Support</span>
+                </Button>
               </div>
             </CardContent>
           </Card>
         </div>
       </div>
-    );
-  }
-
-  // Show dashboard content for authenticated users
-  return (
-    <div
-      className="min-h-screen flex flex-col pt-24"
-      style={{
-        backgroundImage: "url('/images/long-logo-ClaimSaver.jpg')",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundAttachment: "fixed",
-        backgroundRepeat: "no-repeat",
-      }}
-    >
-      {/* Content with background overlay for better readability */}
-      <div className="relative w-full flex-1">
-        {/* Background overlay for better readability - only on content */}
-        <div className="absolute inset-0 bg-white/90 dark:bg-gray-900/90 pointer-events-none"></div>
-
-        {/* Content */}
-        <div className="relative z-10 w-full px-4 sm:px-8">
-          <div className="max-w-7xl mx-auto">
-            {/* Header */}
-            <div className="mb-8 animate-in fade-in slide-in-from-bottom-4 duration-600">
-              <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-2">
-                Welcome back, {user?.firstName || user?.username || "User"}!
-              </h1>
-              <p className="text-gray-600 dark:text-gray-300">
-                Manage your accident claims and track your recovery progress.
-              </p>
-            </div>
-
-            {/* Quick Actions */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8 animate-in fade-in slide-in-from-bottom-4 duration-600 delay-100">
-              <Button
-                onClick={() => setIsModalOpen(true)}
-                className="h-16 flex flex-col items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 hover:scale-105 transition-transform duration-200"
-              >
-                <Plus className="w-5 h-5" />
-                <span>New Claim</span>
-              </Button>
-              <Button
-                variant="outline"
-                className="h-16 flex flex-col items-center justify-center gap-2 hover:scale-105 transition-transform duration-200"
-              >
-                <Search className="w-5 h-5" />
-                <span>Search Claims</span>
-              </Button>
-              <Button
-                variant="outline"
-                className="h-16 flex flex-col items-center justify-center gap-2 hover:scale-105 transition-transform duration-200"
-              >
-                <Bell className="w-5 h-5" />
-                <span>Notifications</span>
-              </Button>
-            </div>
-
-            {/* Stats Cards */}
-            <div className="w-full flex justify-center">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8 animate-in fade-in slide-in-from-bottom-4 duration-600 delay-200 max-w-4xl w-full">
-                {/* Active Claim */}
-                <Card className="shadow-md border-blue-100 dark:border-blue-900 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 w-full min-w-[260px]">
-                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium">
-                      Active Claim
-                    </CardTitle>
-                    <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
-                      <FileText className="h-4 w-4 text-white" />
-                    </div>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="text-lg font-bold text-blue-600 mb-1">
-                      Auto Accident - I-95
-                    </div>
-                    <div className="text-xs text-gray-600 dark:text-gray-400 mb-2">
-                      Filed: March 1, 2024
-                    </div>
-                    <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 mb-2">
-                      <div
-                        className="bg-blue-600 h-2 rounded-full transition-all duration-300"
-                        style={{
-                          width: `${
-                            claims.find((c) => c.status === "active")
-                              ?.progress || 0
-                          }%`,
-                        }}
-                      ></div>
-                    </div>
-                    <p className="text-xs text-gray-600 dark:text-gray-400">
-                      {claims.find((c) => c.status === "active")?.progress || 0}
-                      % Complete
-                    </p>
-                  </CardContent>
-                </Card>
-
-                {/* Next Step */}
-                <Card className="shadow-md border-green-100 dark:border-green-900 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 w-full min-w-[260px]">
-                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium">
-                      Next Step
-                    </CardTitle>
-                    <div className="w-8 h-8 bg-green-600 rounded-full flex items-center justify-center">
-                      <Calendar className="h-4 w-4 text-white" />
-                    </div>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="text-lg font-bold text-green-600 mb-1">
-                      Medical Evaluation
-                    </div>
-                    <p className="text-xs text-gray-600 dark:text-gray-400">
-                      Scheduled for March 20, 2024
-                    </p>
-                    <div className="mt-2">
-                      <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
-                        High Priority
-                      </span>
-                    </div>
-                  </CardContent>
-                </Card>
-
-                {/* Policy Limits */}
-                <Card className="shadow-md border-purple-100 dark:border-purple-900 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 w-full min-w-[260px]">
-                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium">
-                      Policy Limits
-                    </CardTitle>
-                    <div className="w-8 h-8 bg-purple-600 rounded-full flex items-center justify-center">
-                      <Shield className="h-4 w-4 text-white" />
-                    </div>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="text-lg font-bold text-purple-600 mb-1">
-                      $25,000
-                    </div>
-                    <p className="text-xs text-gray-600 dark:text-gray-400 mb-2">
-                      Auto Liability Limit
-                    </p>
-                    <div className="space-y-1">
-                      <div className="flex justify-between text-xs">
-                        <span className="text-gray-600 dark:text-gray-400">
-                          Medical:
-                        </span>
-                        <span className="font-medium">$10,000</span>
-                      </div>
-                      <div className="flex justify-between text-xs">
-                        <span className="text-gray-600 dark:text-gray-400">
-                          Property:
-                        </span>
-                        <span className="font-medium">$15,000</span>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
-            </div>
-
-            {/* Recent Activity and Claims */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 animate-in fade-in slide-in-from-bottom-4 duration-600 delay-300">
-              {/* Recent Claims */}
-              <Card className="shadow-md border-blue-100 dark:border-blue-900">
-                <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <FileText className="w-5 h-5 text-blue-600" />
-                    Claim Status
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  {/* Active Claim - Highlighted */}
-                  {claims
-                    .filter((claim) => claim.status === "active")
-                    .map((claim) => (
-                      <div
-                        key={claim.id}
-                        className="p-4 bg-blue-50 dark:bg-blue-950/30 rounded-lg border-l-4 border-blue-500 hover:bg-blue-100 dark:hover:bg-blue-950/50 transition-colors duration-200"
-                      >
-                        <div className="flex items-center justify-between mb-2">
-                          <h4 className="font-semibold text-gray-900 dark:text-white">
-                            {claim.title}
-                          </h4>
-                          <span className="px-2 py-1 text-xs bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 rounded-full font-medium">
-                            Active
-                          </span>
-                        </div>
-                        <p className="text-sm text-gray-700 dark:text-gray-300 mb-2">
-                          {claim.description}
-                        </p>
-                        <div className="flex items-center justify-between text-xs text-gray-600 dark:text-gray-400">
-                          <span>Filed: {claim.filedDate}</span>
-                          <span>Next: {claim.nextStep}</span>
-                        </div>
-                        <div className="mt-2">
-                          <div className="flex justify-between text-xs text-gray-600 dark:text-gray-400 mb-1">
-                            <span>Progress</span>
-                            <span>{claim.progress}%</span>
-                          </div>
-                          <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-                            <div
-                              className="bg-blue-600 h-2 rounded-full transition-all duration-300"
-                              style={{ width: `${claim.progress}%` }}
-                            ></div>
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-
-                  {/* Previous Claims - Shaded */}
-                  {claims.filter((claim) => claim.status !== "active").length >
-                    0 && (
-                    <div className="mt-6">
-                      <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">
-                        History
-                      </h3>
-                      {claims
-                        .filter((claim) => claim.status !== "active")
-                        .map((claim) => (
-                          <div
-                            key={claim.id}
-                            className="p-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg border-l-4 border-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700/50 transition-colors duration-200 opacity-75"
-                          >
-                            <div className="flex items-center justify-between mb-2">
-                              <h4 className="font-medium text-gray-700 dark:text-gray-300">
-                                {claim.title}
-                              </h4>
-                              <span
-                                className={`px-2 py-1 text-xs rounded-full font-medium ${
-                                  claim.status === "pending"
-                                    ? "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200"
-                                    : claim.status === "review"
-                                    ? "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200"
-                                    : "bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200"
-                                }`}
-                              >
-                                {claim.status.charAt(0).toUpperCase() +
-                                  claim.status.slice(1)}
-                              </span>
-                            </div>
-                            <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">
-                              {claim.description}
-                            </p>
-                            <div className="flex items-center justify-between text-xs text-gray-500 dark:text-gray-500">
-                              <span>Filed: {claim.filedDate}</span>
-                              <span>Next: {claim.nextStep}</span>
-                            </div>
-                            <div className="mt-2">
-                              <div className="flex justify-between text-xs text-gray-500 dark:text-gray-500 mb-1">
-                                <span>Progress</span>
-                                <span>{claim.progress}%</span>
-                              </div>
-                              <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-                                <div
-                                  className="bg-gray-400 h-2 rounded-full transition-all duration-300"
-                                  style={{ width: `${claim.progress}%` }}
-                                ></div>
-                              </div>
-                            </div>
-                          </div>
-                        ))}
-                    </div>
-                  )}
-                </CardContent>
-              </Card>
-
-              {/* Recent Messages */}
-              <Card className="shadow-md border-blue-100 dark:border-blue-900">
-                <CardHeader>
-                  <div className="flex items-center justify-between">
-                    <CardTitle className="flex items-center gap-2">
-                      <FileText className="w-5 h-5 text-blue-600" />
-                      Document Repository
-                    </CardTitle>
-                    <Button
-                      onClick={handleAddDocument}
-                      size="sm"
-                      className="bg-blue-600 hover:bg-blue-700 text-white"
-                    >
-                      <Upload className="w-4 h-4 mr-2" />
-                      Upload Document
-                    </Button>
-                  </div>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  {documents.length === 0 ? (
-                    <div className="text-center py-8 text-gray-500 dark:text-gray-400">
-                      <FileText className="w-12 h-12 mx-auto mb-4 text-gray-300" />
-                      <p>No documents uploaded</p>
-                      <p className="text-sm">
-                        Click &ldquo;Upload Document&rdquo; to add your first
-                        file
-                      </p>
-                    </div>
-                  ) : (
-                    documents.map((document) => (
-                      <div
-                        key={document._id}
-                        className={`flex items-center justify-between p-4 rounded-lg border-l-4 transition-all duration-200 hover:shadow-md ${
-                          getDocumentTypeColor(document.type) === "blue"
-                            ? "bg-blue-50 dark:bg-blue-950/30 border-blue-500"
-                            : getDocumentTypeColor(document.type) === "orange"
-                            ? "bg-orange-50 dark:bg-orange-950/30 border-orange-500"
-                            : getDocumentTypeColor(document.type) === "green"
-                            ? "bg-green-50 dark:bg-green-950/30 border-green-500"
-                            : getDocumentTypeColor(document.type) === "purple"
-                            ? "bg-purple-50 dark:bg-purple-950/30 border-purple-500"
-                            : "bg-gray-50 dark:bg-gray-800 border-gray-500"
-                        }`}
-                      >
-                        <div className="flex items-center gap-3 flex-1">
-                          <div
-                            className={`p-2 rounded-lg ${
-                              getDocumentTypeColor(document.type) === "blue"
-                                ? "bg-blue-100 dark:bg-blue-900/50 text-blue-600"
-                                : getDocumentTypeColor(document.type) ===
-                                  "orange"
-                                ? "bg-orange-100 dark:bg-orange-900/50 text-orange-600"
-                                : getDocumentTypeColor(document.type) ===
-                                  "green"
-                                ? "bg-green-100 dark:bg-green-900/50 text-green-600"
-                                : getDocumentTypeColor(document.type) ===
-                                  "purple"
-                                ? "bg-purple-100 dark:bg-purple-900/50 text-purple-600"
-                                : "bg-gray-100 dark:bg-gray-800 text-gray-600"
-                            }`}
-                          >
-                            {getDocumentTypeIcon(document.fileType)}
-                          </div>
-                          <div className="flex-1">
-                            <h4 className="font-medium text-gray-900 dark:text-white">
-                              {document.name}
-                            </h4>
-                            <div className="flex items-center gap-4 text-sm text-gray-600 dark:text-gray-400 mt-1">
-                              <span>{document.size}</span>
-                              <span>•</span>
-                              <span>Uploaded: {document.uploadDate}</span>
-                            </div>
-                            {document.description && (
-                              <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-                                {document.description}
-                              </p>
-                            )}
-                          </div>
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            className="text-gray-600 hover:text-blue-600"
-                          >
-                            <Eye className="w-4 h-4" />
-                          </Button>
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            className="text-gray-600 hover:text-green-600"
-                          >
-                            <Download className="w-4 h-4" />
-                          </Button>
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            onClick={() => handleDeleteDocument(document._id)}
-                            className="text-gray-600 hover:text-red-600"
-                          >
-                            <Trash2 className="w-4 h-4" />
-                          </Button>
-                        </div>
-                      </div>
-                    ))
-                  )}
-                </CardContent>
-              </Card>
-            </div>
-
-            {/* Upcoming Events */}
-            <div className="mt-8 animate-in fade-in slide-in-from-bottom-4 duration-600 delay-400">
-              <Card className="shadow-md border-blue-100 dark:border-blue-900">
-                <CardHeader>
-                  <div className="flex items-center justify-between">
-                    <CardTitle className="flex items-center gap-2">
-                      <Calendar className="w-5 h-5 text-blue-600" />
-                      Upcoming Events
-                    </CardTitle>
-                    <Button
-                      onClick={handleAddEvent}
-                      size="sm"
-                      className="bg-blue-600 hover:bg-blue-700 text-white"
-                    >
-                      <CalendarPlus className="w-4 h-4 mr-2" />
-                      Add Event
-                    </Button>
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-4">
-                    {events.length === 0 ? (
-                      <div className="text-center py-8 text-gray-500 dark:text-gray-400">
-                        <Calendar className="w-12 h-12 mx-auto mb-4 text-gray-300" />
-                        <p>No events scheduled</p>
-                        <p className="text-sm">
-                          Click &ldquo;Add Event&rdquo; to schedule your first
-                          appointment
-                        </p>
-                      </div>
-                    ) : (
-                      events.map((event) => (
-                        <div
-                          key={event.id}
-                          className={`flex items-center justify-between p-4 rounded-lg border-l-4 transition-all duration-200 hover:shadow-md ${
-                            getEventTypeColor(event.type) === "orange"
-                              ? "bg-orange-50 dark:bg-orange-950/30 border-orange-500"
-                              : getEventTypeColor(event.type) === "blue"
-                              ? "bg-blue-50 dark:bg-blue-950/30 border-blue-500"
-                              : getEventTypeColor(event.type) === "green"
-                              ? "bg-green-50 dark:bg-green-950/30 border-green-500"
-                              : getEventTypeColor(event.type) === "purple"
-                              ? "bg-purple-50 dark:bg-purple-950/30 border-purple-500"
-                              : "bg-gray-50 dark:bg-gray-800 border-gray-500"
-                          }`}
-                        >
-                          <div className="flex items-center gap-3 flex-1">
-                            <div className="text-2xl">
-                              {getEventTypeIcon(event.type)}
-                            </div>
-                            <div className="flex-1">
-                              <h4 className="font-medium text-gray-900 dark:text-white">
-                                {event.title}
-                              </h4>
-                              <div className="flex items-center gap-4 text-sm text-gray-600 dark:text-gray-400 mt-1">
-                                <div className="flex items-center gap-1">
-                                  <Clock className="w-3 h-3" />
-                                  <span>
-                                    {new Date(event.date).toLocaleDateString()}{" "}
-                                    at {event.time}
-                                  </span>
-                                </div>
-                                <div className="flex items-center gap-1">
-                                  <MapPin className="w-3 h-3" />
-                                  <span>{event.location}</span>
-                                </div>
-                              </div>
-                              {event.description && (
-                                <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-                                  {event.description}
-                                </p>
-                              )}
-                            </div>
-                          </div>
-                          <div className="flex items-center gap-2">
-                            <Button
-                              variant="ghost"
-                              size="sm"
-                              onClick={() => handleEditEvent(event)}
-                              className="text-gray-600 hover:text-blue-600"
-                            >
-                              <Edit className="w-4 h-4" />
-                            </Button>
-                            <Button
-                              variant="ghost"
-                              size="sm"
-                              onClick={() => handleDeleteEvent(event.id)}
-                              className="text-gray-600 hover:text-red-600"
-                            >
-                              <Trash2 className="w-4 h-4" />
-                            </Button>
-                          </div>
-                        </div>
-                      ))
-                    )}
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Footer */}
-      <Footer />
-
-      {/* No-Fault Claim Form Modal */}
-      {isModalOpen && (
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-in fade-in duration-300">
-          <div className="bg-white dark:bg-gray-900 rounded-2xl max-w-6xl w-full max-h-[95vh] overflow-hidden shadow-2xl border border-gray-200 dark:border-gray-700 animate-in zoom-in-95 duration-300">
-            {/* Header */}
-            <div className="bg-gradient-to-r from-blue-600 to-purple-600 p-6 text-white relative">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
-                    <FileText className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <h2 className="text-2xl font-black tracking-tight">
-                      No-Fault Accident Claim Form
-                    </h2>
-                    <p className="text-blue-100 text-sm">
-                      Complete your claim submission with our secure form
-                    </p>
-                  </div>
-                </div>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={handleCloseModal}
-                  className="text-white hover:bg-white/20 rounded-full w-10 h-10 p-0 transition-all duration-300 hover:scale-110"
-                >
-                  <X className="w-5 h-5" />
-                </Button>
-              </div>
-            </div>
-
-            {/* Form Content */}
-            <div className="p-8 overflow-y-auto max-h-[calc(95vh-120px)] bg-gradient-to-br from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
-              <form onSubmit={handleFormSubmit} className="space-y-8">
-                {/* Personal Information */}
-                <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700">
-                  <div className="flex items-center gap-3 mb-6">
-                    <div className="w-8 h-8 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center">
-                      <User className="w-4 h-4 text-blue-600" />
-                    </div>
-                    <h3 className="text-xl font-bold text-gray-900 dark:text-white">
-                      Personal Information
-                    </h3>
-                  </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
-                        First Name *
-                      </label>
-                      <input
-                        type="text"
-                        value={formData.firstName}
-                        onChange={(e) =>
-                          handleInputChange("firstName", e.target.value)
-                        }
-                        className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white transition-all duration-200"
-                        required
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
-                        Last Name *
-                      </label>
-                      <input
-                        type="text"
-                        value={formData.lastName}
-                        onChange={(e) =>
-                          handleInputChange("lastName", e.target.value)
-                        }
-                        className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white transition-all duration-200"
-                        required
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
-                        Email Address *
-                      </label>
-                      <input
-                        type="email"
-                        value={formData.email}
-                        onChange={(e) =>
-                          handleInputChange("email", e.target.value)
-                        }
-                        className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white transition-all duration-200"
-                        required
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
-                        Phone Number *
-                      </label>
-                      <input
-                        type="tel"
-                        value={formData.phone}
-                        onChange={(e) =>
-                          handleInputChange("phone", e.target.value)
-                        }
-                        className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white transition-all duration-200"
-                        required
-                      />
-                    </div>
-                    <div className="md:col-span-2">
-                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
-                        Street Address *
-                      </label>
-                      <input
-                        type="text"
-                        value={formData.address}
-                        onChange={(e) =>
-                          handleInputChange("address", e.target.value)
-                        }
-                        className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white transition-all duration-200"
-                        required
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
-                        City *
-                      </label>
-                      <input
-                        type="text"
-                        value={formData.city}
-                        onChange={(e) =>
-                          handleInputChange("city", e.target.value)
-                        }
-                        className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white transition-all duration-200"
-                        required
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
-                        State *
-                      </label>
-                      <input
-                        type="text"
-                        value={formData.state}
-                        onChange={(e) =>
-                          handleInputChange("state", e.target.value)
-                        }
-                        className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white transition-all duration-200"
-                        required
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
-                        ZIP Code *
-                      </label>
-                      <input
-                        type="text"
-                        value={formData.zipCode}
-                        onChange={(e) =>
-                          handleInputChange("zipCode", e.target.value)
-                        }
-                        className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white transition-all duration-200"
-                        required
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
-                        Date of Birth *
-                      </label>
-                      <input
-                        type="date"
-                        value={formData.dateOfBirth}
-                        onChange={(e) =>
-                          handleInputChange("dateOfBirth", e.target.value)
-                        }
-                        className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white transition-all duration-200"
-                        required
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                {/* Accident Information */}
-                <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700">
-                  <div className="flex items-center gap-3 mb-6">
-                    <div className="w-8 h-8 bg-red-100 dark:bg-red-900 rounded-full flex items-center justify-center">
-                      <Car className="w-4 h-4 text-red-600" />
-                    </div>
-                    <h3 className="text-xl font-bold text-gray-900 dark:text-white">
-                      Accident Information
-                    </h3>
-                  </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
-                        Accident Date *
-                      </label>
-                      <input
-                        type="date"
-                        value={formData.accidentDate}
-                        onChange={(e) =>
-                          handleInputChange("accidentDate", e.target.value)
-                        }
-                        className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white transition-all duration-200"
-                        required
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
-                        Accident Location *
-                      </label>
-                      <input
-                        type="text"
-                        value={formData.accidentLocation}
-                        onChange={(e) =>
-                          handleInputChange("accidentLocation", e.target.value)
-                        }
-                        placeholder="e.g., I-95 near Exit 15, Miami, FL"
-                        className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white transition-all duration-200"
-                        required
-                      />
-                    </div>
-                    <div className="md:col-span-2">
-                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
-                        Accident Description *
-                      </label>
-                      <textarea
-                        rows={4}
-                        value={formData.accidentDescription}
-                        onChange={(e) =>
-                          handleInputChange(
-                            "accidentDescription",
-                            e.target.value
-                          )
-                        }
-                        placeholder="Please describe what happened, including the sequence of events..."
-                        className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white transition-all duration-200"
-                        required
-                      />
-                    </div>
-                    <div className="md:col-span-2">
-                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
-                        Injuries Sustained *
-                      </label>
-                      <textarea
-                        rows={3}
-                        value={formData.injuries}
-                        onChange={(e) =>
-                          handleInputChange("injuries", e.target.value)
-                        }
-                        placeholder="Describe all injuries, pain, and symptoms..."
-                        className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white transition-all duration-200"
-                        required
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                {/* Medical & Insurance Information */}
-                <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700">
-                  <div className="flex items-center gap-3 mb-6">
-                    <div className="w-8 h-8 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center">
-                      <Shield className="w-4 h-4 text-green-600" />
-                    </div>
-                    <h3 className="text-xl font-bold text-gray-900 dark:text-white">
-                      Medical & Insurance Information
-                    </h3>
-                  </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
-                        Medical Provider
-                      </label>
-                      <input
-                        type="text"
-                        value={formData.medicalProvider}
-                        onChange={(e) =>
-                          handleInputChange("medicalProvider", e.target.value)
-                        }
-                        placeholder="Hospital, doctor, or clinic name"
-                        className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white transition-all duration-200"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
-                        Insurance Company *
-                      </label>
-                      <input
-                        type="text"
-                        value={formData.insuranceCompany}
-                        onChange={(e) =>
-                          handleInputChange("insuranceCompany", e.target.value)
-                        }
-                        className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white transition-all duration-200"
-                        required
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
-                        Policy Number *
-                      </label>
-                      <input
-                        type="text"
-                        value={formData.policyNumber}
-                        onChange={(e) =>
-                          handleInputChange("policyNumber", e.target.value)
-                        }
-                        className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white transition-all duration-200"
-                        required
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
-                        Vehicle Information
-                      </label>
-                      <input
-                        type="text"
-                        value={formData.vehicleInfo}
-                        onChange={(e) =>
-                          handleInputChange("vehicleInfo", e.target.value)
-                        }
-                        placeholder="Year, make, model, license plate"
-                        className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white transition-all duration-200"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
-                        Witnesses
-                      </label>
-                      <input
-                        type="text"
-                        value={formData.witnesses}
-                        onChange={(e) =>
-                          handleInputChange("witnesses", e.target.value)
-                        }
-                        placeholder="Names and contact information"
-                        className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white transition-all duration-200"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
-                        Police Report Number
-                      </label>
-                      <input
-                        type="text"
-                        value={formData.policeReport}
-                        onChange={(e) =>
-                          handleInputChange("policeReport", e.target.value)
-                        }
-                        placeholder="If available"
-                        className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white transition-all duration-200"
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                {/* Form Actions */}
-                <div className="flex gap-4 pt-6">
-                  <Button
-                    type="button"
-                    variant="outline"
-                    onClick={handleCloseModal}
-                    className="flex-1"
-                  >
-                    Cancel
-                  </Button>
-                  <Button
-                    type="submit"
-                    className="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white"
-                  >
-                    Submit Claim
-                    <CheckCircle className="ml-2 w-4 h-4" />
-                  </Button>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Event Management Modal */}
-      {isEventModalOpen && (
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-in fade-in duration-300">
-          <div className="bg-white dark:bg-gray-900 rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-hidden shadow-2xl border border-gray-200 dark:border-gray-700 animate-in zoom-in-95 duration-300">
-            {/* Header */}
-            <div className="bg-gradient-to-r from-blue-600 to-purple-600 p-6 text-white relative">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
-                    <Calendar className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <h2 className="text-2xl font-black tracking-tight">
-                      {editingEvent ? "Edit Event" : "Add New Event"}
-                    </h2>
-                    <p className="text-blue-100 text-sm">
-                      Schedule your appointment or important event
-                    </p>
-                  </div>
-                </div>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => setIsEventModalOpen(false)}
-                  className="text-white hover:bg-white/20 rounded-full w-10 h-10 p-0 transition-all duration-300 hover:scale-110"
-                >
-                  <X className="w-5 h-5" />
-                </Button>
-              </div>
-            </div>
-
-            {/* Form Content */}
-            <div className="p-8 overflow-y-auto max-h-[calc(90vh-120px)] bg-gradient-to-br from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
-              <form onSubmit={handleEventSubmit} className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div>
-                    <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
-                      Event Title *
-                    </label>
-                    <input
-                      type="text"
-                      value={eventFormData.title}
-                      onChange={(e) =>
-                        handleEventInputChange("title", e.target.value)
-                      }
-                      placeholder="e.g., Doctor Appointment, Court Hearing"
-                      className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white transition-all duration-200"
-                      required
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
-                      Event Type *
-                    </label>
-                    <select
-                      value={eventFormData.type}
-                      onChange={(e) =>
-                        handleEventInputChange("type", e.target.value)
-                      }
-                      className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white transition-all duration-200"
-                      required
-                    >
-                      <option value="medical">Medical Appointment</option>
-                      <option value="therapy">Physical Therapy</option>
-                      <option value="court">Court Hearing</option>
-                      <option value="consultation">
-                        Attorney Consultation
-                      </option>
-                      <option value="other">Other</option>
-                    </select>
-                  </div>
-                  <div>
-                    <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
-                      Date *
-                    </label>
-                    <input
-                      type="date"
-                      value={eventFormData.date}
-                      onChange={(e) =>
-                        handleEventInputChange("date", e.target.value)
-                      }
-                      className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white transition-all duration-200"
-                      required
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
-                      Time *
-                    </label>
-                    <input
-                      type="time"
-                      value={eventFormData.time}
-                      onChange={(e) =>
-                        handleEventInputChange("time", e.target.value)
-                      }
-                      className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white transition-all duration-200"
-                      required
-                    />
-                  </div>
-                  <div className="md:col-span-2">
-                    <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
-                      Location *
-                    </label>
-                    <input
-                      type="text"
-                      value={eventFormData.location}
-                      onChange={(e) =>
-                        handleEventInputChange("location", e.target.value)
-                      }
-                      placeholder="e.g., Dr. Smith's Office, County Courthouse"
-                      className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white transition-all duration-200"
-                      required
-                    />
-                  </div>
-                  <div className="md:col-span-2">
-                    <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
-                      Description
-                    </label>
-                    <textarea
-                      rows={3}
-                      value={eventFormData.description}
-                      onChange={(e) =>
-                        handleEventInputChange("description", e.target.value)
-                      }
-                      placeholder="Additional details about the event..."
-                      className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white transition-all duration-200"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
-                      Reminder
-                    </label>
-                    <select
-                      value={eventFormData.reminder}
-                      onChange={(e) =>
-                        handleEventInputChange("reminder", e.target.value)
-                      }
-                      className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white transition-all duration-200"
-                    >
-                      <option value="15 minutes">15 minutes before</option>
-                      <option value="1 hour">1 hour before</option>
-                      <option value="2 hours">2 hours before</option>
-                      <option value="1 day">1 day before</option>
-                      <option value="2 days">2 days before</option>
-                      <option value="1 week">1 week before</option>
-                    </select>
-                  </div>
-                </div>
-
-                {/* Form Actions */}
-                <div className="flex gap-4 pt-6">
-                  <Button
-                    type="button"
-                    variant="outline"
-                    onClick={() => setIsEventModalOpen(false)}
-                    className="flex-1"
-                  >
-                    Cancel
-                  </Button>
-                  <Button
-                    type="submit"
-                    className="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white"
-                  >
-                    {editingEvent ? "Update Event" : "Add Event"}
-                    <CheckCircle className="ml-2 w-4 h-4" />
-                  </Button>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Document Upload Modal */}
-      {isDocumentModalOpen && (
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-in fade-in duration-300">
-          <div className="bg-white dark:bg-gray-900 rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-hidden shadow-2xl border border-gray-200 dark:border-gray-700 animate-in zoom-in-95 duration-300">
-            {/* Header */}
-            <div className="bg-gradient-to-r from-blue-600 to-purple-600 p-6 text-white relative">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
-                    <Upload className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <h2 className="text-2xl font-black tracking-tight">
-                      Upload Document
-                    </h2>
-                    <p className="text-blue-100 text-sm">
-                      Add important documents to your repository
-                    </p>
-                  </div>
-                </div>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => setIsDocumentModalOpen(false)}
-                  className="text-white hover:bg-white/20 rounded-full w-10 h-10 p-0 transition-all duration-300 hover:scale-110"
-                >
-                  <X className="w-5 h-5" />
-                </Button>
-              </div>
-            </div>
-
-            {/* Form Content */}
-            <div className="p-8 overflow-y-auto max-h-[calc(90vh-120px)] bg-gradient-to-br from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
-              <form onSubmit={handleDocumentSubmit} className="space-y-6">
-                <div className="grid grid-cols-1 gap-6">
-                  <div>
-                    <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
-                      Document Name *
-                    </label>
-                    <input
-                      type="text"
-                      value={documentFormData.name}
-                      onChange={(e) =>
-                        handleDocumentInputChange("name", e.target.value)
-                      }
-                      placeholder="e.g., Medical Records, Police Report"
-                      className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white transition-all duration-200"
-                      required
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
-                      Document Type *
-                    </label>
-                    <select
-                      value={documentFormData.type}
-                      onChange={(e) =>
-                        handleDocumentInputChange("type", e.target.value)
-                      }
-                      className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white transition-all duration-200"
-                      required
-                    >
-                      <option value="medical">Medical Records</option>
-                      <option value="legal">Legal Documents</option>
-                      <option value="insurance">Insurance Documents</option>
-                      <option value="evidence">Evidence/Photos</option>
-                      <option value="other">Other</option>
-                    </select>
-                  </div>
-                  <div>
-                    <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
-                      File *
-                    </label>
-                    <div className="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg p-6 text-center hover:border-blue-500 dark:hover:border-blue-500 transition-colors duration-200">
-                      <input
-                        type="file"
-                        onChange={(e) =>
-                          handleDocumentInputChange(
-                            "file",
-                            e.target.files?.[0] || null
-                          )
-                        }
-                        className="hidden"
-                        id="file-upload"
-                        accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.gif,.mp4,.mp3,.wav"
-                        required
-                      />
-                      <label htmlFor="file-upload" className="cursor-pointer">
-                        <Upload className="w-8 h-8 text-gray-400 mx-auto mb-2" />
-                        <p className="text-sm text-gray-600 dark:text-gray-400">
-                          Click to upload or drag and drop
-                        </p>
-                        <p className="text-xs text-gray-500 dark:text-gray-500 mt-1">
-                          PDF, DOC, Images, Videos, Audio (max 10MB)
-                        </p>
-                      </label>
-                    </div>
-                  </div>
-                  <div>
-                    <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
-                      Description
-                    </label>
-                    <textarea
-                      rows={3}
-                      value={documentFormData.description}
-                      onChange={(e) =>
-                        handleDocumentInputChange("description", e.target.value)
-                      }
-                      placeholder="Brief description of the document..."
-                      className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white transition-all duration-200"
-                    />
-                  </div>
-                </div>
-
-                {/* Form Actions */}
-                <div className="flex gap-4 pt-6">
-                  <Button
-                    type="button"
-                    variant="outline"
-                    onClick={() => setIsDocumentModalOpen(false)}
-                    className="flex-1"
-                  >
-                    Cancel
-                  </Button>
-                  <Button
-                    type="submit"
-                    className="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white"
-                  >
-                    Upload Document
-                    <CheckCircle className="ml-2 w-4 h-4" />
-                  </Button>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
-}
-
-// Main dashboard component that handles Clerk availability
-export default function Dashboard() {
-  // Check if we're in a browser environment and Clerk is available
-  const isClient = typeof window !== "undefined";
-  const isClerkAvailable =
-    isClient && process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
-
-  // If Clerk is not available, show a loading state
-  if (!isClerkAvailable) {
-    return (
-      <div
-        className="min-h-screen flex flex-col items-center justify-center pt-16"
-        style={{
-          backgroundImage: "url('/images/long-logo-ClaimSaver.jpg')",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundAttachment: "fixed",
-          backgroundRepeat: "no-repeat",
-        }}
-      >
-        <div className="absolute inset-0 bg-white/90 dark:bg-gray-900/90 pointer-events-none"></div>
-        <div className="relative z-10 text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-          <p className="text-gray-600 dark:text-gray-300">
-            Loading dashboard...
-          </p>
-        </div>
-      </div>
-    );
-  }
-
-  return <DashboardContent />;
 }
