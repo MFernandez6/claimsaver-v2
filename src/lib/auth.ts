@@ -2,7 +2,29 @@ import { auth } from "@clerk/nextjs/server";
 import dbConnect from "@/lib/db";
 import User from "@/models/User";
 
-export async function getCurrentUser() {
+interface UserDocument {
+  _id: string;
+  clerkId: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  role: string;
+  isActive: boolean;
+  adminPermissions?: Record<string, boolean>;
+  phone?: string;
+  address?: {
+    street?: string;
+    city?: string;
+    state?: string;
+    zipCode?: string;
+    country?: string;
+  };
+  lastLogin?: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
+}
+
+export async function getCurrentUser(): Promise<UserDocument | null> {
   try {
     const { userId } = await auth();
 
@@ -13,14 +35,14 @@ export async function getCurrentUser() {
     await dbConnect();
 
     const user = await User.findOne({ clerkId: userId }).lean();
-    return user;
+    return user as UserDocument | null;
   } catch (error) {
     console.error("Error getting current user:", error);
     return null;
   }
 }
 
-export async function isAdmin() {
+export async function isAdmin(): Promise<boolean> {
   try {
     const user = await getCurrentUser();
     return user?.role === "admin" || user?.role === "super_admin";
@@ -30,7 +52,7 @@ export async function isAdmin() {
   }
 }
 
-export async function hasPermission(permission: string) {
+export async function hasPermission(permission: string): Promise<boolean> {
   try {
     const user = await getCurrentUser();
 

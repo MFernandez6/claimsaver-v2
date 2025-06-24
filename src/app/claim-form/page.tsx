@@ -26,10 +26,6 @@ import {
   User,
   Shield,
   AlertTriangle,
-  Calendar,
-  MapPin,
-  Phone,
-  Mail,
   FileText,
   CheckCircle,
   Loader2,
@@ -119,13 +115,13 @@ export default function ClaimFormPage() {
     { number: 5, title: "Review & Submit", icon: FileText },
   ];
 
-  const handleInputChange = (field: string, value: any) => {
+  const handleInputChange = (field: string, value: string | number) => {
     if (field.includes(".")) {
       const [parent, child] = field.split(".");
       setFormData((prev) => ({
         ...prev,
         [parent]: {
-          ...prev[parent as keyof ClaimFormData],
+          ...(prev[parent as keyof ClaimFormData] as Record<string, unknown>),
           [child]: value,
         },
       }));
@@ -285,7 +281,7 @@ export default function ClaimFormPage() {
                     <div className="flex items-start gap-3">
                       <div className="w-2 h-2 bg-blue-600 rounded-full mt-2 flex-shrink-0"></div>
                       <p className="text-sm text-gray-600 dark:text-gray-400">
-                        You'll receive email updates on your claim status
+                        You&apos;ll receive email updates on your claim status
                       </p>
                     </div>
                     <div className="flex items-start gap-3">

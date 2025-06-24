@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useUser } from "@clerk/nextjs";
 import { useRouter, useParams } from "next/navigation";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -41,10 +41,11 @@ export default function ClaimDetailPage() {
   const [newNote, setNewNote] = useState("");
   const [error, setError] = useState<string | null>(null);
 
-  // Load claim data
-  const loadClaim = async () => {
+  const loadClaim = useCallback(async () => {
     try {
+      setLoading(true);
       setError(null);
+
       const response = await claimsApi.getClaim(params.id as string);
 
       if (response.error) {
@@ -62,7 +63,7 @@ export default function ClaimDetailPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [params.id]);
 
   useEffect(() => {
     if (isLoaded && !user) {
@@ -73,7 +74,7 @@ export default function ClaimDetailPage() {
     if (isLoaded && user && params.id) {
       loadClaim();
     }
-  }, [isLoaded, user, router, params.id]);
+  }, [isLoaded, user, router, params.id, loadClaim]);
 
   const getStatusColor = (status: string) => {
     switch (status) {

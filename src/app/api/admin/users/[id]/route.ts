@@ -5,7 +5,7 @@ import User from "@/models/User";
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const { userId } = await auth();
@@ -15,8 +15,9 @@ export async function GET(
     }
 
     await dbConnect();
+    const { id } = await params;
 
-    const user = await User.findById(params.id).lean();
+    const user = await User.findById(id).lean();
 
     if (!user) {
       return NextResponse.json({ error: "User not found" }, { status: 404 });
@@ -34,7 +35,7 @@ export async function GET(
 
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const { userId } = await auth();
@@ -44,10 +45,11 @@ export async function PUT(
     }
 
     await dbConnect();
+    const { id } = await params;
     const body = await request.json();
 
     const updatedUser = await User.findByIdAndUpdate(
-      params.id,
+      id,
       { ...body },
       { new: true, runValidators: true }
     );
@@ -68,7 +70,7 @@ export async function PUT(
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const { userId } = await auth();
@@ -78,8 +80,9 @@ export async function DELETE(
     }
 
     await dbConnect();
+    const { id } = await params;
 
-    const deletedUser = await User.findByIdAndDelete(params.id);
+    const deletedUser = await User.findByIdAndDelete(id);
 
     if (!deletedUser) {
       return NextResponse.json({ error: "User not found" }, { status: 404 });

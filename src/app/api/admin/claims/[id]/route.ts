@@ -5,7 +5,7 @@ import Claim from "@/models/Claim";
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const { userId } = await auth();
@@ -15,8 +15,9 @@ export async function GET(
     }
 
     await dbConnect();
+    const { id } = await params;
 
-    const claim = await Claim.findById(params.id).lean();
+    const claim = await Claim.findById(id).lean();
 
     if (!claim) {
       return NextResponse.json({ error: "Claim not found" }, { status: 404 });
@@ -34,7 +35,7 @@ export async function GET(
 
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const { userId } = await auth();
@@ -44,10 +45,11 @@ export async function PUT(
     }
 
     await dbConnect();
+    const { id } = await params;
     const body = await request.json();
 
     const updatedClaim = await Claim.findByIdAndUpdate(
-      params.id,
+      id,
       { ...body, lastUpdated: new Date() },
       { new: true, runValidators: true }
     );
@@ -68,7 +70,7 @@ export async function PUT(
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const { userId } = await auth();
@@ -78,8 +80,9 @@ export async function DELETE(
     }
 
     await dbConnect();
+    const { id } = await params;
 
-    const deletedClaim = await Claim.findByIdAndDelete(params.id);
+    const deletedClaim = await Claim.findByIdAndDelete(id);
 
     if (!deletedClaim) {
       return NextResponse.json({ error: "Claim not found" }, { status: 404 });

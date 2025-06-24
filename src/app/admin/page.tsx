@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import {
@@ -58,7 +58,7 @@ export default function AdminPage() {
   const [refreshing, setRefreshing] = useState(false);
 
   // Load data from API
-  const loadData = async () => {
+  const loadData = useCallback(async () => {
     try {
       setError(null);
       setRefreshing(true);
@@ -92,7 +92,7 @@ export default function AdminPage() {
       setLoading(false);
       setRefreshing(false);
     }
-  };
+  }, [statusFilter, searchTerm]);
 
   // Handle claim deletion
   const handleDeleteClaim = async (claimId: string) => {
@@ -143,14 +143,7 @@ export default function AdminPage() {
     if (isLoaded && user) {
       loadData();
     }
-  }, [isLoaded, user, router]);
-
-  // Reload data when filters change
-  useEffect(() => {
-    if (isLoaded && user) {
-      loadData();
-    }
-  }, [searchTerm, statusFilter]);
+  }, [isLoaded, user, router, loadData]);
 
   const getStatusColor = (status: string) => {
     switch (status) {
