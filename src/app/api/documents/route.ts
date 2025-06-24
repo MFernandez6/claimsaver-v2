@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@clerk/nextjs/server";
-import connectDB from "@/lib/mongodb";
+import dbConnect from "@/lib/db";
 import Document from "@/models/Document";
 
 export async function GET() {
@@ -12,7 +12,7 @@ export async function GET() {
     }
 
     console.log("Fetching documents for user:", userId);
-    await connectDB();
+    await dbConnect();
     console.log("Connected to MongoDB successfully");
 
     const documents = await Document.find({ userId }).sort({ createdAt: -1 });
@@ -40,8 +40,8 @@ export async function POST(request: NextRequest) {
     }
 
     // Check if MongoDB URI is configured
-    if (!process.env.MONGO_URI) {
-      console.error("MONGO_URI environment variable is not set");
+    if (!process.env.MONGODB_URI) {
+      console.error("MONGODB_URI environment variable is not set");
       return NextResponse.json(
         { error: "Database configuration error" },
         { status: 500 }
@@ -87,7 +87,7 @@ export async function POST(request: NextRequest) {
       : "document";
 
     console.log("Connecting to MongoDB...");
-    await connectDB();
+    await dbConnect();
     console.log("Connected to MongoDB successfully");
 
     const document = new Document({
