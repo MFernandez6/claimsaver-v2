@@ -4,6 +4,12 @@ import dbConnect from "@/lib/db";
 import Claim from "@/models/Claim";
 import { createOrUpdateUser } from "@/lib/auth";
 
+interface InjuryData {
+  type: string;
+  description: string;
+  severity: "minor" | "moderate" | "severe";
+}
+
 export async function POST(request: NextRequest) {
   try {
     console.log("🔍 Claims API POST called");
@@ -31,7 +37,7 @@ export async function POST(request: NextRequest) {
     console.log("✅ Database connected");
 
     const body = await request.json();
-    console.log("📋 Request body received");
+    console.log("📋 Request body received:", JSON.stringify(body, null, 2));
 
     // Create or update user in our database
     console.log("👤 Creating/updating user...");
@@ -46,7 +52,20 @@ export async function POST(request: NextRequest) {
 
     // Create the claim
     console.log("📝 Creating claim...");
-    const claim = new Claim({
+
+    // Process injuries data to ensure it's in the correct format
+    let processedInjuries: InjuryData[] = [];
+    if (body.injuries && Array.isArray(body.injuries)) {
+      processedInjuries = body.injuries.map((injury: InjuryData) => ({
+        type: injury.type || "",
+        description: injury.description || "",
+        severity: injury.severity || "minor",
+      }));
+    }
+
+    console.log("🔍 Processed injuries:", processedInjuries);
+
+    const claimData = {
       userId,
       // Personal Information
       claimantName: body.claimantName,
@@ -71,7 +90,7 @@ export async function POST(request: NextRequest) {
 
       // Additional Information
       estimatedValue: body.estimatedValue || 0,
-      injuries: body.injuries || [],
+      injuries: processedInjuries,
       propertyDamage: body.propertyDamage || "",
 
       // Set initial status and priority
@@ -86,10 +105,18 @@ export async function POST(request: NextRequest) {
           timestamp: new Date(),
         },
       ],
-    });
+    };
 
+    console.log("📋 Claim data prepared:", JSON.stringify(claimData, null, 2));
+
+    const claim = new Claim(claimData);
+
+    console.log("📋 Claim object created, saving...");
     await claim.save();
-    console.log("✅ Claim saved successfully");
+    console.log(
+      "✅ Claim saved successfully with claimNumber:",
+      claim.claimNumber
+    );
 
     return NextResponse.json(
       {
