@@ -26,7 +26,7 @@ export async function GET(
       return NextResponse.json({ error: "Claim not found" }, { status: 404 });
     }
 
-    return NextResponse.json({ claim });
+    return NextResponse.json({ data: claim });
   } catch (error) {
     console.error("Error fetching claim:", error);
     return NextResponse.json(
@@ -64,7 +64,7 @@ export async function PUT(
       return NextResponse.json({ error: "Claim not found" }, { status: 404 });
     }
 
-    return NextResponse.json({ claim: updatedClaim });
+    return NextResponse.json({ data: updatedClaim });
   } catch (error) {
     console.error("Error updating claim:", error);
     return NextResponse.json(

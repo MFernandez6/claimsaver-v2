@@ -26,7 +26,7 @@ export async function GET(
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
 
-    return NextResponse.json({ user });
+    return NextResponse.json({ data: user });
   } catch (error) {
     console.error("Error fetching user:", error);
     return NextResponse.json(
@@ -64,7 +64,7 @@ export async function PUT(
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
 
-    return NextResponse.json({ user: updatedUser });
+    return NextResponse.json({ data: updatedUser });
   } catch (error) {
     console.error("Error updating user:", error);
     return NextResponse.json(

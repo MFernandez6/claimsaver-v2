@@ -3,72 +3,35 @@ import { auth } from "@clerk/nextjs/server";
 import dbConnect from "@/lib/db";
 import User from "@/models/User";
 
-interface UserDocument {
-  _id: string;
-  clerkId: string;
-  email: string;
-  firstName: string;
-  lastName: string;
-  role: "user" | "admin" | "super_admin";
-  isActive: boolean;
-}
-
 export async function GET() {
   try {
+    console.log("🔍 Debug auth API called");
+
     const { userId } = await auth();
+    console.log("📋 Clerk user ID:", userId);
 
     if (!userId) {
       return NextResponse.json({
         authenticated: false,
         error: "No user ID found",
-        message: "You need to sign in first",
       });
     }
 
     await dbConnect();
+    console.log("✅ Database connected");
 
-    // Find user by Clerk ID
-    const user = (await User.findOne({
-      clerkId: userId,
-    }).lean()) as UserDocument | null;
-
-    if (!user) {
-      return NextResponse.json({
-        authenticated: true,
-        clerkId: userId,
-        userFound: false,
-        message:
-          "User exists in Clerk but not in our database. You need to sign up first.",
-        action: "Go to /sign-up to create your account",
-      });
-    }
+    const user = await User.findOne({ clerkId: userId }).lean();
+    console.log("👤 User from database:", user);
 
     return NextResponse.json({
       authenticated: true,
       clerkId: userId,
-      userFound: true,
-      user: {
-        id: user._id,
-        email: user.email,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        role: user.role,
-        isActive: user.isActive,
-      },
-      isAdmin: user.role === "admin" || user.role === "super_admin",
-      message:
-        user.role === "admin" || user.role === "super_admin"
-          ? "You have admin access"
-          : "You don't have admin privileges",
+      user: user,
     });
   } catch (error) {
-    console.error("Debug auth error:", error);
+    console.error("❌ Error in debug auth API:", error);
     return NextResponse.json(
-      {
-        authenticated: false,
-        error: "Internal server error",
-        details: error instanceof Error ? error.message : "Unknown error",
-      },
+      { error: "Internal server error" },
       { status: 500 }
     );
   }

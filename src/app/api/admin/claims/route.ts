@@ -58,7 +58,7 @@ export async function GET(request: NextRequest) {
     console.log(`✅ Found ${claims.length} claims out of ${total} total`);
 
     return NextResponse.json({
-      claims,
+      data: claims,
       pagination: {
         page,
         limit,

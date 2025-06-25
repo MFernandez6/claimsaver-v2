@@ -65,21 +65,29 @@ export default function AdminPage() {
       setError(null);
       setRefreshing(true);
 
+      console.log("🔄 Loading admin data...");
+
       // Load claims
+      console.log("📋 Fetching claims...");
       const claimsResponse = await claimsApi.getClaims({
         status: statusFilter === "all" ? undefined : statusFilter,
         search: searchTerm || undefined,
         limit: 50,
       });
 
+      console.log("📋 Claims response:", claimsResponse);
+
       if (claimsResponse.error) {
         throw new Error(claimsResponse.error);
       }
 
       // Load users
+      console.log("👥 Fetching users...");
       const usersResponse = await usersApi.getUsers({
         limit: 50,
       });
+
+      console.log("👥 Users response:", usersResponse);
 
       if (usersResponse.error) {
         throw new Error(usersResponse.error);
@@ -87,6 +95,9 @@ export default function AdminPage() {
 
       const newClaims = claimsResponse.data || [];
       const previousCount = claims.length;
+
+      console.log(`📊 Setting claims: ${newClaims.length} claims`);
+      console.log("📊 Claims data:", newClaims);
 
       setClaims(newClaims);
       setUsers(usersResponse.data || []);

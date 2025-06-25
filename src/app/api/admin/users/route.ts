@@ -47,7 +47,7 @@ export async function GET(request: NextRequest) {
     const total = await User.countDocuments(query);
 
     return NextResponse.json({
-      users,
+      data: users,
       pagination: {
         page,
         limit,
