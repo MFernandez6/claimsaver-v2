@@ -278,14 +278,29 @@ export default function Navbar() {
 
     // Check if Clerk is available
     try {
-      // This will throw if Clerk is not properly initialized
-      if (
-        typeof window !== "undefined" &&
-        !process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
-      ) {
+      // Check if Clerk environment variables are set
+      const hasPublishableKey = !!process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
+      const hasSecretKey = !!process.env.CLERK_SECRET_KEY;
+
+      console.log("🔍 Clerk availability check:", {
+        hasPublishableKey,
+        hasSecretKey,
+        publishableKeyType:
+          process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY?.startsWith("pk_live_")
+            ? "production"
+            : "development",
+      });
+
+      // Only set as unavailable if both keys are missing
+      if (!hasPublishableKey && !hasSecretKey) {
+        console.log("❌ Clerk not available - missing environment variables");
         setIsClerkAvailable(false);
+      } else {
+        console.log("✅ Clerk appears to be available");
+        setIsClerkAvailable(true);
       }
-    } catch {
+    } catch (error) {
+      console.error("❌ Error checking Clerk availability:", error);
       setIsClerkAvailable(false);
     }
 
