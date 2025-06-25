@@ -19,11 +19,16 @@ const navItems = [
 function AuthSection() {
   const { isSignedIn, isLoaded } = useUser();
 
+  console.log("🔍 AuthSection state:", { isSignedIn, isLoaded });
+
   if (!isLoaded) {
+    console.log("⏳ AuthSection: Still loading...");
     return (
       <div className="w-20 h-10 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
     );
   }
+
+  console.log("✅ AuthSection: Loaded, isSignedIn:", isSignedIn);
 
   return (
     <div className="hover:scale-105 transition-transform duration-200">
@@ -291,17 +296,21 @@ export default function Navbar() {
             : "development",
       });
 
-      // Only set as unavailable if both keys are missing
-      if (!hasPublishableKey && !hasSecretKey) {
-        console.log("❌ Clerk not available - missing environment variables");
-        setIsClerkAvailable(false);
-      } else {
-        console.log("✅ Clerk appears to be available");
-        setIsClerkAvailable(true);
-      }
+      // TEMPORARY: Always show Clerk components for debugging
+      console.log("✅ Forcing Clerk to be available for debugging");
+      setIsClerkAvailable(true);
+
+      // Original logic (commented out for now):
+      // if (!hasPublishableKey && !hasSecretKey) {
+      //   console.log("❌ Clerk not available - missing environment variables");
+      //   setIsClerkAvailable(false);
+      // } else {
+      //   console.log("✅ Clerk appears to be available");
+      //   setIsClerkAvailable(true);
+      // }
     } catch (error) {
       console.error("❌ Error checking Clerk availability:", error);
-      setIsClerkAvailable(false);
+      setIsClerkAvailable(true); // Force to true for debugging
     }
 
     const handleScroll = () => {
