@@ -5,16 +5,22 @@ import Claim from "@/models/Claim";
 
 export async function GET(request: NextRequest) {
   try {
+    console.log("🔍 Admin claims API called");
+
     const authResult = await checkAdminAuth();
 
     if (!authResult.isAuthorized) {
+      console.log("❌ Admin auth failed:", authResult.error);
       return NextResponse.json(
         { error: authResult.error },
         { status: authResult.status }
       );
     }
 
+    console.log("✅ Admin auth successful for user:", authResult.user.email);
+
     await dbConnect();
+    console.log("✅ Database connected");
 
     const { searchParams } = new URL(request.url);
     const status = searchParams.get("status");
@@ -22,6 +28,8 @@ export async function GET(request: NextRequest) {
     const page = parseInt(searchParams.get("page") || "1");
     const limit = parseInt(searchParams.get("limit") || "10");
     const skip = (page - 1) * limit;
+
+    console.log("📋 Query params:", { status, search, page, limit });
 
     // Build query
     const query: Record<string, unknown> = {};
@@ -38,6 +46,7 @@ export async function GET(request: NextRequest) {
       ];
     }
 
+    console.log("🔍 Executing database query...");
     const claims = await Claim.find(query)
       .sort({ createdAt: -1 })
       .skip(skip)
@@ -45,6 +54,8 @@ export async function GET(request: NextRequest) {
       .lean();
 
     const total = await Claim.countDocuments(query);
+
+    console.log(`✅ Found ${claims.length} claims out of ${total} total`);
 
     return NextResponse.json({
       claims,
@@ -56,10 +67,34 @@ export async function GET(request: NextRequest) {
       },
     });
   } catch (error) {
-    console.error("Error fetching claims:", error);
+    console.error("❌ Error in admin claims API:", error);
+
+    // Provide more specific error information
+    let errorMessage = "Internal server error. Please try again.";
+    let statusCode = 500;
+
+    if (error instanceof Error) {
+      if (error.message.includes("MongoDB")) {
+        errorMessage = "Database connection error. Please try again.";
+      } else if (error.message.includes("authentication")) {
+        errorMessage = "Authentication error. Please sign in again.";
+        statusCode = 401;
+      } else {
+        errorMessage = error.message;
+      }
+    }
+
     return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 }
+      {
+        error: errorMessage,
+        details:
+          process.env.NODE_ENV === "development"
+            ? error instanceof Error
+              ? error.message
+              : "Unknown error"
+            : undefined,
+      },
+      { status: statusCode }
     );
   }
 }
