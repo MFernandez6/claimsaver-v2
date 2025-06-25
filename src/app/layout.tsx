@@ -53,6 +53,10 @@ export default function RootLayout({
           headerSubtitle: "text-gray-600 dark:text-gray-300",
         },
       }}
+      signInUrl="/sign-in"
+      signUpUrl="/sign-up"
+      signInFallbackRedirectUrl="/"
+      signUpFallbackRedirectUrl="/"
     >
       <html lang="en">
         <body

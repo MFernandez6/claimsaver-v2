@@ -92,7 +92,7 @@ async function setupAdmin() {
     console.log("Connected to MongoDB");
 
     // Get admin details from command line arguments or use defaults
-    const adminEmail = process.argv[2] || "admin@claimsaver.com";
+    const adminEmail = process.argv[2] || "claimsaverplus@gmail.com";
     const adminFirstName = process.argv[3] || "Admin";
     const adminLastName = process.argv[4] || "User";
     const clerkId = process.argv[5] || "admin_clerk_id"; // You'll need to get this from Clerk

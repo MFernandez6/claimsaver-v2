@@ -1,18 +1,18 @@
 import { NextRequest, NextResponse } from "next/server";
-import { auth } from "@clerk/nextjs/server";
+import { checkAdminAuth } from "@/lib/adminAuth";
 import dbConnect from "@/lib/db";
 import User from "@/models/User";
 
 export async function GET(request: NextRequest) {
   try {
-    const { userId } = await auth();
+    const authResult = await checkAdminAuth();
 
-    if (!userId) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    if (!authResult.isAuthorized) {
+      return NextResponse.json(
+        { error: authResult.error },
+        { status: authResult.status }
+      );
     }
-
-    // TODO: Check if user has admin permissions
-    // For now, we'll allow access to demonstrate the functionality
 
     await dbConnect();
 
@@ -66,20 +66,21 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
-    const { userId } = await auth();
+    const authResult = await checkAdminAuth();
 
-    if (!userId) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    if (!authResult.isAuthorized) {
+      return NextResponse.json(
+        { error: authResult.error },
+        { status: authResult.status }
+      );
     }
-
-    // TODO: Check if user has admin permissions
 
     await dbConnect();
     const body = await request.json();
 
     const user = new User({
       ...body,
-      clerkId: userId,
+      clerkId: authResult.user.clerkId,
     });
 
     await user.save();
