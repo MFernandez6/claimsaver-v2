@@ -77,6 +77,13 @@ export default function ClaimFormPage() {
   const [claimNumber, setClaimNumber] = useState("");
   const [error, setError] = useState<string | null>(null);
 
+  // Add debugging
+  console.log("🔍 Claim form state:", {
+    isLoaded,
+    user: user ? "User exists" : "No user",
+    userId: user?.id,
+  });
+
   const [formData, setFormData] = useState<ClaimFormData>({
     claimantName: "",
     claimantEmail: "",
@@ -172,6 +179,8 @@ export default function ClaimFormPage() {
       setSubmitting(true);
       setError(null);
 
+      console.log("📝 Submitting claim for user:", user.id);
+
       const response = await fetch("/api/claims", {
         method: "POST",
         headers: {
@@ -186,13 +195,15 @@ export default function ClaimFormPage() {
       const data = await response.json();
 
       if (!response.ok) {
+        console.error("❌ Claim submission failed:", data);
         throw new Error(data.error || "Failed to submit claim");
       }
 
+      console.log("✅ Claim submitted successfully:", data);
       setClaimNumber(data.claim.claimNumber);
       setSubmitted(true);
     } catch (err) {
-      console.error("Error submitting claim:", err);
+      console.error("❌ Error submitting claim:", err);
       setError(err instanceof Error ? err.message : "Failed to submit claim");
     } finally {
       setSubmitting(false);
@@ -227,12 +238,54 @@ export default function ClaimFormPage() {
     }
   };
 
+  // Show loading state while Clerk is loading
   if (!isLoaded) {
+    console.log("⏳ Claim form: Clerk still loading...");
     return (
       <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-950 dark:to-gray-900">
         <div className="container mx-auto px-4 py-8">
           <div className="flex items-center justify-center min-h-[400px]">
-            <Loader2 className="h-8 w-8 animate-spin" />
+            <div className="text-center">
+              <Loader2 className="h-8 w-8 animate-spin mx-auto mb-4" />
+              <p className="text-gray-600 dark:text-gray-400">
+                Loading claim form...
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Show authentication required message if user is not signed in
+  if (!user) {
+    console.log("❌ Claim form: User not authenticated");
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-950 dark:to-gray-900">
+        <div className="container mx-auto px-4 py-8">
+          <div className="max-w-2xl mx-auto">
+            <Card className="text-center">
+              <CardHeader>
+                <div className="flex justify-center mb-4">
+                  <AlertTriangle className="h-16 w-16 text-orange-600" />
+                </div>
+                <CardTitle className="text-2xl font-bold text-gray-900 dark:text-white">
+                  Authentication Required
+                </CardTitle>
+                <CardDescription className="text-lg">
+                  You must be signed in to submit a claim.
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                <p className="text-gray-600 dark:text-gray-400">
+                  Please sign in to your account to access the claim submission
+                  form.
+                </p>
+                <Button onClick={() => router.push("/")} className="w-full">
+                  Go to Homepage
+                </Button>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </div>
