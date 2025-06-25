@@ -50,9 +50,6 @@ export async function POST(request: NextRequest) {
     });
     console.log("✅ User created/updated");
 
-    // Create the claim
-    console.log("📝 Creating claim...");
-
     // Process injuries data to ensure it's in the correct format
     let processedInjuries: InjuryData[] = [];
     if (body.injuries && Array.isArray(body.injuries)) {
@@ -61,12 +58,42 @@ export async function POST(request: NextRequest) {
         description: injury.description || "",
         severity: injury.severity || "minor",
       }));
+    } else if (body.injuries && typeof body.injuries === "string") {
+      // Fallback: if injuries is a string, try to parse it
+      try {
+        const parsedInjuries = JSON.parse(body.injuries);
+        if (Array.isArray(parsedInjuries)) {
+          processedInjuries = parsedInjuries.map((injury: InjuryData) => ({
+            type: injury.type || "",
+            description: injury.description || "",
+            severity: injury.severity || "minor",
+          }));
+        }
+      } catch (e) {
+        console.log(
+          "⚠️ Could not parse injuries string:",
+          body.injuries,
+          "Error:",
+          e
+        );
+        processedInjuries = [];
+      }
     }
 
     console.log("🔍 Processed injuries:", processedInjuries);
 
+    // Generate claim number manually if needed
+    const date = new Date();
+    const year = date.getFullYear().toString().slice(-2);
+    const month = (date.getMonth() + 1).toString().padStart(2, "0");
+    const random = Math.floor(Math.random() * 10000)
+      .toString()
+      .padStart(4, "0");
+    const claimNumber = `CS${year}${month}-${random}`;
+
     const claimData = {
       userId,
+      claimNumber, // Add claim number manually
       // Personal Information
       claimantName: body.claimantName,
       claimantEmail: body.claimantEmail,

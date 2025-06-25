@@ -56,6 +56,8 @@ export default function AdminPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
   const [refreshing, setRefreshing] = useState(false);
+  const [newClaimsCount, setNewClaimsCount] = useState(0);
+  const [lastRefresh, setLastRefresh] = useState<Date>(new Date());
 
   // Load data from API
   const loadData = useCallback(async () => {
@@ -83,8 +85,20 @@ export default function AdminPage() {
         throw new Error(usersResponse.error);
       }
 
-      setClaims(claimsResponse.data || []);
+      const newClaims = claimsResponse.data || [];
+      const previousCount = claims.length;
+
+      setClaims(newClaims);
       setUsers(usersResponse.data || []);
+
+      // Check for new claims
+      if (newClaims.length > previousCount) {
+        setNewClaimsCount(newClaims.length - previousCount);
+        // Auto-clear notification after 5 seconds
+        setTimeout(() => setNewClaimsCount(0), 5000);
+      }
+
+      setLastRefresh(new Date());
     } catch (err) {
       console.error("Error loading data:", err);
       setError(err instanceof Error ? err.message : "Failed to load data");
@@ -92,7 +106,7 @@ export default function AdminPage() {
       setLoading(false);
       setRefreshing(false);
     }
-  }, [statusFilter, searchTerm]);
+  }, [statusFilter, searchTerm, claims.length]);
 
   // Handle claim deletion
   const handleDeleteClaim = async (claimId: string) => {
@@ -142,6 +156,13 @@ export default function AdminPage() {
 
     if (isLoaded && user) {
       loadData();
+
+      // Set up auto-refresh every 30 seconds
+      const interval = setInterval(() => {
+        loadData();
+      }, 30000);
+
+      return () => clearInterval(interval);
     }
   }, [isLoaded, user, router, loadData]);
 
@@ -255,6 +276,17 @@ export default function AdminPage() {
             <div className="mt-6 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl flex items-center gap-2 max-w-2xl mx-auto">
               <AlertCircle className="h-5 w-5 text-red-600" />
               <span className="text-red-800 dark:text-red-200">{error}</span>
+            </div>
+          )}
+
+          {/* New Claims Notification */}
+          {newClaimsCount > 0 && (
+            <div className="mt-6 p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-xl flex items-center gap-2 max-w-2xl mx-auto animate-pulse">
+              <div className="w-3 h-3 bg-green-600 rounded-full animate-ping"></div>
+              <span className="text-green-800 dark:text-green-200 font-medium">
+                🎉 {newClaimsCount} new claim{newClaimsCount > 1 ? "s" : ""}{" "}
+                submitted! Last updated: {lastRefresh.toLocaleTimeString()}
+              </span>
             </div>
           )}
         </div>

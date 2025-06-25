@@ -90,23 +90,26 @@ const ClaimSchema = new mongoose.Schema(
       required: true,
     },
     // Injuries and Damages
-    injuries: [
-      {
-        type: {
-          type: String,
-          required: true,
+    injuries: {
+      type: [
+        {
+          type: {
+            type: String,
+            required: true,
+          },
+          description: {
+            type: String,
+            required: true,
+          },
+          severity: {
+            type: String,
+            enum: ["minor", "moderate", "severe"],
+            default: "minor",
+          },
         },
-        description: {
-          type: String,
-          required: true,
-        },
-        severity: {
-          type: String,
-          enum: ["minor", "moderate", "severe"],
-          default: "minor",
-        },
-      },
-    ],
+      ],
+      default: [],
+    },
     propertyDamage: {
       type: String,
       default: "",
