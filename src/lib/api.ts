@@ -67,14 +67,8 @@ export const claimsApi = {
       if (params?.page) searchParams.append("page", params.page.toString());
       if (params?.limit) searchParams.append("limit", params.limit.toString());
 
-      const url = `/api/admin/claims?${searchParams}`;
-      console.log("🔗 Fetching claims from:", url);
-
-      const response = await fetch(url);
+      const response = await fetch(`/api/admin/claims?${searchParams}`);
       const data = await response.json();
-
-      console.log("📋 Raw API response:", data);
-      console.log("📋 Response status:", response.status);
 
       if (!response.ok) {
         throw new Error(data.error || "Failed to fetch claims");
@@ -194,14 +188,8 @@ export const usersApi = {
       if (params?.page) searchParams.append("page", params.page.toString());
       if (params?.limit) searchParams.append("limit", params.limit.toString());
 
-      const url = `/api/admin/users?${searchParams}`;
-      console.log("🔗 Fetching users from:", url);
-
-      const response = await fetch(url);
+      const response = await fetch(`/api/admin/users?${searchParams}`);
       const data = await response.json();
-
-      console.log("👥 Raw API response:", data);
-      console.log("👥 Response status:", response.status);
 
       if (!response.ok) {
         throw new Error(data.error || "Failed to fetch users");

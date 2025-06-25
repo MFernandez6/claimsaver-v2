@@ -63,8 +63,6 @@ function FallbackAuthSection() {
       <Button
         variant="outline"
         className="bg-white/80 backdrop-blur-sm border-gray-200 hover:bg-white hover:border-blue-300 dark:bg-gray-800/80 dark:border-gray-700 dark:hover:bg-gray-800 dark:hover:border-blue-600 transition-all duration-200"
-        disabled
-        title="Authentication temporarily unavailable"
       >
         Sign In
       </Button>
@@ -296,33 +294,23 @@ export default function Navbar() {
           process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY?.startsWith("pk_live_")
             ? "production"
             : "development",
-        nodeEnv: process.env.NODE_ENV,
       });
 
-      // Check if we're in production and have the required keys
-      if (process.env.NODE_ENV === "production") {
-        if (!hasPublishableKey) {
-          console.log(
-            "❌ Clerk not available in production - missing publishable key"
-          );
-          setIsClerkAvailable(false);
-        } else {
-          console.log("✅ Clerk appears to be available in production");
-          setIsClerkAvailable(true);
-        }
-      } else {
-        // In development, be more lenient
-        if (!hasPublishableKey && !hasSecretKey) {
-          console.log("❌ Clerk not available - missing environment variables");
-          setIsClerkAvailable(false);
-        } else {
-          console.log("✅ Clerk appears to be available");
-          setIsClerkAvailable(true);
-        }
-      }
+      // TEMPORARY: Always show Clerk components for debugging
+      console.log("✅ Forcing Clerk to be available for debugging");
+      setIsClerkAvailable(true);
+
+      // Original logic (commented out for now):
+      // if (!hasPublishableKey && !hasSecretKey) {
+      //   console.log("❌ Clerk not available - missing environment variables");
+      //   setIsClerkAvailable(false);
+      // } else {
+      //   console.log("✅ Clerk appears to be available");
+      //   setIsClerkAvailable(true);
+      // }
     } catch (error) {
       console.error("❌ Error checking Clerk availability:", error);
-      setIsClerkAvailable(false);
+      setIsClerkAvailable(true); // Force to true for debugging
     }
 
     const handleScroll = () => {
