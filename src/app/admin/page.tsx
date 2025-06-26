@@ -27,7 +27,6 @@ import {
   TrendingUp,
   Clock,
   DollarSign,
-  Search,
   Filter,
   Download,
   Eye,
@@ -35,13 +34,8 @@ import {
   Trash2,
   AlertCircle,
   RefreshCw,
-  Shield,
   Activity,
   BarChart3,
-  Target,
-  Award,
-  Zap,
-  Sparkles,
   Calendar,
 } from "lucide-react";
 import { claimsApi, usersApi, type Claim, type User } from "@/lib/api";
