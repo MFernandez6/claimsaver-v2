@@ -99,8 +99,11 @@ export default function Footer() {
                   <Facebook className="w-5 h-5" />
                 </a>
                 <a
-                  href="#"
+                  href="https://www.instagram.com/claimsaverplus"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg"
+                  aria-label="Follow us on Instagram"
                 >
                   <Instagram className="w-5 h-5" />
                 </a>

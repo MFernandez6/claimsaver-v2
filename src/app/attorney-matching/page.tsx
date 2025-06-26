@@ -692,8 +692,7 @@ export default function AttorneyMatching() {
                   <div className="flex items-center justify-center gap-2 text-blue-100">
                     <Award className="w-5 h-5" />
                     <span className="font-semibold">
-                      Average matching time: 24 hours • Free consultations
-                      available
+                      Instant matching • Free consultations available
                     </span>
                   </div>
                 </div>
@@ -1041,12 +1040,12 @@ export default function AttorneyMatching() {
                                     </div>
                                   </div>
 
-                                  <div className="flex gap-3">
+                                  <div className="flex flex-col sm:flex-row gap-3">
                                     <Button
                                       onClick={() =>
                                         handleConnectAttorney(attorney.id)
                                       }
-                                      className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white"
+                                      className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white flex-1 sm:flex-none"
                                     >
                                       Connect via ClaimSaver+
                                       <ArrowRight className="ml-2 w-4 h-4" />
@@ -1059,6 +1058,7 @@ export default function AttorneyMatching() {
                                           "_blank"
                                         )
                                       }
+                                      className="flex-1 sm:flex-none"
                                     >
                                       Visit Website
                                     </Button>

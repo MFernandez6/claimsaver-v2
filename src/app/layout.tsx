@@ -18,6 +18,34 @@ export const metadata: Metadata = {
   title: "ClaimSaver+ - Accident Form Filing and Recovery App",
   description:
     "Simplify the process of filing no-fault accident forms and recovering compensation. Connect with experienced attorneys nationwide.",
+  openGraph: {
+    title: "ClaimSaver+ - Accident Form Filing and Recovery App",
+    description:
+      "Simplify the process of filing no-fault accident forms and recovering compensation. Connect with experienced attorneys nationwide.",
+    url: "https://claimsaverplus.net",
+    siteName: "ClaimSaver+",
+    images: [
+      {
+        url: "/images/long-logo-ClaimSaver.jpg",
+        width: 1200,
+        height: 630,
+        alt: "ClaimSaver+ - Accident Form Filing and Recovery App",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "ClaimSaver+ - Accident Form Filing and Recovery App",
+    description:
+      "Simplify the process of filing no-fault accident forms and recovering compensation. Connect with experienced attorneys nationwide.",
+    images: ["/images/long-logo-ClaimSaver.jpg"],
+  },
+  icons: {
+    icon: "/favicon.ico",
+    apple: "/apple-touch-icon.png",
+  },
 };
 
 export default function RootLayout({

@@ -5,18 +5,94 @@ export interface Claim {
   claimNumber: string;
   status: string;
   priority: string;
+
+  // Insurance Information
+  insuranceCompany: string;
+  policyNumber: string;
+  adjusterName?: string;
+  adjusterPhone?: string;
+  fileNumber?: string;
+  policyHolder?: string;
+  dateOfAccident?: string;
+
+  // Medical Insurance
+  medicalInsurance?: string;
+  medicalMemberId?: string;
+
+  // Claimant Information
   claimantName: string;
   claimantEmail: string;
   claimantPhone: string;
+  claimantPhoneHome?: string;
+  claimantPhoneBusiness?: string;
+  claimantAddress?: string;
+  claimantDOB?: string;
+  claimantSSN?: string;
+  floridaResidencyDuration?: string;
+  permanentAddress?: string;
+
+  // Accident Details
   accidentDate: string;
   accidentLocation: string;
   accidentDescription: string;
-  insuranceCompany: string;
-  policyNumber: string;
+  accidentDateTime?: string;
+  accidentPlace?: string;
+  yourVehicle?: string;
+  familyVehicle?: string;
+  injured?: boolean;
+  injuryDescription?: string;
+
+  // Medical Treatment
+  treatedByDoctor?: boolean;
+  doctorName?: string;
+  doctorAddress?: string;
+  hospitalInpatient?: boolean;
+  hospitalOutpatient?: boolean;
+  hospitalName?: string;
+  hospitalAddress?: string;
+  medicalBillsToDate?: string;
+  moreMedicalExpense?: boolean;
+
+  // Employment & Wages
+  inCourseOfEmployment?: boolean;
+  lostWages?: boolean;
+  wageLossToDate?: string;
+  averageWeeklyWage?: string;
+  disabilityStart?: string;
+  disabilityEnd?: string;
+  workersComp?: boolean;
+  workersCompAmount?: string;
+  otherExpenses?: string;
+
+  // Legal Disclaimers
+  signature?: string;
+  signatureDate?: string;
+
+  // Authorizations
+  medicalAuthSignature?: string;
+  medicalAuthDate?: string;
+  wageAuthSignature?: string;
+  wageAuthDate?: string;
+
+  // OIR-B1-1571 Disclosure
+  pipPatientName?: string;
+  pipPatientSignature?: string;
+  pipPatientDate?: string;
+  pipProviderName?: string;
+  pipProviderSignature?: string;
+  pipProviderDate?: string;
+
+  // Legacy fields for backward compatibility
   vehicleMake: string;
   vehicleModel: string;
   vehicleYear: string;
   licensePlate: string;
+  injuries: Array<{
+    type: string;
+    description: string;
+    severity: string;
+  }>;
+  propertyDamage: string;
   estimatedValue: number;
   settlementAmount: number;
   assignedTo: string;

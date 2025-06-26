@@ -109,11 +109,11 @@ export async function POST(request: NextRequest) {
       insuranceCompany: body.insuranceCompany,
       policyNumber: body.policyNumber,
 
-      // Vehicle Information
-      vehicleMake: body.vehicleMake,
-      vehicleModel: body.vehicleModel,
-      vehicleYear: body.vehicleYear,
-      licensePlate: body.licensePlate,
+      // Vehicle Information - provide defaults for required fields
+      vehicleMake: body.vehicleMake || "Not specified",
+      vehicleModel: body.vehicleModel || "Not specified",
+      vehicleYear: body.vehicleYear || "Not specified",
+      licensePlate: body.licensePlate || "Not specified",
 
       // Additional Information
       estimatedValue: body.estimatedValue || 0,

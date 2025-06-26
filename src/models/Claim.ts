@@ -31,21 +31,247 @@ const ClaimSchema = new mongoose.Schema(
       enum: ["low", "medium", "high", "urgent"],
       default: "medium",
     },
-    // Accident Details
-    accidentDate: {
-      type: Date,
-      required: true,
-    },
-    accidentLocation: {
+
+    // Insurance Information
+    insuranceCompany: {
       type: String,
       required: true,
+    },
+    policyNumber: {
+      type: String,
+      required: true,
+    },
+    adjusterName: {
+      type: String,
+      default: "",
+    },
+    adjusterPhone: {
+      type: String,
+      default: "",
+    },
+    fileNumber: {
+      type: String,
+      default: "",
+    },
+    policyHolder: {
+      type: String,
+      default: "",
+    },
+    dateOfAccident: {
+      type: String,
+      default: "",
+    },
+
+    // Medical Insurance
+    medicalInsurance: {
+      type: String,
+      default: "",
+    },
+    medicalMemberId: {
+      type: String,
+      default: "",
+    },
+
+    // Claimant Information
+    claimantName: {
+      type: String,
+      required: true,
+    },
+    claimantPhoneHome: {
+      type: String,
+      default: "",
+    },
+    claimantPhoneBusiness: {
+      type: String,
+      default: "",
+    },
+    claimantAddress: {
+      type: String,
+      default: "",
+    },
+    claimantDOB: {
+      type: String,
+      default: "",
+    },
+    claimantSSN: {
+      type: String,
+      default: "",
+    },
+    floridaResidencyDuration: {
+      type: String,
+      default: "",
+    },
+    permanentAddress: {
+      type: String,
+      default: "",
+    },
+
+    // Accident Details
+    accidentDateTime: {
+      type: String,
+      default: "",
+    },
+    accidentPlace: {
+      type: String,
+      default: "",
     },
     accidentDescription: {
       type: String,
       required: true,
     },
-    // Personal Information
-    claimantName: {
+    yourVehicle: {
+      type: String,
+      default: "",
+    },
+    familyVehicle: {
+      type: String,
+      default: "",
+    },
+    injured: {
+      type: Boolean,
+      default: false,
+    },
+    injuryDescription: {
+      type: String,
+      default: "",
+    },
+
+    // Medical Treatment
+    treatedByDoctor: {
+      type: Boolean,
+      default: false,
+    },
+    doctorName: {
+      type: String,
+      default: "",
+    },
+    doctorAddress: {
+      type: String,
+      default: "",
+    },
+    hospitalInpatient: {
+      type: Boolean,
+      default: false,
+    },
+    hospitalOutpatient: {
+      type: Boolean,
+      default: false,
+    },
+    hospitalName: {
+      type: String,
+      default: "",
+    },
+    hospitalAddress: {
+      type: String,
+      default: "",
+    },
+    medicalBillsToDate: {
+      type: String,
+      default: "",
+    },
+    moreMedicalExpense: {
+      type: Boolean,
+      default: false,
+    },
+
+    // Employment & Wages
+    inCourseOfEmployment: {
+      type: Boolean,
+      default: false,
+    },
+    lostWages: {
+      type: Boolean,
+      default: false,
+    },
+    wageLossToDate: {
+      type: String,
+      default: "",
+    },
+    averageWeeklyWage: {
+      type: String,
+      default: "",
+    },
+    disabilityStart: {
+      type: String,
+      default: "",
+    },
+    disabilityEnd: {
+      type: String,
+      default: "",
+    },
+    workersComp: {
+      type: Boolean,
+      default: false,
+    },
+    workersCompAmount: {
+      type: String,
+      default: "",
+    },
+    otherExpenses: {
+      type: String,
+      default: "",
+    },
+
+    // Legal Disclaimers
+    signature: {
+      type: String,
+      default: "",
+    },
+    signatureDate: {
+      type: String,
+      default: "",
+    },
+
+    // Authorizations
+    medicalAuthSignature: {
+      type: String,
+      default: "",
+    },
+    medicalAuthDate: {
+      type: String,
+      default: "",
+    },
+    wageAuthSignature: {
+      type: String,
+      default: "",
+    },
+    wageAuthDate: {
+      type: String,
+      default: "",
+    },
+
+    // OIR-B1-1571 Disclosure
+    pipPatientName: {
+      type: String,
+      default: "",
+    },
+    pipPatientSignature: {
+      type: String,
+      default: "",
+    },
+    pipPatientDate: {
+      type: String,
+      default: "",
+    },
+    pipProviderName: {
+      type: String,
+      default: "",
+    },
+    pipProviderSignature: {
+      type: String,
+      default: "",
+    },
+    pipProviderDate: {
+      type: String,
+      default: "",
+    },
+
+    // Legacy fields for backward compatibility
+    accidentDate: {
+      type: Date,
+      required: true,
+    },
+    accidentLocation: {
       type: String,
       required: true,
     },
@@ -57,22 +283,6 @@ const ClaimSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    claimantAddress: {
-      street: String,
-      city: String,
-      state: String,
-      zipCode: String,
-    },
-    // Insurance Information
-    insuranceCompany: {
-      type: String,
-      required: true,
-    },
-    policyNumber: {
-      type: String,
-      required: true,
-    },
-    // Vehicle Information
     vehicleMake: {
       type: String,
       required: true,
@@ -89,7 +299,6 @@ const ClaimSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    // Injuries and Damages
     injuries: {
       type: [
         {
@@ -114,7 +323,6 @@ const ClaimSchema = new mongoose.Schema(
       type: String,
       default: "",
     },
-    // Financial Information
     estimatedValue: {
       type: Number,
       default: 0,
@@ -123,7 +331,6 @@ const ClaimSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
-    // Admin Fields
     assignedTo: {
       type: String,
       default: "",
@@ -144,7 +351,6 @@ const ClaimSchema = new mongoose.Schema(
         ref: "Document",
       },
     ],
-    // Timestamps
     submittedAt: {
       type: Date,
       default: Date.now,

@@ -21,7 +21,6 @@ import {
   Edit,
   Download,
   MessageSquare,
-  Car,
   Shield,
   User,
   DollarSign,
@@ -296,6 +295,214 @@ export default function ClaimDetailPage() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Main Content */}
           <div className="lg:col-span-2 space-y-6">
+            {/* Insurance Information */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Shield className="h-5 w-5" />
+                  Insurance Information
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                      Insurance Company
+                    </label>
+                    {editing ? (
+                      <Input
+                        value={claim.insuranceCompany || ""}
+                        onChange={(e) =>
+                          setClaim({
+                            ...claim,
+                            insuranceCompany: e.target.value,
+                          })
+                        }
+                      />
+                    ) : (
+                      <p className="text-gray-900 dark:text-white">
+                        {claim.insuranceCompany || "Not provided"}
+                      </p>
+                    )}
+                  </div>
+                  <div>
+                    <label className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                      Policy Number
+                    </label>
+                    {editing ? (
+                      <Input
+                        value={claim.policyNumber || ""}
+                        onChange={(e) =>
+                          setClaim({ ...claim, policyNumber: e.target.value })
+                        }
+                      />
+                    ) : (
+                      <p className="text-gray-900 dark:text-white">
+                        {claim.policyNumber || "Not provided"}
+                      </p>
+                    )}
+                  </div>
+                  <div>
+                    <label className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                      Claim Number
+                    </label>
+                    {editing ? (
+                      <Input
+                        value={claim.claimNumber || ""}
+                        onChange={(e) =>
+                          setClaim({ ...claim, claimNumber: e.target.value })
+                        }
+                      />
+                    ) : (
+                      <p className="text-gray-900 dark:text-white">
+                        {claim.claimNumber || "Not provided"}
+                      </p>
+                    )}
+                  </div>
+                  <div>
+                    <label className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                      Adjuster Name
+                    </label>
+                    {editing ? (
+                      <Input
+                        value={claim.adjusterName || ""}
+                        onChange={(e) =>
+                          setClaim({ ...claim, adjusterName: e.target.value })
+                        }
+                      />
+                    ) : (
+                      <p className="text-gray-900 dark:text-white">
+                        {claim.adjusterName || "Not provided"}
+                      </p>
+                    )}
+                  </div>
+                  <div>
+                    <label className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                      Adjuster Phone
+                    </label>
+                    {editing ? (
+                      <Input
+                        value={claim.adjusterPhone || ""}
+                        onChange={(e) =>
+                          setClaim({ ...claim, adjusterPhone: e.target.value })
+                        }
+                      />
+                    ) : (
+                      <p className="text-gray-900 dark:text-white">
+                        {claim.adjusterPhone || "Not provided"}
+                      </p>
+                    )}
+                  </div>
+                  <div>
+                    <label className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                      File Number
+                    </label>
+                    {editing ? (
+                      <Input
+                        value={claim.fileNumber || ""}
+                        onChange={(e) =>
+                          setClaim({ ...claim, fileNumber: e.target.value })
+                        }
+                      />
+                    ) : (
+                      <p className="text-gray-900 dark:text-white">
+                        {claim.fileNumber || "Not provided"}
+                      </p>
+                    )}
+                  </div>
+                  <div>
+                    <label className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                      Policy Holder
+                    </label>
+                    {editing ? (
+                      <Input
+                        value={claim.policyHolder || ""}
+                        onChange={(e) =>
+                          setClaim({ ...claim, policyHolder: e.target.value })
+                        }
+                      />
+                    ) : (
+                      <p className="text-gray-900 dark:text-white">
+                        {claim.policyHolder || "Not provided"}
+                      </p>
+                    )}
+                  </div>
+                  <div>
+                    <label className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                      Date of Accident
+                    </label>
+                    {editing ? (
+                      <Input
+                        type="date"
+                        value={claim.dateOfAccident || ""}
+                        onChange={(e) =>
+                          setClaim({ ...claim, dateOfAccident: e.target.value })
+                        }
+                      />
+                    ) : (
+                      <p className="text-gray-900 dark:text-white">
+                        {claim.dateOfAccident || "Not provided"}
+                      </p>
+                    )}
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Medical Insurance */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Shield className="h-5 w-5" />
+                  Medical Insurance
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                      Medical Insurance
+                    </label>
+                    {editing ? (
+                      <Input
+                        value={claim.medicalInsurance || ""}
+                        onChange={(e) =>
+                          setClaim({
+                            ...claim,
+                            medicalInsurance: e.target.value,
+                          })
+                        }
+                      />
+                    ) : (
+                      <p className="text-gray-900 dark:text-white">
+                        {claim.medicalInsurance || "Not provided"}
+                      </p>
+                    )}
+                  </div>
+                  <div>
+                    <label className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                      Member ID
+                    </label>
+                    {editing ? (
+                      <Input
+                        value={claim.medicalMemberId || ""}
+                        onChange={(e) =>
+                          setClaim({
+                            ...claim,
+                            medicalMemberId: e.target.value,
+                          })
+                        }
+                      />
+                    ) : (
+                      <p className="text-gray-900 dark:text-white">
+                        {claim.medicalMemberId || "Not provided"}
+                      </p>
+                    )}
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
             {/* Claimant Information */}
             <Card>
               <CardHeader>
@@ -312,51 +519,148 @@ export default function ClaimDetailPage() {
                     </label>
                     {editing ? (
                       <Input
-                        value={claim.claimantName}
+                        value={claim.claimantName || ""}
                         onChange={(e) =>
                           setClaim({ ...claim, claimantName: e.target.value })
                         }
                       />
                     ) : (
                       <p className="text-gray-900 dark:text-white">
-                        {claim.claimantName}
+                        {claim.claimantName || "Not provided"}
                       </p>
                     )}
                   </div>
                   <div>
                     <label className="text-sm font-medium text-gray-600 dark:text-gray-400">
-                      Email
+                      Phone (Home)
                     </label>
                     {editing ? (
                       <Input
-                        value={claim.claimantEmail}
+                        value={claim.claimantPhoneHome || ""}
                         onChange={(e) =>
-                          setClaim({ ...claim, claimantEmail: e.target.value })
+                          setClaim({
+                            ...claim,
+                            claimantPhoneHome: e.target.value,
+                          })
                         }
                       />
                     ) : (
                       <p className="text-gray-900 dark:text-white">
-                        {claim.claimantEmail}
+                        {claim.claimantPhoneHome || "Not provided"}
                       </p>
                     )}
                   </div>
                   <div>
                     <label className="text-sm font-medium text-gray-600 dark:text-gray-400">
-                      Phone
+                      Phone (Business)
                     </label>
                     {editing ? (
                       <Input
-                        value={claim.claimantPhone}
+                        value={claim.claimantPhoneBusiness || ""}
                         onChange={(e) =>
-                          setClaim({ ...claim, claimantPhone: e.target.value })
+                          setClaim({
+                            ...claim,
+                            claimantPhoneBusiness: e.target.value,
+                          })
                         }
                       />
                     ) : (
                       <p className="text-gray-900 dark:text-white">
-                        {claim.claimantPhone}
+                        {claim.claimantPhoneBusiness || "Not provided"}
                       </p>
                     )}
                   </div>
+                  <div>
+                    <label className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                      Date of Birth
+                    </label>
+                    {editing ? (
+                      <Input
+                        type="date"
+                        value={claim.claimantDOB || ""}
+                        onChange={(e) =>
+                          setClaim({ ...claim, claimantDOB: e.target.value })
+                        }
+                      />
+                    ) : (
+                      <p className="text-gray-900 dark:text-white">
+                        {claim.claimantDOB || "Not provided"}
+                      </p>
+                    )}
+                  </div>
+                </div>
+                <div>
+                  <label className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                    Address
+                  </label>
+                  {editing ? (
+                    <Input
+                      value={claim.claimantAddress || ""}
+                      onChange={(e) =>
+                        setClaim({ ...claim, claimantAddress: e.target.value })
+                      }
+                    />
+                  ) : (
+                    <p className="text-gray-900 dark:text-white">
+                      {claim.claimantAddress || "Not provided"}
+                    </p>
+                  )}
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                      SSN
+                    </label>
+                    {editing ? (
+                      <Input
+                        value={claim.claimantSSN || ""}
+                        onChange={(e) =>
+                          setClaim({ ...claim, claimantSSN: e.target.value })
+                        }
+                      />
+                    ) : (
+                      <p className="text-gray-900 dark:text-white">
+                        {claim.claimantSSN || "Not provided"}
+                      </p>
+                    )}
+                  </div>
+                  <div>
+                    <label className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                      Florida Residency Duration
+                    </label>
+                    {editing ? (
+                      <Input
+                        value={claim.floridaResidencyDuration || ""}
+                        onChange={(e) =>
+                          setClaim({
+                            ...claim,
+                            floridaResidencyDuration: e.target.value,
+                          })
+                        }
+                      />
+                    ) : (
+                      <p className="text-gray-900 dark:text-white">
+                        {claim.floridaResidencyDuration || "Not provided"}
+                      </p>
+                    )}
+                  </div>
+                </div>
+                <div>
+                  <label className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                    Permanent Address (if different)
+                  </label>
+                  {editing ? (
+                    <Input
+                      value={claim.permanentAddress || ""}
+                      onChange={(e) =>
+                        setClaim({ ...claim, permanentAddress: e.target.value })
+                      }
+                    />
+                  ) : (
+                    <p className="text-gray-900 dark:text-white">
+                      {claim.permanentAddress || "Not provided"}
+                    </p>
+                  )}
                 </div>
               </CardContent>
             </Card>
@@ -373,39 +677,39 @@ export default function ClaimDetailPage() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <label className="text-sm font-medium text-gray-600 dark:text-gray-400">
-                      Date
+                      Date & Time
                     </label>
                     {editing ? (
                       <Input
-                        type="date"
-                        value={claim.accidentDate.split("T")[0]}
-                        onChange={(e) =>
-                          setClaim({ ...claim, accidentDate: e.target.value })
-                        }
-                      />
-                    ) : (
-                      <p className="text-gray-900 dark:text-white">
-                        {new Date(claim.accidentDate).toLocaleDateString()}
-                      </p>
-                    )}
-                  </div>
-                  <div>
-                    <label className="text-sm font-medium text-gray-600 dark:text-gray-400">
-                      Location
-                    </label>
-                    {editing ? (
-                      <Input
-                        value={claim.accidentLocation}
+                        type="datetime-local"
+                        value={claim.accidentDateTime || ""}
                         onChange={(e) =>
                           setClaim({
                             ...claim,
-                            accidentLocation: e.target.value,
+                            accidentDateTime: e.target.value,
                           })
                         }
                       />
                     ) : (
                       <p className="text-gray-900 dark:text-white">
-                        {claim.accidentLocation}
+                        {claim.accidentDateTime || "Not provided"}
+                      </p>
+                    )}
+                  </div>
+                  <div>
+                    <label className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                      Place
+                    </label>
+                    {editing ? (
+                      <Input
+                        value={claim.accidentPlace || ""}
+                        onChange={(e) =>
+                          setClaim({ ...claim, accidentPlace: e.target.value })
+                        }
+                      />
+                    ) : (
+                      <p className="text-gray-900 dark:text-white">
+                        {claim.accidentPlace || "Not provided"}
                       </p>
                     )}
                   </div>
@@ -416,7 +720,7 @@ export default function ClaimDetailPage() {
                   </label>
                   {editing ? (
                     <Textarea
-                      value={claim.accidentDescription}
+                      value={claim.accidentDescription || ""}
                       onChange={(e) =>
                         setClaim({
                           ...claim,
@@ -427,88 +731,638 @@ export default function ClaimDetailPage() {
                     />
                   ) : (
                     <p className="text-gray-900 dark:text-white">
-                      {claim.accidentDescription}
+                      {claim.accidentDescription || "Not provided"}
+                    </p>
+                  )}
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                      Your Vehicle
+                    </label>
+                    {editing ? (
+                      <Input
+                        value={claim.yourVehicle || ""}
+                        onChange={(e) =>
+                          setClaim({ ...claim, yourVehicle: e.target.value })
+                        }
+                      />
+                    ) : (
+                      <p className="text-gray-900 dark:text-white">
+                        {claim.yourVehicle || "Not provided"}
+                      </p>
+                    )}
+                  </div>
+                  <div>
+                    <label className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                      Family Vehicle
+                    </label>
+                    {editing ? (
+                      <Input
+                        value={claim.familyVehicle || ""}
+                        onChange={(e) =>
+                          setClaim({ ...claim, familyVehicle: e.target.value })
+                        }
+                      />
+                    ) : (
+                      <p className="text-gray-900 dark:text-white">
+                        {claim.familyVehicle || "Not provided"}
+                      </p>
+                    )}
+                  </div>
+                </div>
+                <div className="flex items-center gap-2">
+                  <label className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                    Were you injured?
+                  </label>
+                  {editing ? (
+                    <Select
+                      value={claim.injured ? "yes" : "no"}
+                      onValueChange={(value) =>
+                        setClaim({ ...claim, injured: value === "yes" })
+                      }
+                    >
+                      <SelectTrigger className="w-24">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="yes">Yes</SelectItem>
+                        <SelectItem value="no">No</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  ) : (
+                    <Badge
+                      className={
+                        claim.injured
+                          ? "bg-red-100 text-red-800"
+                          : "bg-green-100 text-green-800"
+                      }
+                    >
+                      {claim.injured ? "Yes" : "No"}
+                    </Badge>
+                  )}
+                </div>
+                {claim.injured && (
+                  <div>
+                    <label className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                      Injury Description
+                    </label>
+                    {editing ? (
+                      <Textarea
+                        value={claim.injuryDescription || ""}
+                        onChange={(e) =>
+                          setClaim({
+                            ...claim,
+                            injuryDescription: e.target.value,
+                          })
+                        }
+                        rows={3}
+                      />
+                    ) : (
+                      <p className="text-gray-900 dark:text-white">
+                        {claim.injuryDescription || "Not provided"}
+                      </p>
+                    )}
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+
+            {/* Medical Treatment */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <AlertTriangle className="h-5 w-5" />
+                  Medical Treatment
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="flex items-center gap-2">
+                  <label className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                    Treated by Doctor?
+                  </label>
+                  {editing ? (
+                    <Select
+                      value={claim.treatedByDoctor ? "yes" : "no"}
+                      onValueChange={(value) =>
+                        setClaim({ ...claim, treatedByDoctor: value === "yes" })
+                      }
+                    >
+                      <SelectTrigger className="w-24">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="yes">Yes</SelectItem>
+                        <SelectItem value="no">No</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  ) : (
+                    <Badge
+                      className={
+                        claim.treatedByDoctor
+                          ? "bg-blue-100 text-blue-800"
+                          : "bg-gray-100 text-gray-800"
+                      }
+                    >
+                      {claim.treatedByDoctor ? "Yes" : "No"}
+                    </Badge>
+                  )}
+                </div>
+                {claim.treatedByDoctor && (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                        Doctor Name
+                      </label>
+                      {editing ? (
+                        <Input
+                          value={claim.doctorName || ""}
+                          onChange={(e) =>
+                            setClaim({ ...claim, doctorName: e.target.value })
+                          }
+                        />
+                      ) : (
+                        <p className="text-gray-900 dark:text-white">
+                          {claim.doctorName || "Not provided"}
+                        </p>
+                      )}
+                    </div>
+                    <div>
+                      <label className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                        Doctor Address
+                      </label>
+                      {editing ? (
+                        <Input
+                          value={claim.doctorAddress || ""}
+                          onChange={(e) =>
+                            setClaim({
+                              ...claim,
+                              doctorAddress: e.target.value,
+                            })
+                          }
+                        />
+                      ) : (
+                        <p className="text-gray-900 dark:text-white">
+                          {claim.doctorAddress || "Not provided"}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                )}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="flex items-center gap-2">
+                    <label className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                      Hospital Inpatient?
+                    </label>
+                    {editing ? (
+                      <Select
+                        value={claim.hospitalInpatient ? "yes" : "no"}
+                        onValueChange={(value) =>
+                          setClaim({
+                            ...claim,
+                            hospitalInpatient: value === "yes",
+                          })
+                        }
+                      >
+                        <SelectTrigger className="w-24">
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="yes">Yes</SelectItem>
+                          <SelectItem value="no">No</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    ) : (
+                      <Badge
+                        className={
+                          claim.hospitalInpatient
+                            ? "bg-red-100 text-red-800"
+                            : "bg-gray-100 text-gray-800"
+                        }
+                      >
+                        {claim.hospitalInpatient ? "Yes" : "No"}
+                      </Badge>
+                    )}
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <label className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                      Hospital Outpatient?
+                    </label>
+                    {editing ? (
+                      <Select
+                        value={claim.hospitalOutpatient ? "yes" : "no"}
+                        onValueChange={(value) =>
+                          setClaim({
+                            ...claim,
+                            hospitalOutpatient: value === "yes",
+                          })
+                        }
+                      >
+                        <SelectTrigger className="w-24">
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="yes">Yes</SelectItem>
+                          <SelectItem value="no">No</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    ) : (
+                      <Badge
+                        className={
+                          claim.hospitalOutpatient
+                            ? "bg-orange-100 text-orange-800"
+                            : "bg-gray-100 text-gray-800"
+                        }
+                      >
+                        {claim.hospitalOutpatient ? "Yes" : "No"}
+                      </Badge>
+                    )}
+                  </div>
+                </div>
+                {(claim.hospitalInpatient || claim.hospitalOutpatient) && (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                        Hospital Name
+                      </label>
+                      {editing ? (
+                        <Input
+                          value={claim.hospitalName || ""}
+                          onChange={(e) =>
+                            setClaim({ ...claim, hospitalName: e.target.value })
+                          }
+                        />
+                      ) : (
+                        <p className="text-gray-900 dark:text-white">
+                          {claim.hospitalName || "Not provided"}
+                        </p>
+                      )}
+                    </div>
+                    <div>
+                      <label className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                        Hospital Address
+                      </label>
+                      {editing ? (
+                        <Input
+                          value={claim.hospitalAddress || ""}
+                          onChange={(e) =>
+                            setClaim({
+                              ...claim,
+                              hospitalAddress: e.target.value,
+                            })
+                          }
+                        />
+                      ) : (
+                        <p className="text-gray-900 dark:text-white">
+                          {claim.hospitalAddress || "Not provided"}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                )}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                      Medical Bills to Date
+                    </label>
+                    {editing ? (
+                      <Input
+                        value={claim.medicalBillsToDate || ""}
+                        onChange={(e) =>
+                          setClaim({
+                            ...claim,
+                            medicalBillsToDate: e.target.value,
+                          })
+                        }
+                      />
+                    ) : (
+                      <p className="text-gray-900 dark:text-white">
+                        {claim.medicalBillsToDate || "Not provided"}
+                      </p>
+                    )}
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <label className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                      More Medical Expense?
+                    </label>
+                    {editing ? (
+                      <Select
+                        value={claim.moreMedicalExpense ? "yes" : "no"}
+                        onValueChange={(value) =>
+                          setClaim({
+                            ...claim,
+                            moreMedicalExpense: value === "yes",
+                          })
+                        }
+                      >
+                        <SelectTrigger className="w-24">
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="yes">Yes</SelectItem>
+                          <SelectItem value="no">No</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    ) : (
+                      <Badge
+                        className={
+                          claim.moreMedicalExpense
+                            ? "bg-yellow-100 text-yellow-800"
+                            : "bg-gray-100 text-gray-800"
+                        }
+                      >
+                        {claim.moreMedicalExpense ? "Yes" : "No"}
+                      </Badge>
+                    )}
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Employment & Wages */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <DollarSign className="h-5 w-5" />
+                  Employment & Wages
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="flex items-center gap-2">
+                  <label className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                    In Course of Employment?
+                  </label>
+                  {editing ? (
+                    <Select
+                      value={claim.inCourseOfEmployment ? "yes" : "no"}
+                      onValueChange={(value) =>
+                        setClaim({
+                          ...claim,
+                          inCourseOfEmployment: value === "yes",
+                        })
+                      }
+                    >
+                      <SelectTrigger className="w-24">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="yes">Yes</SelectItem>
+                        <SelectItem value="no">No</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  ) : (
+                    <Badge
+                      className={
+                        claim.inCourseOfEmployment
+                          ? "bg-blue-100 text-blue-800"
+                          : "bg-gray-100 text-gray-800"
+                      }
+                    >
+                      {claim.inCourseOfEmployment ? "Yes" : "No"}
+                    </Badge>
+                  )}
+                </div>
+                <div className="flex items-center gap-2">
+                  <label className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                    Lost Wages?
+                  </label>
+                  {editing ? (
+                    <Select
+                      value={claim.lostWages ? "yes" : "no"}
+                      onValueChange={(value) =>
+                        setClaim({ ...claim, lostWages: value === "yes" })
+                      }
+                    >
+                      <SelectTrigger className="w-24">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="yes">Yes</SelectItem>
+                        <SelectItem value="no">No</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  ) : (
+                    <Badge
+                      className={
+                        claim.lostWages
+                          ? "bg-red-100 text-red-800"
+                          : "bg-gray-100 text-gray-800"
+                      }
+                    >
+                      {claim.lostWages ? "Yes" : "No"}
+                    </Badge>
+                  )}
+                </div>
+                {claim.lostWages && (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                        Wage Loss to Date
+                      </label>
+                      {editing ? (
+                        <Input
+                          value={claim.wageLossToDate || ""}
+                          onChange={(e) =>
+                            setClaim({
+                              ...claim,
+                              wageLossToDate: e.target.value,
+                            })
+                          }
+                        />
+                      ) : (
+                        <p className="text-gray-900 dark:text-white">
+                          {claim.wageLossToDate || "Not provided"}
+                        </p>
+                      )}
+                    </div>
+                    <div>
+                      <label className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                        Average Weekly Wage
+                      </label>
+                      {editing ? (
+                        <Input
+                          value={claim.averageWeeklyWage || ""}
+                          onChange={(e) =>
+                            setClaim({
+                              ...claim,
+                              averageWeeklyWage: e.target.value,
+                            })
+                          }
+                        />
+                      ) : (
+                        <p className="text-gray-900 dark:text-white">
+                          {claim.averageWeeklyWage || "Not provided"}
+                        </p>
+                      )}
+                    </div>
+                    <div>
+                      <label className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                        Disability Start Date
+                      </label>
+                      {editing ? (
+                        <Input
+                          type="date"
+                          value={claim.disabilityStart || ""}
+                          onChange={(e) =>
+                            setClaim({
+                              ...claim,
+                              disabilityStart: e.target.value,
+                            })
+                          }
+                        />
+                      ) : (
+                        <p className="text-gray-900 dark:text-white">
+                          {claim.disabilityStart || "Not provided"}
+                        </p>
+                      )}
+                    </div>
+                    <div>
+                      <label className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                        Disability End Date
+                      </label>
+                      {editing ? (
+                        <Input
+                          type="date"
+                          value={claim.disabilityEnd || ""}
+                          onChange={(e) =>
+                            setClaim({
+                              ...claim,
+                              disabilityEnd: e.target.value,
+                            })
+                          }
+                        />
+                      ) : (
+                        <p className="text-gray-900 dark:text-white">
+                          {claim.disabilityEnd || "Not provided"}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                )}
+                <div className="flex items-center gap-2">
+                  <label className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                    Workers Comp?
+                  </label>
+                  {editing ? (
+                    <Select
+                      value={claim.workersComp ? "yes" : "no"}
+                      onValueChange={(value) =>
+                        setClaim({ ...claim, workersComp: value === "yes" })
+                      }
+                    >
+                      <SelectTrigger className="w-24">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="yes">Yes</SelectItem>
+                        <SelectItem value="no">No</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  ) : (
+                    <Badge
+                      className={
+                        claim.workersComp
+                          ? "bg-purple-100 text-purple-800"
+                          : "bg-gray-100 text-gray-800"
+                      }
+                    >
+                      {claim.workersComp ? "Yes" : "No"}
+                    </Badge>
+                  )}
+                </div>
+                {claim.workersComp && (
+                  <div>
+                    <label className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                      Workers Comp Amount
+                    </label>
+                    {editing ? (
+                      <Input
+                        value={claim.workersCompAmount || ""}
+                        onChange={(e) =>
+                          setClaim({
+                            ...claim,
+                            workersCompAmount: e.target.value,
+                          })
+                        }
+                      />
+                    ) : (
+                      <p className="text-gray-900 dark:text-white">
+                        {claim.workersCompAmount || "Not provided"}
+                      </p>
+                    )}
+                  </div>
+                )}
+                <div>
+                  <label className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                    Other Expenses
+                  </label>
+                  {editing ? (
+                    <Textarea
+                      value={claim.otherExpenses || ""}
+                      onChange={(e) =>
+                        setClaim({ ...claim, otherExpenses: e.target.value })
+                      }
+                      rows={3}
+                    />
+                  ) : (
+                    <p className="text-gray-900 dark:text-white">
+                      {claim.otherExpenses || "Not provided"}
                     </p>
                   )}
                 </div>
               </CardContent>
             </Card>
 
-            {/* Vehicle Information */}
+            {/* Legal Disclaimers */}
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <Car className="h-5 w-5" />
-                  Vehicle Information
+                  <AlertTriangle className="h-5 w-5" />
+                  Legal Disclaimers
                 </CardTitle>
               </CardHeader>
-              <CardContent>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <CardContent className="space-y-4">
+                <div className="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg p-4">
+                  <p className="text-sm text-yellow-800 dark:text-yellow-200 font-semibold">
+                    ANY PERSON WHO KNOWINGLY AND WITH INTENT TO INJURE, DEFRAUD
+                    OR DECEIVE ANY INSURANCE COMPANY MAKES A STATEMENT OF CLAIM
+                    CONTAINING ANY FALSE INCOMPLETE OR MISLEADING INFORMATION,
+                    IS GUILTY OF A FELONY OF THE THIRD DEGREE.
+                  </p>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <label className="text-sm font-medium text-gray-600 dark:text-gray-400">
-                      Make
+                      Signature
                     </label>
                     {editing ? (
                       <Input
-                        value={claim.vehicleMake}
+                        value={claim.signature || ""}
                         onChange={(e) =>
-                          setClaim({ ...claim, vehicleMake: e.target.value })
+                          setClaim({ ...claim, signature: e.target.value })
                         }
                       />
                     ) : (
                       <p className="text-gray-900 dark:text-white">
-                        {claim.vehicleMake}
+                        {claim.signature || "Not provided"}
                       </p>
                     )}
                   </div>
                   <div>
                     <label className="text-sm font-medium text-gray-600 dark:text-gray-400">
-                      Model
+                      Date
                     </label>
                     {editing ? (
                       <Input
-                        value={claim.vehicleModel}
+                        type="date"
+                        value={claim.signatureDate || ""}
                         onChange={(e) =>
-                          setClaim({ ...claim, vehicleModel: e.target.value })
+                          setClaim({ ...claim, signatureDate: e.target.value })
                         }
                       />
                     ) : (
                       <p className="text-gray-900 dark:text-white">
-                        {claim.vehicleModel}
-                      </p>
-                    )}
-                  </div>
-                  <div>
-                    <label className="text-sm font-medium text-gray-600 dark:text-gray-400">
-                      Year
-                    </label>
-                    {editing ? (
-                      <Input
-                        value={claim.vehicleYear}
-                        onChange={(e) =>
-                          setClaim({ ...claim, vehicleYear: e.target.value })
-                        }
-                      />
-                    ) : (
-                      <p className="text-gray-900 dark:text-white">
-                        {claim.vehicleYear}
-                      </p>
-                    )}
-                  </div>
-                  <div>
-                    <label className="text-sm font-medium text-gray-600 dark:text-gray-400">
-                      License Plate
-                    </label>
-                    {editing ? (
-                      <Input
-                        value={claim.licensePlate}
-                        onChange={(e) =>
-                          setClaim({ ...claim, licensePlate: e.target.value })
-                        }
-                      />
-                    ) : (
-                      <p className="text-gray-900 dark:text-white">
-                        {claim.licensePlate}
+                        {claim.signatureDate || "Not provided"}
                       </p>
                     )}
                   </div>
@@ -516,53 +1370,261 @@ export default function ClaimDetailPage() {
               </CardContent>
             </Card>
 
-            {/* Insurance Information */}
+            {/* Authorizations */}
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <Shield className="h-5 w-5" />
-                  Insurance Information
+                  <AlertTriangle className="h-5 w-5" />
+                  Authorizations
                 </CardTitle>
               </CardHeader>
-              <CardContent>
+              <CardContent className="space-y-4">
+                <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
+                  <p className="text-sm text-blue-800 dark:text-blue-200">
+                    <strong>Medical Authorization:</strong> This authorization
+                    will authorize you to furnish all information regarding my
+                    condition while under your observation or treatment,
+                    including history, x-ray and physical findings, diagnosis
+                    and prognosis.
+                  </p>
+                </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <label className="text-sm font-medium text-gray-600 dark:text-gray-400">
-                      Insurance Company
+                      Medical Auth Signature
                     </label>
                     {editing ? (
                       <Input
-                        value={claim.insuranceCompany}
+                        value={claim.medicalAuthSignature || ""}
                         onChange={(e) =>
                           setClaim({
                             ...claim,
-                            insuranceCompany: e.target.value,
+                            medicalAuthSignature: e.target.value,
                           })
                         }
                       />
                     ) : (
                       <p className="text-gray-900 dark:text-white">
-                        {claim.insuranceCompany}
+                        {claim.medicalAuthSignature || "Not provided"}
                       </p>
                     )}
                   </div>
                   <div>
                     <label className="text-sm font-medium text-gray-600 dark:text-gray-400">
-                      Policy Number
+                      Medical Auth Date
                     </label>
                     {editing ? (
                       <Input
-                        value={claim.policyNumber}
+                        type="date"
+                        value={claim.medicalAuthDate || ""}
                         onChange={(e) =>
-                          setClaim({ ...claim, policyNumber: e.target.value })
+                          setClaim({
+                            ...claim,
+                            medicalAuthDate: e.target.value,
+                          })
                         }
                       />
                     ) : (
                       <p className="text-gray-900 dark:text-white">
-                        {claim.policyNumber}
+                        {claim.medicalAuthDate || "Not provided"}
                       </p>
                     )}
                   </div>
+                </div>
+                <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg p-4">
+                  <p className="text-sm text-green-800 dark:text-green-200">
+                    <strong>Wage Authorization:</strong> This authorization will
+                    authorize you to furnish all information regarding my wages
+                    or salary while employed by you.
+                  </p>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                      Wage Auth Signature
+                    </label>
+                    {editing ? (
+                      <Input
+                        value={claim.wageAuthSignature || ""}
+                        onChange={(e) =>
+                          setClaim({
+                            ...claim,
+                            wageAuthSignature: e.target.value,
+                          })
+                        }
+                      />
+                    ) : (
+                      <p className="text-gray-900 dark:text-white">
+                        {claim.wageAuthSignature || "Not provided"}
+                      </p>
+                    )}
+                  </div>
+                  <div>
+                    <label className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                      Wage Auth Date
+                    </label>
+                    {editing ? (
+                      <Input
+                        type="date"
+                        value={claim.wageAuthDate || ""}
+                        onChange={(e) =>
+                          setClaim({ ...claim, wageAuthDate: e.target.value })
+                        }
+                      />
+                    ) : (
+                      <p className="text-gray-900 dark:text-white">
+                        {claim.wageAuthDate || "Not provided"}
+                      </p>
+                    )}
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* OIR-B1-1571 Disclosure */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <AlertTriangle className="h-5 w-5" />
+                  OIR-B1-1571 Disclosure & Acknowledgement
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="bg-purple-50 dark:bg-purple-900/20 border border-purple-200 dark:border-purple-800 rounded-lg p-4">
+                  <p className="text-sm text-purple-800 dark:text-purple-200">
+                    <strong>Standard Disclosure:</strong> The undersigned
+                    insured person affirms that services were actually rendered,
+                    they have the right to confirm services, were not solicited,
+                    services were explained, and they may be entitled to a
+                    portion of any billing error reduction.
+                  </p>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                      Patient Name
+                    </label>
+                    {editing ? (
+                      <Input
+                        value={claim.pipPatientName || ""}
+                        onChange={(e) =>
+                          setClaim({ ...claim, pipPatientName: e.target.value })
+                        }
+                      />
+                    ) : (
+                      <p className="text-gray-900 dark:text-white">
+                        {claim.pipPatientName || "Not provided"}
+                      </p>
+                    )}
+                  </div>
+                  <div>
+                    <label className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                      Patient Signature
+                    </label>
+                    {editing ? (
+                      <Input
+                        value={claim.pipPatientSignature || ""}
+                        onChange={(e) =>
+                          setClaim({
+                            ...claim,
+                            pipPatientSignature: e.target.value,
+                          })
+                        }
+                      />
+                    ) : (
+                      <p className="text-gray-900 dark:text-white">
+                        {claim.pipPatientSignature || "Not provided"}
+                      </p>
+                    )}
+                  </div>
+                  <div>
+                    <label className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                      Patient Date
+                    </label>
+                    {editing ? (
+                      <Input
+                        type="date"
+                        value={claim.pipPatientDate || ""}
+                        onChange={(e) =>
+                          setClaim({ ...claim, pipPatientDate: e.target.value })
+                        }
+                      />
+                    ) : (
+                      <p className="text-gray-900 dark:text-white">
+                        {claim.pipPatientDate || "Not provided"}
+                      </p>
+                    )}
+                  </div>
+                  <div>
+                    <label className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                      Provider Name
+                    </label>
+                    {editing ? (
+                      <Input
+                        value={claim.pipProviderName || ""}
+                        onChange={(e) =>
+                          setClaim({
+                            ...claim,
+                            pipProviderName: e.target.value,
+                          })
+                        }
+                      />
+                    ) : (
+                      <p className="text-gray-900 dark:text-white">
+                        {claim.pipProviderName || "Not provided"}
+                      </p>
+                    )}
+                  </div>
+                  <div>
+                    <label className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                      Provider Signature
+                    </label>
+                    {editing ? (
+                      <Input
+                        value={claim.pipProviderSignature || ""}
+                        onChange={(e) =>
+                          setClaim({
+                            ...claim,
+                            pipProviderSignature: e.target.value,
+                          })
+                        }
+                      />
+                    ) : (
+                      <p className="text-gray-900 dark:text-white">
+                        {claim.pipProviderSignature || "Not provided"}
+                      </p>
+                    )}
+                  </div>
+                  <div>
+                    <label className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                      Provider Date
+                    </label>
+                    {editing ? (
+                      <Input
+                        type="date"
+                        value={claim.pipProviderDate || ""}
+                        onChange={(e) =>
+                          setClaim({
+                            ...claim,
+                            pipProviderDate: e.target.value,
+                          })
+                        }
+                      />
+                    ) : (
+                      <p className="text-gray-900 dark:text-white">
+                        {claim.pipProviderDate || "Not provided"}
+                      </p>
+                    )}
+                  </div>
+                </div>
+                <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-4">
+                  <p className="text-sm text-red-800 dark:text-red-200 font-semibold">
+                    Any person who knowingly and with intent to injure, defraud,
+                    or deceive any insurer files a statement of Claim or an
+                    application containing any false, incomplete, or misleading
+                    information is guilty of a felony of the third degree per
+                    Section 817.234(1)(b), Florida Statutes.
+                  </p>
                 </div>
               </CardContent>
             </Card>

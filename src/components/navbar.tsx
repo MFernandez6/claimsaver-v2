@@ -489,7 +489,7 @@ export default function Navbar() {
 
         {/* Mobile Navigation */}
         {isMobileMenuOpen && (
-          <div className="md:hidden border-t border-gray-200 dark:border-gray-700 animate-in slide-in-from-top-2 duration-300">
+          <div className="md:hidden border-t border-gray-200 dark:border-gray-700 animate-in slide-in-from-top-2 duration-300 bg-white/95 backdrop-blur-md dark:bg-gray-950/95 shadow-lg">
             <div className="px-2 pt-2 pb-3 space-y-1">
               {navItems.map((item, index) => (
                 <div
