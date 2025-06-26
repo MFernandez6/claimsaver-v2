@@ -112,11 +112,6 @@ interface FloridaNoFaultFormData {
   estimatedValue: number;
 }
 
-interface SignatureData {
-  data: string;
-  timestamp: string;
-}
-
 export default function ClaimFormPage() {
   const { user, isLoaded } = useUser();
   const router = useRouter();
