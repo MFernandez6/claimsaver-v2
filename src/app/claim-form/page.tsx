@@ -128,9 +128,6 @@ export default function ClaimFormPage() {
   const [showSignatureModal, setShowSignatureModal] = useState(false);
   const [currentSignatureField, setCurrentSignatureField] =
     useState<string>("");
-  const [signatureData, setSignatureData] = useState<SignatureData | null>(
-    null
-  );
   const [isDrawing, setIsDrawing] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const contextRef = useRef<CanvasRenderingContext2D | null>(null);
@@ -278,12 +275,6 @@ export default function ClaimFormPage() {
   const saveSignature = () => {
     if (canvasRef.current) {
       const signatureDataUrl = canvasRef.current.toDataURL();
-      setSignatureData({
-        data: signatureDataUrl,
-        timestamp: new Date().toISOString(),
-      });
-
-      // Update form data with signature
       setFormData((prev) => ({
         ...prev,
         [currentSignatureField]: signatureDataUrl,
@@ -300,7 +291,6 @@ export default function ClaimFormPage() {
   const openSignatureModal = (fieldName: string) => {
     setCurrentSignatureField(fieldName);
     setShowSignatureModal(true);
-    setSignatureData(null);
   };
 
   const handleInputChange = (
