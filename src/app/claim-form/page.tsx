@@ -8,17 +8,18 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import {
-  Shield,
-  User,
-  AlertTriangle,
-  FileText,
-  CheckCircle,
   Loader2,
+  ArrowRight,
+  ArrowLeft,
+  CheckCircle,
+  FileText,
+  Car,
+  User,
+  Calendar,
   DollarSign,
-  FileSignature,
-  PenTool,
-  X,
-  RotateCcw,
+  Shield,
+  Award,
+  Zap,
 } from "lucide-react";
 
 interface FloridaNoFaultFormData {
@@ -48,9 +49,11 @@ interface FloridaNoFaultFormData {
   permanentAddress: string;
 
   // Accident Details
+  accidentDate: string;
+  accidentLocation: string;
+  accidentDescription: string;
   accidentDateTime: string;
   accidentPlace: string;
-  accidentDescription: string;
   yourVehicle: string;
   familyVehicle: string;
   injured: boolean;
@@ -97,8 +100,6 @@ interface FloridaNoFaultFormData {
   pipProviderDate: string;
 
   // Legacy fields for backward compatibility
-  accidentDate: string;
-  accidentLocation: string;
   vehicleMake: string;
   vehicleModel: string;
   vehicleYear: string;
@@ -116,17 +117,15 @@ export default function ClaimFormPage() {
   const { user, isLoaded } = useUser();
   const router = useRouter();
   const [currentStep, setCurrentStep] = useState(1);
-  const [submitting, setSubmitting] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
-  const [claimNumber, setClaimNumber] = useState("");
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [showSignatureModal, setShowSignatureModal] = useState(false);
-  const [currentSignatureField, setCurrentSignatureField] =
-    useState<string>("");
-  const [isDrawing, setIsDrawing] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [signatureModalOpen, setSignatureModalOpen] = useState(false);
+  const [currentSignatureType, setCurrentSignatureType] = useState<string>("");
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const contextRef = useRef<CanvasRenderingContext2D | null>(null);
+  const [isDrawing, setIsDrawing] = useState(false);
 
+  // Form data state
   const [formData, setFormData] = useState<FloridaNoFaultFormData>({
     // Insurance Information
     insuranceCompany: "",
@@ -154,9 +153,11 @@ export default function ClaimFormPage() {
     permanentAddress: "",
 
     // Accident Details
+    accidentDate: "",
+    accidentLocation: "",
+    accidentDescription: "",
     accidentDateTime: "",
     accidentPlace: "",
-    accidentDescription: "",
     yourVehicle: "",
     familyVehicle: "",
     injured: false,
@@ -203,8 +204,6 @@ export default function ClaimFormPage() {
     pipProviderDate: "",
 
     // Legacy fields
-    accidentDate: "",
-    accidentLocation: "",
     vehicleMake: "",
     vehicleModel: "",
     vehicleYear: "",
@@ -214,84 +213,17 @@ export default function ClaimFormPage() {
     estimatedValue: 0,
   });
 
-  const steps = [
-    { number: 1, title: "Insurance Information", icon: Shield },
-    { number: 2, title: "Personal Information", icon: User },
-    { number: 3, title: "Accident Details", icon: AlertTriangle },
-    { number: 4, title: "Medical Information", icon: FileText },
-    { number: 5, title: "Employment & Wages", icon: DollarSign },
-    { number: 6, title: "Authorizations", icon: FileSignature },
-    { number: 7, title: "Review & Submit", icon: CheckCircle },
-  ];
+  const totalSteps = 8;
 
-  // Signature functionality
   useEffect(() => {
-    if (showSignatureModal && canvasRef.current) {
-      const canvas = canvasRef.current;
-      const context = canvas.getContext("2d");
-      if (context) {
-        context.lineCap = "round";
-        context.strokeStyle = "#1f2937";
-        context.lineWidth = 2;
-        contextRef.current = context;
-      }
+    if (isLoaded && !user) {
+      router.push("/");
+      return;
     }
-  }, [showSignatureModal]);
+  }, [isLoaded, user, router]);
 
-  const startDrawing = (event: React.MouseEvent<HTMLCanvasElement>) => {
-    setIsDrawing(true);
-    const { offsetX, offsetY } = event.nativeEvent;
-    contextRef.current?.beginPath();
-    contextRef.current?.moveTo(offsetX, offsetY);
-  };
-
-  const draw = (event: React.MouseEvent<HTMLCanvasElement>) => {
-    if (!isDrawing) return;
-    const { offsetX, offsetY } = event.nativeEvent;
-    contextRef.current?.lineTo(offsetX, offsetY);
-    contextRef.current?.stroke();
-  };
-
-  const stopDrawing = () => {
-    setIsDrawing(false);
-  };
-
-  const clearSignature = () => {
-    if (canvasRef.current && contextRef.current) {
-      contextRef.current.clearRect(
-        0,
-        0,
-        canvasRef.current.width,
-        canvasRef.current.height
-      );
-    }
-  };
-
-  const saveSignature = () => {
-    if (canvasRef.current) {
-      const signatureDataUrl = canvasRef.current.toDataURL();
-      setFormData((prev) => ({
-        ...prev,
-        [currentSignatureField]: signatureDataUrl,
-        [`${currentSignatureField}Date`]: new Date()
-          .toISOString()
-          .split("T")[0],
-      }));
-
-      setShowSignatureModal(false);
-      setCurrentSignatureField("");
-    }
-  };
-
-  const openSignatureModal = (fieldName: string) => {
-    setCurrentSignatureField(fieldName);
-    setShowSignatureModal(true);
-  };
-
-  const handleInputChange = (
-    field: keyof FloridaNoFaultFormData,
-    value: string | number | boolean
-  ) => {
+  const handleInputChange = (field: string, value: string | boolean) => {
+    console.log("handleInputChange called:", field, value);
     setFormData((prev) => ({
       ...prev,
       [field]: value,
@@ -299,7 +231,7 @@ export default function ClaimFormPage() {
   };
 
   const nextStep = () => {
-    if (currentStep < steps.length) {
+    if (currentStep < totalSteps) {
       setCurrentStep(currentStep + 1);
     }
   };
@@ -310,66 +242,53 @@ export default function ClaimFormPage() {
     }
   };
 
-  const handleSubmit = async () => {
-    if (!user) {
-      setError("You must be signed in to submit a claim");
-      return;
+  const openSignatureModal = (type: string) => {
+    setCurrentSignatureType(type);
+    setSignatureModalOpen(true);
+  };
+
+  const closeSignatureModal = () => {
+    setSignatureModalOpen(false);
+    setIsDrawing(false);
+  };
+
+  const clearSignature = () => {
+    const canvas = canvasRef.current;
+    if (canvas) {
+      const ctx = canvas.getContext("2d");
+      if (ctx) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+      }
     }
+  };
+
+  const saveSignature = () => {
+    const canvas = canvasRef.current;
+    if (canvas) {
+      const signatureData = canvas.toDataURL();
+      const fieldName = `${currentSignatureType}Signature`;
+      const dateFieldName = `${currentSignatureType}Date`;
+
+      setFormData((prev) => ({
+        ...prev,
+        [fieldName]: signatureData,
+        [dateFieldName]: new Date().toISOString().split("T")[0],
+      }));
+    }
+    closeSignatureModal();
+  };
+
+  const handleSubmit = async () => {
+    setLoading(true);
+    setError(null);
 
     try {
-      setSubmitting(true);
-      setError(null);
-
-      // Set legacy fields for backward compatibility
-      const submissionData = {
-        // Required fields for API
-        claimantName: formData.claimantName,
-        claimantEmail: user.emailAddresses[0]?.emailAddress || "",
-        claimantPhone:
-          formData.claimantPhoneHome || formData.claimantPhone || "",
-        claimantAddress: formData.claimantAddress || "",
-
-        // Accident details
-        accidentDate:
-          formData.dateOfAccident ||
-          formData.accidentDateTime ||
-          new Date().toISOString(),
-        accidentLocation: formData.accidentPlace || "",
-        accidentDescription: formData.accidentDescription || "",
-
-        // Insurance information
-        insuranceCompany: formData.insuranceCompany || "",
-        policyNumber: formData.policyNumber || "",
-
-        // Vehicle information
-        vehicleMake: formData.yourVehicle || "Not specified",
-        vehicleModel: "Not specified",
-        vehicleYear: "Not specified",
-        licensePlate: "Not specified",
-
-        // Injuries
-        injuries: formData.injured
-          ? [
-              {
-                type: "General",
-                description:
-                  formData.injuryDescription || "Injury from accident",
-                severity: "moderate",
-              },
-            ]
-          : [],
-
-        // Additional fields
-        propertyDamage: "",
-        estimatedValue: 0,
-      };
-
       const response = await fetch("/api/claims", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(submissionData),
+        body: JSON.stringify(formData),
       });
 
       const data = await response.json();
@@ -378,529 +297,244 @@ export default function ClaimFormPage() {
         throw new Error(data.error || "Failed to submit claim");
       }
 
-      setClaimNumber(data.claim?.claimNumber || "Pending");
-      setSubmitted(true);
+      setSuccess(true);
+      setTimeout(() => {
+        router.push("/dashboard");
+      }, 3000);
     } catch (err) {
       console.error("Error submitting claim:", err);
       setError(err instanceof Error ? err.message : "Failed to submit claim");
     } finally {
-      setSubmitting(false);
+      setLoading(false);
     }
   };
 
-  const isStepValid = (step: number) => {
+  const getStepIcon = (step: number) => {
     switch (step) {
       case 1:
-        return formData.insuranceCompany && formData.policyNumber;
+        return <User className="w-5 h-5" />;
       case 2:
-        return formData.claimantName && formData.claimantPhoneHome;
+        return <Car className="w-5 h-5" />;
       case 3:
-        return (
-          formData.accidentDateTime &&
-          formData.accidentPlace &&
-          formData.accidentDescription
-        );
+        return <Calendar className="w-5 h-5" />;
       case 4:
-        return true; // Medical info is optional
+        return <Shield className="w-5 h-5" />;
       case 5:
-        return true; // Employment info is optional
+        return <DollarSign className="w-5 h-5" />;
       case 6:
-        return true; // Authorizations are optional
+        return <FileText className="w-5 h-5" />;
+      case 7:
+        return <Award className="w-5 h-5" />;
+      case 8:
+        return <Zap className="w-5 h-5" />;
       default:
-        return true;
+        return <FileText className="w-5 h-5" />;
     }
   };
 
-  const getStepValidationErrors = (step: number) => {
-    const errors: string[] = [];
-
+  const getStepTitle = (step: number) => {
     switch (step) {
       case 1:
-        if (!formData.insuranceCompany)
-          errors.push("Auto Insurance Company is required");
-        if (!formData.policyNumber) errors.push("Policy Number is required");
-        break;
+        return "Personal Information";
       case 2:
-        if (!formData.claimantName) errors.push("Full Name is required");
-        if (!formData.claimantPhoneHome) errors.push("Home Phone is required");
-        break;
+        return "Vehicle Information";
       case 3:
-        if (!formData.accidentDateTime)
-          errors.push("Date & Time of Accident is required");
-        if (!formData.accidentPlace)
-          errors.push("Place of Accident is required");
-        if (!formData.accidentDescription)
-          errors.push("Accident Description is required");
-        break;
+        return "Accident Details";
+      case 4:
+        return "Medical Information";
+      case 5:
+        return "Employment & Wages";
+      case 6:
+        return "Legal Disclaimers";
+      case 7:
+        return "Authorizations";
+      case 8:
+        return "Review & Submit";
+      default:
+        return "Step";
     }
-
-    return errors;
-  };
-
-  const getFieldValidationState = (field: keyof FloridaNoFaultFormData) => {
-    const currentErrors = getStepValidationErrors(currentStep);
-    const fieldName =
-      field === "insuranceCompany"
-        ? "Auto Insurance Company"
-        : field === "policyNumber"
-        ? "Policy Number"
-        : field === "claimantName"
-        ? "Full Name"
-        : field === "claimantPhoneHome"
-        ? "Home Phone"
-        : field === "accidentDateTime"
-        ? "Date & Time of Accident"
-        : field === "accidentPlace"
-        ? "Place of Accident"
-        : field === "accidentDescription"
-        ? "Accident Description"
-        : "";
-
-    return {
-      isInvalid: currentErrors.includes(fieldName),
-      errorMessage: currentErrors.includes(fieldName)
-        ? fieldName + " is required"
-        : "",
-    };
   };
 
   if (!isLoaded) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-950 dark:to-gray-900">
-        <div className="container mx-auto px-4 py-8">
+        <div className="container mx-auto px-4 py-8 pt-24">
           <div className="flex items-center justify-center min-h-[400px]">
-            <div className="flex items-center gap-2">
-              <Loader2 className="h-6 w-6 animate-spin" />
-              <span className="text-gray-600 dark:text-gray-400">
-                Loading...
-              </span>
-            </div>
+            <Loader2 className="h-8 w-8 animate-spin" />
           </div>
         </div>
       </div>
     );
   }
 
-  if (!user) {
-    router.push("/");
-    return null;
-  }
-
-  if (submitted) {
+  if (success) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-blue-50 to-indigo-100 dark:from-gray-950 dark:via-gray-900 dark:to-gray-800 pt-24 pb-12">
-        <div className="container mx-auto px-4 py-8">
-          <div className="max-w-2xl mx-auto">
-            <Card className="text-center shadow-2xl border-0 bg-white/80 backdrop-blur-sm dark:bg-gray-900/80">
-              <CardContent className="pt-8 pb-8">
-                <div className="relative">
-                  <div className="absolute inset-0 bg-gradient-to-r from-emerald-400/20 to-blue-400/20 rounded-t-lg"></div>
-                  <CheckCircle className="h-20 w-20 text-emerald-500 mx-auto mb-6 relative z-10 drop-shadow-lg" />
-                </div>
-                <h1 className="text-4xl font-bold bg-gradient-to-r from-emerald-600 to-blue-600 bg-clip-text text-transparent mb-4">
-                  Claim Submitted Successfully!
-                </h1>
-                <p className="text-gray-600 dark:text-gray-300 mb-6 text-lg">
-                  Your Florida No-Fault claim has been submitted and is being
-                  processed.
-                </p>
-                <div className="bg-gradient-to-r from-emerald-50 to-blue-50 dark:from-emerald-900/20 dark:to-blue-900/20 border border-emerald-200 dark:border-emerald-800 rounded-xl p-6 mb-8 shadow-lg">
-                  <p className="text-emerald-800 dark:text-emerald-200 text-lg font-semibold">
-                    <strong>Claim Number:</strong> {claimNumber}
-                  </p>
-                </div>
-                <div className="space-y-3 text-sm text-gray-600 dark:text-gray-400 mb-8">
-                  <div className="flex items-center justify-center gap-2">
-                    <div className="w-2 h-2 bg-emerald-500 rounded-full"></div>
-                    <p>You will receive a confirmation email shortly</p>
-                  </div>
-                  <div className="flex items-center justify-center gap-2">
-                    <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                    <p>Our team will review your claim within 24-48 hours</p>
-                  </div>
-                  <div className="flex items-center justify-center gap-2">
-                    <div className="w-2 h-2 bg-indigo-500 rounded-full"></div>
-                    <p>You can track your claim status in your dashboard</p>
-                  </div>
-                </div>
-                <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <Button
-                    onClick={() => router.push("/dashboard")}
-                    className="bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 text-white px-8 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
-                  >
-                    Go to Dashboard
-                  </Button>
-                  <Button
-                    variant="outline"
-                    onClick={() => window.location.reload()}
-                    className="border-2 border-gray-300 hover:border-gray-400 text-gray-700 dark:text-gray-300 px-8 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
-                  >
-                    Submit Another Claim
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
+      <div className="min-h-screen bg-white dark:bg-gray-950">
+        {/* Hero Section */}
+        <section className="relative overflow-hidden bg-gradient-to-br from-blue-50 via-white to-indigo-50 dark:from-gray-950 dark:via-gray-900 dark:to-blue-950">
+          {/* Background Image */}
+          <div className="fixed inset-0 z-0">
+            <img
+              src="/images/long-logo-ClaimSaver.jpg"
+              alt="ClaimSaver+ Background"
+              className="w-full h-full object-cover opacity-25"
+            />
+            <div className="absolute inset-0 bg-gradient-to-br from-blue-50/70 via-white/80 to-indigo-50/70 dark:from-gray-950/70 dark:via-gray-900/80 dark:to-blue-950/70"></div>
           </div>
-        </div>
+
+          <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-24">
+            <div className="text-center">
+              <div className="w-20 h-20 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full flex items-center justify-center mx-auto mb-6">
+                <CheckCircle className="w-10 h-10 text-white" />
+              </div>
+              <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-6">
+                Claim Submitted{" "}
+                <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                  Successfully!
+                </span>
+              </h1>
+              <p className="text-xl text-gray-600 dark:text-gray-300 mb-8">
+                Your claim has been submitted and is now under review.
+                We&apos;ll contact you soon with updates.
+              </p>
+              <Button
+                onClick={() => router.push("/dashboard")}
+                className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-4 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+              >
+                Go to Dashboard
+                <ArrowRight className="ml-2 w-5 h-5" />
+              </Button>
+            </div>
+          </div>
+        </section>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-blue-50 to-indigo-100 dark:from-gray-950 dark:via-gray-900 dark:to-gray-800 pt-24 pb-12">
-      <div className="container mx-auto px-4 py-8">
-        <div className="max-w-5xl mx-auto">
-          {/* Header */}
+    <div className="min-h-screen bg-white dark:bg-gray-950">
+      {/* Hero Section */}
+      <section className="relative overflow-hidden bg-gradient-to-br from-blue-50 via-white to-indigo-50 dark:from-gray-950 dark:via-gray-900 dark:to-blue-950">
+        {/* Background Image */}
+        <div className="fixed inset-0 z-0">
+          <img
+            src="/images/long-logo-ClaimSaver.jpg"
+            alt="ClaimSaver+ Background"
+            className="w-full h-full object-cover opacity-25"
+          />
+          <div className="absolute inset-0 bg-gradient-to-br from-blue-50/70 via-white/80 to-indigo-50/70 dark:from-gray-950/70 dark:via-gray-900/80 dark:to-blue-950/70"></div>
+        </div>
+
+        <div className="relative z-20 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-24">
           <div className="text-center mb-12">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-emerald-500 to-blue-500 rounded-full mb-6 shadow-lg">
-              <FileSignature className="h-8 w-8 text-white" />
-            </div>
-            <h1 className="text-5xl font-bold bg-gradient-to-r from-emerald-600 to-blue-600 bg-clip-text text-transparent mb-4">
-              Florida No-Fault Claim Form
+            <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-6">
+              Florida{" "}
+              <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                No-Fault Form
+              </span>
             </h1>
-            <p className="text-gray-600 dark:text-gray-300 text-xl max-w-2xl mx-auto">
-              Complete this form to file your Florida Personal Injury Protection
-              (PIP) claim
+            <p className="text-xl text-gray-600 dark:text-gray-300 mb-8">
+              Complete your accident claim with our step-by-step form
             </p>
-          </div>
 
-          {/* Progress Steps */}
-          <div className="mb-12">
-            <div className="flex items-center justify-between max-w-4xl mx-auto">
-              {steps.map((step, index) => (
-                <div key={step.number} className="flex items-center">
-                  <div
-                    className={`flex items-center justify-center w-12 h-12 rounded-full border-2 transition-all duration-300 ${
-                      currentStep >= step.number
-                        ? "bg-gradient-to-r from-emerald-500 to-blue-500 border-transparent text-white shadow-lg scale-110"
-                        : "border-gray-300 text-gray-500 bg-white dark:bg-gray-800"
-                    }`}
-                  >
-                    {currentStep > step.number ? (
-                      <CheckCircle className="w-6 h-6" />
-                    ) : (
-                      <step.icon className="w-6 h-6" />
-                    )}
-                  </div>
-                  {index < steps.length - 1 && (
-                    <div
-                      className={`w-20 h-1 mx-4 rounded-full transition-all duration-300 ${
-                        currentStep > step.number
-                          ? "bg-gradient-to-r from-emerald-500 to-blue-500"
-                          : "bg-gray-300"
-                      }`}
-                    />
+            {/* Progress Bar */}
+            <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-3 mb-8">
+              <div
+                className="bg-gradient-to-r from-blue-600 to-purple-600 h-3 rounded-full transition-all duration-500"
+                style={{ width: `${(currentStep / totalSteps) * 100}%` }}
+              ></div>
+            </div>
+
+            {/* Step Indicator */}
+            <div className="flex items-center justify-center gap-2 mb-8">
+              {Array.from({ length: totalSteps }, (_, i) => (
+                <div
+                  key={i + 1}
+                  className={`flex items-center justify-center w-10 h-10 rounded-full transition-all duration-300 ${
+                    i + 1 === currentStep
+                      ? "bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg"
+                      : i + 1 < currentStep
+                      ? "bg-green-500 text-white"
+                      : "bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-400"
+                  }`}
+                >
+                  {i + 1 < currentStep ? (
+                    <CheckCircle className="w-5 h-5" />
+                  ) : (
+                    getStepIcon(i + 1)
                   )}
                 </div>
               ))}
             </div>
-            <div className="flex justify-between mt-4 max-w-4xl mx-auto">
-              {steps.map((step) => (
-                <div key={step.number} className="text-center">
-                  <span
-                    className={`text-sm font-medium transition-all duration-300 ${
-                      currentStep >= step.number
-                        ? "text-emerald-600 dark:text-emerald-400"
-                        : "text-gray-500"
-                    }`}
-                  >
-                    {step.title}
-                  </span>
-                  {currentStep === step.number && (
-                    <div className="mt-2">
-                      <span
-                        className={`text-xs px-3 py-1 rounded-full ${
-                          isStepValid(step.number)
-                            ? "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300"
-                            : "bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-300"
-                        }`}
-                      >
-                        {isStepValid(step.number)
-                          ? "✓ Complete"
-                          : "⚠ Required fields missing"}
-                      </span>
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
+
+            <h2 className="text-2xl font-semibold text-gray-900 dark:text-white">
+              Step {currentStep}: {getStepTitle(currentStep)}
+            </h2>
           </div>
 
-          {/* Error Message */}
+          {/* Error Display */}
           {error && (
-            <div className="mb-8 p-6 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl shadow-lg">
-              <div className="flex items-center gap-3">
-                <AlertTriangle className="h-5 w-5 text-red-500" />
-                <p className="text-red-800 dark:text-red-200 font-medium">
-                  {error}
-                </p>
-              </div>
-            </div>
-          )}
-
-          {/* Step Validation Errors */}
-          {getStepValidationErrors(currentStep).length > 0 && (
-            <div className="mb-8 p-6 bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-800 rounded-xl shadow-lg">
-              <h3 className="text-orange-800 dark:text-orange-200 font-semibold mb-3 flex items-center gap-2">
-                <AlertTriangle className="h-5 w-5" />
-                Please complete the following required fields to continue:
-              </h3>
-              <ul className="space-y-2">
-                {getStepValidationErrors(currentStep).map((error, index) => (
-                  <li
-                    key={index}
-                    className="text-orange-700 dark:text-orange-300 text-sm flex items-center gap-2"
-                  >
-                    <div className="w-1.5 h-1.5 bg-orange-500 rounded-full"></div>
-                    {error}
-                  </li>
-                ))}
-              </ul>
+            <div className="bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800 rounded-lg p-4 mb-8">
+              <p className="text-red-800 dark:text-red-200">{error}</p>
             </div>
           )}
 
           {/* Form Content */}
-          <Card className="shadow-2xl border-0 bg-white/90 backdrop-blur-sm dark:bg-gray-900/90">
-            <CardContent className="pt-8 pb-8">
+          <Card className="group relative overflow-hidden border-0 shadow-xl bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 backdrop-blur-sm z-30">
+            <div className="absolute inset-0 bg-gradient-to-r from-blue-600/5 to-purple-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            <CardContent className="p-8">
+              {/* Step 1: Personal Information */}
               {currentStep === 1 && (
                 <div className="space-y-6">
-                  <div>
-                    <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-                      Insurance Information
-                    </h2>
-                    <p className="text-gray-600 dark:text-gray-400 mb-6">
-                      Please provide your auto insurance information.
-                    </p>
-                    <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-3 mb-4">
-                      <p className="text-sm text-blue-800 dark:text-blue-200">
-                        <strong>Required:</strong> Auto Insurance Company,
-                        Policy Number
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-6">
+                    Personal Information
+                  </h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                       <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                        Auto Insurance Company{" "}
-                        <span className="text-red-500">*</span>
-                      </label>
-                      <Input
-                        value={formData.insuranceCompany}
-                        onChange={(e) =>
-                          handleInputChange("insuranceCompany", e.target.value)
-                        }
-                        placeholder="e.g., State Farm, Allstate"
-                        required
-                        className={
-                          getFieldValidationState("insuranceCompany").isInvalid
-                            ? "border-red-500 focus:border-red-500"
-                            : ""
-                        }
-                      />
-                      {getFieldValidationState("insuranceCompany")
-                        .isInvalid && (
-                        <p className="text-red-500 text-xs mt-1">
-                          Auto Insurance Company is required
-                        </p>
-                      )}
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                        Policy Number <span className="text-red-500">*</span>
-                      </label>
-                      <Input
-                        value={formData.policyNumber}
-                        onChange={(e) =>
-                          handleInputChange("policyNumber", e.target.value)
-                        }
-                        placeholder="Enter your policy number"
-                        required
-                        className={
-                          getFieldValidationState("policyNumber").isInvalid
-                            ? "border-red-500 focus:border-red-500"
-                            : ""
-                        }
-                      />
-                      {getFieldValidationState("policyNumber").isInvalid && (
-                        <p className="text-red-500 text-xs mt-1">
-                          Policy Number is required
-                        </p>
-                      )}
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                        Adjuster Name
-                      </label>
-                      <Input
-                        value={formData.adjusterName}
-                        onChange={(e) =>
-                          handleInputChange("adjusterName", e.target.value)
-                        }
-                        placeholder="Name of your adjuster"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                        Adjuster Phone
-                      </label>
-                      <Input
-                        value={formData.adjusterPhone}
-                        onChange={(e) =>
-                          handleInputChange("adjusterPhone", e.target.value)
-                        }
-                        placeholder="Phone number"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                        File Number
-                      </label>
-                      <Input
-                        value={formData.fileNumber}
-                        onChange={(e) =>
-                          handleInputChange("fileNumber", e.target.value)
-                        }
-                        placeholder="Insurance file number"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                        Policy Holder
-                      </label>
-                      <Input
-                        value={formData.policyHolder}
-                        onChange={(e) =>
-                          handleInputChange("policyHolder", e.target.value)
-                        }
-                        placeholder="Name of policy holder"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                        Date of Accident
-                      </label>
-                      <Input
-                        type="date"
-                        value={formData.dateOfAccident}
-                        onChange={(e) =>
-                          handleInputChange("dateOfAccident", e.target.value)
-                        }
-                      />
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                        Medical Insurance
-                      </label>
-                      <Input
-                        value={formData.medicalInsurance}
-                        onChange={(e) =>
-                          handleInputChange("medicalInsurance", e.target.value)
-                        }
-                        placeholder="Medical insurance company"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                        Member ID
-                      </label>
-                      <Input
-                        value={formData.medicalMemberId}
-                        onChange={(e) =>
-                          handleInputChange("medicalMemberId", e.target.value)
-                        }
-                        placeholder="Medical insurance member ID"
-                      />
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              {currentStep === 2 && (
-                <div className="space-y-6">
-                  <div>
-                    <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-                      Personal Information
-                    </h2>
-                    <p className="text-gray-600 dark:text-gray-400 mb-6">
-                      Please provide your personal information.
-                    </p>
-                    <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-3 mb-4">
-                      <p className="text-sm text-blue-800 dark:text-blue-200">
-                        <strong>Required:</strong> Full Name, Home Phone
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                        Full Name <span className="text-red-500">*</span>
+                        Full Name *
                       </label>
                       <Input
                         value={formData.claimantName}
                         onChange={(e) =>
                           handleInputChange("claimantName", e.target.value)
                         }
-                        placeholder="Your full name"
+                        onClick={() => console.log("Input clicked")}
+                        placeholder="Enter your full name"
                         required
-                        className={
-                          getFieldValidationState("claimantName").isInvalid
-                            ? "border-red-500 focus:border-red-500"
-                            : ""
-                        }
                       />
-                      {getFieldValidationState("claimantName").isInvalid && (
-                        <p className="text-red-500 text-xs mt-1">
-                          Full Name is required
-                        </p>
-                      )}
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                        Home Phone <span className="text-red-500">*</span>
+                        Email Address *
                       </label>
                       <Input
-                        value={formData.claimantPhoneHome}
+                        type="email"
+                        value={formData.claimantEmail}
                         onChange={(e) =>
-                          handleInputChange("claimantPhoneHome", e.target.value)
+                          handleInputChange("claimantEmail", e.target.value)
                         }
-                        placeholder="Home phone number"
+                        placeholder="Enter your email"
                         required
-                        className={
-                          getFieldValidationState("claimantPhoneHome").isInvalid
-                            ? "border-red-500 focus:border-red-500"
-                            : ""
-                        }
                       />
-                      {getFieldValidationState("claimantPhoneHome")
-                        .isInvalid && (
-                        <p className="text-red-500 text-xs mt-1">
-                          Home Phone is required
-                        </p>
-                      )}
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                        Business Phone
+                        Phone Number *
                       </label>
                       <Input
-                        value={formData.claimantPhoneBusiness}
+                        type="tel"
+                        value={formData.claimantPhone}
                         onChange={(e) =>
-                          handleInputChange(
-                            "claimantPhoneBusiness",
-                            e.target.value
-                          )
+                          handleInputChange("claimantPhone", e.target.value)
                         }
-                        placeholder="Business phone number"
+                        placeholder="Enter your phone number"
+                        required
                       />
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                        Date of Birth
+                        Date of Birth *
                       </label>
                       <Input
                         type="date"
@@ -908,787 +542,341 @@ export default function ClaimFormPage() {
                         onChange={(e) =>
                           handleInputChange("claimantDOB", e.target.value)
                         }
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                        Social Security Number
-                      </label>
-                      <Input
-                        value={formData.claimantSSN}
-                        onChange={(e) =>
-                          handleInputChange("claimantSSN", e.target.value)
-                        }
-                        placeholder="XXX-XX-XXXX"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                        Florida Residency Duration
-                      </label>
-                      <Input
-                        value={formData.floridaResidencyDuration}
-                        onChange={(e) =>
-                          handleInputChange(
-                            "floridaResidencyDuration",
-                            e.target.value
-                          )
-                        }
-                        placeholder="e.g., 5 years"
+                        required
                       />
                     </div>
                   </div>
-
                   <div>
                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                      Address
+                      Current Address *
                     </label>
-                    <Input
+                    <Textarea
                       value={formData.claimantAddress}
                       onChange={(e) =>
                         handleInputChange("claimantAddress", e.target.value)
                       }
-                      placeholder="Street, City, State, ZIP"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                      Permanent Address (if different)
-                    </label>
-                    <Input
-                      value={formData.permanentAddress}
-                      onChange={(e) =>
-                        handleInputChange("permanentAddress", e.target.value)
-                      }
-                      placeholder="Permanent address if different from above"
+                      placeholder="Enter your current address"
+                      rows={3}
+                      required
                     />
                   </div>
                 </div>
               )}
 
+              {/* Step 2: Vehicle Information */}
+              {currentStep === 2 && (
+                <div className="space-y-6">
+                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-6">
+                    Vehicle Information
+                  </h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        Vehicle Year *
+                      </label>
+                      <Input
+                        value={formData.vehicleYear}
+                        onChange={(e) =>
+                          handleInputChange("vehicleYear", e.target.value)
+                        }
+                        placeholder="e.g., 2020"
+                        required
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        Vehicle Make *
+                      </label>
+                      <Input
+                        value={formData.vehicleMake}
+                        onChange={(e) =>
+                          handleInputChange("vehicleMake", e.target.value)
+                        }
+                        placeholder="e.g., Toyota"
+                        required
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        Vehicle Model *
+                      </label>
+                      <Input
+                        value={formData.vehicleModel}
+                        onChange={(e) =>
+                          handleInputChange("vehicleModel", e.target.value)
+                        }
+                        placeholder="e.g., Camry"
+                        required
+                      />
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Step 3: Accident Details */}
               {currentStep === 3 && (
                 <div className="space-y-6">
-                  <div>
-                    <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-                      Accident Details
-                    </h2>
-                    <p className="text-gray-600 dark:text-gray-400 mb-6">
-                      Please provide details about the accident.
-                    </p>
-                    <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-3 mb-4">
-                      <p className="text-sm text-blue-800 dark:text-blue-200">
-                        <strong>Required:</strong> Date & Time of Accident,
-                        Place of Accident, Accident Description
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-6">
+                    Accident Details
+                  </h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                       <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                        Date & Time of Accident{" "}
-                        <span className="text-red-500">*</span>
+                        Date of Accident *
                       </label>
                       <Input
-                        type="datetime-local"
-                        value={formData.accidentDateTime}
+                        type="date"
+                        value={formData.accidentDate}
                         onChange={(e) =>
-                          handleInputChange("accidentDateTime", e.target.value)
+                          handleInputChange("accidentDate", e.target.value)
                         }
                         required
-                        className={
-                          getFieldValidationState("accidentDateTime").isInvalid
-                            ? "border-red-500 focus:border-red-500"
-                            : ""
-                        }
                       />
-                      {getFieldValidationState("accidentDateTime")
-                        .isInvalid && (
-                        <p className="text-red-500 text-xs mt-1">
-                          Date & Time of Accident is required
-                        </p>
-                      )}
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                        Place of Accident{" "}
-                        <span className="text-red-500">*</span>
+                        Accident Location *
                       </label>
                       <Input
-                        value={formData.accidentPlace}
+                        value={formData.accidentLocation}
                         onChange={(e) =>
-                          handleInputChange("accidentPlace", e.target.value)
+                          handleInputChange("accidentLocation", e.target.value)
                         }
-                        placeholder="Street, City, State"
+                        placeholder="City, State"
                         required
-                        className={
-                          getFieldValidationState("accidentPlace").isInvalid
-                            ? "border-red-500 focus:border-red-500"
-                            : ""
-                        }
                       />
-                      {getFieldValidationState("accidentPlace").isInvalid && (
-                        <p className="text-red-500 text-xs mt-1">
-                          Place of Accident is required
-                        </p>
-                      )}
                     </div>
                   </div>
-
                   <div>
                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                      Brief Description of Accident{" "}
-                      <span className="text-red-500">*</span>
+                      Accident Description *
                     </label>
                     <Textarea
                       value={formData.accidentDescription}
                       onChange={(e) =>
                         handleInputChange("accidentDescription", e.target.value)
                       }
-                      placeholder="Describe what happened in the accident..."
+                      placeholder="Describe what happened in the accident"
                       rows={4}
                       required
-                      className={
-                        getFieldValidationState("accidentDescription").isInvalid
-                          ? "border-red-500 focus:border-red-500"
-                          : ""
-                      }
                     />
-                    {getFieldValidationState("accidentDescription")
-                      .isInvalid && (
-                      <p className="text-red-500 text-xs mt-1">
-                        Accident Description is required
-                      </p>
-                    )}
                   </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                        Your Vehicle
-                      </label>
-                      <Input
-                        value={formData.yourVehicle}
-                        onChange={(e) =>
-                          handleInputChange("yourVehicle", e.target.value)
-                        }
-                        placeholder="Make, model, year"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                        Family Vehicle
-                      </label>
-                      <Input
-                        value={formData.familyVehicle}
-                        onChange={(e) =>
-                          handleInputChange("familyVehicle", e.target.value)
-                        }
-                        placeholder="Family vehicle details"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="flex items-center space-x-2">
-                    <input
-                      type="checkbox"
-                      id="injured"
-                      checked={formData.injured}
-                      onChange={(e) =>
-                        handleInputChange(
-                          "injured",
-                          e.target.checked as boolean
-                        )
-                      }
-                    />
-                    <label
-                      htmlFor="injured"
-                      className="text-sm font-medium text-gray-700 dark:text-gray-300"
-                    >
-                      Were you injured as a result of this accident?
-                    </label>
-                  </div>
-
-                  {formData.injured && (
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                        Describe Your Injury
-                      </label>
-                      <Textarea
-                        value={formData.injuryDescription}
-                        onChange={(e) =>
-                          handleInputChange("injuryDescription", e.target.value)
-                        }
-                        placeholder="Describe your injuries..."
-                        rows={3}
-                      />
-                    </div>
-                  )}
                 </div>
               )}
 
+              {/* Step 4: Insurance Information */}
               {currentStep === 4 && (
                 <div className="space-y-6">
-                  <div>
-                    <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-                      Medical Information
-                    </h2>
-                    <p className="text-gray-600 dark:text-gray-400 mb-6">
-                      Please provide information about any medical treatment
-                      received.
-                    </p>
-                    <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg p-3 mb-4">
-                      <p className="text-sm text-green-800 dark:text-green-200">
-                        <strong>Optional:</strong> All medical information
-                        fields are optional but recommended if you received
-                        treatment
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center space-x-2">
-                    <input
-                      type="checkbox"
-                      id="treatedByDoctor"
-                      checked={formData.treatedByDoctor}
-                      onChange={(e) =>
-                        handleInputChange(
-                          "treatedByDoctor",
-                          e.target.checked as boolean
-                        )
-                      }
-                    />
-                    <label
-                      htmlFor="treatedByDoctor"
-                      className="text-sm font-medium text-gray-700 dark:text-gray-300"
-                    >
-                      Were you treated by a doctor?
-                    </label>
-                  </div>
-
-                  {formData.treatedByDoctor && (
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                          Doctor&apos;s Name
-                        </label>
-                        <Input
-                          value={formData.doctorName}
-                          onChange={(e) =>
-                            handleInputChange("doctorName", e.target.value)
-                          }
-                          placeholder="Doctor's name"
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                          Doctor&apos;s Address
-                        </label>
-                        <Input
-                          value={formData.doctorAddress}
-                          onChange={(e) =>
-                            handleInputChange("doctorAddress", e.target.value)
-                          }
-                          placeholder="Doctor's address"
-                        />
-                      </div>
-                    </div>
-                  )}
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="flex items-center space-x-2">
-                      <input
-                        type="checkbox"
-                        id="hospitalInpatient"
-                        checked={formData.hospitalInpatient}
-                        onChange={(e) =>
-                          handleInputChange(
-                            "hospitalInpatient",
-                            e.target.checked as boolean
-                          )
-                        }
-                      />
-                      <label
-                        htmlFor="hospitalInpatient"
-                        className="text-sm font-medium text-gray-700 dark:text-gray-300"
-                      >
-                        Hospital Inpatient
-                      </label>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <input
-                        type="checkbox"
-                        id="hospitalOutpatient"
-                        checked={formData.hospitalOutpatient}
-                        onChange={(e) =>
-                          handleInputChange(
-                            "hospitalOutpatient",
-                            e.target.checked as boolean
-                          )
-                        }
-                      />
-                      <label
-                        htmlFor="hospitalOutpatient"
-                        className="text-sm font-medium text-gray-700 dark:text-gray-300"
-                      >
-                        Hospital Outpatient
-                      </label>
-                    </div>
-                  </div>
-
-                  {(formData.hospitalInpatient ||
-                    formData.hospitalOutpatient) && (
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                          Hospital Name
-                        </label>
-                        <Input
-                          value={formData.hospitalName}
-                          onChange={(e) =>
-                            handleInputChange("hospitalName", e.target.value)
-                          }
-                          placeholder="Hospital name"
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                          Hospital Address
-                        </label>
-                        <Input
-                          value={formData.hospitalAddress}
-                          onChange={(e) =>
-                            handleInputChange("hospitalAddress", e.target.value)
-                          }
-                          placeholder="Hospital address"
-                        />
-                      </div>
-                    </div>
-                  )}
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-6">
+                    Insurance Information
+                  </h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                       <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                        Medical Bills to Date
+                        Insurance Company *
                       </label>
                       <Input
-                        value={formData.medicalBillsToDate}
+                        value={formData.insuranceCompany}
                         onChange={(e) =>
-                          handleInputChange(
-                            "medicalBillsToDate",
-                            e.target.value
-                          )
+                          handleInputChange("insuranceCompany", e.target.value)
                         }
-                        placeholder="Total medical bills amount"
+                        placeholder="Enter insurance company name"
+                        required
                       />
                     </div>
-                    <div className="flex items-center space-x-2">
-                      <input
-                        type="checkbox"
-                        id="moreMedicalExpense"
-                        checked={formData.moreMedicalExpense}
-                        onChange={(e) =>
-                          handleInputChange(
-                            "moreMedicalExpense",
-                            e.target.checked as boolean
-                          )
-                        }
-                      />
-                      <label
-                        htmlFor="moreMedicalExpense"
-                        className="text-sm font-medium text-gray-700 dark:text-gray-300"
-                      >
-                        Will you have more medical expenses?
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        Policy Number *
                       </label>
+                      <Input
+                        value={formData.policyNumber}
+                        onChange={(e) =>
+                          handleInputChange("policyNumber", e.target.value)
+                        }
+                        placeholder="Enter policy number"
+                        required
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                        Policy Holder *
+                      </label>
+                      <Input
+                        value={formData.policyHolder}
+                        onChange={(e) =>
+                          handleInputChange("policyHolder", e.target.value)
+                        }
+                        placeholder="Enter policy holder name"
+                        required
+                      />
                     </div>
                   </div>
                 </div>
               )}
 
+              {/* Step 5: Medical Information */}
               {currentStep === 5 && (
                 <div className="space-y-6">
-                  <div>
-                    <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-                      Employment & Wages
-                    </h2>
-                    <p className="text-gray-600 dark:text-gray-400 mb-6">
-                      Please provide information about your employment and any
-                      lost wages.
-                    </p>
-                    <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg p-3 mb-4">
-                      <p className="text-sm text-green-800 dark:text-green-200">
-                        <strong>Optional:</strong> All employment fields are
-                        optional but required if you lost wages due to the
-                        accident
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center space-x-2">
-                    <input
-                      type="checkbox"
-                      id="inCourseOfEmployment"
-                      checked={formData.inCourseOfEmployment}
-                      onChange={(e) =>
-                        handleInputChange(
-                          "inCourseOfEmployment",
-                          e.target.checked as boolean
-                        )
-                      }
-                    />
-                    <label
-                      htmlFor="inCourseOfEmployment"
-                      className="text-sm font-medium text-gray-700 dark:text-gray-300"
-                    >
-                      At the time of your accident, were you in the course of
-                      your employment?
-                    </label>
-                  </div>
-
-                  <div className="flex items-center space-x-2">
-                    <input
-                      type="checkbox"
-                      id="lostWages"
-                      checked={formData.lostWages}
-                      onChange={(e) =>
-                        handleInputChange(
-                          "lostWages",
-                          e.target.checked as boolean
-                        )
-                      }
-                    />
-                    <label
-                      htmlFor="lostWages"
-                      className="text-sm font-medium text-gray-700 dark:text-gray-300"
-                    >
-                      Did you lose wages or salary as a result of your injury?
-                    </label>
-                  </div>
-
-                  {formData.lostWages && (
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                          Amount of Loss to Date
-                        </label>
-                        <Input
-                          value={formData.wageLossToDate}
-                          onChange={(e) =>
-                            handleInputChange("wageLossToDate", e.target.value)
-                          }
-                          placeholder="Total wage loss amount"
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                          Average Weekly Wage
-                        </label>
-                        <Input
-                          value={formData.averageWeeklyWage}
-                          onChange={(e) =>
-                            handleInputChange(
-                              "averageWeeklyWage",
-                              e.target.value
-                            )
-                          }
-                          placeholder="Your average weekly wage"
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                          Date Disability from Work Began
-                        </label>
-                        <Input
-                          type="date"
-                          value={formData.disabilityStart}
-                          onChange={(e) =>
-                            handleInputChange("disabilityStart", e.target.value)
-                          }
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                          Date You Returned to Work
-                        </label>
-                        <Input
-                          type="date"
-                          value={formData.disabilityEnd}
-                          onChange={(e) =>
-                            handleInputChange("disabilityEnd", e.target.value)
-                          }
-                        />
-                      </div>
-                    </div>
-                  )}
-
-                  <div className="flex items-center space-x-2">
-                    <input
-                      type="checkbox"
-                      id="workersComp"
-                      checked={formData.workersComp}
-                      onChange={(e) =>
-                        handleInputChange(
-                          "workersComp",
-                          e.target.checked as boolean
-                        )
-                      }
-                    />
-                    <label
-                      htmlFor="workersComp"
-                      className="text-sm font-medium text-gray-700 dark:text-gray-300"
-                    >
-                      Have you received, or are you eligible for, payments under
-                      any workmen&apos;s compensation or employment law?
-                    </label>
-                  </div>
-
-                  {formData.workersComp && (
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                        Workers Comp Amount
-                      </label>
-                      <Input
-                        value={formData.workersCompAmount}
-                        onChange={(e) =>
-                          handleInputChange("workersCompAmount", e.target.value)
-                        }
-                        placeholder="Workers compensation amount"
-                      />
-                    </div>
-                  )}
-
+                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-6">
+                    Medical Information
+                  </h3>
                   <div>
                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                      Other Expenses
+                      Medical Bills to Date
                     </label>
-                    <Textarea
-                      value={formData.otherExpenses}
+                    <Input
+                      value={formData.medicalBillsToDate}
                       onChange={(e) =>
-                        handleInputChange("otherExpenses", e.target.value)
+                        handleInputChange("medicalBillsToDate", e.target.value)
                       }
-                      placeholder="Describe any other expenses related to the accident..."
-                      rows={3}
+                      placeholder="Enter total medical bills amount"
                     />
                   </div>
                 </div>
               )}
 
+              {/* Step 6: Employment & Wages */}
               {currentStep === 6 && (
-                <div className="space-y-8">
+                <div className="space-y-6">
+                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-6">
+                    Employment & Wages
+                  </h3>
                   <div>
-                    <h2 className="text-3xl font-bold bg-gradient-to-r from-emerald-600 to-blue-600 bg-clip-text text-transparent mb-4">
-                      Authorizations & Legal Disclaimers
-                    </h2>
-                    <p className="text-gray-600 dark:text-gray-300 mb-6 text-lg">
-                      Please review and complete the required authorizations.
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                      Average Weekly Wage
+                    </label>
+                    <Input
+                      value={formData.averageWeeklyWage}
+                      onChange={(e) =>
+                        handleInputChange("averageWeeklyWage", e.target.value)
+                      }
+                      placeholder="Enter your average weekly wage"
+                    />
+                  </div>
+                </div>
+              )}
+
+              {/* Step 7: Authorizations */}
+              {currentStep === 7 && (
+                <div className="space-y-6">
+                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-6">
+                    Authorizations
+                  </h3>
+                  <div className="bg-blue-50 dark:bg-blue-950/30 rounded-lg p-4 mb-6">
+                    <p className="text-sm text-blue-800 dark:text-blue-200">
+                      Please provide your digital signature for the following
+                      authorizations.
                     </p>
-                    <div className="bg-gradient-to-r from-emerald-50 to-blue-50 dark:from-emerald-900/20 dark:to-blue-900/20 border border-emerald-200 dark:border-emerald-800 rounded-xl p-4 mb-6">
-                      <p className="text-emerald-800 dark:text-emerald-200 text-sm">
-                        <strong>Optional:</strong> Signatures are optional but
-                        recommended for faster claim processing
-                      </p>
-                    </div>
                   </div>
 
-                  <div className="bg-gradient-to-r from-yellow-50 to-orange-50 dark:from-yellow-900/20 dark:to-orange-900/20 border border-yellow-200 dark:border-yellow-800 rounded-xl p-6 shadow-lg">
-                    <div className="flex items-start gap-3">
-                      <AlertTriangle className="h-6 w-6 text-yellow-600 mt-1 flex-shrink-0" />
-                      <p className="text-yellow-800 dark:text-yellow-200 font-semibold text-sm leading-relaxed">
-                        ANY PERSON WHO KNOWINGLY AND WITH INTENT TO INJURE,
-                        DEFRAUD OR DECEIVE ANY INSURANCE COMPANY MAKES A
-                        STATEMENT OF CLAIM CONTAINING ANY FALSE INCOMPLETE OR
-                        MISLEADING INFORMATION, IS GUILTY OF A FELONY OF THE
-                        THIRD DEGREE.
+                  <div className="space-y-4">
+                    <div className="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
+                      <h4 className="font-semibold text-gray-900 dark:text-white mb-2">
+                        Medical Authorization
+                      </h4>
+                      <p className="text-sm text-gray-600 dark:text-gray-300 mb-3">
+                        I authorize the release of my medical information to the
+                        insurance company.
                       </p>
+                      <Button
+                        onClick={() => openSignatureModal("medicalAuth")}
+                        variant="outline"
+                        className="w-full"
+                      >
+                        {formData.medicalAuthSignature
+                          ? "✓ Signed"
+                          : "Sign Medical Authorization"}
+                      </Button>
+                    </div>
+
+                    <div className="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
+                      <h4 className="font-semibold text-gray-900 dark:text-white mb-2">
+                        Wage Authorization
+                      </h4>
+                      <p className="text-sm text-gray-600 dark:text-gray-300 mb-3">
+                        I authorize the release of my employment and wage
+                        information.
+                      </p>
+                      <Button
+                        onClick={() => openSignatureModal("wageAuth")}
+                        variant="outline"
+                        className="w-full"
+                      >
+                        {formData.wageAuthSignature
+                          ? "✓ Signed"
+                          : "Sign Wage Authorization"}
+                      </Button>
                     </div>
                   </div>
+                </div>
+              )}
 
-                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                    <div className="space-y-6">
-                      <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 border border-blue-200 dark:border-blue-800 rounded-xl p-6">
-                        <h3 className="font-semibold text-blue-800 dark:text-blue-200 mb-3 flex items-center gap-2">
-                          <FileSignature className="h-5 w-5" />
-                          General Authorization
-                        </h3>
-                        <p className="text-blue-700 dark:text-blue-300 text-sm mb-4">
-                          I authorize the release of any information necessary
-                          to process this claim.
-                        </p>
-                        <div className="space-y-4">
-                          <div>
-                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                              Signature
-                            </label>
-                            <div className="flex gap-2">
-                              <Button
-                                type="button"
-                                variant="outline"
-                                onClick={() => openSignatureModal("signature")}
-                                className="flex-1 border-2 border-dashed border-gray-300 hover:border-emerald-500 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 transition-all duration-300"
-                              >
-                                <PenTool className="h-4 w-4 mr-2" />
-                                {formData.signature
-                                  ? "View Signature"
-                                  : "Sign Here"}
-                              </Button>
-                              {formData.signature && (
-                                <Button
-                                  type="button"
-                                  variant="outline"
-                                  onClick={() =>
-                                    openSignatureModal("signature")
-                                  }
-                                  className="px-3 border-red-300 hover:border-red-500 hover:bg-red-50 dark:hover:bg-red-900/20"
-                                >
-                                  <RotateCcw className="h-4 w-4" />
-                                </Button>
-                              )}
-                            </div>
-                          </div>
-                          <div>
-                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                              Date
-                            </label>
-                            <Input
-                              type="date"
-                              value={formData.signatureDate}
-                              onChange={(e) =>
-                                handleInputChange(
-                                  "signatureDate",
-                                  e.target.value
-                                )
-                              }
-                              className="border-2 focus:border-emerald-500 focus:ring-emerald-500"
-                            />
-                          </div>
+              {/* Step 8: Review & Submit */}
+              {currentStep === 8 && (
+                <div className="space-y-6">
+                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-6">
+                    Review & Submit
+                  </h3>
+                  <div className="bg-yellow-50 dark:bg-yellow-950/30 rounded-lg p-4 mb-6">
+                    <p className="text-sm text-yellow-800 dark:text-yellow-200">
+                      Please review all information carefully before submitting.
+                    </p>
+                  </div>
+
+                  <div className="space-y-4">
+                    <div className="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
+                      <h4 className="font-semibold text-gray-900 dark:text-white mb-2">
+                        Personal Information
+                      </h4>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
+                        <div>
+                          <strong>Name:</strong> {formData.claimantName}
+                        </div>
+                        <div>
+                          <strong>Email:</strong> {formData.claimantEmail}
+                        </div>
+                        <div>
+                          <strong>Phone:</strong> {formData.claimantPhone}
+                        </div>
+                        <div>
+                          <strong>DOB:</strong> {formData.claimantDOB}
                         </div>
                       </div>
                     </div>
 
-                    <div className="space-y-6">
-                      <div className="bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 border border-green-200 dark:border-green-800 rounded-xl p-6">
-                        <h3 className="font-semibold text-green-800 dark:text-green-200 mb-3 flex items-center gap-2">
-                          <FileText className="h-5 w-5" />
-                          Medical Authorization
-                        </h3>
-                        <p className="text-green-700 dark:text-green-300 text-sm mb-4">
-                          This authorization will authorize you to furnish all
-                          information regarding my condition while under your
-                          observation or treatment, including history, x-ray and
-                          physical findings, diagnosis and prognosis.
-                        </p>
-                        <div className="space-y-4">
-                          <div>
-                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                              Signature
-                            </label>
-                            <div className="flex gap-2">
-                              <Button
-                                type="button"
-                                variant="outline"
-                                onClick={() =>
-                                  openSignatureModal("medicalAuthSignature")
-                                }
-                                className="flex-1 border-2 border-dashed border-gray-300 hover:border-emerald-500 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 transition-all duration-300"
-                              >
-                                <PenTool className="h-4 w-4 mr-2" />
-                                {formData.medicalAuthSignature
-                                  ? "View Signature"
-                                  : "Sign Here"}
-                              </Button>
-                              {formData.medicalAuthSignature && (
-                                <Button
-                                  type="button"
-                                  variant="outline"
-                                  onClick={() =>
-                                    openSignatureModal("medicalAuthSignature")
-                                  }
-                                  className="px-3 border-red-300 hover:border-red-500 hover:bg-red-50 dark:hover:bg-red-900/20"
-                                >
-                                  <RotateCcw className="h-4 w-4" />
-                                </Button>
-                              )}
-                            </div>
-                          </div>
-                          <div>
-                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                              Date
-                            </label>
-                            <Input
-                              type="date"
-                              value={formData.medicalAuthDate}
-                              onChange={(e) =>
-                                handleInputChange(
-                                  "medicalAuthDate",
-                                  e.target.value
-                                )
-                              }
-                              className="border-2 focus:border-emerald-500 focus:ring-emerald-500"
-                            />
-                          </div>
+                    <div className="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
+                      <h4 className="font-semibold text-gray-900 dark:text-white mb-2">
+                        Accident Details
+                      </h4>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
+                        <div>
+                          <strong>Date:</strong> {formData.accidentDate}
+                        </div>
+                        <div>
+                          <strong>Location:</strong> {formData.accidentLocation}
+                        </div>
+                        <div>
+                          <strong>Vehicle:</strong> {formData.vehicleYear}{" "}
+                          {formData.vehicleMake} {formData.vehicleModel}
                         </div>
                       </div>
+                    </div>
 
-                      <div className="bg-gradient-to-r from-purple-50 to-violet-50 dark:from-purple-900/20 dark:to-violet-900/20 border border-purple-200 dark:border-purple-800 rounded-xl p-6">
-                        <h3 className="font-semibold text-purple-800 dark:text-purple-200 mb-3 flex items-center gap-2">
-                          <DollarSign className="h-5 w-5" />
-                          Wage Authorization
-                        </h3>
-                        <p className="text-purple-700 dark:text-purple-300 text-sm mb-4">
-                          This authorization will authorize you to furnish all
-                          information regarding my wages or salary while
-                          employed by you.
-                        </p>
-                        <div className="space-y-4">
-                          <div>
-                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                              Signature
-                            </label>
-                            <div className="flex gap-2">
-                              <Button
-                                type="button"
-                                variant="outline"
-                                onClick={() =>
-                                  openSignatureModal("wageAuthSignature")
-                                }
-                                className="flex-1 border-2 border-dashed border-gray-300 hover:border-emerald-500 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 transition-all duration-300"
-                              >
-                                <PenTool className="h-4 w-4 mr-2" />
-                                {formData.wageAuthSignature
-                                  ? "View Signature"
-                                  : "Sign Here"}
-                              </Button>
-                              {formData.wageAuthSignature && (
-                                <Button
-                                  type="button"
-                                  variant="outline"
-                                  onClick={() =>
-                                    openSignatureModal("wageAuthSignature")
-                                  }
-                                  className="px-3 border-red-300 hover:border-red-500 hover:bg-red-50 dark:hover:bg-red-900/20"
-                                >
-                                  <RotateCcw className="h-4 w-4" />
-                                </Button>
-                              )}
-                            </div>
-                          </div>
-                          <div>
-                            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                              Date
-                            </label>
-                            <Input
-                              type="date"
-                              value={formData.wageAuthDate}
-                              onChange={(e) =>
-                                handleInputChange(
-                                  "wageAuthDate",
-                                  e.target.value
-                                )
-                              }
-                              className="border-2 focus:border-emerald-500 focus:ring-emerald-500"
-                            />
-                          </div>
+                    <div className="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
+                      <h4 className="font-semibold text-gray-900 dark:text-white mb-2">
+                        Insurance Information
+                      </h4>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-sm">
+                        <div>
+                          <strong>Company:</strong> {formData.insuranceCompany}
+                        </div>
+                        <div>
+                          <strong>Policy Number:</strong>{" "}
+                          {formData.policyNumber}
+                        </div>
+                        <div>
+                          <strong>Policy Holder:</strong>{" "}
+                          {formData.policyHolder}
                         </div>
                       </div>
                     </div>
@@ -1697,119 +885,102 @@ export default function ClaimFormPage() {
               )}
 
               {/* Navigation Buttons */}
-              <div className="flex justify-between mt-12">
+              <div className="flex justify-between items-center pt-8 border-t border-gray-200 dark:border-gray-700">
                 <Button
-                  variant="outline"
                   onClick={prevStep}
                   disabled={currentStep === 1}
-                  className="px-8 py-3 rounded-xl border-2 hover:border-gray-400 transition-all duration-300"
+                  variant="outline"
+                  className="border-2 border-gray-300 hover:border-gray-400 text-gray-700 dark:text-gray-300 px-6 py-3 font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
                 >
+                  <ArrowLeft className="mr-2 w-5 h-5" />
                   Previous
                 </Button>
 
-                {currentStep < steps.length ? (
-                  <div className="flex flex-col items-end space-y-3">
-                    <Button
-                      onClick={nextStep}
-                      disabled={!isStepValid(currentStep)}
-                      className={`px-8 py-3 rounded-xl transition-all duration-300 transform hover:scale-105 ${
-                        !isStepValid(currentStep)
-                          ? "opacity-50 cursor-not-allowed bg-gray-400"
-                          : "bg-gradient-to-r from-emerald-600 to-blue-600 hover:from-emerald-700 hover:to-blue-700 text-white shadow-lg hover:shadow-xl"
-                      }`}
-                    >
-                      Next
-                    </Button>
-                    {!isStepValid(currentStep) && (
-                      <p className="text-red-500 text-xs text-right max-w-xs">
-                        Please complete all required fields (marked with{" "}
-                        <span className="text-red-500">*</span>) to continue
-                      </p>
+                {currentStep === totalSteps ? (
+                  <Button
+                    onClick={handleSubmit}
+                    disabled={loading}
+                    className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-3 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+                  >
+                    {loading ? (
+                      <>
+                        <Loader2 className="mr-2 w-5 h-5 animate-spin" />
+                        Submitting...
+                      </>
+                    ) : (
+                      <>
+                        Submit Claim
+                        <ArrowRight className="ml-2 w-5 h-5" />
+                      </>
                     )}
-                  </div>
+                  </Button>
                 ) : (
-                  <div className="flex flex-col items-end space-y-3">
-                    <Button
-                      onClick={handleSubmit}
-                      disabled={submitting || !isStepValid(currentStep)}
-                      className={`px-8 py-3 rounded-xl transition-all duration-300 transform hover:scale-105 ${
-                        submitting || !isStepValid(currentStep)
-                          ? "opacity-50 cursor-not-allowed bg-gray-400"
-                          : "bg-gradient-to-r from-emerald-600 to-blue-600 hover:from-emerald-700 hover:to-blue-700 text-white shadow-lg hover:shadow-xl"
-                      }`}
-                    >
-                      {submitting ? (
-                        <>
-                          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                          Submitting...
-                        </>
-                      ) : (
-                        "Submit Claim"
-                      )}
-                    </Button>
-                    {!isStepValid(currentStep) && (
-                      <p className="text-red-500 text-xs text-right max-w-xs">
-                        Please complete all required fields to submit your claim
-                      </p>
-                    )}
-                  </div>
+                  <Button
+                    onClick={nextStep}
+                    className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-3 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+                  >
+                    Next
+                    <ArrowRight className="ml-2 w-5 h-5" />
+                  </Button>
                 )}
               </div>
             </CardContent>
           </Card>
-
-          {/* Signature Modal */}
-          {showSignatureModal && (
-            <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-              <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-2xl max-w-md w-full p-6">
-                <div className="flex items-center justify-between mb-6">
-                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
-                    Digital Signature
-                  </h3>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => setShowSignatureModal(false)}
-                    className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
-                  >
-                    <X className="h-5 w-5" />
-                  </Button>
-                </div>
-
-                <div className="mb-6">
-                  <canvas
-                    ref={canvasRef}
-                    width={400}
-                    height={200}
-                    className="border-2 border-gray-300 rounded-lg cursor-crosshair bg-white"
-                    onMouseDown={startDrawing}
-                    onMouseMove={draw}
-                    onMouseUp={stopDrawing}
-                    onMouseLeave={stopDrawing}
-                  />
-                </div>
-
-                <div className="flex gap-3">
-                  <Button
-                    variant="outline"
-                    onClick={clearSignature}
-                    className="flex-1"
-                  >
-                    <RotateCcw className="h-4 w-4 mr-2" />
-                    Clear
-                  </Button>
-                  <Button
-                    onClick={saveSignature}
-                    className="flex-1 bg-gradient-to-r from-emerald-600 to-blue-600 hover:from-emerald-700 hover:to-blue-700 text-white"
-                  >
-                    Save Signature
-                  </Button>
-                </div>
-              </div>
-            </div>
-          )}
         </div>
-      </div>
+      </section>
+
+      {/* Signature Modal */}
+      {signatureModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
+          <div className="bg-white dark:bg-gray-800 rounded-xl p-6 w-full max-w-md mx-4">
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+              Digital Signature
+            </h3>
+            <canvas
+              ref={canvasRef}
+              className="w-full h-48 border border-gray-300 dark:border-gray-600 rounded-lg cursor-crosshair"
+              onMouseDown={() => setIsDrawing(true)}
+              onMouseUp={() => setIsDrawing(false)}
+              onMouseLeave={() => setIsDrawing(false)}
+              onMouseMove={(e) => {
+                if (isDrawing && canvasRef.current) {
+                  const canvas = canvasRef.current;
+                  const ctx = canvas.getContext("2d");
+                  if (ctx) {
+                    const rect = canvas.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    ctx.lineTo(x, y);
+                    ctx.stroke();
+                  }
+                }
+              }}
+            />
+            <div className="flex gap-2 mt-4">
+              <Button
+                onClick={clearSignature}
+                variant="outline"
+                className="flex-1"
+              >
+                Clear
+              </Button>
+              <Button
+                onClick={saveSignature}
+                className="flex-1 bg-gradient-to-r from-blue-600 to-purple-600"
+              >
+                Save
+              </Button>
+            </div>
+            <Button
+              onClick={closeSignatureModal}
+              variant="ghost"
+              className="w-full mt-2"
+            >
+              Cancel
+            </Button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

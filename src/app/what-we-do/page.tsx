@@ -13,15 +13,8 @@ import {
   DollarSign,
   Upload,
   CheckCircle,
-  Star,
-  Lock,
-  Smartphone,
   TrendingUp,
   ArrowRight,
-  Zap,
-  Globe,
-  Clock,
-  Award,
 } from "lucide-react";
 
 export default function WhatWeDo() {
@@ -165,348 +158,179 @@ export default function WhatWeDo() {
   ];
 
   return (
-    <div
-      className="min-h-screen flex flex-col pt-24"
-      style={{
-        backgroundImage: "url('/images/long-logo-ClaimSaver.jpg')",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundAttachment: "fixed",
-        backgroundRepeat: "no-repeat",
-      }}
-    >
-      {/* Content with background overlay for better readability */}
-      <div className="relative w-full flex-1">
-        {/* Background overlay for better readability - only on content */}
-        <div className="absolute inset-0 bg-white/90 dark:bg-gray-900/90 pointer-events-none"></div>
-
-        {/* Content */}
-        <div className="relative z-10 w-full">
-          {/* Hero Section */}
-          <section className="relative overflow-hidden animate-in fade-in duration-800">
-            <div className="absolute inset-0 bg-gradient-to-r from-blue-600/10 to-purple-600/10"></div>
-            <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-              <div className="text-center animate-in fade-in slide-in-from-bottom-4 duration-800 delay-200">
-                <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6">
-                  Comprehensive{" "}
-                  <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                    Accident Recovery Support
-                  </span>
-                </h1>
-                <p className="text-xl text-gray-600 dark:text-gray-300 max-w-4xl mx-auto leading-relaxed">
-                  We provide administrative support and technology solutions to
-                  help accident victims navigate the claims process. Our
-                  platform connects you with qualified attorneys and streamlines
-                  document management for your recovery journey.
-                </p>
-              </div>
-            </div>
-          </section>
-
-          {/* Services Overview */}
-          <section className="py-20 animate-in fade-in duration-800">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="text-center mb-16 animate-in fade-in slide-in-from-bottom-4 duration-600">
-                <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-6">
-                  Our Core Services
-                </h2>
-                <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-                  Everything you need to navigate the complex world of accident
-                  claims and recovery
-                </p>
-              </div>
-
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                {services.map((service, index) => (
-                  <div
-                    key={index}
-                    className="animate-in fade-in slide-in-from-bottom-4 duration-600"
-                    style={{ animationDelay: `${index * 100}ms` }}
-                  >
-                    <Card className="h-full shadow-lg border-blue-100 dark:border-blue-900 hover:shadow-xl hover:-translate-y-2 transition-all duration-300">
-                      <CardHeader className="pb-4">
-                        <div className="flex items-center gap-4 mb-4">
-                          <div className="p-3 bg-blue-50 dark:bg-blue-950/30 rounded-xl">
-                            {service.icon}
-                          </div>
-                          <CardTitle className="text-2xl font-semibold text-gray-900 dark:text-white">
-                            {service.title}
-                          </CardTitle>
-                        </div>
-                        <p className="text-gray-600 dark:text-gray-300 text-lg leading-relaxed">
-                          {service.description}
-                        </p>
-                      </CardHeader>
-                      <CardContent>
-                        <ul className="space-y-3">
-                          {service.features.map((feature, featureIndex) => (
-                            <li
-                              key={featureIndex}
-                              className="flex items-start gap-3"
-                            >
-                              <CheckCircle className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" />
-                              <span className="text-gray-700 dark:text-gray-300">
-                                {feature}
-                              </span>
-                            </li>
-                          ))}
-                        </ul>
-                      </CardContent>
-                    </Card>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </section>
-
-          {/* How It Works */}
-          <section className="py-20 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-950/50 dark:to-purple-950/50 animate-in fade-in duration-800">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="text-center mb-16 animate-in fade-in slide-in-from-bottom-4 duration-600">
-                <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-6">
-                  How It Works
-                </h2>
-                <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-                  A simple, four-step process to help you navigate your recovery
-                  journey
-                </p>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                {processSteps.map((step, index: number) => (
-                  <div
-                    key={index}
-                    className="relative animate-in fade-in slide-in-from-bottom-4 duration-600"
-                    style={{ animationDelay: `${index * 100}ms` }}
-                  >
-                    <Card className="h-full shadow-lg border-blue-100 dark:border-blue-900 hover:shadow-xl hover:-translate-y-2 transition-all duration-300">
-                      <CardHeader className="text-center pb-4">
-                        <div className="flex justify-center mb-4">
-                          <div className="w-16 h-16 bg-gradient-to-br from-blue-600 to-purple-600 rounded-full flex items-center justify-center text-white font-bold text-xl">
-                            {step.step}
-                          </div>
-                        </div>
-                        <CardTitle className="text-xl font-semibold text-gray-900 dark:text-white">
-                          {step.title}
-                        </CardTitle>
-                      </CardHeader>
-                      <CardContent className="text-center">
-                        <div className="flex justify-center mb-4">
-                          <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center">
-                            {step.icon}
-                          </div>
-                        </div>
-                        <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-                          {step.description}
-                        </p>
-                      </CardContent>
-                    </Card>
-                    {index < processSteps.length - 1 && (
-                      <div className="hidden lg:block absolute top-1/2 -right-4 transform -translate-y-1/2">
-                        <ArrowRight className="w-8 h-8 text-blue-400" />
-                      </div>
-                    )}
-                  </div>
-                ))}
-              </div>
-            </div>
-          </section>
-
-          {/* Technology & Security */}
-          <section className="py-20 animate-in fade-in duration-800">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                <div className="animate-in fade-in slide-in-from-left-4 duration-600">
-                  <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-6">
-                    Powered by Advanced Technology
-                  </h2>
-                  <div className="space-y-6">
-                    <div className="flex items-start gap-4">
-                      <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center flex-shrink-0">
-                        <Zap className="w-6 h-6 text-blue-600" />
-                      </div>
-                      <div>
-                        <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
-                          Real-Time Processing
-                        </h3>
-                        <p className="text-gray-600 dark:text-gray-300">
-                          Instant form validation, automated error checking, and
-                          immediate submission confirmation.
-                        </p>
-                      </div>
-                    </div>
-                    <div className="flex items-start gap-4">
-                      <div className="w-12 h-12 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center flex-shrink-0">
-                        <Lock className="w-6 h-6 text-green-600" />
-                      </div>
-                      <div>
-                        <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
-                          Bank-Level Security
-                        </h3>
-                        <p className="text-gray-600 dark:text-gray-300">
-                          End-to-end encryption, secure document storage, and
-                          HIPAA-compliant data protection.
-                        </p>
-                      </div>
-                    </div>
-                    <div className="flex items-start gap-4">
-                      <div className="w-12 h-12 bg-purple-100 dark:bg-purple-900 rounded-full flex items-center justify-center flex-shrink-0">
-                        <Globe className="w-6 h-6 text-purple-600" />
-                      </div>
-                      <div>
-                        <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
-                          Nationwide Network
-                        </h3>
-                        <p className="text-gray-600 dark:text-gray-300">
-                          Access to qualified attorneys across all 50 states,
-                          specialized in accident cases.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="relative animate-in fade-in slide-in-from-right-4 duration-600 delay-200">
-                  <div className="bg-gradient-to-br from-blue-600 to-purple-600 rounded-2xl p-8 text-white">
-                    <div className="flex items-center gap-3 mb-6">
-                      <Award className="w-8 h-8" />
-                      <h3 className="text-2xl font-bold">
-                        Why Choose ClaimSaver+?
-                      </h3>
-                    </div>
-                    <div className="space-y-4">
-                      <div className="flex items-center gap-3">
-                        <CheckCircle className="w-5 h-5 text-green-300" />
-                        <span>No upfront platform fees</span>
-                      </div>
-                      <div className="flex items-center gap-3">
-                        <CheckCircle className="w-5 h-5 text-green-300" />
-                        <span>Free initial consultation</span>
-                      </div>
-                      <div className="flex items-center gap-3">
-                        <CheckCircle className="w-5 h-5 text-green-300" />
-                        <span>24/7 platform access</span>
-                      </div>
-                      <div className="flex items-center gap-3">
-                        <CheckCircle className="w-5 h-5 text-green-300" />
-                        <span>Transparent pricing</span>
-                      </div>
-                      <div className="flex items-center gap-3">
-                        <CheckCircle className="w-5 h-5 text-green-300" />
-                        <span>Dedicated support team</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="absolute -bottom-6 -right-6 bg-white dark:bg-gray-800 rounded-xl p-4 shadow-lg">
-                    <div className="flex items-center gap-2">
-                      <Clock className="w-5 h-5 text-blue-600" />
-                      <span className="font-semibold text-gray-900 dark:text-white">
-                        Average Recovery Time: 3-6 months
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          {/* Mobile Access */}
-          <section className="py-20 bg-gradient-to-r from-gray-50 to-blue-50 dark:from-gray-900 dark:to-blue-950/30 animate-in fade-in duration-800">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="text-center mb-16 animate-in fade-in slide-in-from-bottom-4 duration-600">
-                <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-6">
-                  Access Your Case Anywhere
-                </h2>
-                <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-                  Our mobile-optimized platform ensures you can manage your case
-                  on any device
-                </p>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div className="text-center animate-in fade-in slide-in-from-bottom-4 duration-600 delay-100">
-                  <div className="w-16 h-16 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Smartphone className="w-8 h-8 text-blue-600" />
-                  </div>
-                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
-                    Mobile Optimized
-                  </h3>
-                  <p className="text-gray-600 dark:text-gray-300">
-                    Access all features on your smartphone or tablet with our
-                    responsive design.
-                  </p>
-                </div>
-                <div className="text-center animate-in fade-in slide-in-from-bottom-4 duration-600 delay-200">
-                  <div className="w-16 h-16 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Upload className="w-8 h-8 text-green-600" />
-                  </div>
-                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
-                    Document Upload
-                  </h3>
-                  <p className="text-gray-600 dark:text-gray-300">
-                    Easily upload photos, documents, and evidence directly from
-                    your mobile device.
-                  </p>
-                </div>
-                <div className="text-center animate-in fade-in slide-in-from-bottom-4 duration-600 delay-300">
-                  <div className="w-16 h-16 bg-purple-100 dark:bg-purple-900 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Star className="w-8 h-8 text-purple-600" />
-                  </div>
-                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
-                    Real-Time Updates
-                  </h3>
-                  <p className="text-gray-600 dark:text-gray-300">
-                    Get instant notifications about case progress, attorney
-                    messages, and important deadlines.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          {/* FAQ Section */}
-          <FAQ
-            title="Frequently Asked Questions"
-            subtitle="Get answers to common questions about our services and process"
-            items={faqItems}
+    <div className="min-h-screen bg-white dark:bg-gray-950">
+      {/* Hero Section */}
+      <section className="relative overflow-hidden bg-gradient-to-br from-blue-50 via-white to-indigo-50 dark:from-gray-950 dark:via-gray-900 dark:to-blue-950">
+        {/* Background Image */}
+        <div className="fixed inset-0 z-0">
+          <img
+            src="/images/long-logo-ClaimSaver.jpg"
+            alt="ClaimSaver+ Background"
+            className="w-full h-full object-cover opacity-25"
           />
-
-          {/* CTA Section */}
-          <section className="py-20 bg-gradient-to-r from-blue-600 to-purple-600 animate-in fade-in duration-800">
-            <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-              <div className="animate-in fade-in slide-in-from-bottom-4 duration-600">
-                <h2 className="text-3xl sm:text-4xl font-bold text-white mb-6">
-                  Ready to Start Your Recovery Journey?
-                </h2>
-                <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
-                  Join thousands of accident victims who have used ClaimSaver+
-                  to navigate their recovery process. Get started today with our
-                  free consultation.
-                </p>
-                <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <Button
-                    size="lg"
-                    className="bg-white text-blue-600 hover:bg-gray-100 px-8 py-4 text-lg font-semibold hover:scale-105 transition-transform duration-200"
-                    onClick={handleStartClaim}
-                  >
-                    Start Your Claim
-                    <ArrowRight className="ml-2 w-5 h-5" />
-                  </Button>
-                  <Link href="/pricing">
-                    <Button
-                      size="lg"
-                      variant="outline"
-                      className="border-white text-white bg-transparent hover:bg-white hover:text-blue-600 px-8 py-4 text-lg font-semibold hover:scale-105 transition-transform duration-200 shadow-lg"
-                    >
-                      Learn More
-                    </Button>
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </section>
+          <div className="absolute inset-0 bg-gradient-to-br from-blue-50/70 via-white/80 to-indigo-50/70 dark:from-gray-950/70 dark:via-gray-900/80 dark:to-blue-950/70"></div>
         </div>
-      </div>
+
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-24">
+          <div className="text-center max-w-4xl mx-auto">
+            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
+              Comprehensive{" "}
+              <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                Accident Recovery Support
+              </span>
+            </h1>
+            <p className="text-xl sm:text-2xl text-gray-600 dark:text-gray-300 mb-8 leading-relaxed max-w-3xl mx-auto">
+              We provide administrative support and technology solutions to help
+              accident victims navigate the claims process. Our platform
+              connects you with qualified attorneys and streamlines document
+              management for your recovery journey.
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-4">
+              <Button
+                size="lg"
+                onClick={handleStartClaim}
+                className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-4 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+              >
+                Start Your Recovery
+                <ArrowRight className="ml-2 w-5 h-5" />
+              </Button>
+              <Button
+                size="lg"
+                variant="outline"
+                className="border-2 border-gray-300 hover:border-gray-400 text-gray-700 dark:text-gray-300 px-8 py-4 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+              >
+                <Link href="/claim-form">File a Claim</Link>
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Services Section */}
+      <section className="py-12 bg-white dark:bg-gray-950 relative overflow-hidden">
+        {/* Background Pattern */}
+        <div className="fixed inset-0 z-0 opacity-15">
+          <div
+            className="absolute inset-0"
+            style={{
+              backgroundImage: `url('/images/logo-blue-black.png')`,
+              backgroundSize: "300px 300px",
+              backgroundRepeat: "repeat",
+              backgroundPosition: "center",
+              opacity: 0.15,
+            }}
+          ></div>
+        </div>
+
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-6">
+              Our{" "}
+              <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                Services
+              </span>
+            </h2>
+            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+              Comprehensive tools and support to streamline your accident
+              recovery process
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {services.map((service, index) => (
+              <Card
+                key={index}
+                className="group relative overflow-hidden border-0 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 bg-gradient-to-br from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 backdrop-blur-sm"
+              >
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-600/5 to-purple-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <CardHeader className="pb-4">
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-500 rounded-xl flex items-center justify-center text-white group-hover:scale-110 transition-transform duration-300">
+                      {service.icon}
+                    </div>
+                    <CardTitle className="text-2xl font-semibold text-gray-900 dark:text-white">
+                      {service.title}
+                    </CardTitle>
+                  </div>
+                  <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+                    {service.description}
+                  </p>
+                </CardHeader>
+                <CardContent>
+                  <ul className="space-y-3">
+                    {service.features.map((feature, featureIndex) => (
+                      <li key={featureIndex} className="flex items-start gap-3">
+                        <CheckCircle className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" />
+                        <span className="text-gray-700 dark:text-gray-300">
+                          {feature}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Process Section */}
+      <section className="py-24 bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-900 dark:to-blue-950/30 relative overflow-hidden">
+        {/* Background Image */}
+        <div className="fixed inset-0 z-0">
+          <img
+            src="/images/long-logo-ClaimSaver.jpg"
+            alt="ClaimSaver+ Background"
+            className="w-full h-full object-cover opacity-20"
+          />
+          <div className="absolute inset-0 bg-gradient-to-br from-gray-50/80 to-blue-50/80 dark:from-gray-900/80 dark:to-blue-950/80"></div>
+        </div>
+
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-6">
+              Your Recovery{" "}
+              <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                Journey
+              </span>
+            </h2>
+            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+              A simple, step-by-step process designed to get you back on track
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {processSteps.map((step, index) => (
+              <div key={index} className="relative group">
+                <Card className="h-full border-0 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 backdrop-blur-sm">
+                  <div className="absolute inset-0 bg-gradient-to-r from-blue-600/5 to-purple-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  <CardHeader className="text-center pb-4">
+                    <div className="w-16 h-16 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full flex items-center justify-center text-white mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+                      <span className="text-xl font-bold">{step.step}</span>
+                    </div>
+                    <CardTitle className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+                      {step.title}
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="text-center">
+                    <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+                      {step.description}
+                    </p>
+                  </CardContent>
+                </Card>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <FAQ
+        title="Frequently Asked Questions"
+        subtitle="Get answers to the most common questions about our services"
+        items={faqItems}
+      />
 
       {/* Footer */}
       <Footer />
