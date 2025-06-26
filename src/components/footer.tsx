@@ -39,8 +39,14 @@ export default function Footer() {
     if (!isOpen) return null;
 
     return (
-      <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-in fade-in duration-300">
-        <div className="bg-white dark:bg-gray-900 rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden shadow-2xl border border-gray-200 dark:border-gray-700 animate-in zoom-in-95 duration-300">
+      <div
+        className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-in fade-in duration-300"
+        onClick={onClose}
+      >
+        <div
+          className="bg-white dark:bg-gray-900 rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden shadow-2xl border border-gray-200 dark:border-gray-700 animate-in zoom-in-95 duration-300"
+          onClick={(e) => e.stopPropagation()}
+        >
           {/* Header with gradient */}
           <div className="bg-gradient-to-r from-blue-600 to-purple-600 p-6 text-white relative">
             <div className="flex items-center justify-between">
@@ -72,7 +78,7 @@ export default function Footer() {
 
   return (
     <>
-      <footer className="w-full bg-gradient-to-r from-gray-900 via-blue-900 to-gray-900 text-white">
+      <footer className="w-full bg-gradient-to-r from-gray-900 via-blue-900 to-gray-900 text-white relative z-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           {/* Main Footer Content */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
@@ -146,6 +152,14 @@ export default function Footer() {
                 </li>
                 <li>
                   <Link
+                    href="/attorney-matching"
+                    className="text-gray-300 hover:text-blue-400 transition-colors duration-300 hover:translate-x-1 inline-block"
+                  >
+                    Attorney Matching
+                  </Link>
+                </li>
+                <li>
+                  <Link
                     href="/pricing"
                     className="text-gray-300 hover:text-blue-400 transition-colors duration-300 hover:translate-x-1 inline-block"
                   >
@@ -186,10 +200,10 @@ export default function Footer() {
                   <div>
                     <p className="text-gray-300 font-medium">Email</p>
                     <a
-                      href="mailto:Info@ClaimSaverPlus.com"
+                      href="mailto:ClaimSaverPlus@gmail.com"
                       className="text-blue-400 hover:text-blue-300 transition-colors duration-300"
                     >
-                      Info@ClaimSaverPlus.com
+                      ClaimSaverPlus@gmail.com
                     </a>
                   </div>
                 </div>
@@ -208,8 +222,9 @@ export default function Footer() {
           <div className="border-t border-gray-700 pt-8">
             <div className="flex flex-col md:flex-row justify-between items-center gap-4">
               <div className="text-gray-400 text-sm">
-                &copy; {new Date().getFullYear()} ClaimSaver+. All rights
-                reserved.
+                &copy; {new Date().getFullYear()} ClaimSaver+
+                <br />
+                <span className="text-xs">All rights reserved.</span>
               </div>
               <div className="flex space-x-6 text-sm">
                 <button
@@ -230,6 +245,25 @@ export default function Footer() {
                 >
                   Cookie Policy
                 </button>
+              </div>
+            </div>
+
+            {/* Legal Disclaimer */}
+            <div className="mt-6 pt-6 border-t border-gray-700">
+              <div className="bg-gray-800/80 rounded-lg p-4 border border-gray-600">
+                <p className="text-gray-300 text-xs leading-relaxed">
+                  <strong className="text-gray-200">Legal Disclaimer:</strong>{" "}
+                  ClaimSaver+ does not offer legal advice or representation and
+                  is not a law firm or a substitute for the advice or services
+                  of an attorney or law firm. The information provided on this
+                  site is not legal advice. If you are looking for advice or
+                  representation regarding your specific situation, you should
+                  contact an attorney in your state. Attorneys advertised on
+                  this site are independent attorneys. The attorneys in your
+                  area who are responsible for each advertisement are listed
+                  directly in the advertisement. ClaimSaver+ is not an
+                  &ldquo;attorney referral service.&rdquo;
+                </p>
               </div>
             </div>
           </div>
@@ -398,10 +432,10 @@ export default function Footer() {
               If you have questions about this Privacy Policy, please contact us
               at
               <a
-                href="mailto:Info@ClaimSaverPlus.com"
+                href="mailto:ClaimSaverPlus@gmail.com"
                 className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 font-semibold ml-1 transition-colors duration-300"
               >
-                Info@ClaimSaverPlus.com
+                ClaimSaverPlus@gmail.com
               </a>
             </p>
           </div>
@@ -584,10 +618,10 @@ export default function Footer() {
             <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
               For questions about these Terms of Service, please contact us at
               <a
-                href="mailto:Info@ClaimSaverPlus.com"
+                href="mailto:ClaimSaverPlus@gmail.com"
                 className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 font-semibold ml-1 transition-colors duration-300"
               >
-                Info@ClaimSaverPlus.com
+                ClaimSaverPlus@gmail.com
               </a>
             </p>
           </div>
@@ -786,10 +820,10 @@ export default function Footer() {
               If you have questions about our use of cookies, please contact us
               at
               <a
-                href="mailto:Info@ClaimSaverPlus.com"
+                href="mailto:ClaimSaverPlus@gmail.com"
                 className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 font-semibold ml-1 transition-colors duration-300"
               >
-                Info@ClaimSaverPlus.com
+                ClaimSaverPlus@gmail.com
               </a>
             </p>
           </div>

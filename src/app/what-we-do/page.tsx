@@ -3,6 +3,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Footer from "@/components/footer";
+import FAQ from "@/components/faq";
 import Link from "next/link";
 import { useClerk } from "@clerk/nextjs";
 import {
@@ -29,6 +30,49 @@ export default function WhatWeDo() {
   const handleStartClaim = () => {
     openSignIn();
   };
+
+  const faqItems = [
+    {
+      question: "What exactly does ClaimSaver+ do for me?",
+      answer:
+        "ClaimSaver+ provides comprehensive administrative support for accident victims. We help you file no-fault accident forms, connect you with qualified attorneys, manage your documents securely, and guide you through the recovery process. We handle the paperwork while you focus on your recovery.",
+    },
+    {
+      question: "How does the attorney matching process work?",
+      answer:
+        "Our intelligent matching system analyzes your case details, location, and specific needs to connect you with attorneys who specialize in accident cases in your area. We consider factors like attorney experience, case success rates, and availability to ensure the best possible match for your situation.",
+    },
+    {
+      question: "What documents do I need to provide?",
+      answer:
+        "You'll need to provide police reports, medical records, insurance information, photos of the accident scene, vehicle damage photos, medical bills, and any other evidence related to your case. Our platform makes it easy to upload and organize these documents securely.",
+    },
+    {
+      question: "How secure is my personal information?",
+      answer:
+        "We use bank-level security with end-to-end encryption for all data. Our platform is HIPAA-compliant and follows strict security protocols to protect your personal information, medical records, and case documents. Your privacy and security are our top priorities.",
+    },
+    {
+      question: "Can I access my case information on my phone?",
+      answer:
+        "Yes! Our platform is fully mobile-optimized. You can upload documents, check case status, communicate with your attorney, and receive real-time updates on any device. The platform works seamlessly on smartphones, tablets, and computers.",
+    },
+    {
+      question: "What if I need help during the process?",
+      answer:
+        "Our dedicated support team is available to help you throughout the entire process. You can contact us via phone, email, or through the platform. We provide guidance on document requirements, answer questions about the process, and ensure you have everything you need for a successful claim.",
+    },
+    {
+      question: "How long does the entire process take?",
+      answer:
+        "The timeline varies depending on the complexity of your case and the state where the accident occurred. Generally, the initial form filing and attorney matching happens within 24-48 hours. The overall recovery process typically takes 3-6 months, but we work to expedite your case as much as possible.",
+    },
+    {
+      question: "Do you guarantee compensation?",
+      answer:
+        "While we cannot guarantee specific compensation amounts, our network of experienced attorneys works diligently to maximize your recovery. Success depends on various factors including the severity of injuries, available insurance coverage, and the specific circumstances of your accident.",
+    },
+  ];
 
   const services = [
     {
@@ -419,6 +463,13 @@ export default function WhatWeDo() {
               </div>
             </div>
           </section>
+
+          {/* FAQ Section */}
+          <FAQ
+            title="Frequently Asked Questions"
+            subtitle="Get answers to common questions about our services and process"
+            items={faqItems}
+          />
 
           {/* CTA Section */}
           <section className="py-20 bg-gradient-to-r from-blue-600 to-purple-600 animate-in fade-in duration-800">
