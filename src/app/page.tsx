@@ -192,20 +192,17 @@ export default function Home() {
 
             {/* Video Section */}
             <div className="relative max-w-4xl mx-auto">
-              <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-gray-200 dark:border-gray-700">
-                <video
-                  autoPlay
-                  loop
-                  playsInline
-                  controls
-                  className="w-full h-auto"
-                  style={{ maxHeight: "50vh" }}
-                >
-                  <source src="/video/Whiteboard.mp4" type="video/mp4" />
-                  Your browser does not support the video tag.
-                </video>
-                <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent pointer-events-none"></div>
-              </div>
+              <video
+                autoPlay
+                loop
+                playsInline
+                controls
+                className="w-full h-auto rounded-2xl shadow-2xl"
+                style={{ maxHeight: "50vh" }}
+              >
+                <source src="/video/Whiteboard.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
             </div>
           </div>
         </div>
