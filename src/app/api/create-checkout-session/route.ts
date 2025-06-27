@@ -80,16 +80,21 @@ export async function POST(req: NextRequest) {
 
     console.log("Line items created:", lineItems);
 
+    // Get origin safely
+    const headers = req.headers;
+    const origin =
+      headers.get("origin") ||
+      process.env.NEXT_PUBLIC_BASE_URL ||
+      "http://localhost:3000";
+
     // Create checkout session
     const sessionData = {
       payment_method_types: ["card" as const],
       line_items: lineItems,
       mode: "payment" as const,
       success_url:
-        successUrl ||
-        `${req.nextUrl.origin}/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: cancelUrl || `${req.nextUrl.origin}/pricing`,
-      expires_at: Math.floor(Date.now() / 1000) + 30 * 60, // 30 minutes from now
+        successUrl || `${origin}/success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: cancelUrl || `${origin}/pricing`,
       metadata: {
         items: JSON.stringify(
           items.map((item: CheckoutItem) => ({
