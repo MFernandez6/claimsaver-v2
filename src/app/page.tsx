@@ -51,7 +51,7 @@ export default function Home() {
     {
       question: "Is ClaimSaver+ available in all states?",
       answer:
-        "ClaimSaver+ is available nationwide, but the specific services and attorney network may vary by state. We have attorneys licensed in all 50 states and can help you with claims regardless of where the accident occurred.",
+        "ClaimSaver+ currently services Florida and New York, with additional states to be added in the future. We have attorneys licensed in these states and can help you with claims in these service areas.",
     },
     {
       question: "What if I'm not satisfied with the attorney I'm matched with?",
@@ -70,9 +70,8 @@ export default function Home() {
     },
     {
       icon: <Users className="w-6 h-6" />,
-      title: "Attorney Matching",
-      description:
-        "Get matched with specialized attorneys nationwide through our intelligent system.",
+      title: "Regional Network",
+      description: "Access to qualified attorneys in Florida and New York",
       color: "green",
     },
     {
@@ -107,8 +106,8 @@ export default function Home() {
     },
     {
       icon: <Globe className="w-5 h-5" />,
-      title: "Nationwide Network",
-      description: "Access to qualified attorneys across all 50 states",
+      title: "Regional Network",
+      description: "Access to qualified attorneys in Florida and New York",
     },
     {
       icon: <Award className="w-5 h-5" />,
@@ -383,7 +382,7 @@ export default function Home() {
                   </div>
                   <div className="flex items-center justify-between">
                     <span className="text-lg">Attorney Network</span>
-                    <span className="text-2xl font-bold">50 States</span>
+                    <span className="text-2xl font-bold">FL & NY</span>
                   </div>
                   <div className="flex items-center justify-between">
                     <span className="text-lg">Customer Satisfaction</span>

@@ -86,9 +86,9 @@ export default function WhatWeDo() {
       icon: <Users className="w-8 h-8 text-green-600" />,
       title: "Attorney Connection Service",
       description:
-        "Connect with qualified attorneys nationwide through our referral system.",
+        "Connect with qualified attorneys in Florida and New York through our referral system.",
       features: [
-        "Nationwide network of qualified attorneys",
+        "Regional network of qualified attorneys in Florida and New York",
         "Specialized in accident cases",
         "Attorney profiles and ratings",
         "Free initial consultation",

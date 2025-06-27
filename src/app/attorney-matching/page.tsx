@@ -380,7 +380,8 @@ export default function AttorneyMatching() {
               </span>
             </h2>
             <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-              Access to qualified attorneys nationwide with proven track records
+              Access to qualified attorneys in Florida and New York with proven
+              track records
             </p>
           </div>
 
@@ -392,13 +393,12 @@ export default function AttorneyMatching() {
                   <Users className="w-6 h-6" />
                 </div>
                 <CardTitle className="text-xl font-semibold text-gray-900 dark:text-white">
-                  Nationwide Network
+                  Regional Network
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-                  Access to qualified attorneys across all 50 states,
-                  specialized in various practice areas.
+                  Access to qualified attorneys in Florida and New York,
                 </p>
               </CardContent>
             </Card>

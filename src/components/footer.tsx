@@ -93,9 +93,9 @@ export default function Footer() {
                 </h3>
               </div>
               <p className="text-gray-300 text-lg leading-relaxed mb-6 max-w-md">
-                Simplifying accident form filing and recovery nationwide.
-                Connect with experienced attorneys and get the compensation you
-                deserve with our innovative platform.
+                Simplifying accident form filing and recovery. Currently
+                servicing Florida and New York with additional states to be
+                added in the future.
               </p>
               <div className="flex space-x-4">
                 <a
@@ -114,7 +114,9 @@ export default function Footer() {
                   <Instagram className="w-5 h-5" />
                 </a>
                 <a
-                  href="#"
+                  href="https://www.linkedin.com/company/claimsaver"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="w-12 h-12 bg-blue-700 hover:bg-blue-800 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg"
                 >
                   <Linkedin className="w-5 h-5" />

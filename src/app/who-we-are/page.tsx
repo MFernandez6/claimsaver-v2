@@ -83,7 +83,7 @@ export default function WhoWeAre() {
                   We understand that dealing with the aftermath of an accident
                   can be overwhelming. That&apos;s why we&apos;ve created a
                   revolutionary platform that connects you with experienced
-                  attorneys nationwide.
+                  attorneys in Florida and New York.
                 </p>
               </div>
             </div>
@@ -105,7 +105,7 @@ export default function WhoWeAre() {
                       understand that dealing with the aftermath of an accident
                       can be overwhelming, which is why we&apos;ve created a
                       user-friendly solution that connects you with experienced
-                      attorneys nationwide.
+                      attorneys in Florida and New York.
                     </p>
                     <p>
                       Our platform combines cutting-edge technology with expert
