@@ -10,7 +10,6 @@ import {
   FileText,
   Shield,
   Clock,
-  CheckCircle,
   Upload,
   ArrowRight,
   Award,
@@ -22,33 +21,13 @@ import {
   Calendar,
   DollarSign,
   X,
+  Sparkles,
+  Bell,
+  Rocket,
 } from "lucide-react";
 
 export default function Notarization() {
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [isProcessing, setIsProcessing] = useState(false);
   const [isLearnMoreModalOpen, setIsLearnMoreModalOpen] = useState(false);
-
-  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      setSelectedFile(file);
-    }
-  };
-
-  const handleNotarizeDocument = async () => {
-    if (!selectedFile) return;
-
-    setIsProcessing(true);
-
-    // Simulate DocuSign integration
-    setTimeout(() => {
-      setIsProcessing(false);
-      alert(
-        "Document sent to DocuSign for notarization. You will receive an email with the notarized document."
-      );
-    }, 2000);
-  };
 
   const handleLearnMoreClick = () => {
     setIsLearnMoreModalOpen(true);
@@ -132,6 +111,39 @@ export default function Notarization() {
     "Deeds & Titles",
   ];
 
+  const faqItems = [
+    {
+      question: "What is digital notarization?",
+      answer:
+        "Digital notarization is a secure, online process where documents are notarized remotely using advanced technology and video conferencing, making it convenient and legally binding.",
+    },
+    {
+      question: "Is digital notarization legally valid?",
+      answer:
+        "Yes, digital notarization is legally valid in all 50 states and is recognized by courts, government agencies, and businesses nationwide.",
+    },
+    {
+      question: "What documents can be notarized online?",
+      answer:
+        "Most documents can be notarized online, including real estate documents, legal contracts, power of attorney forms, wills, business agreements, and more.",
+    },
+    {
+      question: "How long does the process take?",
+      answer:
+        "The entire digital notarization process typically takes 5-10 minutes from start to finish, including document upload and notary verification.",
+    },
+    {
+      question: "What do I need to get started?",
+      answer:
+        "You'll need a valid government-issued ID, a computer or mobile device with camera and microphone, and the document you want to notarize in PDF format.",
+    },
+    {
+      question: "How secure is the process?",
+      answer:
+        "Our platform uses bank-level encryption and security measures. All documents are encrypted in transit and at rest, and we maintain complete audit trails for all transactions.",
+    },
+  ];
+
   return (
     <div className="min-h-screen bg-white dark:bg-gray-950">
       {/* Hero Section */}
@@ -164,6 +176,11 @@ export default function Notarization() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
               <Button
                 size="lg"
+                onClick={() =>
+                  document
+                    .getElementById("notarization-section")
+                    ?.scrollIntoView({ behavior: "smooth" })
+                }
                 className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-4 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
               >
                 Start Notarization
@@ -184,7 +201,7 @@ export default function Notarization() {
       </section>
 
       {/* Features Section */}
-      <section className="py-16 bg-white dark:bg-gray-950 relative overflow-hidden">
+      <section className="py-8 bg-white dark:bg-gray-950 relative overflow-hidden">
         {/* Background Pattern */}
         <div className="fixed inset-0 z-0 opacity-15">
           <div
@@ -200,38 +217,38 @@ export default function Notarization() {
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-6">
+          <div className="text-center mb-8">
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4">
               Why Choose Our{" "}
               <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                 Notarization Service?
               </span>
             </h2>
-            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+            <p className="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
               Professional, secure, and convenient notarization powered by
               DocuSign
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {features.map((feature, index) => (
               <Card
                 key={index}
                 className="group relative overflow-hidden border-0 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 bg-gradient-to-br from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 backdrop-blur-sm"
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-600/5 to-purple-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                <CardHeader className="pb-4">
+                <CardHeader className="pb-3">
                   <div
-                    className={`w-12 h-12 bg-gradient-to-r from-${feature.color}-500 to-${feature.color}-600 rounded-xl flex items-center justify-center text-white mb-4 group-hover:scale-110 transition-transform duration-300`}
+                    className={`w-10 h-10 bg-gradient-to-r from-${feature.color}-500 to-${feature.color}-600 rounded-xl flex items-center justify-center text-white mb-3 group-hover:scale-110 transition-transform duration-300`}
                   >
                     {feature.icon}
                   </div>
-                  <CardTitle className="text-xl font-semibold text-gray-900 dark:text-white">
+                  <CardTitle className="text-lg font-semibold text-gray-900 dark:text-white">
                     {feature.title}
                   </CardTitle>
                 </CardHeader>
-                <CardContent>
-                  <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+                <CardContent className="pt-0">
+                  <p className="text-gray-600 dark:text-gray-300 leading-relaxed text-sm">
                     {feature.description}
                   </p>
                 </CardContent>
@@ -242,7 +259,10 @@ export default function Notarization() {
       </section>
 
       {/* Document Upload Section */}
-      <section className="pt-12 pb-8 bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-900 dark:to-blue-950/30 relative overflow-hidden">
+      <section
+        id="notarization-section"
+        className="pt-8 pb-6 bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-900 dark:to-blue-950/30 relative overflow-hidden"
+      >
         {/* Background Image */}
         <div className="fixed inset-0 z-0">
           <Image
@@ -255,122 +275,222 @@ export default function Notarization() {
         </div>
 
         <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-8">
-            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-6">
+          <div className="text-center mb-6">
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4">
               Get Started with{" "}
               <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                 Notarization
               </span>
             </h2>
-            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+            <p className="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
               Upload your document and we&apos;ll connect you with a licensed
               notary via DocuSign
             </p>
           </div>
 
-          <Card className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm border-0 shadow-2xl">
-            <CardHeader className="text-center pb-6">
-              <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Upload className="w-8 h-8 text-white" />
+          {/* Notarization Steps */}
+          <div className="mb-6">
+            <div className="flex justify-center mb-4">
+              <div className="flex items-center space-x-3">
+                {[1, 2, 3, 4].map((step) => (
+                  <div key={step} className="flex items-center">
+                    <div
+                      className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold ${
+                        step === 1
+                          ? "bg-blue-600 text-white"
+                          : "bg-gray-200 dark:bg-gray-700 text-gray-500"
+                      }`}
+                    >
+                      {step}
+                    </div>
+                    {step < 4 && (
+                      <div
+                        className={`w-12 h-1 mx-2 ${
+                          step === 1
+                            ? "bg-blue-600"
+                            : "bg-gray-200 dark:bg-gray-700"
+                        }`}
+                      />
+                    )}
+                  </div>
+                ))}
               </div>
-              <CardTitle className="text-2xl font-bold text-gray-900 dark:text-white">
-                Upload Your Document
-              </CardTitle>
-              <p className="text-gray-600 dark:text-gray-300">
-                Supported formats: PDF, DOC, DOCX (Max 10MB)
+            </div>
+            <div className="text-center">
+              <p className="text-sm text-gray-600 dark:text-gray-400">
+                Upload Document & Enter Details
               </p>
-            </CardHeader>
-            <CardContent className="space-y-6">
-              <div className="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg p-8 text-center hover:border-blue-500 dark:hover:border-blue-400 transition-colors duration-300">
-                <input
-                  type="file"
-                  accept=".pdf,.doc,.docx"
-                  onChange={handleFileUpload}
-                  className="hidden"
-                  id="document-upload"
-                />
-                <label
-                  htmlFor="document-upload"
-                  className="cursor-pointer block"
-                >
-                  <Upload className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                  <p className="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-2">
-                    {selectedFile
-                      ? selectedFile.name
-                      : "Choose a document to upload"}
-                  </p>
-                  <p className="text-gray-500 dark:text-gray-400">
-                    {selectedFile
-                      ? "Click to change file"
-                      : "or drag and drop here"}
-                  </p>
-                </label>
-              </div>
+            </div>
+          </div>
 
-              {selectedFile && (
-                <div className="bg-green-50 dark:bg-green-900/20 rounded-lg p-4 border border-green-200 dark:border-green-800">
-                  <div className="flex items-center gap-3">
-                    <CheckCircle className="w-5 h-5 text-green-600" />
+          {/* Main Notarization Card with Blur Effect */}
+          <div className="relative">
+            {/* Blurred Background Card */}
+            <Card className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm border-0 shadow-2xl filter blur-sm opacity-50">
+              <CardHeader className="text-center pb-4">
+                <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center mx-auto mb-3">
+                  <Upload className="w-6 h-6 text-white" />
+                </div>
+                <CardTitle className="text-xl font-bold text-gray-900 dark:text-white">
+                  Upload Your Document
+                </CardTitle>
+                <p className="text-gray-600 dark:text-gray-300 text-sm">
+                  Supported formats: PDF (Max 10MB)
+                </p>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg p-6 text-center">
+                  <Upload className="w-10 h-10 text-gray-400 mx-auto mb-3" />
+                  <p className="text-base font-semibold text-gray-700 dark:text-gray-300 mb-1">
+                    Choose a PDF document to upload
+                  </p>
+                  <p className="text-gray-500 dark:text-gray-400 text-sm">
+                    or drag and drop here
+                  </p>
+                </div>
+                <div className="space-y-3">
+                  <h3 className="text-base font-semibold text-gray-900 dark:text-white">
+                    Signer Information
+                  </h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                     <div>
-                      <p className="font-semibold text-green-800 dark:text-green-200">
-                        Document Selected
-                      </p>
-                      <p className="text-sm text-green-600 dark:text-green-300">
-                        {selectedFile.name} (
-                        {(selectedFile.size / 1024 / 1024).toFixed(2)} MB)
-                      </p>
+                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                        Full Name *
+                      </label>
+                      <input
+                        type="text"
+                        className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white text-sm"
+                        placeholder="Enter your full name"
+                        disabled
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                        Email Address *
+                      </label>
+                      <input
+                        type="email"
+                        className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white text-sm"
+                        placeholder="Enter your email address"
+                        disabled
+                      />
                     </div>
                   </div>
                 </div>
-              )}
+                <Button
+                  disabled
+                  className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white py-3 text-base font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  Start Notarization Process
+                  <ArrowRight className="ml-2 w-4 h-4" />
+                </Button>
+              </CardContent>
+            </Card>
 
-              <Button
-                onClick={handleNotarizeDocument}
-                disabled={!selectedFile || isProcessing}
-                className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white py-4 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                {isProcessing ? (
-                  <div className="flex items-center gap-2">
-                    <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                    Processing...
+            {/* Coming Soon Overlay */}
+            <div className="absolute inset-0 flex items-center justify-center z-20">
+              <div className="bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl rounded-2xl p-6 shadow-2xl border border-white/20 dark:border-gray-700/20 max-w-sm w-full mx-4 transform scale-105">
+                {/* Animated Background Elements */}
+                <div className="absolute inset-0 overflow-hidden rounded-2xl">
+                  <div className="absolute -top-8 -right-8 w-16 h-16 bg-gradient-to-br from-blue-400/20 to-purple-400/20 rounded-full blur-xl animate-pulse"></div>
+                  <div className="absolute -bottom-8 -left-8 w-12 h-12 bg-gradient-to-br from-purple-400/20 to-pink-400/20 rounded-full blur-xl animate-pulse delay-1000"></div>
+                  <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-24 h-24 bg-gradient-to-br from-blue-500/10 to-purple-500/10 rounded-full blur-2xl animate-pulse delay-500"></div>
+                </div>
+
+                {/* Content */}
+                <div className="relative z-10 text-center">
+                  {/* Icon with Animation */}
+                  <div className="relative mb-4">
+                    <div className="w-16 h-16 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 rounded-full flex items-center justify-center mx-auto shadow-2xl animate-pulse">
+                      <Rocket className="w-8 h-8 text-white animate-bounce" />
+                    </div>
+                    <div className="absolute -top-1 -right-1 w-4 h-4 bg-yellow-400 rounded-full flex items-center justify-center animate-ping">
+                      <Sparkles className="w-2 h-2 text-white" />
+                    </div>
+                    <div className="absolute -bottom-1 -left-1 w-4 h-4 bg-pink-400 rounded-full flex items-center justify-center animate-ping delay-300">
+                      <Star className="w-2 h-2 text-white" />
+                    </div>
                   </div>
-                ) : (
-                  <>
-                    Start Notarization Process
-                    <ArrowRight className="ml-2 w-5 h-5" />
-                  </>
-                )}
-              </Button>
-            </CardContent>
-          </Card>
+
+                  {/* Title */}
+                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+                    Coming{" "}
+                    <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent animate-pulse">
+                      Soon
+                    </span>
+                  </h3>
+
+                  {/* Subtitle */}
+                  <p className="text-base text-gray-600 dark:text-gray-300 mb-4 leading-relaxed">
+                    We&apos;re working hard to bring you the most advanced
+                    digital notarization experience
+                  </p>
+
+                  {/* Features Preview */}
+                  <div className="space-y-2 mb-4">
+                    <div className="flex items-center justify-center gap-2 text-xs text-gray-600 dark:text-gray-400">
+                      <Shield className="w-3 h-3 text-green-500" />
+                      <span>Bank-level security</span>
+                    </div>
+                    <div className="flex items-center justify-center gap-2 text-xs text-gray-600 dark:text-gray-400">
+                      <Clock className="w-3 h-3 text-blue-500" />
+                      <span>24/7 availability</span>
+                    </div>
+                    <div className="flex items-center justify-center gap-2 text-xs text-gray-600 dark:text-gray-400">
+                      <Zap className="w-3 h-3 text-yellow-500" />
+                      <span>Instant processing</span>
+                    </div>
+                  </div>
+
+                  {/* Notification Button */}
+                  <Button className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white py-2 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 group text-sm">
+                    <Bell className="w-3 h-3 mr-2 group-hover:animate-bounce" />
+                    Get Notified When Live
+                  </Button>
+
+                  {/* Progress Indicator */}
+                  <div className="mt-4">
+                    <div className="flex items-center justify-center gap-1 mb-1">
+                      <div className="w-1.5 h-1.5 bg-blue-500 rounded-full animate-pulse"></div>
+                      <div className="w-1.5 h-1.5 bg-purple-500 rounded-full animate-pulse delay-150"></div>
+                      <div className="w-1.5 h-1.5 bg-pink-500 rounded-full animate-pulse delay-300"></div>
+                    </div>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">
+                      Development in progress
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
       {/* Document Types Section */}
-      <section className="py-12 bg-white dark:bg-gray-950">
+      <section className="pb-8 bg-white dark:bg-gray-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-8">
-            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-6">
+          <div className="text-center mb-6">
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4">
               Documents We{" "}
               <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                 Notarize
               </span>
             </h2>
-            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+            <p className="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
               Professional notarization for all types of legal and business
               documents
             </p>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {documentTypes.map((docType, index) => (
               <Card
                 key={index}
                 className="text-center border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 bg-gradient-to-br from-gray-50 to-white dark:from-gray-900 dark:to-gray-800"
               >
-                <CardContent className="p-6">
-                  <FileText className="w-8 h-8 text-blue-600 mx-auto mb-3" />
-                  <p className="text-sm font-semibold text-gray-900 dark:text-white">
+                <CardContent className="p-4">
+                  <FileText className="w-6 h-6 text-blue-600 mx-auto mb-2" />
+                  <p className="text-xs font-semibold text-gray-900 dark:text-white">
                     {docType}
                   </p>
                 </CardContent>
@@ -381,7 +501,7 @@ export default function Notarization() {
       </section>
 
       {/* Benefits Section */}
-      <section className="pt-8 pb-16 bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-900 dark:to-blue-950/30 relative overflow-hidden">
+      <section className="pb-12 bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-900 dark:to-blue-950/30 relative overflow-hidden">
         {/* Background Image */}
         <div className="fixed inset-0 z-0">
           <Image
@@ -394,30 +514,30 @@ export default function Notarization() {
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-6">
+              <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4">
                 The{" "}
                 <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                   Benefits
                 </span>
               </h2>
-              <p className="text-xl text-gray-600 dark:text-gray-300 mb-8 leading-relaxed">
+              <p className="text-lg text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
                 Experience the convenience and security of online notarization
                 with DocuSign integration.
               </p>
 
-              <div className="space-y-6">
+              <div className="space-y-4">
                 {benefits.map((benefit, index) => (
-                  <div key={index} className="flex items-start gap-4">
-                    <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg flex items-center justify-center text-white flex-shrink-0">
+                  <div key={index} className="flex items-start gap-3">
+                    <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg flex items-center justify-center text-white flex-shrink-0">
                       {benefit.icon}
                     </div>
                     <div>
-                      <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                      <h3 className="text-base font-semibold text-gray-900 dark:text-white mb-1">
                         {benefit.title}
                       </h3>
-                      <p className="text-gray-600 dark:text-gray-300">
+                      <p className="text-gray-600 dark:text-gray-300 text-sm">
                         {benefit.description}
                       </p>
                     </div>
@@ -425,54 +545,44 @@ export default function Notarization() {
                 ))}
               </div>
 
-              <div className="mt-8">
+              <div className="mt-6">
                 <Button
                   size="lg"
-                  className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+                  onClick={() =>
+                    document
+                      .getElementById("notarization-section")
+                      ?.scrollIntoView({ behavior: "smooth" })
+                  }
+                  className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-6 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
                 >
                   Start Notarization
-                  <ArrowRight className="ml-2 w-5 h-5" />
+                  <ArrowRight className="ml-2 w-4 h-4" />
                 </Button>
               </div>
             </div>
 
             <div className="relative">
-              <div className="bg-gradient-to-br from-blue-600 to-purple-600 rounded-3xl p-8 text-white shadow-2xl">
-                <div className="flex items-center gap-3 mb-6">
-                  <Award className="w-8 h-8" />
-                  <h3 className="text-2xl font-bold">Service Highlights</h3>
+              <div className="bg-gradient-to-br from-blue-600 to-purple-600 rounded-2xl p-6 text-white shadow-2xl">
+                <div className="flex items-center gap-3 mb-4">
+                  <Award className="w-6 h-6" />
+                  <h3 className="text-xl font-bold">Service Highlights</h3>
                 </div>
-                <div className="space-y-6">
+                <div className="space-y-4">
                   <div className="flex items-center justify-between">
-                    <span className="text-lg">Processing Time</span>
-                    <span className="text-2xl font-bold">5-10 minutes</span>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-lg">Success Rate</span>
-                    <span className="text-2xl font-bold">99.9%</span>
+                    <span className="text-base">Processing Time</span>
+                    <span className="text-xl font-bold">5-10 minutes</span>
                   </div>
                   <div className="flex items-center justify-between">
-                    <span className="text-lg">Starting Price</span>
-                    <span className="text-2xl font-bold">$25</span>
+                    <span className="text-base">Success Rate</span>
+                    <span className="text-xl font-bold">99.9%</span>
                   </div>
                   <div className="flex items-center justify-between">
-                    <span className="text-lg">Customer Rating</span>
-                    <span className="text-2xl font-bold">4.9/5</span>
+                    <span className="text-base">Cost</span>
+                    <span className="text-xl font-bold">$25.00</span>
                   </div>
-                </div>
-              </div>
-              <div className="absolute -bottom-6 -right-6 bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-xl">
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center">
-                    <CheckCircle className="w-6 h-6 text-green-600" />
-                  </div>
-                  <div>
-                    <p className="font-semibold text-gray-900 dark:text-white">
-                      DocuSign Verified
-                    </p>
-                    <p className="text-sm text-gray-600 dark:text-gray-300">
-                      Secure & Legal
-                    </p>
+                  <div className="flex items-center justify-between">
+                    <span className="text-base">Security</span>
+                    <span className="text-xl font-bold">Bank-Level</span>
                   </div>
                 </div>
               </div>
@@ -481,328 +591,170 @@ export default function Notarization() {
         </div>
       </section>
 
+      {/* FAQ Section */}
+      <section className="py-16 bg-white dark:bg-gray-950">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <FAQ
+            title="Notarization FAQ"
+            subtitle="Everything you need to know about our digital notarization service"
+            items={faqItems}
+          />
+        </div>
+      </section>
+
+      {/* Footer */}
+      <Footer />
+
       {/* Learn More Modal */}
       {isLearnMoreModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-          <div className="absolute inset-0 bg-black/50 backdrop-blur-sm"></div>
-          <div className="relative bg-white dark:bg-gray-900 rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
-            <div className="p-8">
-              <div className="flex justify-between items-start mb-8">
-                <div>
-                  <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
-                    How Online Notarization Works
-                  </h2>
-                  <p className="text-gray-600 dark:text-gray-300">
-                    Understanding the secure and legal process of remote
-                    notarization
-                  </p>
-                </div>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={handleCloseModal}
-                  className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
-                >
-                  <X className="w-5 h-5" />
-                </Button>
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
+          <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-2xl max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto">
+            <div className="flex justify-between items-start mb-6">
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+                About Our Notarization Service
+              </h2>
+              <button
+                onClick={handleCloseModal}
+                className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+              >
+                <X className="w-6 h-6" />
+              </button>
+            </div>
+
+            <div className="space-y-6">
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">
+                  Secure Digital Notarization
+                </h3>
+                <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+                  Our notarization service uses DocuSign&apos;s industry-leading
+                  platform to provide secure, legally compliant digital
+                  notarization. All documents are encrypted and stored securely,
+                  meeting the highest standards for digital security.
+                </p>
               </div>
 
-              <div className="space-y-8">
-                {/* Process Overview */}
-                <div className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-950/30 dark:to-purple-950/30 rounded-xl p-6">
-                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
-                    <Shield className="w-5 h-5 text-blue-600" />
-                    The Notarization Process
-                  </h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="space-y-4">
-                      <div className="flex items-start gap-3">
-                        <div className="w-8 h-8 bg-blue-100 dark:bg-blue-900/50 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                          <span className="text-blue-600 text-sm font-semibold">
-                            1
-                          </span>
-                        </div>
-                        <div>
-                          <h4 className="font-semibold text-gray-900 dark:text-white">
-                            Document Upload
-                          </h4>
-                          <p className="text-sm text-gray-600 dark:text-gray-300">
-                            Upload your document securely through our platform.
-                            We support PDF, DOC, and DOCX formats.
-                          </p>
-                        </div>
-                      </div>
-                      <div className="flex items-start gap-3">
-                        <div className="w-8 h-8 bg-blue-100 dark:bg-blue-900/50 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                          <span className="text-blue-600 text-sm font-semibold">
-                            2
-                          </span>
-                        </div>
-                        <div>
-                          <h4 className="font-semibold text-gray-900 dark:text-white">
-                            Identity Verification
-                          </h4>
-                          <p className="text-sm text-gray-600 dark:text-gray-300">
-                            Verify your identity using government-issued ID and
-                            knowledge-based authentication questions.
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="space-y-4">
-                      <div className="flex items-start gap-3">
-                        <div className="w-8 h-8 bg-blue-100 dark:bg-blue-900/50 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                          <span className="text-blue-600 text-sm font-semibold">
-                            3
-                          </span>
-                        </div>
-                        <div>
-                          <h4 className="font-semibold text-gray-900 dark:text-white">
-                            Video Conference
-                          </h4>
-                          <p className="text-sm text-gray-600 dark:text-gray-300">
-                            Connect with a licensed notary via secure video
-                            conference for real-time notarization.
-                          </p>
-                        </div>
-                      </div>
-                      <div className="flex items-start gap-3">
-                        <div className="w-8 h-8 bg-blue-100 dark:bg-blue-900/50 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                          <span className="text-blue-600 text-sm font-semibold">
-                            4
-                          </span>
-                        </div>
-                        <div>
-                          <h4 className="font-semibold text-gray-900 dark:text-white">
-                            Digital Completion
-                          </h4>
-                          <p className="text-sm text-gray-600 dark:text-gray-300">
-                            Sign and receive your notarized document
-                            electronically with full legal validity.
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="bg-blue-50 dark:bg-blue-950/30 p-4 rounded-lg">
+                  <h4 className="font-semibold text-blue-900 dark:text-blue-100 mb-2">
+                    Traditional Notarization
+                  </h4>
+                  <ul className="text-sm text-blue-800 dark:text-blue-200 space-y-1">
+                    <li>• Requires in-person meeting</li>
+                    <li>• Limited availability</li>
+                    <li>• Travel time and costs</li>
+                    <li>• Paper-based process</li>
+                  </ul>
                 </div>
+                <div className="bg-green-50 dark:bg-green-950/30 p-4 rounded-lg">
+                  <h4 className="font-semibold text-green-900 dark:text-green-100 mb-2">
+                    Our Digital Service
+                  </h4>
+                  <ul className="text-sm text-green-800 dark:text-green-200 space-y-1">
+                    <li>• Remote notarization</li>
+                    <li>• 24/7 availability</li>
+                    <li>• No travel required</li>
+                    <li>• Secure digital process</li>
+                  </ul>
+                </div>
+              </div>
 
-                {/* Legal Compliance */}
-                <div className="bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-950/30 dark:to-emerald-950/30 rounded-xl p-6">
-                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
-                    <Award className="w-5 h-5 text-green-600" />
-                    Legal Compliance & Security
-                  </h3>
-                  <div className="space-y-4">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div className="flex items-start gap-3">
-                        <CheckCircle className="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" />
-                        <div>
-                          <h4 className="font-semibold text-gray-900 dark:text-white">
-                            State Compliant
-                          </h4>
-                          <p className="text-sm text-gray-600 dark:text-gray-300">
-                            All notarizations comply with state-specific laws
-                            and regulations.
-                          </p>
-                        </div>
-                      </div>
-                      <div className="flex items-start gap-3">
-                        <CheckCircle className="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" />
-                        <div>
-                          <h4 className="font-semibold text-gray-900 dark:text-white">
-                            Bank-Level Security
-                          </h4>
-                          <p className="text-sm text-gray-600 dark:text-gray-300">
-                            End-to-end encryption and secure document handling
-                            protocols.
-                          </p>
-                        </div>
-                      </div>
-                      <div className="flex items-start gap-3">
-                        <CheckCircle className="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" />
-                        <div>
-                          <h4 className="font-semibold text-gray-900 dark:text-white">
-                            Audit Trail
-                          </h4>
-                          <p className="text-sm text-gray-600 dark:text-gray-300">
-                            Complete digital record of the notarization process
-                            for legal purposes.
-                          </p>
-                        </div>
-                      </div>
-                      <div className="flex items-start gap-3">
-                        <CheckCircle className="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" />
-                        <div>
-                          <h4 className="font-semibold text-gray-900 dark:text-white">
-                            Licensed Notaries
-                          </h4>
-                          <p className="text-sm text-gray-600 dark:text-gray-300">
-                            All notaries are licensed, background-checked, and
-                            certified for remote notarization.
-                          </p>
-                        </div>
-                      </div>
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">
+                  How It Works
+                </h3>
+                <div className="space-y-3">
+                  <div className="flex items-start gap-3">
+                    <div className="w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center text-sm font-semibold flex-shrink-0 mt-0.5">
+                      1
                     </div>
-                  </div>
-                </div>
-
-                {/* Document Types */}
-                <div className="bg-gradient-to-r from-orange-50 to-red-50 dark:from-orange-950/30 dark:to-red-950/30 rounded-xl p-6">
-                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
-                    <FileText className="w-5 h-5 text-orange-600" />
-                    Supported Document Types
-                  </h3>
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                    {documentTypes.map((docType, index) => (
-                      <div key={index} className="flex items-center gap-2">
-                        <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
-                        <span className="text-sm text-gray-700 dark:text-gray-300">
-                          {docType}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Requirements */}
-                <div className="bg-gradient-to-r from-purple-50 to-indigo-50 dark:from-purple-950/30 dark:to-indigo-950/30 rounded-xl p-6">
-                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
-                    <Users className="w-5 h-5 text-purple-600" />
-                    What You Need
-                  </h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="space-y-3">
-                      <h4 className="font-semibold text-gray-900 dark:text-white">
-                        Technical Requirements
+                    <div>
+                      <h4 className="font-medium text-gray-900 dark:text-white">
+                        Upload Document
                       </h4>
-                      <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-300">
-                        <li className="flex items-start gap-2">
-                          <div className="w-1.5 h-1.5 bg-purple-500 rounded-full mt-2 flex-shrink-0"></div>
-                          <span>
-                            Computer, tablet, or smartphone with camera
-                          </span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <div className="w-1.5 h-1.5 bg-purple-500 rounded-full mt-2 flex-shrink-0"></div>
-                          <span>Stable internet connection</span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <div className="w-1.5 h-1.5 bg-purple-500 rounded-full mt-2 flex-shrink-0"></div>
-                          <span>Valid government-issued photo ID</span>
-                        </li>
-                      </ul>
-                    </div>
-                    <div className="space-y-3">
-                      <h4 className="font-semibold text-gray-900 dark:text-white">
-                        Document Requirements
-                      </h4>
-                      <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-300">
-                        <li className="flex items-start gap-2">
-                          <div className="w-1.5 h-1.5 bg-purple-500 rounded-full mt-2 flex-shrink-0"></div>
-                          <span>
-                            Document must be complete and ready for signature
-                          </span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <div className="w-1.5 h-1.5 bg-purple-500 rounded-full mt-2 flex-shrink-0"></div>
-                          <span>
-                            All parties must be present during notarization
-                          </span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <div className="w-1.5 h-1.5 bg-purple-500 rounded-full mt-2 flex-shrink-0"></div>
-                          <span>
-                            Document must be in English or have certified
-                            translation
-                          </span>
-                        </li>
-                      </ul>
+                      <p className="text-sm text-gray-600 dark:text-gray-300">
+                        Upload your PDF document and provide signer information
+                      </p>
                     </div>
                   </div>
-                </div>
-
-                {/* Call to Action */}
-                <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl p-6 text-center">
-                  <h3 className="text-xl font-semibold text-white mb-3">
-                    Ready to Get Started?
-                  </h3>
-                  <p className="text-blue-100 mb-6">
-                    Experience the convenience of online notarization with our
-                    secure, legal, and efficient platform.
-                  </p>
-                  <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                    <Button
-                      onClick={handleCloseModal}
-                      className="bg-white text-blue-600 hover:bg-gray-100 px-6 py-3 font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
-                    >
-                      Start Notarization
-                      <ArrowRight className="ml-2 w-4 h-4" />
-                    </Button>
-                    <Button
-                      variant="outline"
-                      onClick={handleCloseModal}
-                      className="border-white text-white bg-transparent hover:bg-white hover:text-blue-600 px-6 py-3 font-semibold rounded-xl"
-                    >
-                      Close
-                    </Button>
+                  <div className="flex items-start gap-3">
+                    <div className="w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center text-sm font-semibold flex-shrink-0 mt-0.5">
+                      2
+                    </div>
+                    <div>
+                      <h4 className="font-medium text-gray-900 dark:text-white">
+                        DocuSign Processing
+                      </h4>
+                      <p className="text-sm text-gray-600 dark:text-gray-300">
+                        We create a DocuSign envelope and send it for
+                        notarization
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <div className="w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center text-sm font-semibold flex-shrink-0 mt-0.5">
+                      3
+                    </div>
+                    <div>
+                      <h4 className="font-medium text-gray-900 dark:text-white">
+                        Receive Notarized Document
+                      </h4>
+                      <p className="text-sm text-gray-600 dark:text-gray-300">
+                        Download your legally notarized document within minutes
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
+
+              <div className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-950/30 dark:to-purple-950/30 p-4 rounded-lg">
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                  Legal Compliance
+                </h3>
+                <ul className="text-sm text-gray-600 dark:text-gray-300 space-y-1">
+                  <li>
+                    • <strong>State Approved:</strong> Compliant with all state
+                    notarization laws
+                  </li>
+                  <li>
+                    • <strong>Digital Security:</strong> Bank-level encryption
+                    and security
+                  </li>
+                  <li>
+                    • <strong>Audit Trail:</strong> Complete digital record of
+                    the notarization process
+                  </li>
+                  <li>
+                    • <strong>Legal Recognition:</strong> Accepted by courts,
+                    government agencies, and businesses
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div className="mt-6 flex gap-3">
+              <Button
+                onClick={handleCloseModal}
+                variant="outline"
+                className="flex-1"
+              >
+                Close
+              </Button>
+              <Button
+                onClick={() => {
+                  handleCloseModal();
+                  document
+                    .getElementById("notarization-section")
+                    ?.scrollIntoView({ behavior: "smooth" });
+                }}
+                className="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
+              >
+                Start Notarization
+              </Button>
             </div>
           </div>
         </div>
       )}
-
-      {/* FAQ Section */}
-      <FAQ
-        title="Notarization FAQ"
-        subtitle="Everything you need to know about online notarization"
-        items={[
-          {
-            question: "Is online notarization legal and valid?",
-            answer:
-              "Yes, online notarization is fully legal and valid in most states. It's governed by state laws and regulations, and our platform ensures compliance with all legal requirements. The notarized documents have the same legal validity as traditional in-person notarizations.",
-          },
-          {
-            question: "What documents can I get notarized online?",
-            answer:
-              "You can notarize most legal and business documents including real estate documents, legal contracts, power of attorney, wills & trusts, business agreements, loan documents, affidavits, and deeds & titles. Some documents may have specific requirements depending on your state.",
-          },
-          {
-            question: "How does the online notarization process work?",
-            answer:
-              "The process is simple: 1) Upload your document, 2) Verify your identity with government-issued ID, 3) Connect with a licensed notary via video conference, 4) Sign and receive your notarized document electronically. The entire process typically takes 5-10 minutes.",
-          },
-          {
-            question: "What do I need for online notarization?",
-            answer:
-              "You'll need a computer, tablet, or smartphone with a camera, stable internet connection, valid government-issued photo ID, and your document ready for signature. All parties must be present during the notarization session.",
-          },
-          {
-            question: "How much does online notarization cost?",
-            answer:
-              "Our online notarization service starts at $25 per document, which is competitive with traditional notary services. We offer transparent pricing with no hidden fees, and you can pay securely through our platform.",
-          },
-          {
-            question: "How secure is the online notarization process?",
-            answer:
-              "Our platform uses bank-level security with end-to-end encryption, secure document handling, and complete audit trails. All notaries are licensed, background-checked professionals, and we maintain full compliance with state security requirements.",
-          },
-          {
-            question: "Can I get notarized outside of business hours?",
-            answer:
-              "Yes! Our online notarization service is available 24/7, so you can get your documents notarized anytime, anywhere. No need to schedule appointments or travel to a notary office.",
-          },
-          {
-            question: "What if I have technical issues during notarization?",
-            answer:
-              "Our support team is available to help with any technical issues. If problems persist, we can reschedule your session at no additional cost. We also provide detailed troubleshooting guides and live chat support.",
-          },
-        ]}
-      />
-
-      {/* Footer */}
-      <Footer />
     </div>
   );
 }
