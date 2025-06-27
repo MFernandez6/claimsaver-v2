@@ -29,15 +29,16 @@ export default function Pricing() {
   const [isValidating, setIsValidating] = useState(false);
   const [showLearnMoreModal, setShowLearnMoreModal] = useState(false);
   const [showServicesModal, setShowServicesModal] = useState(false);
+  const [showPricingModal, setShowPricingModal] = useState(false);
 
   const handleStartClaim = () => {
     openSignIn();
   };
 
   const traditionalCosts = [
-    "Average auto policy: $10,000",
+    "Average auto policy: $10,000.00",
     "Attorney contingency fee: 33%",
-    "Net to victim: Less than $7,000",
+    "Net to victim: Less than $7,000.00",
     "Additional processing costs",
     "Hidden fees and charges",
   ];
@@ -374,7 +375,7 @@ export default function Pricing() {
                             <div className="flex items-center gap-4">
                               <div className="text-right">
                                 <div className="text-xl font-bold text-gray-900 dark:text-white">
-                                  ${service.price}
+                                  ${service.price.toFixed(2)}
                                 </div>
                                 <div className="text-sm text-gray-500 dark:text-gray-400">
                                   One-time fee
@@ -429,7 +430,7 @@ export default function Pricing() {
                                   </p>
                                 </div>
                                 <span className="font-semibold text-gray-900 dark:text-white">
-                                  ${service.price}
+                                  ${service.price.toFixed(2)}
                                 </span>
                               </div>
                             ) : null;
@@ -444,7 +445,7 @@ export default function Pricing() {
                             Total
                           </span>
                           <span className="text-2xl font-bold text-blue-600">
-                            ${getTotalPrice()}
+                            ${getTotalPrice().toFixed(2)}
                           </span>
                         </div>
                       </div>
@@ -531,7 +532,7 @@ export default function Pricing() {
                 </div>
                 <div className="text-center">
                   <div className="text-4xl font-bold text-red-600 mb-2">
-                    $3,000+
+                    $3,000.00+
                   </div>
                   <p className="text-gray-600 dark:text-gray-300">
                     Average fees and costs
@@ -551,7 +552,7 @@ export default function Pricing() {
                 </ul>
                 <div className="mt-6 p-4 bg-red-100 dark:bg-red-900/50 rounded-lg">
                   <p className="text-sm text-red-800 dark:text-red-200 font-medium">
-                    Net to victim: Less than $7,000
+                    Net to victim: Less than $7,000.00
                   </p>
                 </div>
               </CardContent>
@@ -624,9 +625,9 @@ export default function Pricing() {
               </h2>
               <div className="space-y-6 text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
                 <p>
-                  In Florida, the average auto policy payout is $10,000. With
+                  In Florida, the average auto policy payout is $10,000.00. With
                   traditional methods, after a 33% attorney contingency fee,
-                  victims are left with less than $7,000 before additional
+                  victims are left with less than $7,000.00 before additional
                   processing costs.
                 </p>
                 <p>
@@ -644,7 +645,7 @@ export default function Pricing() {
                     <div className="flex justify-between">
                       <span>Traditional Attorney Fee (33%)</span>
                       <span className="font-semibold text-red-600">
-                        -$3,300
+                        -$3,300.00
                       </span>
                     </div>
                     <div className="flex justify-between">
@@ -655,7 +656,7 @@ export default function Pricing() {
                     </div>
                     <div className="border-t pt-2 flex justify-between font-bold text-lg">
                       <span>Your Savings</span>
-                      <span className="text-green-600">+$2,800</span>
+                      <span className="text-green-600">+$2,800.00</span>
                     </div>
                   </div>
                 </div>
@@ -786,7 +787,8 @@ export default function Pricing() {
             <Button
               size="lg"
               variant="outline"
-              className="border-white text-white bg-transparent hover:bg-white hover:text-blue-600 px-8 py-4 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+              className="border-2 border-gray-300 hover:border-gray-400 text-gray-700 dark:text-gray-300 px-8 py-4 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm"
+              onClick={() => setShowLearnMoreModal(true)}
             >
               Learn More
               <ArrowRight className="ml-2 w-5 h-5" />
@@ -1043,8 +1045,10 @@ export default function Pricing() {
                 </h3>
                 <div className="space-y-2 text-sm">
                   <div className="flex justify-between">
-                    <span>Traditional Attorney Fee (33% of $10,000)</span>
-                    <span className="font-semibold text-red-600">-$3,300</span>
+                    <span>Traditional Attorney Fee (33%)</span>
+                    <span className="font-semibold text-red-600">
+                      -$3,300.00
+                    </span>
                   </div>
                   <div className="flex justify-between">
                     <span>ClaimSaver+ Flat Fee</span>
@@ -1054,7 +1058,7 @@ export default function Pricing() {
                   </div>
                   <div className="border-t pt-2 flex justify-between font-bold">
                     <span>Your Additional Savings</span>
-                    <span className="text-green-600">+$2,800</span>
+                    <span className="text-green-600">+$2,800.00</span>
                   </div>
                 </div>
               </div>
@@ -1073,6 +1077,183 @@ export default function Pricing() {
                 className="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
               >
                 Select Services
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Pricing Modal */}
+      {showPricingModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
+          <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-2xl max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto">
+            <div className="flex justify-between items-start mb-6">
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+                Pricing & Savings
+              </h2>
+              <button
+                onClick={() => setShowPricingModal(false)}
+                className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+              >
+                <X className="w-6 h-6" />
+              </button>
+            </div>
+
+            <div className="space-y-6">
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">
+                  Understanding Our Pricing Model
+                </h3>
+                <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+                  ClaimSaver+ offers a revolutionary flat-rate pricing model
+                  that saves you thousands compared to traditional attorney
+                  contingency fees. Our transparent pricing ensures you know
+                  exactly what you'll pay upfront.
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="bg-red-50 dark:bg-red-950/30 p-4 rounded-lg">
+                  <h4 className="font-semibold text-red-900 dark:text-red-100 mb-2">
+                    Traditional Attorney Costs
+                  </h4>
+                  <ul className="text-sm text-red-800 dark:text-red-200 space-y-1">
+                    <li>• 33% contingency fee</li>
+                    <li>• Hidden processing costs</li>
+                    <li>• Additional filing fees</li>
+                    <li>• Administrative charges</li>
+                    <li>• Total: $3,000.00+</li>
+                  </ul>
+                </div>
+                <div className="bg-green-50 dark:bg-green-950/30 p-4 rounded-lg">
+                  <h4 className="font-semibold text-green-900 dark:text-green-100 mb-2">
+                    ClaimSaver+ Pricing
+                  </h4>
+                  <ul className="text-sm text-green-800 dark:text-green-200 space-y-1">
+                    <li>• Flat $500.00 fee</li>
+                    <li>• No hidden costs</li>
+                    <li>• No contingency fees</li>
+                    <li>• All-inclusive service</li>
+                    <li>• Total: $500.00</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-950/30 dark:to-purple-950/30 p-6 rounded-lg">
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+                  💰 Your Savings Breakdown
+                </h3>
+                <div className="space-y-3">
+                  <div className="flex justify-between items-center">
+                    <span className="text-gray-700 dark:text-gray-300">
+                      Traditional Attorney Fee (33% of $10,000.00)
+                    </span>
+                    <span className="font-semibold text-red-600">
+                      -$3,300.00
+                    </span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-gray-700 dark:text-gray-300">
+                      ClaimSaver+ Flat Fee
+                    </span>
+                    <span className="font-semibold text-green-600">
+                      -$500.00
+                    </span>
+                  </div>
+                  <div className="border-t pt-3 flex justify-between items-center font-bold text-lg">
+                    <span className="text-gray-900 dark:text-white">
+                      Your Total Savings
+                    </span>
+                    <span className="text-green-600">+$2,800.00</span>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">
+                  What's Included in Our Flat Fee
+                </h3>
+                <div className="space-y-2">
+                  <div className="flex items-start gap-3">
+                    <CheckCircle className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" />
+                    <span className="text-gray-700 dark:text-gray-300">
+                      Complete accident claim form preparation and filing
+                    </span>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <CheckCircle className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" />
+                    <span className="text-gray-700 dark:text-gray-300">
+                      Medical documentation review and organization
+                    </span>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <CheckCircle className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" />
+                    <span className="text-gray-700 dark:text-gray-300">
+                      Insurance company communication and negotiation
+                    </span>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <CheckCircle className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" />
+                    <span className="text-gray-700 dark:text-gray-300">
+                      Settlement evaluation and optimization
+                    </span>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <CheckCircle className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" />
+                    <span className="text-gray-700 dark:text-gray-300">
+                      Legal compliance and documentation
+                    </span>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <CheckCircle className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" />
+                    <span className="text-gray-700 dark:text-gray-300">
+                      Ongoing support throughout the entire process
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-yellow-50 dark:bg-yellow-950/30 p-4 rounded-lg">
+                <h3 className="text-lg font-semibold text-yellow-900 dark:text-yellow-100 mb-2">
+                  ⚡ Why Our Pricing Works
+                </h3>
+                <ul className="text-sm text-yellow-800 dark:text-yellow-200 space-y-1">
+                  <li>
+                    • <strong>Volume Efficiency:</strong> We process many claims
+                    efficiently
+                  </li>
+                  <li>
+                    • <strong>Technology:</strong> Automated systems reduce
+                    overhead costs
+                  </li>
+                  <li>
+                    • <strong>No Contingency:</strong> We don't take a
+                    percentage of your settlement
+                  </li>
+                  <li>
+                    • <strong>Transparency:</strong> You know exactly what
+                    you're paying for
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div className="mt-6 flex gap-3">
+              <Button
+                onClick={() => setShowPricingModal(false)}
+                variant="outline"
+                className="flex-1"
+              >
+                Close
+              </Button>
+              <Button
+                onClick={() => {
+                  setShowPricingModal(false);
+                  handleStartClaim();
+                }}
+                className="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
+              >
+                Start Your Claim
               </Button>
             </div>
           </div>
