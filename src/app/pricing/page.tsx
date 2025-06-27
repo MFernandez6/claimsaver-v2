@@ -1108,7 +1108,7 @@ export default function Pricing() {
                   ClaimSaver+ offers a revolutionary flat-rate pricing model
                   that saves you thousands compared to traditional attorney
                   contingency fees. Our transparent pricing ensures you know
-                  exactly what you'll pay upfront.
+                  exactly what you&apos;ll pay upfront.
                 </p>
               </div>
 
@@ -1171,7 +1171,7 @@ export default function Pricing() {
 
               <div>
                 <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">
-                  What's Included in Our Flat Fee
+                  What&apos;s Included in Our Flat Fee
                 </h3>
                 <div className="space-y-2">
                   <div className="flex items-start gap-3">
@@ -1227,12 +1227,12 @@ export default function Pricing() {
                     overhead costs
                   </li>
                   <li>
-                    • <strong>No Contingency:</strong> We don't take a
+                    • <strong>No Contingency:</strong> We don&apos;t take a
                     percentage of your settlement
                   </li>
                   <li>
                     • <strong>Transparency:</strong> You know exactly what
-                    you're paying for
+                    you&apos;re paying for
                   </li>
                 </ul>
               </div>
