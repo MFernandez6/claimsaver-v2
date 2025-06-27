@@ -1,11 +1,22 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { SignInButton, UserButton, useUser } from "@clerk/nextjs";
-import { Sun, Moon } from "lucide-react";
+import {
+  Sun,
+  Moon,
+  X,
+  Menu,
+  ChevronDown,
+  Users,
+  FileText,
+  DollarSign,
+  UserCheck,
+  Settings,
+} from "lucide-react";
 import LanguageSwitcher from "./language-switcher";
 import { useTranslation } from "react-i18next";
 
@@ -14,54 +25,34 @@ function AuthSection() {
   const { t } = useTranslation();
   const { isSignedIn, isLoaded } = useUser();
 
-  console.log("🔍 AuthSection state:", { isSignedIn, isLoaded });
-
   if (!isLoaded) {
-    console.log("⏳ AuthSection: Still loading...");
     return (
-      <div className="w-20 h-10 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
+      <div className="w-20 h-10 bg-gray-200 dark:bg-gray-700 rounded-lg animate-pulse"></div>
     );
   }
 
-  console.log("✅ AuthSection: Loaded, isSignedIn:", isSignedIn);
-
   return (
-    <div className="hover:scale-105 transition-transform duration-200">
+    <div className="hover:scale-105 transition-all duration-300">
       {isSignedIn ? (
         <UserButton
           appearance={{
             elements: {
-              avatarBox: "w-10 h-10",
+              avatarBox: "w-9 h-9",
               userButtonPopoverCard:
-                "shadow-lg border border-gray-200 dark:border-gray-700",
+                "shadow-xl border border-gray-200 dark:border-gray-700 rounded-xl",
             },
           }}
         />
       ) : (
         <SignInButton mode="modal">
           <Button
-            variant="outline"
-            className="bg-white/80 backdrop-blur-sm border-gray-200 hover:bg-white hover:border-blue-300 dark:bg-gray-800/80 dark:border-gray-700 dark:hover:bg-gray-800 dark:hover:border-blue-600 transition-all duration-200"
+            size="sm"
+            className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-4 py-2 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5"
           >
             {t("navigation.signIn")}
           </Button>
         </SignInButton>
       )}
-    </div>
-  );
-}
-
-// Fallback auth section when Clerk is not available
-function FallbackAuthSection() {
-  const { t } = useTranslation();
-  return (
-    <div className="hover:scale-105 transition-transform duration-200">
-      <Button
-        variant="outline"
-        className="bg-white/80 backdrop-blur-sm border-gray-200 hover:bg-white hover:border-blue-300 dark:bg-gray-800/80 dark:border-gray-700 dark:hover:bg-gray-800 dark:hover:border-blue-600 transition-all duration-200"
-      >
-        {t("navigation.signIn")}
-      </Button>
     </div>
   );
 }
@@ -77,12 +68,7 @@ function DashboardLink({ pathname }: { pathname: string }) {
     async function checkAdminRole() {
       if (isLoaded && isSignedIn && user) {
         try {
-          // Check if the user's email is in the admin emails list
-          const adminEmails = [
-            "claimsaverplus@gmail.com",
-            // Add more admin emails as needed
-          ];
-
+          const adminEmails = ["claimsaverplus@gmail.com"];
           const userEmail = user.primaryEmailAddress?.emailAddress;
           const adminStatus = adminEmails.includes(userEmail || "");
           setIsAdmin(adminStatus);
@@ -105,20 +91,112 @@ function DashboardLink({ pathname }: { pathname: string }) {
   }
 
   return (
-    <div className="hover:-translate-y-0.5 transition-transform duration-200">
+    <div className="hover:-translate-y-0.5 transition-all duration-300">
       <Link
         href={isAdmin ? "/admin" : "/dashboard"}
-        className={`relative px-3 py-2 text-sm font-medium transition-colors duration-200 ${
+        className={`relative px-4 py-2 text-sm font-medium rounded-lg transition-all duration-300 ${
           pathname === "/admin" || pathname === "/dashboard"
-            ? "text-blue-600 dark:text-blue-400"
-            : "text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400"
+            ? "text-blue-600 bg-blue-50 dark:text-blue-400 dark:bg-blue-950/30"
+            : "text-gray-700 hover:text-blue-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-blue-400 dark:hover:bg-gray-800/50"
         }`}
       >
         {isAdmin ? "Admin" : t("navigation.dashboard")}
         {(pathname === "/admin" || pathname === "/dashboard") && (
-          <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-blue-600 to-blue-800 rounded-full" />
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-600/10 to-purple-600/10 rounded-lg" />
         )}
       </Link>
+    </div>
+  );
+}
+
+// Dropdown Menu Component
+function DropdownMenu({
+  trigger,
+  items,
+  isOpen,
+  onToggle,
+  onClose,
+}: {
+  trigger: React.ReactNode;
+  items: Array<{
+    name: string;
+    href: string;
+    icon?: React.ReactNode;
+    description?: string;
+  }>;
+  isOpen: boolean;
+  onToggle: () => void;
+  onClose: () => void;
+}) {
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const pathname = usePathname();
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        onClose();
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isOpen, onClose]);
+
+  return (
+    <div className="relative" ref={dropdownRef}>
+      <button
+        onClick={onToggle}
+        className="flex items-center gap-1 px-4 py-2 text-sm font-medium rounded-lg transition-all duration-300 text-gray-700 hover:text-blue-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-blue-400 dark:hover:bg-gray-800/50 group"
+      >
+        {trigger}
+        <ChevronDown
+          className={`w-4 h-4 transition-transform duration-300 ${
+            isOpen ? "rotate-180" : ""
+          }`}
+        />
+      </button>
+
+      {isOpen && (
+        <div className="absolute top-full left-0 mt-2 w-80 bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl border border-gray-200/50 dark:border-gray-700/50 rounded-xl shadow-2xl z-50 animate-in slide-in-from-top-2 duration-300">
+          <div className="p-2">
+            {items.map((item, index) => (
+              <Link
+                key={item.name}
+                href={item.href}
+                onClick={onClose}
+                className={`group flex items-start gap-3 p-3 rounded-lg transition-all duration-300 hover:bg-gradient-to-r hover:from-blue-50 hover:to-purple-50 dark:hover:from-blue-950/30 dark:hover:to-purple-950/30 ${
+                  pathname === item.href
+                    ? "bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-950/30 dark:to-purple-950/30 text-blue-600 dark:text-blue-400"
+                    : "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
+                }`}
+                style={{ animationDelay: `${index * 50}ms` }}
+              >
+                {item.icon && (
+                  <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg flex items-center justify-center text-white group-hover:scale-110 transition-transform duration-300 flex-shrink-0">
+                    {item.icon}
+                  </div>
+                )}
+                <div className="flex-1 min-w-0">
+                  <div className="font-medium">{item.name}</div>
+                  {item.description && (
+                    <div className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                      {item.description}
+                    </div>
+                  )}
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
@@ -130,7 +208,7 @@ function MobileAuthSection() {
 
   if (!isLoaded) {
     return (
-      <div className="w-full h-10 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
+      <div className="w-full h-10 bg-gray-200 dark:bg-gray-700 rounded-lg animate-pulse"></div>
     );
   }
 
@@ -143,7 +221,7 @@ function MobileAuthSection() {
               elements: {
                 avatarBox: "w-10 h-10",
                 userButtonPopoverCard:
-                  "shadow-lg border border-gray-200 dark:border-gray-700",
+                  "shadow-xl border border-gray-200 dark:border-gray-700 rounded-xl",
               },
             }}
           />
@@ -151,8 +229,8 @@ function MobileAuthSection() {
       ) : (
         <SignInButton mode="modal">
           <Button
-            variant="outline"
-            className="w-full bg-white/80 backdrop-blur-sm border-gray-200 hover:bg-white hover:border-blue-300 dark:bg-gray-800/80 dark:border-gray-700 dark:hover:bg-gray-800 dark:hover:border-blue-600"
+            size="sm"
+            className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-4 py-2 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300"
           >
             {t("navigation.signIn")}
           </Button>
@@ -181,12 +259,7 @@ function MobileDashboardLink({
     async function checkAdminRole() {
       if (isLoaded && isSignedIn && user) {
         try {
-          // Check if the user's email is in the admin emails list
-          const adminEmails = [
-            "claimsaverplus@gmail.com",
-            // Add more admin emails as needed
-          ];
-
+          const adminEmails = ["claimsaverplus@gmail.com"];
           const userEmail = user.primaryEmailAddress?.emailAddress;
           const adminStatus = adminEmails.includes(userEmail || "");
           setIsAdmin(adminStatus);
@@ -215,10 +288,10 @@ function MobileDashboardLink({
     >
       <Link
         href={isAdmin ? "/admin" : "/dashboard"}
-        className={`block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200 ${
+        className={`block px-4 py-3 rounded-lg text-base font-medium transition-all duration-300 ${
           pathname === "/admin" || pathname === "/dashboard"
-            ? "text-blue-600 bg-blue-50 dark:text-blue-400 dark:bg-blue-950/50"
-            : "text-gray-700 hover:text-blue-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-blue-400 dark:hover:bg-gray-800"
+            ? "text-blue-600 bg-blue-50 dark:text-blue-400 dark:bg-blue-950/30"
+            : "text-gray-700 hover:text-blue-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-blue-400 dark:hover:bg-gray-800/50"
         }`}
         onClick={onClick}
       >
@@ -233,7 +306,6 @@ function ThemeToggle() {
   const [theme, setTheme] = useState<"light" | "dark">("light");
 
   useEffect(() => {
-    // Check for saved theme preference or default to light mode
     const savedTheme = localStorage.getItem("theme") as "light" | "dark";
     const prefersDark = window.matchMedia(
       "(prefers-color-scheme: dark)"
@@ -260,7 +332,7 @@ function ThemeToggle() {
       variant="ghost"
       size="sm"
       onClick={toggleTheme}
-      className="w-9 h-9 p-0 rounded-full bg-white/80 backdrop-blur-sm border border-gray-200 hover:bg-white hover:border-blue-300 dark:bg-gray-800/80 dark:border-gray-700 dark:hover:bg-gray-800 dark:hover:border-blue-600 transition-all duration-200 hover:scale-105"
+      className="w-9 h-9 p-0 rounded-lg bg-white/80 backdrop-blur-sm border border-gray-200 hover:bg-white hover:border-blue-300 dark:bg-gray-800/80 dark:border-gray-700 dark:hover:bg-gray-800 dark:hover:border-blue-600 transition-all duration-300 hover:scale-105 hover:-translate-y-0.5"
       aria-label="Toggle theme"
     >
       {theme === "light" ? (
@@ -278,57 +350,58 @@ export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
   const [isClerkAvailable, setIsClerkAvailable] = useState(true);
-  const [navItems, setNavItems] = useState<
-    Array<{ name: string; href: string }>
-  >([]);
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const pathname = usePathname();
 
-  useEffect(() => {
-    // Create navItems after component is mounted and translation is available
-    setNavItems([
-      { name: t("navigation.whoWeAre"), href: "/who-we-are" },
-      { name: t("navigation.whatWeDo"), href: "/what-we-do" },
-      { name: t("navigation.attorneyMatching"), href: "/attorney-matching" },
-      { name: t("navigation.notarization"), href: "/notarization" },
-      { name: t("navigation.pricing"), href: "/pricing" },
-      { name: t("navigation.submitClaim"), href: "/claim-form" },
-    ]);
-  }, [t]);
+  // Dropdown menu items
+  const aboutItems = [
+    {
+      name: t("navigation.whoWeAre"),
+      href: "/who-we-are",
+      icon: <Users className="w-4 h-4" />,
+      description: "Learn about our mission and values",
+    },
+    {
+      name: t("navigation.whatWeDo"),
+      href: "/what-we-do",
+      icon: <Settings className="w-4 h-4" />,
+      description: "Discover our comprehensive services",
+    },
+  ];
+
+  const servicesItems = [
+    {
+      name: t("navigation.attorneyMatching"),
+      href: "/attorney-matching",
+      icon: <UserCheck className="w-4 h-4" />,
+      description: "Find the perfect attorney for your case",
+    },
+    {
+      name: t("navigation.notarization"),
+      href: "/notarization",
+      icon: <FileText className="w-4 h-4" />,
+      description: "Professional notarization services",
+    },
+  ];
+
+  const actionItems = [
+    {
+      name: t("navigation.pricing"),
+      href: "/pricing",
+      icon: <DollarSign className="w-4 h-4" />,
+      description: "Transparent pricing and packages",
+    },
+    {
+      name: t("navigation.submitClaim"),
+      href: "/claim-form",
+      icon: <FileText className="w-4 h-4" />,
+      description: "Start your claim process today",
+    },
+  ];
 
   useEffect(() => {
     setIsMounted(true);
-
-    // Check if Clerk is available
-    try {
-      // Check if Clerk environment variables are set
-      const hasPublishableKey = !!process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
-      const hasSecretKey = !!process.env.CLERK_SECRET_KEY;
-
-      console.log("🔍 Clerk availability check:", {
-        hasPublishableKey,
-        hasSecretKey,
-        publishableKeyType:
-          process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY?.startsWith("pk_live_")
-            ? "production"
-            : "development",
-      });
-
-      // TEMPORARY: Always show Clerk components for debugging
-      console.log("✅ Forcing Clerk to be available for debugging");
-      setIsClerkAvailable(true);
-
-      // Original logic (commented out for now):
-      // if (!hasPublishableKey && !hasSecretKey) {
-      //   console.log("❌ Clerk not available - missing environment variables");
-      //   setIsClerkAvailable(false);
-      // } else {
-      //   console.log("✅ Clerk appears to be available");
-      //   setIsClerkAvailable(true);
-      // }
-    } catch (error) {
-      console.error("❌ Error checking Clerk availability:", error);
-      setIsClerkAvailable(true); // Force to true for debugging
-    }
+    setIsClerkAvailable(true);
 
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 10);
@@ -338,69 +411,35 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Don't render authentication components until mounted to prevent hydration issues
+  const handleDropdownToggle = (dropdownName: string) => {
+    setActiveDropdown(activeDropdown === dropdownName ? null : dropdownName);
+  };
+
+  const closeAllDropdowns = () => {
+    setActiveDropdown(null);
+  };
+
+  // Don't render until mounted to prevent hydration issues
   if (!isMounted) {
     return (
-      <nav
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled
-            ? "bg-white/80 backdrop-blur-md shadow-lg border-b border-gray-200/50 dark:bg-gray-950/80 dark:border-gray-800/50"
-            : "bg-transparent"
-        }`}
-      >
+      <nav className="fixed top-0 left-0 right-0 z-50 transition-all duration-500">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
-            {/* Logo/Brand */}
-            <div className="flex-shrink-0 hover:scale-105 transition-transform duration-200">
-              <Link href="/" className="flex items-center space-x-2">
-                <div className="w-8 h-8 bg-gradient-to-br from-blue-600 to-blue-800 rounded-lg flex items-center justify-center">
-                  <span className="text-white font-bold text-sm">C+</span>
-                </div>
-                <span className="text-xl font-bold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
-                  ClaimSaver+
-                </span>
-              </Link>
-            </div>
+            {/* Logo placeholder */}
+            <div className="w-32 h-8 bg-gray-200 dark:bg-gray-700 rounded-lg animate-pulse"></div>
 
-            {/* Right side navigation */}
-            <div className="hidden md:flex items-center space-x-8">
-              {/* Loading state for nav items */}
-              {Array.from({ length: 6 }).map((_, index) => (
+            {/* Navigation placeholder */}
+            <div className="hidden md:flex items-center space-x-4">
+              {Array.from({ length: 4 }).map((_, index) => (
                 <div
                   key={index}
-                  className="w-20 h-8 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"
-                />
+                  className="w-16 h-8 bg-gray-200 dark:bg-gray-700 rounded-lg animate-pulse"
+                ></div>
               ))}
-
-              {/* Loading state for auth */}
-              <div className="w-20 h-10 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
             </div>
 
-            {/* Mobile menu button */}
-            <div className="md:hidden hover:scale-95 transition-transform duration-200">
-              <button
-                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="p-2 rounded-md text-gray-700 hover:text-blue-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:text-blue-400 dark:hover:bg-gray-800 transition-colors duration-200"
-              >
-                <div className="w-6 h-6 flex flex-col justify-center items-center">
-                  <span
-                    className={`w-6 h-0.5 bg-current block transition-all duration-200 ${
-                      isMobileMenuOpen ? "rotate-45 translate-y-1.5" : ""
-                    }`}
-                  />
-                  <span
-                    className={`w-6 h-0.5 bg-current block mt-1 transition-all duration-200 ${
-                      isMobileMenuOpen ? "opacity-0" : ""
-                    }`}
-                  />
-                  <span
-                    className={`w-6 h-0.5 bg-current block mt-1 transition-all duration-200 ${
-                      isMobileMenuOpen ? "-rotate-45 -translate-y-1.5" : ""
-                    }`}
-                  />
-                </div>
-              </button>
-            </div>
+            {/* Mobile menu button placeholder */}
+            <div className="md:hidden w-8 h-8 bg-gray-200 dark:bg-gray-700 rounded-lg animate-pulse"></div>
           </div>
         </div>
       </nav>
@@ -409,191 +448,232 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         isScrolled
-          ? "bg-white/80 backdrop-blur-md shadow-lg border-b border-gray-200/50 dark:bg-gray-950/80 dark:border-gray-800/50"
+          ? "bg-white/90 backdrop-blur-xl shadow-xl border-b border-gray-200/50 dark:bg-gray-950/90 dark:border-gray-800/50"
           : "bg-transparent"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo/Brand */}
-          <div className="flex-shrink-0 hover:scale-105 transition-transform duration-200">
-            <Link href="/" className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-gradient-to-br from-blue-600 to-blue-800 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-sm">C+</span>
+          <div className="flex-shrink-0 hover:scale-105 transition-all duration-300">
+            <Link href="/" className="flex items-center space-x-3">
+              <div className="w-9 h-9 bg-gradient-to-br from-blue-600 to-purple-600 rounded-xl flex items-center justify-center shadow-lg">
+                <span className="text-white font-black text-sm">C+</span>
               </div>
-              <span className="text-xl font-bold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
+              <span className="text-xl font-black bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                 ClaimSaver+
               </span>
             </Link>
           </div>
 
-          {/* Right side navigation and sign in */}
-          <div className="hidden md:flex items-center space-x-8">
-            {navItems.length > 0
-              ? navItems.map((item) => (
-                  <div
-                    key={item.name}
-                    className="hover:-translate-y-0.5 transition-transform duration-200"
-                  >
-                    <Link
-                      href={item.href}
-                      className={`relative px-3 py-2 text-sm font-medium transition-colors duration-200 ${
-                        pathname === item.href
-                          ? "text-blue-600 dark:text-blue-400"
-                          : "text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400"
-                      }`}
-                    >
-                      {item.name}
-                      {pathname === item.href && (
-                        <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-blue-600 to-blue-800 rounded-full" />
-                      )}
-                    </Link>
-                  </div>
-                ))
-              : // Loading state for nav items
-                Array.from({ length: 6 }).map((_, index) => (
-                  <div
-                    key={index}
-                    className="w-20 h-8 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"
-                  />
-                ))}
+          {/* Desktop Navigation */}
+          <div className="hidden lg:flex items-center space-x-2">
+            {/* About Dropdown */}
+            <DropdownMenu
+              trigger={<span>Our Story</span>}
+              items={aboutItems}
+              isOpen={activeDropdown === "about"}
+              onToggle={() => handleDropdownToggle("about")}
+              onClose={closeAllDropdowns}
+            />
 
-            {/* Dashboard Link - Only show when signed in and Clerk is available */}
+            {/* Services Dropdown */}
+            <DropdownMenu
+              trigger={<span>How We Help</span>}
+              items={servicesItems}
+              isOpen={activeDropdown === "services"}
+              onToggle={() => handleDropdownToggle("services")}
+              onClose={closeAllDropdowns}
+            />
+
+            {/* Actions Dropdown */}
+            <DropdownMenu
+              trigger={<span>Get Started</span>}
+              items={actionItems}
+              isOpen={activeDropdown === "actions"}
+              onToggle={() => handleDropdownToggle("actions")}
+              onClose={closeAllDropdowns}
+            />
+
+            {/* Dashboard Link */}
             {isClerkAvailable && <DashboardLink pathname={pathname} />}
 
+            {/* Divider */}
+            <div className="w-px h-6 bg-gray-300 dark:bg-gray-600 mx-2"></div>
+
             {/* Language Switcher */}
-            <div className="hover:scale-105 transition-transform duration-200">
+            <div className="hover:scale-105 transition-all duration-300">
               <LanguageSwitcher />
             </div>
 
-            {/* Authentication Button */}
-            {isClerkAvailable ? <AuthSection /> : <FallbackAuthSection />}
+            {/* Authentication */}
+            {isClerkAvailable && <AuthSection />}
 
-            {/* Theme Toggle - always at the far right */}
-            <div className="hover:scale-105 transition-transform duration-200 ml-2">
+            {/* Theme Toggle */}
+            <div className="hover:scale-105 transition-all duration-300 ml-2">
               <ThemeToggle />
             </div>
           </div>
 
           {/* Mobile menu button */}
-          <div className="md:hidden hover:scale-95 transition-transform duration-200">
+          <div className="lg:hidden">
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="p-2 rounded-md text-gray-700 hover:text-blue-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:text-blue-400 dark:hover:bg-gray-800 transition-colors duration-200"
+              className="p-2 rounded-lg text-gray-700 hover:text-blue-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:text-blue-400 dark:hover:bg-gray-800 transition-all duration-300"
             >
-              <div className="w-6 h-6 flex flex-col justify-center items-center">
-                <span
-                  className={`w-6 h-0.5 bg-current block transition-all duration-200 ${
-                    isMobileMenuOpen ? "rotate-45 translate-y-1.5" : ""
-                  }`}
-                />
-                <span
-                  className={`w-6 h-0.5 bg-current block mt-1 transition-all duration-200 ${
-                    isMobileMenuOpen ? "opacity-0" : ""
-                  }`}
-                />
-                <span
-                  className={`w-6 h-0.5 bg-current block mt-1 transition-all duration-200 ${
-                    isMobileMenuOpen ? "-rotate-45 -translate-y-1.5" : ""
-                  }`}
-                />
-              </div>
+              {isMobileMenuOpen ? (
+                <X className="w-6 h-6" />
+              ) : (
+                <Menu className="w-6 h-6" />
+              )}
             </button>
           </div>
         </div>
 
         {/* Mobile Navigation */}
         {isMobileMenuOpen && (
-          <div className="md:hidden border-t border-gray-200 dark:border-gray-700 animate-in slide-in-from-top-2 duration-300 bg-white/95 backdrop-blur-md dark:bg-gray-950/95 shadow-lg">
-            <div className="px-2 pt-2 pb-3 space-y-1">
-              {navItems.length > 0
-                ? navItems.map((item, index) => (
-                    <div
-                      key={item.name}
-                      className="animate-in slide-in-from-left-2 duration-300"
-                      style={{ animationDelay: `${index * 100}ms` }}
+          <div className="lg:hidden border-t border-gray-200 dark:border-gray-700 animate-in slide-in-from-top-2 duration-300 bg-white/95 backdrop-blur-xl dark:bg-gray-950/95 shadow-xl">
+            <div className="px-4 py-6 space-y-4">
+              {/* About Section */}
+              <div className="space-y-2">
+                <h3 className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider px-3">
+                  Our Story
+                </h3>
+                {aboutItems.map((item, index) => (
+                  <div
+                    key={item.name}
+                    className="animate-in slide-in-from-left-2 duration-300"
+                    style={{ animationDelay: `${index * 100}ms` }}
+                  >
+                    <Link
+                      href={item.href}
+                      className={`flex items-center gap-3 px-3 py-3 rounded-lg text-base font-medium transition-all duration-300 ${
+                        pathname === item.href
+                          ? "text-blue-600 bg-blue-50 dark:text-blue-400 dark:bg-blue-950/30"
+                          : "text-gray-700 hover:text-blue-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-blue-400 dark:hover:bg-gray-800/50"
+                      }`}
+                      onClick={() => setIsMobileMenuOpen(false)}
                     >
-                      <Link
-                        href={item.href}
-                        className={`block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200 ${
-                          pathname === item.href
-                            ? "text-blue-600 bg-blue-50 dark:text-blue-400 dark:bg-blue-950/50"
-                            : "text-gray-700 hover:text-blue-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-blue-400 dark:hover:bg-gray-800"
-                        }`}
-                        onClick={() => setIsMobileMenuOpen(false)}
-                      >
-                        {item.name}
-                      </Link>
-                    </div>
-                  ))
-                : // Loading state for mobile nav items
-                  Array.from({ length: 6 }).map((_, index) => (
-                    <div
-                      key={index}
-                      className="animate-in slide-in-from-left-2 duration-300"
-                      style={{ animationDelay: `${index * 100}ms` }}
-                    >
-                      <div className="w-full h-10 bg-gray-200 dark:bg-gray-700 rounded animate-pulse" />
-                    </div>
-                  ))}
+                      <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg flex items-center justify-center text-white">
+                        {item.icon}
+                      </div>
+                      <div>
+                        <div>{item.name}</div>
+                        <div className="text-sm text-gray-500 dark:text-gray-400">
+                          {item.description}
+                        </div>
+                      </div>
+                    </Link>
+                  </div>
+                ))}
+              </div>
 
-              {/* Dashboard Link in Mobile Menu - Only show when signed in and Clerk is available */}
+              {/* Services Section */}
+              <div className="space-y-2">
+                <h3 className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider px-3">
+                  How We Help
+                </h3>
+                {servicesItems.map((item, index) => (
+                  <div
+                    key={item.name}
+                    className="animate-in slide-in-from-left-2 duration-300"
+                    style={{ animationDelay: `${(index + 2) * 100}ms` }}
+                  >
+                    <Link
+                      href={item.href}
+                      className={`flex items-center gap-3 px-3 py-3 rounded-lg text-base font-medium transition-all duration-300 ${
+                        pathname === item.href
+                          ? "text-blue-600 bg-blue-50 dark:text-blue-400 dark:bg-blue-950/30"
+                          : "text-gray-700 hover:text-blue-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-blue-400 dark:hover:bg-gray-800/50"
+                      }`}
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg flex items-center justify-center text-white">
+                        {item.icon}
+                      </div>
+                      <div>
+                        <div>{item.name}</div>
+                        <div className="text-sm text-gray-500 dark:text-gray-400">
+                          {item.description}
+                        </div>
+                      </div>
+                    </Link>
+                  </div>
+                ))}
+              </div>
+
+              {/* Actions Section */}
+              <div className="space-y-2">
+                <h3 className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider px-3">
+                  Get Started
+                </h3>
+                {actionItems.map((item, index) => (
+                  <div
+                    key={item.name}
+                    className="animate-in slide-in-from-left-2 duration-300"
+                    style={{ animationDelay: `${(index + 4) * 100}ms` }}
+                  >
+                    <Link
+                      href={item.href}
+                      className={`flex items-center gap-3 px-3 py-3 rounded-lg text-base font-medium transition-all duration-300 ${
+                        pathname === item.href
+                          ? "text-blue-600 bg-blue-50 dark:text-blue-400 dark:bg-blue-950/30"
+                          : "text-gray-700 hover:text-blue-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-blue-400 dark:hover:bg-gray-800/50"
+                      }`}
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg flex items-center justify-center text-white">
+                        {item.icon}
+                      </div>
+                      <div>
+                        <div>{item.name}</div>
+                        <div className="text-sm text-gray-500 dark:text-gray-400">
+                          {item.description}
+                        </div>
+                      </div>
+                    </Link>
+                  </div>
+                ))}
+              </div>
+
+              {/* Dashboard Link */}
               {isClerkAvailable && (
                 <MobileDashboardLink
                   pathname={pathname}
                   onClick={() => setIsMobileMenuOpen(false)}
-                  navItemsLength={navItems.length}
+                  navItemsLength={
+                    aboutItems.length +
+                    servicesItems.length +
+                    actionItems.length
+                  }
                 />
               )}
 
-              {/* Theme Toggle in Mobile Menu */}
-              <div
-                className="pt-2 animate-in slide-in-from-left-2 duration-300"
-                style={{
-                  animationDelay: `${
-                    (navItems.length + (isClerkAvailable ? 1 : 0)) * 100
-                  }ms`,
-                }}
-              >
+              {/* Divider */}
+              <div className="border-t border-gray-200 dark:border-gray-700 my-4"></div>
+
+              {/* Settings Section */}
+              <div className="space-y-3">
+                <h3 className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider px-3">
+                  Settings
+                </h3>
+
+                {/* Language Switcher */}
                 <div className="flex justify-center">
                   <LanguageSwitcher />
                 </div>
-              </div>
 
-              <div
-                className="pt-2 animate-in slide-in-from-left-2 duration-300"
-                style={{
-                  animationDelay: `${
-                    (navItems.length + (isClerkAvailable ? 2 : 1)) * 100
-                  }ms`,
-                }}
-              >
+                {/* Theme Toggle */}
                 <div className="flex justify-center">
                   <ThemeToggle />
                 </div>
-              </div>
 
-              <div
-                className="pt-2 animate-in slide-in-from-left-2 duration-300"
-                style={{
-                  animationDelay: `${
-                    (navItems.length + (isClerkAvailable ? 3 : 2)) * 100
-                  }ms`,
-                }}
-              >
-                {isClerkAvailable ? (
-                  <MobileAuthSection />
-                ) : (
-                  // Fallback when Clerk is not available
-                  <Button
-                    variant="outline"
-                    className="w-full bg-white/80 backdrop-blur-sm border-gray-200 hover:bg-white hover:border-blue-300 dark:bg-gray-800/80 dark:border-gray-700 dark:hover:bg-gray-800 dark:hover:border-blue-600"
-                  >
-                    {t("navigation.signIn")}
-                  </Button>
-                )}
+                {/* Authentication */}
+                <div className="pt-2">
+                  {isClerkAvailable && <MobileAuthSection />}
+                </div>
               </div>
             </div>
           </div>
