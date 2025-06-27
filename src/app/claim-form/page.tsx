@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
+import { useTranslation } from "react-i18next";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -114,6 +115,7 @@ interface FloridaNoFaultFormData {
 }
 
 export default function ClaimFormPage() {
+  const { t } = useTranslation();
   const { user, isLoaded } = useUser();
   const router = useRouter();
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -314,7 +316,7 @@ export default function ClaimFormPage() {
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.error || "Failed to submit claim");
+        throw new Error(data.error || t("claimForm.errors.submitFailed"));
       }
 
       setSuccess(true);
@@ -355,23 +357,23 @@ export default function ClaimFormPage() {
   const getStepTitle = (step: number) => {
     switch (step) {
       case 1:
-        return "Personal Information";
+        return t("claimForm.steps.personalInfo");
       case 2:
-        return "Vehicle Information";
+        return t("claimForm.steps.vehicleInfo");
       case 3:
-        return "Accident Details";
+        return t("claimForm.steps.accidentDetails");
       case 4:
-        return "Insurance Information";
+        return t("claimForm.steps.insuranceInfo");
       case 5:
-        return "Medical Information";
+        return t("claimForm.steps.medicalInfo");
       case 6:
-        return "Employment & Wages";
+        return t("claimForm.steps.employmentWages");
       case 7:
-        return "Authorizations";
+        return t("claimForm.steps.authorizations");
       case 8:
-        return "Review & Submit";
+        return t("claimForm.steps.reviewSubmit");
       default:
-        return "Step";
+        return t("claimForm.steps.step");
     }
   };
 
@@ -391,13 +393,13 @@ export default function ClaimFormPage() {
             <CheckCircle className="w-10 h-10 text-white" />
           </div>
           <h1 className="text-3xl font-bold mb-4">
-            Claim Submitted Successfully!
+            {t("claimForm.success.title")}
           </h1>
           <p className="text-gray-600 mb-6">
-            Your claim has been submitted and is now under review.
+            {t("claimForm.success.description")}
           </p>
           <Button onClick={() => router.push("/dashboard")}>
-            Go to Dashboard
+            {t("claimForm.success.goToDashboard")}
           </Button>
         </div>
       </div>
@@ -419,10 +421,10 @@ export default function ClaimFormPage() {
                 <FileText className="w-8 h-8 text-white" />
               </div>
               <h1 className="text-5xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent mb-4">
-                Florida No-Fault Form
+                {t("claimForm.header.title")}
               </h1>
               <p className="text-xl text-gray-600 dark:text-gray-300 mb-8">
-                Complete your accident claim with our step-by-step form
+                {t("claimForm.header.description")}
               </p>
             </div>
 
@@ -458,7 +460,8 @@ export default function ClaimFormPage() {
 
             <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl px-6 py-4 shadow-lg">
               <h2 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                Step {currentStep}: {getStepTitle(currentStep)}
+                {t("claimForm.header.step")} {currentStep}:{" "}
+                {getStepTitle(currentStep)}
               </h2>
             </div>
           </div>

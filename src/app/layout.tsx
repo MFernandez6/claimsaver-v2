@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/navbar";
 import SessionManager from "@/components/session-manager";
+import I18nProvider from "@/components/i18n-provider";
 import { ClerkProvider } from "@clerk/nextjs";
 
 const geistSans = Geist({
@@ -63,8 +64,10 @@ export default function RootLayout({
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
-          <Navbar />
-          {children}
+          <I18nProvider>
+            <Navbar />
+            {children}
+          </I18nProvider>
         </body>
       </html>
     );
@@ -89,9 +92,11 @@ export default function RootLayout({
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
-          <SessionManager />
-          <Navbar />
-          {children}
+          <I18nProvider>
+            <SessionManager />
+            <Navbar />
+            {children}
+          </I18nProvider>
         </body>
       </html>
     </ClerkProvider>

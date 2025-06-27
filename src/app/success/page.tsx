@@ -3,12 +3,14 @@
 import { useEffect, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
+import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { CheckCircle, ArrowRight, Mail, Phone } from "lucide-react";
 import Footer from "@/components/footer";
 
 function SuccessContent() {
+  const { t } = useTranslation();
   const searchParams = useSearchParams();
   const sessionId = searchParams.get("session_id");
   const [isLoading, setIsLoading] = useState(true);
@@ -26,7 +28,7 @@ function SuccessContent() {
         <div className="text-center">
           <div className="w-16 h-16 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
           <p className="text-gray-600 dark:text-gray-300">
-            Processing your payment...
+            {t("success.loading.processing")}
           </p>
         </div>
       </div>
@@ -43,18 +45,17 @@ function SuccessContent() {
           </div>
 
           <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-4">
-            Payment Successful!
+            {t("success.hero.title")}
           </h1>
 
           <p className="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto">
-            Thank you for choosing ClaimSaver+. Your payment has been processed
-            successfully and we&apos;re ready to help you with your claim.
+            {t("success.hero.description")}
           </p>
 
           <Card className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm border-0 shadow-xl max-w-2xl mx-auto">
             <CardHeader className="text-center pb-4">
               <CardTitle className="text-2xl font-bold text-gray-900 dark:text-white">
-                What&apos;s Next?
+                {t("success.whatsNext.title")}
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
@@ -62,33 +63,30 @@ function SuccessContent() {
                 <div className="text-center p-4 bg-blue-50 dark:bg-blue-950/30 rounded-lg">
                   <Mail className="w-8 h-8 text-blue-600 mx-auto mb-3" />
                   <h3 className="font-semibold text-gray-900 dark:text-white mb-2">
-                    Check Your Email
+                    {t("success.whatsNext.email.title")}
                   </h3>
                   <p className="text-sm text-gray-600 dark:text-gray-300">
-                    We&apos;ve sent you a confirmation email with next steps and
-                    important information.
+                    {t("success.whatsNext.email.description")}
                   </p>
                 </div>
 
                 <div className="text-center p-4 bg-green-50 dark:bg-green-950/30 rounded-lg">
                   <Phone className="w-8 h-8 text-green-600 mx-auto mb-3" />
                   <h3 className="font-semibold text-gray-900 dark:text-white mb-2">
-                    Expect a Call
+                    {t("success.whatsNext.call.title")}
                   </h3>
                   <p className="text-sm text-gray-600 dark:text-gray-300">
-                    Our team will contact you within 24 hours to discuss your
-                    case details.
+                    {t("success.whatsNext.call.description")}
                   </p>
                 </div>
               </div>
 
               <div className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-950/30 dark:to-purple-950/30 rounded-lg p-4">
                 <h3 className="font-semibold text-gray-900 dark:text-white mb-2">
-                  Need Immediate Assistance?
+                  {t("success.assistance.title")}
                 </h3>
                 <p className="text-sm text-gray-600 dark:text-gray-300 mb-3">
-                  If you have urgent questions or need to provide additional
-                  information, don&apos;t hesitate to reach out.
+                  {t("success.assistance.description")}
                 </p>
                 <div className="flex flex-col sm:flex-row gap-3">
                   <Button
@@ -96,10 +94,14 @@ function SuccessContent() {
                     size="sm"
                     className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white"
                   >
-                    <a href="mailto:ClaimSaverPlus@gmail.com">Email Us</a>
+                    <a href="mailto:ClaimSaverPlus@gmail.com">
+                      {t("success.assistance.email")}
+                    </a>
                   </Button>
                   <Button variant="outline" size="sm" asChild>
-                    <Link href="/dashboard">Go to Dashboard</Link>
+                    <Link href="/dashboard">
+                      {t("success.assistance.dashboard")}
+                    </Link>
                   </Button>
                 </div>
               </div>
@@ -113,11 +115,10 @@ function SuccessContent() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-              Your Journey to Recovery Starts Now
+              {t("success.journey.title")}
             </h2>
             <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-              We&apos;re here to guide you through every step of the claims
-              process and help you get the compensation you deserve.
+              {t("success.journey.description")}
             </p>
           </div>
 
@@ -127,11 +128,10 @@ function SuccessContent() {
                 <span className="text-blue-600 font-bold text-lg">1</span>
               </div>
               <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-                Case Review
+                {t("success.steps.caseReview.title")}
               </h3>
               <p className="text-gray-600 dark:text-gray-300">
-                Our experts will review your case details and create a
-                personalized strategy.
+                {t("success.steps.caseReview.description")}
               </p>
             </div>
 
@@ -140,11 +140,10 @@ function SuccessContent() {
                 <span className="text-purple-600 font-bold text-lg">2</span>
               </div>
               <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-                Documentation
+                {t("success.steps.documentation.title")}
               </h3>
               <p className="text-gray-600 dark:text-gray-300">
-                We&apos;ll help you gather and organize all necessary
-                documentation for your claim.
+                {t("success.steps.documentation.description")}
               </p>
             </div>
 
@@ -153,11 +152,10 @@ function SuccessContent() {
                 <span className="text-green-600 font-bold text-lg">3</span>
               </div>
               <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-                Recovery
+                {t("success.steps.recovery.title")}
               </h3>
               <p className="text-gray-600 dark:text-gray-300">
-                We&apos;ll negotiate on your behalf to maximize your
-                compensation and recovery.
+                {t("success.steps.recovery.description")}
               </p>
             </div>
           </div>
@@ -169,7 +167,7 @@ function SuccessContent() {
               className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
             >
               <Link href="/">
-                Return to Home
+                {t("success.returnHome")}
                 <ArrowRight className="ml-2 w-5 h-5" />
               </Link>
             </Button>
@@ -183,13 +181,16 @@ function SuccessContent() {
 }
 
 export default function SuccessPage() {
+  const { t } = useTranslation();
   return (
     <Suspense
       fallback={
         <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50 dark:from-gray-950 dark:to-blue-950 flex items-center justify-center">
           <div className="text-center">
             <div className="w-16 h-16 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-            <p className="text-gray-600 dark:text-gray-300">Loading...</p>
+            <p className="text-gray-600 dark:text-gray-300">
+              {t("success.loading.loading")}
+            </p>
           </div>
         </div>
       }

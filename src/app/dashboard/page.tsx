@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
+import { useTranslation } from "react-i18next";
 import {
   Card,
   CardContent,
@@ -45,6 +46,7 @@ interface UserClaim {
 }
 
 export default function DashboardPage() {
+  const { t } = useTranslation();
   const { user, isLoaded } = useUser();
   const router = useRouter();
   const [claims, setClaims] = useState<UserClaim[]>([]);
@@ -97,13 +99,15 @@ export default function DashboardPage() {
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.error || "Failed to load claims");
+        throw new Error(data.error || t("dashboard.errors.loadFailed"));
       }
 
       setClaims(data.claims || []);
     } catch (err) {
       console.error("Error loading claims:", err);
-      setError(err instanceof Error ? err.message : "Failed to load claims");
+      setError(
+        err instanceof Error ? err.message : t("dashboard.errors.loadFailed")
+      );
     } finally {
       setLoading(false);
       setRefreshing(false);
@@ -216,7 +220,7 @@ export default function DashboardPage() {
         <div className="fixed inset-0 z-0">
           <Image
             src="/images/long-logo-ClaimSaver.jpg"
-            alt="ClaimSaver+ Background"
+            alt={t("dashboard.hero.imageAlt")}
             className="w-full h-full object-cover opacity-25"
             fill
           />
@@ -226,14 +230,13 @@ export default function DashboardPage() {
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-24">
           <div className="text-center max-w-4xl mx-auto">
             <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
-              Your{" "}
+              {t("dashboard.hero.title")}{" "}
               <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                Recovery Dashboard
+                {t("dashboard.hero.subtitle")}
               </span>
             </h1>
             <p className="text-xl sm:text-2xl text-gray-600 dark:text-gray-300 mb-8 leading-relaxed max-w-3xl mx-auto">
-              Track your claims, monitor progress, and stay updated on your
-              recovery journey
+              {t("dashboard.hero.description")}
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
@@ -243,7 +246,7 @@ export default function DashboardPage() {
                 className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-4 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
               >
                 <Plus className="mr-2 w-5 h-5" />
-                New Claim
+                {t("dashboard.hero.newClaim")}
               </Button>
               <Button
                 size="lg"
@@ -255,7 +258,7 @@ export default function DashboardPage() {
                 <RefreshCw
                   className={`mr-2 w-5 h-5 ${refreshing ? "animate-spin" : ""}`}
                 />
-                Refresh
+                {t("dashboard.hero.refresh")}
               </Button>
             </div>
           </div>
@@ -281,13 +284,13 @@ export default function DashboardPage() {
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-6">
-              Your{" "}
+              {t("dashboard.overview.title")}{" "}
               <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                Recovery Overview
+                {t("dashboard.overview.subtitle")}
               </span>
             </h2>
             <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-              Track your progress and stay informed about your claims
+              {t("dashboard.overview.description")}
             </p>
           </div>
 
@@ -301,7 +304,9 @@ export default function DashboardPage() {
                 <div className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
                   {stats.totalClaims}
                 </div>
-                <p className="text-gray-600 dark:text-gray-300">Total Claims</p>
+                <p className="text-gray-600 dark:text-gray-300">
+                  {t("dashboard.stats.totalClaims")}
+                </p>
               </CardContent>
             </Card>
 
@@ -315,7 +320,7 @@ export default function DashboardPage() {
                   {stats.pendingClaims}
                 </div>
                 <p className="text-gray-600 dark:text-gray-300">
-                  Pending Claims
+                  {t("dashboard.stats.pendingClaims")}
                 </p>
               </CardContent>
             </Card>
@@ -330,7 +335,7 @@ export default function DashboardPage() {
                   {stats.approvedClaims}
                 </div>
                 <p className="text-gray-600 dark:text-gray-300">
-                  Approved Claims
+                  {t("dashboard.stats.approvedClaims")}
                 </p>
               </CardContent>
             </Card>
@@ -344,7 +349,9 @@ export default function DashboardPage() {
                 <div className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
                   ${stats.totalValue.toLocaleString()}
                 </div>
-                <p className="text-gray-600 dark:text-gray-300">Total Value</p>
+                <p className="text-gray-600 dark:text-gray-300">
+                  {t("dashboard.stats.totalValue")}
+                </p>
               </CardContent>
             </Card>
           </div>
@@ -352,7 +359,7 @@ export default function DashboardPage() {
           {/* Claims List */}
           <div className="text-center mb-8">
             <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-              Your Claims
+              {t("dashboard.claims.title")}
             </h3>
             {error && (
               <div className="bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800 rounded-lg p-4 mb-6">
@@ -370,17 +377,17 @@ export default function DashboardPage() {
               <CardContent>
                 <FileText className="w-16 h-16 text-gray-400 mx-auto mb-4" />
                 <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
-                  No Claims Yet
+                  {t("dashboard.claims.noClaims.title")}
                 </h3>
                 <p className="text-gray-600 dark:text-gray-300 mb-6">
-                  Start your recovery journey by filing your first claim
+                  {t("dashboard.claims.noClaims.description")}
                 </p>
                 <Button
                   onClick={() => router.push("/claim-form")}
                   className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
                 >
                   <Plus className="mr-2 w-4 h-4" />
-                  File Your First Claim
+                  {t("dashboard.claims.noClaims.button")}
                 </Button>
               </CardContent>
             </Card>
@@ -410,7 +417,7 @@ export default function DashboardPage() {
                       </div>
                     </div>
                     <CardDescription className="text-gray-600 dark:text-gray-300">
-                      Filed on{" "}
+                      {t("dashboard.claims.filedOn")}{" "}
                       {new Date(claim.submittedAt).toLocaleDateString()}
                     </CardDescription>
                   </CardHeader>
@@ -423,7 +430,7 @@ export default function DashboardPage() {
                       <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
                         <Calendar className="w-4 h-4" />
                         <span>
-                          Accident:{" "}
+                          {t("dashboard.claims.accident")}:{" "}
                           {new Date(claim.accidentDate).toLocaleDateString()}
                         </span>
                       </div>
@@ -440,7 +447,7 @@ export default function DashboardPage() {
                       </div>
                       <div className="flex items-center justify-between pt-3 border-t border-gray-200 dark:border-gray-700">
                         <span className="text-sm text-gray-600 dark:text-gray-300">
-                          Estimated Value:
+                          {t("dashboard.claims.estimatedValue")}:
                         </span>
                         <span className="font-semibold text-gray-900 dark:text-white">
                           ${claim.estimatedValue.toLocaleString()}

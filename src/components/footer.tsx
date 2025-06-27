@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import {
   Phone,
   Mail,
@@ -15,6 +16,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
 export default function Footer() {
+  const { t } = useTranslation();
   const [activeModal, setActiveModal] = useState<string | null>(null);
 
   const openModal = (modalType: string) => {
@@ -93,9 +95,7 @@ export default function Footer() {
                 </h3>
               </div>
               <p className="text-gray-300 text-lg leading-relaxed mb-6 max-w-md">
-                Simplifying accident form filing and recovery. Currently
-                servicing Florida and New York with additional states to be
-                added in the future.
+                {t("footer.description")}
               </p>
               <div className="flex space-x-4">
                 <a
@@ -133,7 +133,7 @@ export default function Footer() {
             {/* Quick Links */}
             <div>
               <h4 className="text-xl font-bold mb-6 text-blue-300">
-                Quick Links
+                {t("footer.quickLinks")}
               </h4>
               <ul className="space-y-4">
                 <li>
@@ -141,7 +141,7 @@ export default function Footer() {
                     href="/who-we-are"
                     className="text-gray-300 hover:text-blue-400 transition-colors duration-300 hover:translate-x-1 inline-block"
                   >
-                    Who We Are
+                    {t("navigation.whoWeAre")}
                   </Link>
                 </li>
                 <li>
@@ -149,7 +149,7 @@ export default function Footer() {
                     href="/what-we-do"
                     className="text-gray-300 hover:text-blue-400 transition-colors duration-300 hover:translate-x-1 inline-block"
                   >
-                    What We Do
+                    {t("navigation.whatWeDo")}
                   </Link>
                 </li>
                 <li>
@@ -157,7 +157,7 @@ export default function Footer() {
                     href="/attorney-matching"
                     className="text-gray-300 hover:text-blue-400 transition-colors duration-300 hover:translate-x-1 inline-block"
                   >
-                    Attorney Matching
+                    {t("navigation.attorneyMatching")}
                   </Link>
                 </li>
                 <li>
@@ -165,7 +165,7 @@ export default function Footer() {
                     href="/pricing"
                     className="text-gray-300 hover:text-blue-400 transition-colors duration-300 hover:translate-x-1 inline-block"
                   >
-                    Pricing
+                    {t("navigation.pricing")}
                   </Link>
                 </li>
                 <li>
@@ -173,7 +173,7 @@ export default function Footer() {
                     href="#"
                     className="text-gray-300 hover:text-blue-400 transition-colors duration-300 hover:translate-x-1 inline-block"
                   >
-                    Support
+                    {t("footer.support")}
                   </a>
                 </li>
               </ul>
@@ -182,13 +182,15 @@ export default function Footer() {
             {/* Contact Information */}
             <div>
               <h4 className="text-xl font-bold mb-6 text-blue-300">
-                Contact Us
+                {t("footer.contactUs")}
               </h4>
               <div className="space-y-4">
                 <div className="flex items-start gap-3">
                   <Phone className="w-5 h-5 text-blue-400 mt-1 flex-shrink-0" />
                   <div>
-                    <p className="text-gray-300 font-medium">Phone</p>
+                    <p className="text-gray-300 font-medium">
+                      {t("footer.phone")}
+                    </p>
                     <a
                       href="tel:+17864173869"
                       className="text-blue-400 hover:text-blue-300 transition-colors duration-300"
@@ -200,7 +202,9 @@ export default function Footer() {
                 <div className="flex items-start gap-3">
                   <Mail className="w-5 h-5 text-blue-400 mt-1 flex-shrink-0" />
                   <div>
-                    <p className="text-gray-300 font-medium">Email</p>
+                    <p className="text-gray-300 font-medium">
+                      {t("footer.email")}
+                    </p>
                     <a
                       href="mailto:ClaimSaverPlus@gmail.com"
                       className="text-blue-400 hover:text-blue-300 transition-colors duration-300"
@@ -212,8 +216,10 @@ export default function Footer() {
                 <div className="flex items-start gap-3">
                   <MapPin className="w-5 h-5 text-blue-400 mt-1 flex-shrink-0" />
                   <div>
-                    <p className="text-gray-300 font-medium">Location</p>
-                    <p className="text-blue-400">Headquartered in Miami, FL</p>
+                    <p className="text-gray-300 font-medium">
+                      {t("footer.location")}
+                    </p>
+                    <p className="text-blue-400">{t("footer.headquarters")}</p>
                   </div>
                 </div>
               </div>
@@ -226,26 +232,26 @@ export default function Footer() {
               <div className="text-gray-400 text-sm">
                 &copy; {new Date().getFullYear()} ClaimSaver+
                 <br />
-                <span className="text-xs">All rights reserved.</span>
+                <span className="text-xs">{t("footer.copyright")}</span>
               </div>
               <div className="flex space-x-6 text-sm">
                 <button
                   onClick={() => openModal("privacy")}
                   className="text-gray-400 hover:text-blue-400 transition-colors duration-300"
                 >
-                  Privacy Policy
+                  {t("footer.privacyPolicy")}
                 </button>
                 <button
                   onClick={() => openModal("terms")}
                   className="text-gray-400 hover:text-blue-400 transition-colors duration-300"
                 >
-                  Terms of Service
+                  {t("footer.termsOfService")}
                 </button>
                 <button
                   onClick={() => openModal("cookies")}
                   className="text-gray-400 hover:text-blue-400 transition-colors duration-300"
                 >
-                  Cookie Policy
+                  {t("footer.cookiePolicy")}
                 </button>
               </div>
             </div>
@@ -254,17 +260,10 @@ export default function Footer() {
             <div className="mt-6 pt-6 border-t border-gray-700">
               <div className="bg-gray-800/80 rounded-lg p-4 border border-gray-600">
                 <p className="text-gray-300 text-xs leading-relaxed">
-                  <strong className="text-gray-200">Legal Disclaimer:</strong>{" "}
-                  ClaimSaver+ does not offer legal advice or representation and
-                  is not a law firm or a substitute for the advice or services
-                  of an attorney or law firm. The information provided on this
-                  site is not legal advice. If you are looking for advice or
-                  representation regarding your specific situation, you should
-                  contact an attorney in your state. Attorneys advertised on
-                  this site are independent attorneys. The attorneys in your
-                  area who are responsible for each advertisement are listed
-                  directly in the advertisement. ClaimSaver+ is not an
-                  &ldquo;attorney referral service.&rdquo;
+                  <strong className="text-gray-200">
+                    {t("footer.legalDisclaimer")}:
+                  </strong>{" "}
+                  {t("footer.legalText")}
                 </p>
               </div>
             </div>

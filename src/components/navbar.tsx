@@ -6,18 +6,12 @@ import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { SignInButton, UserButton, useUser } from "@clerk/nextjs";
 import { Sun, Moon } from "lucide-react";
-
-const navItems = [
-  { name: "Who We Are", href: "/who-we-are" },
-  { name: "What We Do", href: "/what-we-do" },
-  { name: "Attorney Matching", href: "/attorney-matching" },
-  { name: "Notarization", href: "/notarization" },
-  { name: "Pricing", href: "/pricing" },
-  { name: "Submit Claim", href: "/claim-form" },
-];
+import LanguageSwitcher from "./language-switcher";
+import { useTranslation } from "react-i18next";
 
 // Wrapper component to handle Clerk authentication
 function AuthSection() {
+  const { t } = useTranslation();
   const { isSignedIn, isLoaded } = useUser();
 
   console.log("🔍 AuthSection state:", { isSignedIn, isLoaded });
@@ -49,7 +43,7 @@ function AuthSection() {
             variant="outline"
             className="bg-white/80 backdrop-blur-sm border-gray-200 hover:bg-white hover:border-blue-300 dark:bg-gray-800/80 dark:border-gray-700 dark:hover:bg-gray-800 dark:hover:border-blue-600 transition-all duration-200"
           >
-            Sign In
+            {t("navigation.signIn")}
           </Button>
         </SignInButton>
       )}
@@ -59,13 +53,14 @@ function AuthSection() {
 
 // Fallback auth section when Clerk is not available
 function FallbackAuthSection() {
+  const { t } = useTranslation();
   return (
     <div className="hover:scale-105 transition-transform duration-200">
       <Button
         variant="outline"
         className="bg-white/80 backdrop-blur-sm border-gray-200 hover:bg-white hover:border-blue-300 dark:bg-gray-800/80 dark:border-gray-700 dark:hover:bg-gray-800 dark:hover:border-blue-600 transition-all duration-200"
       >
-        Sign In
+        {t("navigation.signIn")}
       </Button>
     </div>
   );
@@ -73,6 +68,7 @@ function FallbackAuthSection() {
 
 // Dashboard link component
 function DashboardLink({ pathname }: { pathname: string }) {
+  const { t } = useTranslation();
   const { isSignedIn, isLoaded, user } = useUser();
   const [isAdmin, setIsAdmin] = useState(false);
   const [checkingRole, setCheckingRole] = useState(true);
@@ -118,7 +114,7 @@ function DashboardLink({ pathname }: { pathname: string }) {
             : "text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400"
         }`}
       >
-        {isAdmin ? "Admin" : "Dashboard"}
+        {isAdmin ? "Admin" : t("navigation.dashboard")}
         {(pathname === "/admin" || pathname === "/dashboard") && (
           <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-blue-600 to-blue-800 rounded-full" />
         )}
@@ -129,6 +125,7 @@ function DashboardLink({ pathname }: { pathname: string }) {
 
 // Mobile auth section
 function MobileAuthSection() {
+  const { t } = useTranslation();
   const { isSignedIn, isLoaded } = useUser();
 
   if (!isLoaded) {
@@ -157,7 +154,7 @@ function MobileAuthSection() {
             variant="outline"
             className="w-full bg-white/80 backdrop-blur-sm border-gray-200 hover:bg-white hover:border-blue-300 dark:bg-gray-800/80 dark:border-gray-700 dark:hover:bg-gray-800 dark:hover:border-blue-600"
           >
-            Sign In
+            {t("navigation.signIn")}
           </Button>
         </SignInButton>
       )}
@@ -169,10 +166,13 @@ function MobileAuthSection() {
 function MobileDashboardLink({
   pathname,
   onClick,
+  navItemsLength,
 }: {
   pathname: string;
   onClick: () => void;
+  navItemsLength: number;
 }) {
+  const { t } = useTranslation();
   const { isSignedIn, isLoaded, user } = useUser();
   const [isAdmin, setIsAdmin] = useState(false);
   const [checkingRole, setCheckingRole] = useState(true);
@@ -211,7 +211,7 @@ function MobileDashboardLink({
   return (
     <div
       className="animate-in slide-in-from-left-2 duration-300"
-      style={{ animationDelay: `${navItems.length * 100}ms` }}
+      style={{ animationDelay: `${navItemsLength * 100}ms` }}
     >
       <Link
         href={isAdmin ? "/admin" : "/dashboard"}
@@ -222,7 +222,7 @@ function MobileDashboardLink({
         }`}
         onClick={onClick}
       >
-        {isAdmin ? "Admin" : "Dashboard"}
+        {isAdmin ? "Admin" : t("navigation.dashboard")}
       </Link>
     </div>
   );
@@ -273,11 +273,27 @@ function ThemeToggle() {
 }
 
 export default function Navbar() {
+  const { t } = useTranslation();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
   const [isClerkAvailable, setIsClerkAvailable] = useState(true);
+  const [navItems, setNavItems] = useState<
+    Array<{ name: string; href: string }>
+  >([]);
   const pathname = usePathname();
+
+  useEffect(() => {
+    // Create navItems after component is mounted and translation is available
+    setNavItems([
+      { name: t("navigation.whoWeAre"), href: "/who-we-are" },
+      { name: t("navigation.whatWeDo"), href: "/what-we-do" },
+      { name: t("navigation.attorneyMatching"), href: "/attorney-matching" },
+      { name: t("navigation.notarization"), href: "/notarization" },
+      { name: t("navigation.pricing"), href: "/pricing" },
+      { name: t("navigation.submitClaim"), href: "/claim-form" },
+    ]);
+  }, [t]);
 
   useEffect(() => {
     setIsMounted(true);
@@ -348,25 +364,12 @@ export default function Navbar() {
 
             {/* Right side navigation */}
             <div className="hidden md:flex items-center space-x-8">
-              {navItems.map((item) => (
+              {/* Loading state for nav items */}
+              {Array.from({ length: 6 }).map((_, index) => (
                 <div
-                  key={item.name}
-                  className="hover:-translate-y-0.5 transition-transform duration-200"
-                >
-                  <Link
-                    href={item.href}
-                    className={`relative px-3 py-2 text-sm font-medium transition-colors duration-200 ${
-                      pathname === item.href
-                        ? "text-blue-600 dark:text-blue-400"
-                        : "text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400"
-                    }`}
-                  >
-                    {item.name}
-                    {pathname === item.href && (
-                      <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-blue-600 to-blue-800 rounded-full" />
-                    )}
-                  </Link>
-                </div>
+                  key={index}
+                  className="w-20 h-8 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"
+                />
               ))}
 
               {/* Loading state for auth */}
@@ -428,29 +431,42 @@ export default function Navbar() {
 
           {/* Right side navigation and sign in */}
           <div className="hidden md:flex items-center space-x-8">
-            {navItems.map((item) => (
-              <div
-                key={item.name}
-                className="hover:-translate-y-0.5 transition-transform duration-200"
-              >
-                <Link
-                  href={item.href}
-                  className={`relative px-3 py-2 text-sm font-medium transition-colors duration-200 ${
-                    pathname === item.href
-                      ? "text-blue-600 dark:text-blue-400"
-                      : "text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400"
-                  }`}
-                >
-                  {item.name}
-                  {pathname === item.href && (
-                    <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-blue-600 to-blue-800 rounded-full" />
-                  )}
-                </Link>
-              </div>
-            ))}
+            {navItems.length > 0
+              ? navItems.map((item) => (
+                  <div
+                    key={item.name}
+                    className="hover:-translate-y-0.5 transition-transform duration-200"
+                  >
+                    <Link
+                      href={item.href}
+                      className={`relative px-3 py-2 text-sm font-medium transition-colors duration-200 ${
+                        pathname === item.href
+                          ? "text-blue-600 dark:text-blue-400"
+                          : "text-gray-700 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400"
+                      }`}
+                    >
+                      {item.name}
+                      {pathname === item.href && (
+                        <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-blue-600 to-blue-800 rounded-full" />
+                      )}
+                    </Link>
+                  </div>
+                ))
+              : // Loading state for nav items
+                Array.from({ length: 6 }).map((_, index) => (
+                  <div
+                    key={index}
+                    className="w-20 h-8 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"
+                  />
+                ))}
 
             {/* Dashboard Link - Only show when signed in and Clerk is available */}
             {isClerkAvailable && <DashboardLink pathname={pathname} />}
+
+            {/* Language Switcher */}
+            <div className="hover:scale-105 transition-transform duration-200">
+              <LanguageSwitcher />
+            </div>
 
             {/* Authentication Button */}
             {isClerkAvailable ? <AuthSection /> : <FallbackAuthSection />}
@@ -492,31 +508,43 @@ export default function Navbar() {
         {isMobileMenuOpen && (
           <div className="md:hidden border-t border-gray-200 dark:border-gray-700 animate-in slide-in-from-top-2 duration-300 bg-white/95 backdrop-blur-md dark:bg-gray-950/95 shadow-lg">
             <div className="px-2 pt-2 pb-3 space-y-1">
-              {navItems.map((item, index) => (
-                <div
-                  key={item.name}
-                  className="animate-in slide-in-from-left-2 duration-300"
-                  style={{ animationDelay: `${index * 100}ms` }}
-                >
-                  <Link
-                    href={item.href}
-                    className={`block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200 ${
-                      pathname === item.href
-                        ? "text-blue-600 bg-blue-50 dark:text-blue-400 dark:bg-blue-950/50"
-                        : "text-gray-700 hover:text-blue-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-blue-400 dark:hover:bg-gray-800"
-                    }`}
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    {item.name}
-                  </Link>
-                </div>
-              ))}
+              {navItems.length > 0
+                ? navItems.map((item, index) => (
+                    <div
+                      key={item.name}
+                      className="animate-in slide-in-from-left-2 duration-300"
+                      style={{ animationDelay: `${index * 100}ms` }}
+                    >
+                      <Link
+                        href={item.href}
+                        className={`block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200 ${
+                          pathname === item.href
+                            ? "text-blue-600 bg-blue-50 dark:text-blue-400 dark:bg-blue-950/50"
+                            : "text-gray-700 hover:text-blue-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-blue-400 dark:hover:bg-gray-800"
+                        }`}
+                        onClick={() => setIsMobileMenuOpen(false)}
+                      >
+                        {item.name}
+                      </Link>
+                    </div>
+                  ))
+                : // Loading state for mobile nav items
+                  Array.from({ length: 6 }).map((_, index) => (
+                    <div
+                      key={index}
+                      className="animate-in slide-in-from-left-2 duration-300"
+                      style={{ animationDelay: `${index * 100}ms` }}
+                    >
+                      <div className="w-full h-10 bg-gray-200 dark:bg-gray-700 rounded animate-pulse" />
+                    </div>
+                  ))}
 
               {/* Dashboard Link in Mobile Menu - Only show when signed in and Clerk is available */}
               {isClerkAvailable && (
                 <MobileDashboardLink
                   pathname={pathname}
                   onClick={() => setIsMobileMenuOpen(false)}
+                  navItemsLength={navItems.length}
                 />
               )}
 
@@ -530,7 +558,7 @@ export default function Navbar() {
                 }}
               >
                 <div className="flex justify-center">
-                  <ThemeToggle />
+                  <LanguageSwitcher />
                 </div>
               </div>
 
@@ -542,6 +570,19 @@ export default function Navbar() {
                   }ms`,
                 }}
               >
+                <div className="flex justify-center">
+                  <ThemeToggle />
+                </div>
+              </div>
+
+              <div
+                className="pt-2 animate-in slide-in-from-left-2 duration-300"
+                style={{
+                  animationDelay: `${
+                    (navItems.length + (isClerkAvailable ? 3 : 2)) * 100
+                  }ms`,
+                }}
+              >
                 {isClerkAvailable ? (
                   <MobileAuthSection />
                 ) : (
@@ -550,7 +591,7 @@ export default function Navbar() {
                     variant="outline"
                     className="w-full bg-white/80 backdrop-blur-sm border-gray-200 hover:bg-white hover:border-blue-300 dark:bg-gray-800/80 dark:border-gray-700 dark:hover:bg-gray-800 dark:hover:border-blue-600"
                   >
-                    Sign In
+                    {t("navigation.signIn")}
                   </Button>
                 )}
               </div>

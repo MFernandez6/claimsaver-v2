@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Footer from "@/components/footer";
 import FAQ from "@/components/faq";
 import { useClerk } from "@clerk/nextjs";
+import { useTranslation } from "react-i18next";
 import {
   Play,
   Shield,
@@ -23,6 +24,7 @@ import {
 
 export default function Home() {
   const { openSignIn } = useClerk();
+  const { t } = useTranslation();
 
   const handleGetStarted = () => {
     openSignIn();
@@ -30,70 +32,60 @@ export default function Home() {
 
   const faqItems = [
     {
-      question: "Is this legal?",
-      answer:
-        "ClaimSaver+ was created by experienced legal professionals who wanted to streamline the process of accident claim filing and recovery. Our platform connects you with licensed attorneys who specialize in accident cases and are authorized to practice law in your state. We provide form filing assistance, document management, and attorney matching services that comply with all applicable laws and regulations. The attorneys in our network are independent legal professionals who will provide you with proper legal representation. As with any legal matter, it's important to work with qualified attorneys who can provide you with the legal advice and representation you need.",
+      question: t("home.faq.legal.question"),
+      answer: t("home.faq.legal.answer"),
     },
     {
-      question: "How long does it take to get matched with an attorney?",
-      answer:
-        "We provide instant matching with attorneys in our network. Once you submit your claim information, we'll connect you with qualified attorneys in your area who specialize in accident cases. You can expect to hear from an attorney within 24-48 hours.",
+      question: t("home.faq.matching.question"),
+      answer: t("home.faq.matching.answer"),
     },
     {
-      question: "What types of accidents does ClaimSaver+ handle?",
-      answer:
-        "ClaimSaver+ handles all types of motor vehicle accidents, including car accidents, motorcycle accidents, truck accidents, pedestrian accidents, and bicycle accidents. We focus on no-fault accident claims and help you recover compensation for medical expenses, property damage, and lost wages.",
+      question: t("home.faq.accidents.question"),
+      answer: t("home.faq.accidents.answer"),
     },
     {
-      question: "Do I need to provide documents for my claim?",
-      answer:
-        "Yes, you'll need to provide relevant documents such as police reports, medical records, insurance information, photos of the accident scene, and any other evidence related to your case. Our secure platform makes it easy to upload and organize these documents.",
+      question: t("home.faq.documents.question"),
+      answer: t("home.faq.documents.answer"),
     },
     {
-      question: "Is ClaimSaver+ available in all states?",
-      answer:
-        "ClaimSaver+ currently services Florida and New York, with additional states to be added in the future. We have attorneys licensed in these states and can help you with claims in these service areas.",
+      question: t("home.faq.states.question"),
+      answer: t("home.faq.states.answer"),
     },
     {
-      question: "What if I'm not satisfied with the attorney I'm matched with?",
-      answer:
-        "If you're not satisfied with your initial attorney match, we can help you connect with another attorney in our network. We want to ensure you have the best possible representation for your case.",
+      question: t("home.faq.satisfaction.question"),
+      answer: t("home.faq.satisfaction.answer"),
     },
   ];
 
   const features = [
     {
       icon: <FileText className="w-6 h-6" />,
-      title: "No-Fault Form Filing",
-      description:
-        "Streamlined form submission with real-time validation and instant confirmation.",
+      title: t("home.features.feature1.title"),
+      description: t("home.features.feature1.description"),
       color: "blue",
     },
     {
       icon: <Users className="w-6 h-6" />,
-      title: "Regional Network",
-      description: "Access to qualified attorneys in Florida and New York",
+      title: t("home.features.feature2.title"),
+      description: t("home.features.feature2.description"),
       color: "green",
     },
     {
       icon: <Shield className="w-6 h-6" />,
-      title: "Secure Document Management",
-      description:
-        "Bank-level security for all your case documents with seamless access.",
+      title: t("home.features.feature3.title"),
+      description: t("home.features.feature3.description"),
       color: "purple",
     },
     {
       icon: <Smartphone className="w-6 h-6" />,
-      title: "Real-Time Updates",
-      description:
-        "Stay informed with instant notifications and case progress tracking.",
+      title: t("home.features.feature4.title"),
+      description: t("home.features.feature4.description"),
       color: "orange",
     },
     {
       icon: <TrendingUp className="w-6 h-6" />,
-      title: "Recovery Assistance",
-      description:
-        "Our network works to negotiate fair compensation for your damages.",
+      title: t("home.features.feature5.title"),
+      description: t("home.features.feature5.description"),
       color: "red",
     },
   ];
@@ -101,25 +93,23 @@ export default function Home() {
   const benefits = [
     {
       icon: <Zap className="w-5 h-5" />,
-      title: "Instant Processing",
-      description:
-        "Real-time form validation and immediate submission confirmation",
+      title: t("home.benefits.benefit1.title"),
+      description: t("home.benefits.benefit1.description"),
     },
     {
       icon: <Globe className="w-5 h-5" />,
-      title: "Regional Network",
-      description: "Access to qualified attorneys in Florida and New York",
+      title: t("home.benefits.benefit2.title"),
+      description: t("home.benefits.benefit2.description"),
     },
     {
       icon: <Award className="w-5 h-5" />,
-      title: "Proven Results",
-      description:
-        "Thousands of successful claims processed with high satisfaction rates",
+      title: t("home.benefits.benefit3.title"),
+      description: t("home.benefits.benefit3.description"),
     },
     {
       icon: <Star className="w-5 h-5" />,
-      title: "Premium Support",
-      description: "Dedicated team available to guide you through every step",
+      title: t("home.benefits.benefit4.title"),
+      description: t("home.benefits.benefit4.description"),
     },
   ];
 
@@ -131,7 +121,7 @@ export default function Home() {
         <div className="fixed inset-0 z-0">
           <Image
             src="/images/long-logo-ClaimSaver.jpg"
-            alt="ClaimSaver+ Background"
+            alt={t("home.hero.imageAlt")}
             className="w-full h-full object-cover opacity-25"
             fill
           />
@@ -161,16 +151,14 @@ export default function Home() {
             </div>
 
             <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
-              Accident Recovery
+              {t("home.hero.title")}
               <span className="block bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                Made Simple
+                {t("home.hero.subtitle")}
               </span>
             </h1>
 
             <p className="text-xl sm:text-2xl text-gray-600 dark:text-gray-300 mb-8 leading-relaxed max-w-3xl mx-auto">
-              Connect with experienced attorneys and navigate your recovery
-              journey with confidence. Get the compensation you deserve with our
-              innovative platform.
+              {t("home.hero.description")}
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
@@ -179,7 +167,7 @@ export default function Home() {
                 onClick={handleGetStarted}
                 className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-4 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
               >
-                Start Your Recovery
+                {t("home.hero.cta")}
                 <ArrowRight className="ml-2 w-5 h-5" />
               </Button>
               <Button
@@ -187,7 +175,7 @@ export default function Home() {
                 variant="outline"
                 className="border-2 border-gray-300 hover:border-gray-400 text-gray-700 dark:text-gray-300 px-8 py-4 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
               >
-                Watch Demo
+                {t("home.hero.watchDemo")}
                 <Play className="ml-2 w-5 h-5" />
               </Button>
             </div>
@@ -203,7 +191,7 @@ export default function Home() {
                 style={{ maxHeight: "50vh" }}
               >
                 <source src="/video/Whiteboard.mp4" type="video/mp4" />
-                Your browser does not support the video tag.
+                {t("home.video.notSupported")}
               </video>
             </div>
           </div>
@@ -229,11 +217,10 @@ export default function Home() {
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-6">
-              Everything You Need
+              {t("home.features.title")}
             </h2>
             <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-              Comprehensive tools and support to streamline your accident
-              recovery process
+              {t("home.features.subtitle")}
             </p>
           </div>
 
@@ -303,7 +290,7 @@ export default function Home() {
         <div className="fixed inset-0 z-0">
           <Image
             src="/images/long-logo-ClaimSaver.jpg"
-            alt="ClaimSaver+ Background"
+            alt={t("home.whyChoose.imageAlt")}
             className="w-full h-full object-cover opacity-20"
             fill
           />
@@ -314,15 +301,13 @@ export default function Home() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div>
               <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-6">
-                Why Choose{" "}
+                {t("home.whyChoose.title")}{" "}
                 <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                  ClaimSaver+?
+                  {t("home.whyChoose.brand")}?
                 </span>
               </h2>
               <p className="text-xl text-gray-600 dark:text-gray-300 mb-8 leading-relaxed">
-                We combine cutting-edge technology with human expertise to
-                deliver the most efficient and effective accident recovery
-                experience.
+                {t("home.whyChoose.description")}
               </p>
 
               <div className="space-y-6">
@@ -349,17 +334,17 @@ export default function Home() {
                   onClick={handleGetStarted}
                   className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
                 >
-                  Get Started Today
+                  {t("home.whyChoose.getStarted")}
                   <ArrowRight className="ml-2 w-5 h-5" />
                 </Button>
                 <div className="text-sm text-gray-500 dark:text-gray-400">
                   <div className="flex items-center gap-1">
                     <CheckCircle className="w-4 h-4 text-green-500" />
-                    <span>Flat fee $500</span>
+                    <span>{t("home.whyChoose.flatFee")}</span>
                   </div>
                   <div className="flex items-center gap-1">
                     <CheckCircle className="w-4 h-4 text-green-500" />
-                    <span>Free consultation</span>
+                    <span>{t("home.whyChoose.freeConsultation")}</span>
                   </div>
                 </div>
               </div>
@@ -369,24 +354,42 @@ export default function Home() {
               <div className="bg-gradient-to-br from-blue-600 to-purple-600 rounded-3xl p-8 text-white shadow-2xl">
                 <div className="flex items-center gap-3 mb-6">
                   <Award className="w-8 h-8" />
-                  <h3 className="text-2xl font-bold">Success Metrics</h3>
+                  <h3 className="text-2xl font-bold">
+                    {t("home.stats.title")}
+                  </h3>
                 </div>
                 <div className="space-y-6">
                   <div className="flex items-center justify-between">
-                    <span className="text-lg">Average Recovery Time</span>
-                    <span className="text-2xl font-bold">6-12 months</span>
+                    <span className="text-lg">
+                      {t("home.stats.recoveryTime")}
+                    </span>
+                    <span className="text-2xl font-bold">
+                      {t("home.stats.recoveryTimeValue")}
+                    </span>
                   </div>
                   <div className="flex items-center justify-between">
-                    <span className="text-lg">Success Rate</span>
-                    <span className="text-2xl font-bold">95%</span>
+                    <span className="text-lg">
+                      {t("home.stats.successRate")}
+                    </span>
+                    <span className="text-2xl font-bold">
+                      {t("home.stats.successRateValue")}
+                    </span>
                   </div>
                   <div className="flex items-center justify-between">
-                    <span className="text-lg">Attorney Network</span>
-                    <span className="text-2xl font-bold">FL & NY</span>
+                    <span className="text-lg">
+                      {t("home.stats.attorneyNetwork")}
+                    </span>
+                    <span className="text-2xl font-bold">
+                      {t("home.stats.attorneyNetworkValue")}
+                    </span>
                   </div>
                   <div className="flex items-center justify-between">
-                    <span className="text-lg">Customer Satisfaction</span>
-                    <span className="text-2xl font-bold">4.9/5</span>
+                    <span className="text-lg">
+                      {t("home.stats.satisfaction")}
+                    </span>
+                    <span className="text-2xl font-bold">
+                      {t("home.stats.satisfactionValue")}
+                    </span>
                   </div>
                 </div>
               </div>
@@ -397,9 +400,11 @@ export default function Home() {
                   </div>
                   <div>
                     <p className="font-semibold text-gray-900 dark:text-white">
-                      Flat Fee
+                      {t("home.stats.flatFeeLabel")}
                     </p>
-                    <p className="text-2xl font-bold text-green-600">$500</p>
+                    <p className="text-2xl font-bold text-green-600">
+                      {t("home.stats.flatFeeValue")}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -410,8 +415,8 @@ export default function Home() {
 
       {/* FAQ Section */}
       <FAQ
-        title="Frequently Asked Questions"
-        subtitle="Get answers to the most common questions about ClaimSaver+"
+        title={t("home.faq.title")}
+        subtitle={t("home.faq.subtitle")}
         items={faqItems}
       />
 

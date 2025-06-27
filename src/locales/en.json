@@ -1,0 +1,699 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "cancel": "Cancel",
+    "close": "Close",
+    "save": "Save",
+    "edit": "Edit",
+    "delete": "Delete",
+    "submit": "Submit",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "continue": "Continue",
+    "learnMore": "Learn More",
+    "getStarted": "Get Started",
+    "contactUs": "Contact Us",
+    "privacyPolicy": "Privacy Policy",
+    "termsOfService": "Terms of Service"
+  },
+  "navigation": {
+    "home": "Home",
+    "whoWeAre": "Who We Are",
+    "whatWeDo": "What We Do",
+    "attorneyMatching": "Attorney Matching",
+    "pricing": "Pricing",
+    "notarization": "Notarization",
+    "dashboard": "Dashboard",
+    "submitClaim": "Submit Claim",
+    "signIn": "Sign In",
+    "signUp": "Sign Up",
+    "signOut": "Sign Out"
+  },
+  "home": {
+    "hero": {
+      "title": "Accident Recovery",
+      "subtitle": "Maximize Your Compensation, Minimize Your Stress",
+      "description": "Get the compensation you deserve with our expert accident recovery services. No hidden fees, no surprises.",
+      "cta": "Start Your Recovery",
+      "learnMore": "Learn More",
+      "watchDemo": "Watch Demo",
+      "imageAlt": "ClaimSaver+ Background"
+    },
+    "video": {
+      "notSupported": "Your browser does not support the video tag."
+    },
+    "features": {
+      "title": "Everything You Need",
+      "subtitle": "Comprehensive tools and support to streamline your accident recovery process",
+      "feature1": {
+        "title": "No-Fault Form Filing",
+        "description": "Streamlined form submission with real-time validation and instant confirmation."
+      },
+      "feature2": {
+        "title": "Regional Network",
+        "description": "Access to qualified attorneys in Florida and New York"
+      },
+      "feature3": {
+        "title": "Secure Document Management",
+        "description": "Bank-level security for all your case documents with seamless access."
+      },
+      "feature4": {
+        "title": "Real-Time Updates",
+        "description": "Stay informed with instant notifications and case progress tracking."
+      },
+      "feature5": {
+        "title": "Recovery Assistance",
+        "description": "Our network works to negotiate fair compensation for your damages."
+      }
+    },
+    "benefits": {
+      "benefit1": {
+        "title": "Instant Processing",
+        "description": "Real-time form validation and immediate submission confirmation"
+      },
+      "benefit2": {
+        "title": "Regional Network",
+        "description": "Access to qualified attorneys in Florida and New York"
+      },
+      "benefit3": {
+        "title": "Proven Results",
+        "description": "Thousands of successful claims processed with high satisfaction rates"
+      },
+      "benefit4": {
+        "title": "Premium Support",
+        "description": "Dedicated team available to guide you through every step"
+      }
+    },
+    "whyChoose": {
+      "title": "Why Choose",
+      "brand": "ClaimSaver+",
+      "description": "We combine cutting-edge technology with human expertise to deliver the most efficient and effective accident recovery experience.",
+      "getStarted": "Get Started Today",
+      "flatFee": "Flat fee $500",
+      "freeConsultation": "Free consultation",
+      "imageAlt": "ClaimSaver+ Background"
+    },
+    "stats": {
+      "title": "Success Metrics",
+      "recoveryTime": "Average Recovery Time",
+      "recoveryTimeValue": "6-12 months",
+      "successRate": "Success Rate",
+      "successRateValue": "95%",
+      "attorneyNetwork": "Attorney Network",
+      "attorneyNetworkValue": "FL & NY",
+      "satisfaction": "Customer Satisfaction",
+      "satisfactionValue": "4.9/5",
+      "flatFeeLabel": "Flat Fee",
+      "flatFeeValue": "$500"
+    },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "subtitle": "Get answers to the most common questions about ClaimSaver+",
+      "legal": {
+        "question": "Is this legal?",
+        "answer": "ClaimSaver+ was created by experienced legal professionals who wanted to streamline the process of accident claim filing and recovery. Our platform connects you with licensed attorneys who specialize in accident cases and are authorized to practice law in your state. We provide form filing assistance, document management, and attorney matching services that comply with all applicable laws and regulations. The attorneys in our network are independent legal professionals who will provide you with proper legal representation. As with any legal matter, it's important to work with qualified attorneys who can provide you with the legal advice and representation you need."
+      },
+      "matching": {
+        "question": "How long does it take to get matched with an attorney?",
+        "answer": "We provide instant matching with attorneys in our network. Once you submit your claim information, we'll connect you with qualified attorneys in your area who specialize in accident cases. You can expect to hear from an attorney within 24-48 hours."
+      },
+      "accidents": {
+        "question": "What types of accidents does ClaimSaver+ handle?",
+        "answer": "ClaimSaver+ handles all types of motor vehicle accidents, including car accidents, motorcycle accidents, truck accidents, pedestrian accidents, and bicycle accidents. We focus on no-fault accident claims and help you recover compensation for medical expenses, property damage, and lost wages."
+      },
+      "documents": {
+        "question": "Do I need to provide documents for my claim?",
+        "answer": "Yes, you'll need to provide relevant documents such as police reports, medical records, insurance information, photos of the accident scene, and any other evidence related to your case. Our secure platform makes it easy to upload and organize these documents."
+      },
+      "states": {
+        "question": "Is ClaimSaver+ available in all states?",
+        "answer": "ClaimSaver+ currently services Florida and New York, with additional states to be added in the future. We have attorneys licensed in these states and can help you with claims in these service areas."
+      },
+      "satisfaction": {
+        "question": "What if I'm not satisfied with the attorney I'm matched with?",
+        "answer": "If you're not satisfied with your initial attorney match, we can help you connect with another attorney in our network. We want to ensure you have the best possible representation for your case."
+      }
+    }
+  },
+  "pricing": {
+    "title": "Transparent, Fair, and Cost-Effective",
+    "subtitle": "More Money in Your Pocket, Less Stress in Your Life",
+    "startClaim": "Start Your Claim",
+    "learnMore": "Learn More",
+    "selectServices": "Select Your Services & Payment",
+    "selectServicesDesc": "Choose the services you need and complete your payment securely with Stripe",
+    "services": {
+      "noFaultAssistance": {
+        "name": "No-Fault Assistance",
+        "description": "Complete accident claim filing and recovery assistance",
+        "price": "500.00"
+      },
+      "notarization": {
+        "name": "Notarization Services",
+        "description": "Online document notarization via DocuSign",
+        "price": "25.00"
+      }
+    },
+    "traditionalCosts": {
+      "title": "Traditional Costs",
+      "averagePolicy": "Average auto policy: $10,000.00",
+      "attorneyFee": "Attorney contingency fee: 33%",
+      "netToVictim": "Net to victim: Less than $7,000.00",
+      "additionalCosts": "Additional processing costs",
+      "hiddenFees": "Hidden fees and charges"
+    },
+    "claimSaverAdvantages": {
+      "title": "ClaimSaver+ Advantage",
+      "keep95Percent": "Keep 95% of your settlement",
+      "noContingency": "No contingency fees",
+      "transparentPricing": "Transparent flat rate",
+      "professionalService": "Professional service",
+      "maximumRecovery": "Maximum recovery for you"
+    },
+    "features": {
+      "transparentPricing": {
+        "title": "Transparent Pricing",
+        "description": "No hidden fees, no surprises. Know exactly what you'll pay upfront."
+      },
+      "maximumRecovery": {
+        "title": "Maximum Recovery",
+        "description": "Keep more of your settlement with our flat-rate structure."
+      },
+      "professionalService": {
+        "title": "Professional Service",
+        "description": "Expert legal support without the traditional attorney fees."
+      },
+      "fasterProcessing": {
+        "title": "Faster Processing",
+        "description": "Streamlined process gets you results faster than traditional methods."
+      }
+    },
+    "testimonials": {
+      "title": "What Our Clients Say",
+      "subtitle": "Real stories from real people who saved thousands with ClaimSaver+"
+    },
+    "cta": {
+      "title": "Ready to Save Thousands?",
+      "subtitle": "Join thousands of accident victims who have used ClaimSaver+ to maximize their recovery. Get started today with our transparent flat-rate pricing.",
+      "button": "Start Your Claim"
+    }
+  },
+  "claimForm": {
+    "header": {
+      "title": "Florida No-Fault Form",
+      "description": "Complete your accident claim with our step-by-step form",
+      "step": "Step"
+    },
+    "steps": {
+      "personalInfo": "Personal Information",
+      "vehicleInfo": "Vehicle Information",
+      "accidentDetails": "Accident Details",
+      "insuranceInfo": "Insurance Information",
+      "medicalInfo": "Medical Information",
+      "employmentWages": "Employment & Wages",
+      "authorizations": "Authorizations",
+      "reviewSubmit": "Review & Submit",
+      "step": "Step"
+    },
+    "success": {
+      "title": "Claim Submitted Successfully!",
+      "description": "Your claim has been submitted and is now under review.",
+      "goToDashboard": "Go to Dashboard"
+    },
+    "errors": {
+      "submitFailed": "Failed to submit claim"
+    }
+  },
+  "notarization": {
+    "hero": {
+      "title": "Online",
+      "subtitle": "Notarization",
+      "description": "Get your documents notarized securely and legally from anywhere. Powered by DocuSign for the most trusted digital notarization experience.",
+      "startNotarization": "Start Notarization",
+      "learnMore": "Learn More",
+      "imageAlt": "ClaimSaver+ Background"
+    },
+    "features": {
+      "title": "Why Choose Our",
+      "subtitle": "Notarization Service?",
+      "description": "Professional, secure, and convenient notarization powered by DocuSign",
+      "secure": {
+        "title": "Secure & Legal",
+        "description": "Fully compliant with state notarization laws and regulations"
+      },
+      "availability": {
+        "title": "24/7 Availability",
+        "description": "Get your documents notarized anytime, anywhere"
+      },
+      "remote": {
+        "title": "Remote Notarization",
+        "description": "Connect with licensed notaries via video conference"
+      },
+      "instant": {
+        "title": "Instant Processing",
+        "description": "Receive your notarized document within minutes"
+      },
+      "security": {
+        "title": "Bank-Level Security",
+        "description": "End-to-end encryption and secure document handling"
+      },
+      "certified": {
+        "title": "Certified Notaries",
+        "description": "All notaries are licensed and background-checked"
+      }
+    },
+    "benefits": {
+      "noAppointments": {
+        "title": "No Appointments Needed",
+        "description": "Skip the hassle of scheduling and travel time"
+      },
+      "affordable": {
+        "title": "Affordable Pricing",
+        "description": "Competitive rates starting at $25 per document"
+      },
+      "experts": {
+        "title": "Expert Notaries",
+        "description": "Experienced professionals for all document types"
+      },
+      "rated": {
+        "title": "5-Star Service",
+        "description": "Rated excellent by thousands of satisfied customers"
+      }
+    },
+    "documents": {
+      "realEstate": "Real Estate Documents",
+      "legalContracts": "Legal Contracts",
+      "powerOfAttorney": "Power of Attorney",
+      "willsTrusts": "Wills & Trusts",
+      "businessAgreements": "Business Agreements",
+      "loanDocuments": "Loan Documents",
+      "affidavits": "Affidavits",
+      "deedsTitles": "Deeds & Titles"
+    },
+    "faq": {
+      "whatIs": {
+        "question": "What is digital notarization?",
+        "answer": "Digital notarization is a secure, online process where documents are notarized remotely using advanced technology and video conferencing, making it convenient and legally binding."
+      },
+      "legal": {
+        "question": "Is digital notarization legally valid?",
+        "answer": "Yes, digital notarization is legally valid in all 50 states and is recognized by courts, government agencies, and businesses nationwide."
+      },
+      "documents": {
+        "question": "What documents can be notarized online?",
+        "answer": "Most documents can be notarized online, including real estate documents, legal contracts, power of attorney forms, wills, business agreements, and more."
+      },
+      "duration": {
+        "question": "How long does the process take?",
+        "answer": "The entire digital notarization process typically takes 5-10 minutes from start to finish, including document upload and notary verification."
+      },
+      "requirements": {
+        "question": "What do I need to get started?",
+        "answer": "You'll need a valid government-issued ID, a computer or mobile device with camera and microphone, and the document you want to notarize in PDF format."
+      },
+      "security": {
+        "question": "How secure is the process?",
+        "answer": "Our platform uses bank-level encryption and security measures. All documents are encrypted in transit and at rest, and we maintain complete audit trails for all transactions."
+      }
+    }
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "welcome": "Welcome back",
+    "overview": "Overview",
+    "recentActivity": "Recent Activity",
+    "quickActions": "Quick Actions",
+    "claims": "Claims",
+    "documents": "Documents",
+    "payments": "Payments",
+    "settings": "Settings",
+    "hero": {
+      "title": "Your",
+      "subtitle": "Recovery Dashboard",
+      "description": "Track your claims, monitor progress, and stay updated on your recovery journey",
+      "newClaim": "New Claim",
+      "refresh": "Refresh",
+      "imageAlt": "ClaimSaver+ Background"
+    },
+    "overview": {
+      "title": "Your",
+      "subtitle": "Recovery Overview",
+      "description": "Track your progress and stay informed about your claims"
+    },
+    "stats": {
+      "totalClaims": "Total Claims",
+      "pendingClaims": "Pending Claims",
+      "approvedClaims": "Approved Claims",
+      "totalValue": "Total Value"
+    },
+    "claims": {
+      "title": "Your Claims",
+      "filedOn": "Filed on",
+      "accident": "Accident",
+      "estimatedValue": "Estimated Value",
+      "noClaims": {
+        "title": "No Claims Yet",
+        "description": "Start your recovery journey by filing your first claim",
+        "button": "File Your First Claim"
+      }
+    },
+    "errors": {
+      "loadFailed": "Failed to load claims"
+    }
+  },
+  "footer": {
+    "description": "Simplifying accident form filing and recovery. Currently servicing Florida and New York with additional states to be added in the future.",
+    "quickLinks": "Quick Links",
+    "contactUs": "Contact Us",
+    "support": "Support",
+    "phone": "Phone",
+    "email": "Email",
+    "location": "Location",
+    "headquarters": "Headquartered in Miami, FL",
+    "copyright": "All rights reserved.",
+    "privacyPolicy": "Privacy Policy",
+    "termsOfService": "Terms of Service",
+    "cookiePolicy": "Cookie Policy",
+    "legalDisclaimer": "Legal Disclaimer",
+    "legalText": "ClaimSaver+ does not offer legal advice or representation and is not a law firm or a substitute for the advice or services of an attorney or law firm. The information provided on this site is not legal advice. If you are looking for advice or representation regarding your specific situation, you should contact an attorney in your state. Attorneys advertised on this site are independent attorneys. The attorneys in your area who are responsible for each advertisement are listed directly in the advertisement. ClaimSaver+ is not an \"attorney referral service.\""
+  },
+  "whoWeAre": {
+    "hero": {
+      "title": "Your Trusted Partner in",
+      "subtitle": "Accident Recovery",
+      "description": "We understand that dealing with the aftermath of an accident can be overwhelming. That's why we've created a revolutionary platform that connects you with experienced attorneys in Florida and New York."
+    },
+    "about": {
+      "title": "About ClaimSaver+",
+      "paragraph1": "ClaimSaver+ is a revolutionary platform designed to simplify the process of filing no-fault accident forms and recovering compensation for accident victims. We understand that dealing with the aftermath of an accident can be overwhelming, which is why we've created a user-friendly solution that connects you with experienced attorneys in Florida and New York.",
+      "paragraph2": "Our platform combines cutting-edge technology with expert legal knowledge to ensure that you receive the support and compensation you deserve. We believe that everyone should have access to quality legal representation, regardless of their circumstances.",
+      "paragraph3": "At ClaimSaver+, we're committed to making the legal process as smooth and stress-free as possible. Our team of professionals works tirelessly to ensure that your case receives the attention it deserves, and we're here to guide you every step of the way.",
+      "imageAlt": "ClaimSaver+ Family",
+      "familyFirst": "Family First"
+    },
+    "familyStory": {
+      "title": "Our Family Story",
+      "subtitle": "ClaimSaver+ was born from a personal experience that changed our family forever.",
+      "personalJourney": {
+        "title": "A Personal Journey",
+        "description": "After our family faced the challenges of navigating the complex world of accident claims and legal fees, we realized there had to be a better way."
+      },
+      "mission": {
+        "title": "Our Mission",
+        "description": "To make quality legal support accessible and affordable for every family. We believe that when life throws unexpected challenges your way, you shouldn't have to worry about the cost of getting the help you deserve."
+      },
+      "whyWeCare": {
+        "title": "Why We Care",
+        "quote": "\"We created this platform to help families like ours avoid the financial burden of traditional legal services during already difficult times.\""
+      }
+    },
+    "values": {
+      "mission": {
+        "title": "Our Mission",
+        "description": "To simplify the accident claim process and help victims recover the compensation they deserve through innovative technology and expert legal support."
+      },
+      "vision": {
+        "title": "Our Vision",
+        "description": "To become the leading platform for accident victims, providing seamless access to legal resources and ensuring fair compensation for all."
+      },
+      "values": {
+        "title": "Our Values",
+        "description": "We are committed to transparency, integrity, and putting our clients first. We believe in making legal support accessible to everyone."
+      },
+      "support": {
+        "title": "Our Support",
+        "description": "Our dedicated team is available to assist you throughout your recovery journey, providing personalized support and guidance."
+      }
+    },
+    "coreValues": {
+      "title": "Our Core Values",
+      "subtitle": "The principles that guide everything we do at ClaimSaver+"
+    },
+    "cta": {
+      "title": "Ready to Get Started?",
+      "description": "Join thousands of families who have trusted ClaimSaver+ to help them recover the compensation they deserve.",
+      "startClaim": "Start Your Claim",
+      "learnMore": "Learn More"
+    }
+  },
+  "whatWeDo": {
+    "hero": {
+      "title": "Comprehensive",
+      "subtitle": "Accident Recovery Support",
+      "description": "We provide administrative support and technology solutions to help accident victims navigate the claims process. Our platform connects you with qualified attorneys and streamlines document management for your recovery journey.",
+      "startRecovery": "Start Your Recovery",
+      "fileClaim": "File a Claim",
+      "imageAlt": "ClaimSaver+ Background"
+    },
+    "services": {
+      "title": "Our",
+      "subtitle": "Services",
+      "description": "Comprehensive tools and support to streamline your accident recovery process",
+      "noFault": {
+        "title": "No-Fault Accident Form Filing",
+        "description": "Streamlined form submission with real-time validation and instant confirmation.",
+        "features": {
+          "interface": "Easy-to-use form submission interface",
+          "upload": "Secure document upload system",
+          "validation": "Real-time form validation",
+          "errorChecking": "Automated error checking",
+          "confirmation": "Instant submission confirmation"
+        }
+      },
+      "attorney": {
+        "title": "Attorney Connection Service",
+        "description": "Connect with qualified attorneys in Florida and New York through our referral system.",
+        "features": {
+          "network": "Regional network of qualified attorneys in Florida and New York",
+          "specialized": "Specialized in accident cases",
+          "profiles": "Attorney profiles and ratings",
+          "consultation": "Free initial consultation",
+          "contact": "Direct attorney contact"
+        }
+      },
+      "documents": {
+        "title": "Secure Document Management",
+        "description": "Bank-level security for all your case documents with seamless access.",
+        "features": {
+          "storage": "Cloud-based document storage",
+          "encryption": "End-to-end encryption",
+          "sharing": "Easy document sharing",
+          "version": "Version control and history",
+          "mobile": "Mobile access to documents"
+        }
+      },
+      "recovery": {
+        "title": "Recovery Process Support",
+        "description": "Administrative support throughout your recovery and claims process.",
+        "features": {
+          "organization": "Document organization assistance",
+          "tracking": "Medical expense tracking",
+          "wageLoss": "Wage loss documentation",
+          "property": "Property damage documentation",
+          "guidance": "Process guidance and support"
+        }
+      }
+    },
+    "process": {
+      "title": "Your Recovery",
+      "subtitle": "Journey",
+      "description": "A simple, step-by-step process designed to get you back on track",
+      "imageAlt": "ClaimSaver+ Background",
+      "step1": {
+        "title": "Submit Your Information",
+        "description": "Fill out our user-friendly forms and upload supporting documents securely."
+      },
+      "step2": {
+        "title": "Begin Recovery Process",
+        "description": "Focus on physical therapy, pain relief methodologies, and following your medical treatment plan."
+      },
+      "step3": {
+        "title": "Follow Medical Guidance",
+        "description": "Continue following your doctors' and medical professionals' treatment plans and recommendations."
+      },
+      "step4": {
+        "title": "Submit Claim & Receive Compensation",
+        "description": "Submit your completed claim and receive compensation for your injuries and damages."
+      }
+    },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "subtitle": "Get answers to the most common questions about our services",
+      "whatDoWeDo": {
+        "question": "What exactly does ClaimSaver+ do for me?",
+        "answer": "ClaimSaver+ provides comprehensive administrative support for accident victims. We help you file no-fault accident forms, connect you with qualified attorneys, manage your documents securely, and guide you through the recovery process. We handle the paperwork while you focus on your recovery."
+      },
+      "attorneyMatching": {
+        "question": "How does the attorney matching process work?",
+        "answer": "Our intelligent matching system analyzes your case details, location, and specific needs to connect you with attorneys who specialize in accident cases in your area. We consider factors like attorney experience, case success rates, and availability to ensure the best possible match for your situation."
+      },
+      "documents": {
+        "question": "What documents do I need to provide?",
+        "answer": "You'll need to provide police reports, medical records, insurance information, photos of the accident scene, vehicle damage photos, medical bills, and any other evidence related to your case. Our platform makes it easy to upload and organize these documents securely."
+      },
+      "security": {
+        "question": "How secure is my personal information?",
+        "answer": "We use bank-level security with end-to-end encryption for all data. Our platform is HIPAA-compliant and follows strict security protocols to protect your personal information, medical records, and case documents. Your privacy and security are our top priorities."
+      },
+      "mobile": {
+        "question": "Can I access my case information on my phone?",
+        "answer": "Yes! Our platform is fully mobile-optimized. You can upload documents, check case status, communicate with your attorney, and receive real-time updates on any device. The platform works seamlessly on smartphones, tablets, and computers."
+      },
+      "help": {
+        "question": "What if I need help during the process?",
+        "answer": "Our dedicated support team is available to help you throughout the entire process. You can contact us via phone, email, or through the platform. We provide guidance on document requirements, answer questions about the process, and ensure you have everything you need for a successful claim."
+      },
+      "timeline": {
+        "question": "How long does the entire process take?",
+        "answer": "The timeline varies depending on the complexity of your case and the state where the accident occurred. Generally, the initial form filing and attorney matching happens within 24-48 hours. The overall recovery process typically takes 3-6 months, but we work to expedite your case as much as possible."
+      },
+      "guarantee": {
+        "question": "Do you guarantee compensation?",
+        "answer": "While we cannot guarantee specific compensation amounts, our network of experienced attorneys works diligently to maximize your recovery. Success depends on various factors including the severity of injuries, available insurance coverage, and the specific circumstances of your accident."
+      }
+    }
+  },
+  "attorneyMatching": {
+    "hero": {
+      "title": "Find Your",
+      "subtitle": "Perfect Attorney Match",
+      "description": "Connect with experienced attorneys who specialize in your specific legal needs. Our intelligent matching system ensures you find the right representation for your case.",
+      "findAttorney": "Find Your Attorney",
+      "learnMore": "Learn More",
+      "imageAlt": "ClaimSaver+ Background"
+    },
+    "features": {
+      "title": "Why Choose Our",
+      "subtitle": "Attorney Network?",
+      "description": "Access to qualified attorneys in Florida and New York with proven track records",
+      "network": {
+        "title": "Regional Network",
+        "description": "Access to qualified attorneys in Florida and New York"
+      },
+      "trackRecord": {
+        "title": "Proven Track Record",
+        "description": "All attorneys in our network have verified credentials and successful case histories."
+      },
+      "secure": {
+        "title": "Secure & Confidential",
+        "description": "Your information is protected with bank-level security and attorney-client privilege."
+      },
+      "instant": {
+        "title": "Instant Matching",
+        "description": "Get matched with qualified attorneys within minutes, not days or weeks."
+      },
+      "successRates": {
+        "title": "Success Rates",
+        "description": "Our network attorneys have consistently high success rates and client satisfaction scores."
+      },
+      "personalized": {
+        "title": "Personalized Care",
+        "description": "Each attorney provides personalized attention and dedicated support throughout your case."
+      }
+    },
+    "practiceAreas": {
+      "title": "Practice",
+      "subtitle": "Areas",
+      "description": "Find attorneys specialized in your specific legal needs",
+      "imageAlt": "ClaimSaver+ Background",
+      "slipFalls": {
+        "title": "Slip and Falls",
+        "description": "Premises liability and slip/trip accidents",
+        "detailedDescription": "Slip and fall cases involve injuries that occur due to hazardous conditions on someone else's property. This includes wet floors, uneven surfaces, poor lighting, or other dangerous conditions. These cases fall under premises liability law and can result in compensation for medical expenses, lost wages, and pain and suffering. Common locations include retail stores, restaurants, office buildings, and public spaces."
+      },
+      "automobile": {
+        "title": "Automobile Accidents",
+        "description": "Car, truck, motorcycle, and pedestrian accidents",
+        "detailedDescription": "Automobile accident law covers all types of motor vehicle collisions including cars, trucks, motorcycles, and pedestrian accidents. This practice area handles cases involving personal injury, property damage, and wrongful death claims. Attorneys help victims recover compensation for medical bills, vehicle repairs, lost wages, and pain and suffering. They also deal with insurance companies and ensure fair settlements."
+      },
+      "immigration": {
+        "title": "Immigration",
+        "description": "Visa applications, citizenship, and deportation defense",
+        "detailedDescription": "Immigration law encompasses a wide range of legal matters related to entering, living, and working in the United States. This includes visa applications, green card processes, citizenship applications, deportation defense, and family-based immigration. Immigration attorneys help individuals navigate complex federal regulations and represent clients in immigration court proceedings."
+      },
+      "willsTrusts": {
+        "title": "Wills & Trusts",
+        "description": "Estate planning and probate matters",
+        "detailedDescription": "Estate planning and probate law involves creating wills, trusts, and other legal documents to protect assets and ensure proper distribution after death. This practice area includes drafting estate planning documents, probate administration, trust administration, and guardianship matters. Attorneys help families minimize taxes, avoid probate when possible, and ensure their wishes are carried out."
+      },
+      "personalInjury": {
+        "title": "Personal Injury",
+        "description": "General personal injury and medical malpractice",
+        "detailedDescription": "Personal injury law covers cases where individuals are harmed due to someone else's negligence or intentional actions. This includes medical malpractice, product liability, dog bites, and various accident types. Attorneys help victims recover compensation for medical expenses, lost income, pain and suffering, and other damages. They handle complex negotiations with insurance companies and represent clients in court when necessary."
+      },
+      "workersComp": {
+        "title": "Workers' Compensation",
+        "description": "Workplace injuries and compensation claims",
+        "detailedDescription": "Workers' compensation law provides benefits to employees who are injured or become ill due to their job. This includes medical treatment, disability benefits, vocational rehabilitation, and death benefits for dependents. Attorneys help injured workers navigate the complex workers' compensation system, appeal denied claims, and ensure they receive all benefits they're entitled to under the law."
+      },
+      "business": {
+        "title": "Business Law",
+        "description": "Corporate law, contracts, and business disputes",
+        "detailedDescription": "Business law encompasses all legal matters related to commercial enterprises. This includes business formation, contract drafting and negotiation, employment law, intellectual property protection, mergers and acquisitions, and business litigation. Attorneys help businesses comply with regulations, protect their interests, and resolve disputes through negotiation or litigation."
+      },
+      "criminal": {
+        "title": "Criminal Defense",
+        "description": "Criminal charges and defense representation",
+        "detailedDescription": "Criminal defense law involves representing individuals accused of committing crimes. This includes misdemeanors, felonies, DUI cases, drug offenses, and white-collar crimes. Criminal defense attorneys protect constitutional rights, investigate cases, negotiate plea deals, and represent clients in court. They ensure fair treatment throughout the criminal justice process and work to achieve the best possible outcome."
+      }
+    },
+    "connectionSuccess": "Connection request sent! The attorney will contact you within 24 hours."
+  },
+  "success": {
+    "loading": {
+      "processing": "Processing your payment...",
+      "loading": "Loading..."
+    },
+    "hero": {
+      "title": "Payment Successful!",
+      "description": "Thank you for choosing ClaimSaver+. Your payment has been processed successfully and we're ready to help you with your claim."
+    },
+    "whatsNext": {
+      "title": "What's Next?",
+      "email": {
+        "title": "Check Your Email",
+        "description": "We've sent you a confirmation email with next steps and important information."
+      },
+      "call": {
+        "title": "Expect a Call",
+        "description": "Our team will contact you within 24 hours to discuss your case details."
+      }
+    },
+    "assistance": {
+      "title": "Need Immediate Assistance?",
+      "description": "If you have urgent questions or need to provide additional information, don't hesitate to reach out.",
+      "email": "Email Us",
+      "dashboard": "Go to Dashboard"
+    },
+    "journey": {
+      "title": "Your Journey to Recovery Starts Now",
+      "description": "We're here to guide you through every step of the claims process and help you get the compensation you deserve."
+    },
+    "steps": {
+      "caseReview": {
+        "title": "Case Review",
+        "description": "Our experts will review your case details and create a personalized strategy."
+      },
+      "documentation": {
+        "title": "Documentation",
+        "description": "We'll help you gather and organize all necessary documentation for your claim."
+      },
+      "recovery": {
+        "title": "Recovery",
+        "description": "We'll negotiate on your behalf to maximize your compensation and recovery."
+      }
+    },
+    "returnHome": "Return to Home"
+  },
+  "notFound": {
+    "title": "404 - Page Not Found | ClaimSaver+",
+    "description": "Page not found",
+    "subtitle": "Page Not Found",
+    "message": "Sorry, the page you're looking for doesn't exist. It might have been moved or deleted.",
+    "goHome": "Go Home",
+    "learnAboutUs": "Learn About Us"
+  }
+}

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Footer from "@/components/footer";
@@ -27,6 +28,7 @@ import {
 } from "lucide-react";
 
 export default function Notarization() {
+  const { t } = useTranslation();
   const [isLearnMoreModalOpen, setIsLearnMoreModalOpen] = useState(false);
 
   const handleLearnMoreClick = () => {
@@ -40,39 +42,38 @@ export default function Notarization() {
   const features = [
     {
       icon: <Shield className="w-6 h-6" />,
-      title: "Secure & Legal",
-      description:
-        "Fully compliant with state notarization laws and regulations",
+      title: t("notarization.features.secure.title"),
+      description: t("notarization.features.secure.description"),
       color: "blue",
     },
     {
       icon: <Clock className="w-6 h-6" />,
-      title: "24/7 Availability",
-      description: "Get your documents notarized anytime, anywhere",
+      title: t("notarization.features.availability.title"),
+      description: t("notarization.features.availability.description"),
       color: "green",
     },
     {
       icon: <Globe className="w-6 h-6" />,
-      title: "Remote Notarization",
-      description: "Connect with licensed notaries via video conference",
+      title: t("notarization.features.remote.title"),
+      description: t("notarization.features.remote.description"),
       color: "purple",
     },
     {
       icon: <Zap className="w-6 h-6" />,
-      title: "Instant Processing",
-      description: "Receive your notarized document within minutes",
+      title: t("notarization.features.instant.title"),
+      description: t("notarization.features.instant.description"),
       color: "orange",
     },
     {
       icon: <Lock className="w-6 h-6" />,
-      title: "Bank-Level Security",
-      description: "End-to-end encryption and secure document handling",
+      title: t("notarization.features.security.title"),
+      description: t("notarization.features.security.description"),
       color: "red",
     },
     {
       icon: <Award className="w-6 h-6" />,
-      title: "Certified Notaries",
-      description: "All notaries are licensed and background-checked",
+      title: t("notarization.features.certified.title"),
+      description: t("notarization.features.certified.description"),
       color: "yellow",
     },
   ];
@@ -80,67 +81,61 @@ export default function Notarization() {
   const benefits = [
     {
       icon: <Calendar className="w-5 h-5" />,
-      title: "No Appointments Needed",
-      description: "Skip the hassle of scheduling and travel time",
+      title: t("notarization.benefits.noAppointments.title"),
+      description: t("notarization.benefits.noAppointments.description"),
     },
     {
       icon: <DollarSign className="w-5 h-5" />,
-      title: "Affordable Pricing",
-      description: "Competitive rates starting at $25 per document",
+      title: t("notarization.benefits.affordable.title"),
+      description: t("notarization.benefits.affordable.description"),
     },
     {
       icon: <Users className="w-5 h-5" />,
-      title: "Expert Notaries",
-      description: "Experienced professionals for all document types",
+      title: t("notarization.benefits.experts.title"),
+      description: t("notarization.benefits.experts.description"),
     },
     {
       icon: <Star className="w-5 h-5" />,
-      title: "5-Star Service",
-      description: "Rated excellent by thousands of satisfied customers",
+      title: t("notarization.benefits.rated.title"),
+      description: t("notarization.benefits.rated.description"),
     },
   ];
 
   const documentTypes = [
-    "Real Estate Documents",
-    "Legal Contracts",
-    "Power of Attorney",
-    "Wills & Trusts",
-    "Business Agreements",
-    "Loan Documents",
-    "Affidavits",
-    "Deeds & Titles",
+    t("notarization.documents.realEstate"),
+    t("notarization.documents.legalContracts"),
+    t("notarization.documents.powerOfAttorney"),
+    t("notarization.documents.willsTrusts"),
+    t("notarization.documents.businessAgreements"),
+    t("notarization.documents.loanDocuments"),
+    t("notarization.documents.affidavits"),
+    t("notarization.documents.deedsTitles"),
   ];
 
   const faqItems = [
     {
-      question: "What is digital notarization?",
-      answer:
-        "Digital notarization is a secure, online process where documents are notarized remotely using advanced technology and video conferencing, making it convenient and legally binding.",
+      question: t("notarization.faq.whatIs.question"),
+      answer: t("notarization.faq.whatIs.answer"),
     },
     {
-      question: "Is digital notarization legally valid?",
-      answer:
-        "Yes, digital notarization is legally valid in all 50 states and is recognized by courts, government agencies, and businesses nationwide.",
+      question: t("notarization.faq.legal.question"),
+      answer: t("notarization.faq.legal.answer"),
     },
     {
-      question: "What documents can be notarized online?",
-      answer:
-        "Most documents can be notarized online, including real estate documents, legal contracts, power of attorney forms, wills, business agreements, and more.",
+      question: t("notarization.faq.documents.question"),
+      answer: t("notarization.faq.documents.answer"),
     },
     {
-      question: "How long does the process take?",
-      answer:
-        "The entire digital notarization process typically takes 5-10 minutes from start to finish, including document upload and notary verification.",
+      question: t("notarization.faq.duration.question"),
+      answer: t("notarization.faq.duration.answer"),
     },
     {
-      question: "What do I need to get started?",
-      answer:
-        "You'll need a valid government-issued ID, a computer or mobile device with camera and microphone, and the document you want to notarize in PDF format.",
+      question: t("notarization.faq.requirements.question"),
+      answer: t("notarization.faq.requirements.answer"),
     },
     {
-      question: "How secure is the process?",
-      answer:
-        "Our platform uses bank-level encryption and security measures. All documents are encrypted in transit and at rest, and we maintain complete audit trails for all transactions.",
+      question: t("notarization.faq.security.question"),
+      answer: t("notarization.faq.security.answer"),
     },
   ];
 
@@ -152,7 +147,7 @@ export default function Notarization() {
         <div className="fixed inset-0 z-0">
           <Image
             src="/images/long-logo-ClaimSaver.jpg"
-            alt="ClaimSaver+ Background"
+            alt={t("notarization.hero.imageAlt")}
             className="w-full h-full object-cover opacity-25"
             fill
           />
@@ -162,15 +157,13 @@ export default function Notarization() {
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-16">
           <div className="text-center max-w-4xl mx-auto">
             <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
-              Online{" "}
+              {t("notarization.hero.title")}{" "}
               <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                Notarization
+                {t("notarization.hero.subtitle")}
               </span>
             </h1>
             <p className="text-xl sm:text-2xl text-gray-600 dark:text-gray-300 mb-8 leading-relaxed max-w-3xl mx-auto">
-              Get your documents notarized securely and legally from anywhere.
-              Powered by DocuSign for the most trusted digital notarization
-              experience.
+              {t("notarization.hero.description")}
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
@@ -183,7 +176,7 @@ export default function Notarization() {
                 }
                 className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-4 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
               >
-                Start Notarization
+                {t("notarization.hero.startNotarization")}
                 <ArrowRight className="ml-2 w-5 h-5" />
               </Button>
               <Button
@@ -192,7 +185,7 @@ export default function Notarization() {
                 onClick={handleLearnMoreClick}
                 className="border-2 border-gray-300 hover:border-gray-400 text-gray-700 dark:text-gray-300 px-8 py-4 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
               >
-                Learn More
+                {t("notarization.hero.learnMore")}
                 <ArrowRight className="ml-2 w-5 h-5" />
               </Button>
             </div>
@@ -219,14 +212,13 @@ export default function Notarization() {
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-8">
             <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-              Why Choose Our{" "}
+              {t("notarization.features.title")}{" "}
               <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                Notarization Service?
+                {t("notarization.features.subtitle")}
               </span>
             </h2>
             <p className="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-              Professional, secure, and convenient notarization powered by
-              DocuSign
+              {t("notarization.features.description")}
             </p>
           </div>
 

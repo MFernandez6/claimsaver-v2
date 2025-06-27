@@ -1,0 +1,699 @@
+{
+  "common": {
+    "loading": "Cargando...",
+    "error": "Error",
+    "success": "Éxito",
+    "cancel": "Cancelar",
+    "close": "Cerrar",
+    "save": "Guardar",
+    "edit": "Editar",
+    "delete": "Eliminar",
+    "submit": "Enviar",
+    "back": "Atrás",
+    "next": "Siguiente",
+    "previous": "Anterior",
+    "continue": "Continuar",
+    "learnMore": "Más Información",
+    "getStarted": "Comenzar",
+    "contactUs": "Contáctanos",
+    "privacyPolicy": "Política de Privacidad",
+    "termsOfService": "Términos de Servicio"
+  },
+  "navigation": {
+    "home": "Inicio",
+    "whoWeAre": "Quiénes Somos",
+    "whatWeDo": "Qué Hacemos",
+    "attorneyMatching": "Búsqueda de Abogados",
+    "pricing": "Precios",
+    "notarization": "Notarización",
+    "dashboard": "Panel",
+    "submitClaim": "Presentar Reclamo",
+    "signIn": "Iniciar Sesión",
+    "signUp": "Registrarse",
+    "signOut": "Cerrar Sesión"
+  },
+  "home": {
+    "hero": {
+      "title": "Recuperación de Accidentes",
+      "subtitle": "Maximiza Tu Compensación, Minimiza Tu Estrés",
+      "description": "Obtén la compensación que mereces con nuestros servicios expertos de recuperación de accidentes. Sin tarifas ocultas, sin sorpresas.",
+      "cta": "Iniciar Tu Recuperación",
+      "learnMore": "Más Información",
+      "watchDemo": "Ver Demo",
+      "imageAlt": "Fondo ClaimSaver+"
+    },
+    "video": {
+      "notSupported": "Tu navegador no soporta el elemento de video."
+    },
+    "features": {
+      "title": "Todo Lo Que Necesitas",
+      "subtitle": "Herramientas y apoyo integrales para optimizar tu proceso de recuperación de accidentes",
+      "feature1": {
+        "title": "Presentación de Formularios Sin Culpa",
+        "description": "Presentación de formularios optimizada con validación en tiempo real y confirmación instantánea."
+      },
+      "feature2": {
+        "title": "Red Regional",
+        "description": "Acceso a abogados calificados en Florida y Nueva York"
+      },
+      "feature3": {
+        "title": "Gestión Segura de Documentos",
+        "description": "Seguridad de nivel bancario para todos tus documentos de caso con acceso sin problemas."
+      },
+      "feature4": {
+        "title": "Actualizaciones en Tiempo Real",
+        "description": "Mantente informado con notificaciones instantáneas y seguimiento del progreso del caso."
+      },
+      "feature5": {
+        "title": "Asistencia de Recuperación",
+        "description": "Nuestra red trabaja para negociar una compensación justa por tus daños."
+      }
+    },
+    "benefits": {
+      "benefit1": {
+        "title": "Procesamiento Instantáneo",
+        "description": "Validación de formularios en tiempo real y confirmación inmediata de presentación"
+      },
+      "benefit2": {
+        "title": "Red Regional",
+        "description": "Acceso a abogados calificados en Florida y Nueva York"
+      },
+      "benefit3": {
+        "title": "Resultados Comprobados",
+        "description": "Miles de reclamos exitosos procesados con altas tasas de satisfacción"
+      },
+      "benefit4": {
+        "title": "Soporte Premium",
+        "description": "Equipo dedicado disponible para guiarte en cada paso"
+      }
+    },
+    "whyChoose": {
+      "title": "¿Por Qué Elegir",
+      "brand": "ClaimSaver+",
+      "description": "Combinamos tecnología de vanguardia con experiencia humana para ofrecer la experiencia de recuperación de accidentes más eficiente y efectiva.",
+      "getStarted": "Comienza Hoy",
+      "flatFee": "Tarifa plana $500",
+      "freeConsultation": "Consulta gratuita",
+      "imageAlt": "Fondo ClaimSaver+"
+    },
+    "stats": {
+      "title": "Métricas de Éxito",
+      "recoveryTime": "Tiempo Promedio de Recuperación",
+      "recoveryTimeValue": "6-12 meses",
+      "successRate": "Tasa de Éxito",
+      "successRateValue": "95%",
+      "attorneyNetwork": "Red de Abogados",
+      "attorneyNetworkValue": "FL & NY",
+      "satisfaction": "Satisfacción del Cliente",
+      "satisfactionValue": "4.9/5",
+      "flatFeeLabel": "Tarifa Plana",
+      "flatFeeValue": "$500"
+    },
+    "faq": {
+      "title": "Preguntas Frecuentes",
+      "subtitle": "Obtén respuestas a las preguntas más comunes sobre ClaimSaver+",
+      "legal": {
+        "question": "¿Es esto legal?",
+        "answer": "ClaimSaver+ fue creado por profesionales legales experimentados que querían optimizar el proceso de presentación y recuperación de reclamos de accidentes. Nuestra plataforma te conecta con abogados autorizados que se especializan en casos de accidentes y están autorizados para ejercer la abogacía en tu estado. Proporcionamos asistencia para la presentación de formularios, gestión de documentos y servicios de búsqueda de abogados que cumplen con todas las leyes y regulaciones aplicables. Los abogados en nuestra red son profesionales legales independientes que te proporcionarán representación legal adecuada. Como con cualquier asunto legal, es importante trabajar con abogados calificados que puedan proporcionarte el asesoramiento y representación legal que necesitas."
+      },
+      "matching": {
+        "question": "¿Cuánto tiempo toma ser emparejado con un abogado?",
+        "answer": "Proporcionamos emparejamiento instantáneo con abogados en nuestra red. Una vez que envíes la información de tu reclamo, te conectaremos con abogados calificados en tu área que se especializan en casos de accidentes. Puedes esperar escuchar de un abogado dentro de 24-48 horas."
+      },
+      "accidents": {
+        "question": "¿Qué tipos de accidentes maneja ClaimSaver+?",
+        "answer": "ClaimSaver+ maneja todos los tipos de accidentes de vehículos motorizados, incluyendo accidentes de carro, motocicleta, camión, peatones y bicicletas. Nos enfocamos en reclamos de accidentes sin culpa y te ayudamos a recuperar compensación por gastos médicos, daños a la propiedad y salarios perdidos."
+      },
+      "documents": {
+        "question": "¿Necesito proporcionar documentos para mi reclamo?",
+        "answer": "Sí, necesitarás proporcionar documentos relevantes como reportes policiales, registros médicos, información de seguro, fotos de la escena del accidente y cualquier otra evidencia relacionada con tu caso. Nuestra plataforma segura facilita la carga y organización de estos documentos."
+      },
+      "states": {
+        "question": "¿Está ClaimSaver+ disponible en todos los estados?",
+        "answer": "ClaimSaver+ actualmente atiende Florida y Nueva York, con estados adicionales que se agregarán en el futuro. Tenemos abogados autorizados en estos estados y podemos ayudarte con reclamos en estas áreas de servicio."
+      },
+      "satisfaction": {
+        "question": "¿Qué pasa si no estoy satisfecho con el abogado con el que fui emparejado?",
+        "answer": "Si no estás satisfecho con tu emparejamiento inicial de abogado, podemos ayudarte a conectarte con otro abogado en nuestra red. Queremos asegurar que tengas la mejor representación posible para tu caso."
+      }
+    }
+  },
+  "pricing": {
+    "title": "Transparente, Justo y Rentable",
+    "subtitle": "Más Dinero en Tu Bolsillo, Menos Estrés en Tu Vida",
+    "startClaim": "Iniciar Reclamo",
+    "learnMore": "Más Información",
+    "selectServices": "Selecciona Tus Servicios y Pago",
+    "selectServicesDesc": "Elige los servicios que necesitas y completa tu pago de forma segura con Stripe",
+    "services": {
+      "noFaultAssistance": {
+        "name": "Asistencia Sin Culpa",
+        "description": "Asistencia completa para presentación y recuperación de reclamos de accidentes",
+        "price": "500.00"
+      },
+      "notarization": {
+        "name": "Servicios de Notarización",
+        "description": "Notarización de documentos en línea a través de DocuSign",
+        "price": "25.00"
+      }
+    },
+    "traditionalCosts": {
+      "title": "Costos Tradicionales",
+      "averagePolicy": "Póliza de auto promedio: $10,000.00",
+      "attorneyFee": "Tarifa de contingencia del abogado: 33%",
+      "netToVictim": "Neto para la víctima: Menos de $7,000.00",
+      "additionalCosts": "Costos de procesamiento adicionales",
+      "hiddenFees": "Tarifas y cargos ocultos"
+    },
+    "claimSaverAdvantages": {
+      "title": "Ventaja de ClaimSaver+",
+      "keep95Percent": "Mantén el 95% de tu compensación",
+      "noContingency": "Sin tarifas de contingencia",
+      "transparentPricing": "Tarifa plana transparente",
+      "professionalService": "Servicio profesional",
+      "maximumRecovery": "Recuperación máxima para ti"
+    },
+    "features": {
+      "transparentPricing": {
+        "title": "Precios Transparentes",
+        "description": "Sin tarifas ocultas, sin sorpresas. Sabes exactamente lo que pagarás por adelantado."
+      },
+      "maximumRecovery": {
+        "title": "Recuperación Máxima",
+        "description": "Mantén más de tu compensación con nuestra estructura de tarifa plana."
+      },
+      "professionalService": {
+        "title": "Servicio Profesional",
+        "description": "Apoyo legal experto sin las tarifas tradicionales de abogados."
+      },
+      "fasterProcessing": {
+        "title": "Procesamiento Más Rápido",
+        "description": "Proceso optimizado que te da resultados más rápido que los métodos tradicionales."
+      }
+    },
+    "testimonials": {
+      "title": "Lo Que Dicen Nuestros Clientes",
+      "subtitle": "Historias reales de personas reales que ahorraron miles con ClaimSaver+"
+    },
+    "cta": {
+      "title": "¿Listo para Ahorrar Miles?",
+      "subtitle": "Únete a miles de víctimas de accidentes que han usado ClaimSaver+ para maximizar su recuperación. Comienza hoy con nuestros precios transparentes de tarifa plana.",
+      "button": "Iniciar Reclamo"
+    }
+  },
+  "notarization": {
+    "hero": {
+      "title": "Notarización",
+      "subtitle": "En Línea",
+      "description": "Obtén tus documentos notarizados de forma segura y legal desde cualquier lugar. Impulsado por DocuSign para la experiencia de notarización digital más confiable.",
+      "startNotarization": "Comenzar Notarización",
+      "learnMore": "Más Información",
+      "imageAlt": "Fondo ClaimSaver+"
+    },
+    "features": {
+      "title": "¿Por Qué Elegir Nuestro",
+      "subtitle": "Servicio de Notarización?",
+      "description": "Notarización profesional, segura y conveniente impulsada por DocuSign",
+      "secure": {
+        "title": "Seguro y Legal",
+        "description": "Totalmente conforme con las leyes y regulaciones de notarización estatales"
+      },
+      "availability": {
+        "title": "Disponibilidad 24/7",
+        "description": "Obtén tus documentos notarizados en cualquier momento, desde cualquier lugar"
+      },
+      "remote": {
+        "title": "Notarización Remota",
+        "description": "Conéctate con notarios autorizados a través de videoconferencia"
+      },
+      "instant": {
+        "title": "Procesamiento Instantáneo",
+        "description": "Recibe tu documento notarizado en minutos"
+      },
+      "security": {
+        "title": "Seguridad de Nivel Bancario",
+        "description": "Encriptación de extremo a extremo y manejo seguro de documentos"
+      },
+      "certified": {
+        "title": "Notarios Certificados",
+        "description": "Todos los notarios están autorizados y verificados"
+      }
+    },
+    "benefits": {
+      "noAppointments": {
+        "title": "Sin Citas Necesarias",
+        "description": "Evita las molestias de programación y tiempo de viaje"
+      },
+      "affordable": {
+        "title": "Precios Asequibles",
+        "description": "Tarifas competitivas desde $25 por documento"
+      },
+      "experts": {
+        "title": "Notarios Expertos",
+        "description": "Profesionales experimentados para todos los tipos de documentos"
+      },
+      "rated": {
+        "title": "Servicio 5 Estrellas",
+        "description": "Calificado como excelente por miles de clientes satisfechos"
+      }
+    },
+    "documents": {
+      "realEstate": "Documentos Inmobiliarios",
+      "legalContracts": "Contratos Legales",
+      "powerOfAttorney": "Poder Notarial",
+      "willsTrusts": "Testamentos y Fideicomisos",
+      "businessAgreements": "Acuerdos Comerciales",
+      "loanDocuments": "Documentos de Préstamo",
+      "affidavits": "Declaraciones Juradas",
+      "deedsTitles": "Escrituras y Títulos"
+    },
+    "faq": {
+      "whatIs": {
+        "question": "¿Qué es la notarización digital?",
+        "answer": "La notarización digital es un proceso seguro en línea donde los documentos son notarizados remotamente usando tecnología avanzada y videoconferencia, haciéndola conveniente y legalmente vinculante."
+      },
+      "legal": {
+        "question": "¿Es legalmente válida la notarización digital?",
+        "answer": "Sí, la notarización digital es legalmente válida en los 50 estados y es reconocida por tribunales, agencias gubernamentales y empresas en todo el país."
+      },
+      "documents": {
+        "question": "¿Qué documentos se pueden notarizar en línea?",
+        "answer": "La mayoría de documentos pueden ser notarizados en línea, incluyendo documentos inmobiliarios, contratos legales, formularios de poder notarial, testamentos, acuerdos comerciales y más."
+      },
+      "duration": {
+        "question": "¿Cuánto tiempo toma el proceso?",
+        "answer": "Todo el proceso de notarización digital típicamente toma 5-10 minutos de principio a fin, incluyendo la carga de documentos y verificación del notario."
+      },
+      "requirements": {
+        "question": "¿Qué necesito para comenzar?",
+        "answer": "Necesitarás una identificación gubernamental válida, una computadora o dispositivo móvil con cámara y micrófono, y el documento que quieres notarizar en formato PDF."
+      },
+      "security": {
+        "question": "¿Qué tan seguro es el proceso?",
+        "answer": "Nuestra plataforma usa encriptación y medidas de seguridad de nivel bancario. Todos los documentos están encriptados en tránsito y en reposo, y mantenemos pistas de auditoría completas para todas las transacciones."
+      }
+    }
+  },
+  "dashboard": {
+    "title": "Panel",
+    "welcome": "Bienvenido de vuelta",
+    "overview": "Resumen",
+    "recentActivity": "Actividad Reciente",
+    "quickActions": "Acciones Rápidas",
+    "claims": "Reclamos",
+    "documents": "Documentos",
+    "payments": "Pagos",
+    "settings": "Configuración",
+    "hero": {
+      "title": "Tu",
+      "subtitle": "Panel de Recuperación",
+      "description": "Rastrea tus reclamos, monitorea el progreso y mantente actualizado en tu viaje de recuperación",
+      "newClaim": "Nuevo Reclamo",
+      "refresh": "Actualizar",
+      "imageAlt": "Fondo ClaimSaver+"
+    },
+    "overview": {
+      "title": "Tu",
+      "subtitle": "Resumen de Recuperación",
+      "description": "Rastrea tu progreso y mantente informado sobre tus reclamos"
+    },
+    "stats": {
+      "totalClaims": "Total de Reclamos",
+      "pendingClaims": "Reclamos Pendientes",
+      "approvedClaims": "Reclamos Aprobados",
+      "totalValue": "Valor Total"
+    },
+    "claims": {
+      "title": "Tus Reclamos",
+      "filedOn": "Presentado el",
+      "accident": "Accidente",
+      "estimatedValue": "Valor Estimado",
+      "noClaims": {
+        "title": "Aún No Hay Reclamos",
+        "description": "Comienza tu viaje de recuperación presentando tu primer reclamo",
+        "button": "Presenta Tu Primer Reclamo"
+      }
+    },
+    "errors": {
+      "loadFailed": "Error al cargar reclamos"
+    }
+  },
+  "footer": {
+    "description": "Simplificando la presentación de formularios de accidentes y recuperación. Actualmente atendemos Florida y Nueva York con estados adicionales que se agregarán en el futuro.",
+    "quickLinks": "Enlaces Rápidos",
+    "contactUs": "Contáctanos",
+    "support": "Soporte",
+    "phone": "Teléfono",
+    "email": "Correo Electrónico",
+    "location": "Ubicación",
+    "headquarters": "Sede en Miami, FL",
+    "copyright": "Todos los derechos reservados.",
+    "privacyPolicy": "Política de Privacidad",
+    "termsOfService": "Términos de Servicio",
+    "cookiePolicy": "Política de Cookies",
+    "legalDisclaimer": "Descargo de Responsabilidad Legal",
+    "legalText": "ClaimSaver+ no ofrece asesoramiento legal ni representación y no es un bufete de abogados ni un sustituto del asesoramiento o servicios de un abogado o bufete de abogados. La información proporcionada en este sitio no es asesoramiento legal. Si está buscando asesoramiento o representación con respecto a su situación específica, debe contactar a un abogado en su estado. Los abogados anunciados en este sitio son abogados independientes. Los abogados en su área que son responsables de cada anuncio están listados directamente en el anuncio. ClaimSaver+ no es un \"servicio de referencias de abogados.\""
+  },
+  "whoWeAre": {
+    "hero": {
+      "title": "Tu Socio de Confianza en",
+      "subtitle": "Recuperación de Accidentes",
+      "description": "Entendemos que lidiar con las consecuencias de un accidente puede ser abrumador. Por eso hemos creado una plataforma revolucionaria que te conecta con abogados experimentados en Florida y Nueva York."
+    },
+    "about": {
+      "title": "Acerca de ClaimSaver+",
+      "paragraph1": "ClaimSaver+ es una plataforma revolucionaria diseñada para simplificar el proceso de presentación de formularios de accidentes sin culpa y recuperar compensación para las víctimas de accidentes. Entendemos que lidiar con las consecuencias de un accidente puede ser abrumador, por eso hemos creado una solución fácil de usar que te conecta con abogados experimentados en Florida y Nueva York.",
+      "paragraph2": "Nuestra plataforma combina tecnología de vanguardia con conocimiento legal experto para asegurar que recibas el apoyo y la compensación que mereces. Creemos que todos deberían tener acceso a representación legal de calidad, independientemente de sus circunstancias.",
+      "paragraph3": "En ClaimSaver+, estamos comprometidos a hacer el proceso legal lo más fluido y libre de estrés posible. Nuestro equipo de profesionales trabaja incansablemente para asegurar que tu caso reciba la atención que merece, y estamos aquí para guiarte en cada paso del camino.",
+      "imageAlt": "Familia ClaimSaver+",
+      "familyFirst": "Familia Primero"
+    },
+    "familyStory": {
+      "title": "Nuestra Historia Familiar",
+      "subtitle": "ClaimSaver+ nació de una experiencia personal que cambió nuestra familia para siempre.",
+      "personalJourney": {
+        "title": "Un Viaje Personal",
+        "description": "Después de que nuestra familia enfrentara los desafíos de navegar el complejo mundo de reclamos de accidentes y honorarios legales, nos dimos cuenta de que tenía que haber una mejor manera."
+      },
+      "mission": {
+        "title": "Nuestra Misión",
+        "description": "Hacer que el apoyo legal de calidad sea accesible y asequible para cada familia. Creemos que cuando la vida te lanza desafíos inesperados, no deberías tener que preocuparte por el costo de obtener la ayuda que mereces."
+      },
+      "whyWeCare": {
+        "title": "Por Qué Nos Importa",
+        "quote": "\"Creamos esta plataforma para ayudar a familias como la nuestra a evitar la carga financiera de los servicios legales tradicionales durante tiempos ya difíciles.\""
+      }
+    },
+    "values": {
+      "mission": {
+        "title": "Nuestra Misión",
+        "description": "Simplificar el proceso de reclamos de accidentes y ayudar a las víctimas a recuperar la compensación que merecen a través de tecnología innovadora y apoyo legal experto."
+      },
+      "vision": {
+        "title": "Nuestra Visión",
+        "description": "Convertirnos en la plataforma líder para víctimas de accidentes, proporcionando acceso sin problemas a recursos legales y asegurando una compensación justa para todos."
+      },
+      "values": {
+        "title": "Nuestros Valores",
+        "description": "Estamos comprometidos con la transparencia, la integridad y poner a nuestros clientes primero. Creemos en hacer que el apoyo legal sea accesible para todos."
+      },
+      "support": {
+        "title": "Nuestro Apoyo",
+        "description": "Nuestro equipo dedicado está disponible para asistirte durante todo tu viaje de recuperación, proporcionando apoyo y orientación personalizados."
+      }
+    },
+    "coreValues": {
+      "title": "Nuestros Valores Fundamentales",
+      "subtitle": "Los principios que guían todo lo que hacemos en ClaimSaver+"
+    },
+    "cta": {
+      "title": "¿Listo para Comenzar?",
+      "description": "Únete a miles de familias que han confiado en ClaimSaver+ para ayudarlas a recuperar la compensación que merecen.",
+      "startClaim": "Iniciar Tu Reclamo",
+      "learnMore": "Más Información"
+    }
+  },
+  "whatWeDo": {
+    "hero": {
+      "title": "Apoyo Integral de",
+      "subtitle": "Recuperación de Accidentes",
+      "description": "Proporcionamos apoyo administrativo y soluciones tecnológicas para ayudar a las víctimas de accidentes a navegar el proceso de reclamos. Nuestra plataforma te conecta con abogados calificados y optimiza la gestión de documentos para tu viaje de recuperación.",
+      "startRecovery": "Iniciar Tu Recuperación",
+      "fileClaim": "Presentar Reclamo",
+      "imageAlt": "Fondo ClaimSaver+"
+    },
+    "services": {
+      "title": "Nuestros",
+      "subtitle": "Servicios",
+      "description": "Herramientas y apoyo integrales para optimizar tu proceso de recuperación de accidentes",
+      "noFault": {
+        "title": "Presentación de Formularios de Accidentes Sin Culpa",
+        "description": "Presentación de formularios optimizada con validación en tiempo real y confirmación instantánea.",
+        "features": {
+          "interface": "Interfaz de presentación de formularios fácil de usar",
+          "upload": "Sistema seguro de carga de documentos",
+          "validation": "Validación de formularios en tiempo real",
+          "errorChecking": "Verificación automática de errores",
+          "confirmation": "Confirmación instantánea de presentación"
+        }
+      },
+      "attorney": {
+        "title": "Servicio de Conexión con Abogados",
+        "description": "Conéctate con abogados calificados en Florida y Nueva York a través de nuestro sistema de referencias.",
+        "features": {
+          "network": "Red regional de abogados calificados en Florida y Nueva York",
+          "specialized": "Especializados en casos de accidentes",
+          "profiles": "Perfiles y calificaciones de abogados",
+          "consultation": "Consulta inicial gratuita",
+          "contact": "Contacto directo con abogados"
+        }
+      },
+      "documents": {
+        "title": "Gestión Segura de Documentos",
+        "description": "Seguridad de nivel bancario para todos tus documentos de caso con acceso sin problemas.",
+        "features": {
+          "storage": "Almacenamiento de documentos basado en la nube",
+          "encryption": "Encriptación de extremo a extremo",
+          "sharing": "Compartir documentos fácilmente",
+          "version": "Control de versiones e historial",
+          "mobile": "Acceso móvil a documentos"
+        }
+      },
+      "recovery": {
+        "title": "Apoyo al Proceso de Recuperación",
+        "description": "Apoyo administrativo durante todo tu proceso de recuperación y reclamos.",
+        "features": {
+          "organization": "Asistencia en organización de documentos",
+          "tracking": "Seguimiento de gastos médicos",
+          "wageLoss": "Documentación de pérdida de salarios",
+          "property": "Documentación de daños a la propiedad",
+          "guidance": "Orientación y apoyo del proceso"
+        }
+      }
+    },
+    "process": {
+      "title": "Tu Viaje de",
+      "subtitle": "Recuperación",
+      "description": "Un proceso simple paso a paso diseñado para ponerte de vuelta en el camino",
+      "imageAlt": "Fondo ClaimSaver+",
+      "step1": {
+        "title": "Envía Tu Información",
+        "description": "Completa nuestros formularios fáciles de usar y sube documentos de respaldo de forma segura."
+      },
+      "step2": {
+        "title": "Inicia el Proceso de Recuperación",
+        "description": "Enfócate en fisioterapia, metodologías de alivio del dolor y seguir tu plan de tratamiento médico."
+      },
+      "step3": {
+        "title": "Sigue la Orientación Médica",
+        "description": "Continúa siguiendo los planes de tratamiento y recomendaciones de tus médicos y profesionales médicos."
+      },
+      "step4": {
+        "title": "Presenta Reclamo y Recibe Compensación",
+        "description": "Presenta tu reclamo completado y recibe compensación por tus lesiones y daños."
+      }
+    },
+    "faq": {
+      "title": "Preguntas Frecuentes",
+      "subtitle": "Obtén respuestas a las preguntas más comunes sobre nuestros servicios",
+      "whatDoWeDo": {
+        "question": "¿Qué hace exactamente ClaimSaver+ por mí?",
+        "answer": "ClaimSaver+ proporciona apoyo administrativo integral para las víctimas de accidentes. Te ayudamos a presentar formularios de accidentes sin culpa, te conectamos con abogados calificados, gestionamos tus documentos de forma segura y te guiamos a través del proceso de recuperación. Nos encargamos del papeleo mientras te enfocas en tu recuperación."
+      },
+      "attorneyMatching": {
+        "question": "¿Cómo funciona el proceso de búsqueda de abogados?",
+        "answer": "Nuestro sistema inteligente de búsqueda analiza los detalles de tu caso, ubicación y necesidades específicas para conectarte con abogados que se especializan en casos de accidentes en tu área. Consideramos factores como la experiencia del abogado, tasas de éxito de casos y disponibilidad para asegurar la mejor coincidencia posible para tu situación."
+      },
+      "documents": {
+        "question": "¿Qué documentos necesito proporcionar?",
+        "answer": "Necesitarás proporcionar reportes policiales, registros médicos, información de seguro, fotos de la escena del accidente, fotos de daños al vehículo, facturas médicas y cualquier otra evidencia relacionada con tu caso. Nuestra plataforma facilita la carga y organización de estos documentos de forma segura."
+      },
+      "security": {
+        "question": "¿Qué tan segura es mi información personal?",
+        "answer": "Usamos seguridad de nivel bancario con encriptación de extremo a extremo para todos los datos. Nuestra plataforma cumple con HIPAA y sigue protocolos de seguridad estrictos para proteger tu información personal, registros médicos y documentos del caso. Tu privacidad y seguridad son nuestras principales prioridades."
+      },
+      "mobile": {
+        "question": "¿Puedo acceder a la información de mi caso en mi teléfono?",
+        "answer": "¡Sí! Nuestra plataforma está completamente optimizada para móviles. Puedes subir documentos, verificar el estado del caso, comunicarte con tu abogado y recibir actualizaciones en tiempo real en cualquier dispositivo. La plataforma funciona sin problemas en smartphones, tablets y computadoras."
+      },
+      "help": {
+        "question": "¿Qué pasa si necesito ayuda durante el proceso?",
+        "answer": "Nuestro equipo de apoyo dedicado está disponible para ayudarte durante todo el proceso. Puedes contactarnos por teléfono, correo electrónico o a través de la plataforma. Proporcionamos orientación sobre los requisitos de documentos, respondemos preguntas sobre el proceso y nos aseguramos de que tengas todo lo que necesitas para un reclamo exitoso."
+      },
+      "timeline": {
+        "question": "¿Cuánto tiempo toma todo el proceso?",
+        "answer": "La línea de tiempo varía según la complejidad de tu caso y el estado donde ocurrió el accidente. Generalmente, la presentación inicial de formularios y la búsqueda de abogados ocurre dentro de 24-48 horas. El proceso general de recuperación típicamente toma 3-6 meses, pero trabajamos para acelerar tu caso tanto como sea posible."
+      },
+      "guarantee": {
+        "question": "¿Garantizan compensación?",
+        "answer": "Aunque no podemos garantizar cantidades específicas de compensación, nuestra red de abogados experimentados trabaja diligentemente para maximizar tu recuperación. El éxito depende de varios factores incluyendo la severidad de las lesiones, la cobertura de seguro disponible y las circunstancias específicas de tu accidente."
+      }
+    }
+  },
+  "attorneyMatching": {
+    "hero": {
+      "title": "Encuentra Tu",
+      "subtitle": "Abogado Perfecto",
+      "description": "Conéctate con abogados experimentados que se especializan en tus necesidades legales específicas. Nuestro sistema inteligente de búsqueda asegura que encuentres la representación correcta para tu caso.",
+      "findAttorney": "Encuentra Tu Abogado",
+      "learnMore": "Más Información",
+      "imageAlt": "Fondo ClaimSaver+"
+    },
+    "features": {
+      "title": "¿Por Qué Elegir Nuestra",
+      "subtitle": "Red de Abogados?",
+      "description": "Acceso a abogados calificados en Florida y Nueva York con historiales comprobados",
+      "network": {
+        "title": "Red Regional",
+        "description": "Acceso a abogados calificados en Florida y Nueva York"
+      },
+      "trackRecord": {
+        "title": "Historial Comprobado",
+        "description": "Todos los abogados en nuestra red tienen credenciales verificadas e historiales de casos exitosos."
+      },
+      "secure": {
+        "title": "Seguro y Confidencial",
+        "description": "Tu información está protegida con seguridad de nivel bancario y privilegio abogado-cliente."
+      },
+      "instant": {
+        "title": "Búsqueda Instantánea",
+        "description": "Conéctate con abogados calificados en minutos, no días o semanas."
+      },
+      "successRates": {
+        "title": "Tasas de Éxito",
+        "description": "Nuestros abogados de red tienen tasas de éxito consistentemente altas y puntuaciones de satisfacción del cliente."
+      },
+      "personalized": {
+        "title": "Atención Personalizada",
+        "description": "Cada abogado proporciona atención personalizada y apoyo dedicado durante todo tu caso."
+      }
+    },
+    "practiceAreas": {
+      "title": "Áreas de",
+      "subtitle": "Práctica",
+      "description": "Encuentra abogados especializados en tus necesidades legales específicas",
+      "imageAlt": "Fondo ClaimSaver+",
+      "slipFalls": {
+        "title": "Resbalones y Caídas",
+        "description": "Responsabilidad de locales y accidentes de resbalón/tropiezo",
+        "detailedDescription": "Los casos de resbalones y caídas involucran lesiones que ocurren debido a condiciones peligrosas en la propiedad de otra persona. Esto incluye pisos mojados, superficies irregulares, mala iluminación u otras condiciones peligrosas. Estos casos caen bajo la ley de responsabilidad de locales y pueden resultar en compensación por gastos médicos, salarios perdidos y dolor y sufrimiento. Las ubicaciones comunes incluyen tiendas minoristas, restaurantes, edificios de oficinas y espacios públicos."
+      },
+      "automobile": {
+        "title": "Accidentes Automovilísticos",
+        "description": "Accidentes de carro, camión, motocicleta y peatones",
+        "detailedDescription": "La ley de accidentes automovilísticos cubre todos los tipos de colisiones de vehículos motorizados incluyendo carros, camiones, motocicletas y accidentes de peatones. Esta área de práctica maneja casos que involucran lesiones personales, daños a la propiedad y reclamos de muerte por negligencia. Los abogados ayudan a las víctimas a recuperar compensación por facturas médicas, reparaciones de vehículos, salarios perdidos y dolor y sufrimiento. También tratan con compañías de seguros y aseguran acuerdos justos."
+      },
+      "immigration": {
+        "title": "Inmigración",
+        "description": "Aplicaciones de visa, ciudadanía y defensa de deportación",
+        "detailedDescription": "La ley de inmigración abarca una amplia gama de asuntos legales relacionados con entrar, vivir y trabajar en los Estados Unidos. Esto incluye aplicaciones de visa, procesos de tarjeta verde, aplicaciones de ciudadanía, defensa de deportación e inmigración basada en familia. Los abogados de inmigración ayudan a los individuos a navegar regulaciones federales complejas y representan clientes en procedimientos de corte de inmigración."
+      },
+      "willsTrusts": {
+        "title": "Testamentos y Fideicomisos",
+        "description": "Planificación patrimonial y asuntos de sucesión",
+        "detailedDescription": "La ley de planificación patrimonial y sucesión involucra crear testamentos, fideicomisos y otros documentos legales para proteger activos y asegurar distribución apropiada después de la muerte. Esta área de práctica incluye redactar documentos de planificación patrimonial, administración de sucesión, administración de fideicomisos y asuntos de tutela. Los abogados ayudan a las familias a minimizar impuestos, evitar la sucesión cuando es posible y asegurar que sus deseos se cumplan."
+      },
+      "personalInjury": {
+        "title": "Lesiones Personales",
+        "description": "Lesiones personales generales y negligencia médica",
+        "detailedDescription": "La ley de lesiones personales cubre casos donde los individuos son perjudicados debido a las acciones negligentes o intencionales de otra persona. Esto incluye negligencia médica, responsabilidad de productos, mordeduras de perro y varios tipos de accidentes. Los abogados ayudan a las víctimas a recuperar compensación por gastos médicos, ingresos perdidos, dolor y sufrimiento y otros daños. Manejan negociaciones complejas con compañías de seguros y representan clientes en corte cuando es necesario."
+      },
+      "workersComp": {
+        "title": "Compensación Laboral",
+        "description": "Lesiones en el lugar de trabajo y reclamos de compensación",
+        "detailedDescription": "La ley de compensación laboral proporciona beneficios a empleados que son lesionados o se enferman debido a su trabajo. Esto incluye tratamiento médico, beneficios por discapacidad, rehabilitación vocacional y beneficios por muerte para dependientes. Los abogados ayudan a trabajadores lesionados a navegar el complejo sistema de compensación laboral, apelar reclamos denegados y asegurar que reciban todos los beneficios a los que tienen derecho bajo la ley."
+      },
+      "business": {
+        "title": "Derecho Comercial",
+        "description": "Derecho corporativo, contratos y disputas comerciales",
+        "detailedDescription": "El derecho comercial abarca todos los asuntos legales relacionados con empresas comerciales. Esto incluye formación de negocios, redacción y negociación de contratos, derecho laboral, protección de propiedad intelectual, fusiones y adquisiciones y litigio comercial. Los abogados ayudan a las empresas a cumplir con regulaciones, proteger sus intereses y resolver disputas a través de negociación o litigio."
+      },
+      "criminal": {
+        "title": "Defensa Criminal",
+        "description": "Cargos criminales y representación de defensa",
+        "detailedDescription": "La ley de defensa criminal involucra representar individuos acusados de cometer crímenes. Esto incluye delitos menores, felonías, casos de DUI, ofensas de drogas y crímenes de cuello blanco. Los abogados de defensa criminal protegen derechos constitucionales, investigan casos, negocian acuerdos de culpabilidad y representan clientes en corte. Aseguran tratamiento justo durante todo el proceso de justicia criminal y trabajan para lograr el mejor resultado posible."
+      }
+    },
+    "connectionSuccess": "¡Solicitud de conexión enviada! El abogado te contactará dentro de 24 horas."
+  },
+  "claimForm": {
+    "header": {
+      "title": "Formulario Sin Culpa de Florida",
+      "description": "Completa tu reclamo de accidente con nuestro formulario paso a paso",
+      "step": "Paso"
+    },
+    "steps": {
+      "personalInfo": "Información Personal",
+      "vehicleInfo": "Información del Vehículo",
+      "accidentDetails": "Detalles del Accidente",
+      "insuranceInfo": "Información de Seguro",
+      "medicalInfo": "Información Médica",
+      "employmentWages": "Empleo y Salarios",
+      "authorizations": "Autorizaciones",
+      "reviewSubmit": "Revisar y Enviar",
+      "step": "Paso"
+    },
+    "success": {
+      "title": "¡Reclamo Enviado Exitosamente!",
+      "description": "Tu reclamo ha sido enviado y está ahora bajo revisión.",
+      "goToDashboard": "Ir al Panel"
+    },
+    "errors": {
+      "submitFailed": "Error al enviar reclamo"
+    }
+  },
+  "success": {
+    "loading": {
+      "processing": "Procesando tu pago...",
+      "loading": "Cargando..."
+    },
+    "hero": {
+      "title": "¡Pago Exitoso!",
+      "description": "Gracias por elegir ClaimSaver+. Tu pago ha sido procesado exitosamente y estamos listos para ayudarte con tu reclamo."
+    },
+    "whatsNext": {
+      "title": "¿Qué Sigue?",
+      "email": {
+        "title": "Revisa Tu Email",
+        "description": "Te hemos enviado un email de confirmación con los próximos pasos e información importante."
+      },
+      "call": {
+        "title": "Espera una Llamada",
+        "description": "Nuestro equipo te contactará dentro de 24 horas para discutir los detalles de tu caso."
+      }
+    },
+    "assistance": {
+      "title": "¿Necesitas Asistencia Inmediata?",
+      "description": "Si tienes preguntas urgentes o necesitas proporcionar información adicional, no dudes en contactarnos.",
+      "email": "Envíanos un Email",
+      "dashboard": "Ir al Panel"
+    },
+    "journey": {
+      "title": "Tu Viaje a la Recuperación Comienza Ahora",
+      "description": "Estamos aquí para guiarte a través de cada paso del proceso de reclamos y ayudarte a obtener la compensación que mereces."
+    },
+    "steps": {
+      "caseReview": {
+        "title": "Revisión del Caso",
+        "description": "Nuestros expertos revisarán los detalles de tu caso y crearán una estrategia personalizada."
+      },
+      "documentation": {
+        "title": "Documentación",
+        "description": "Te ayudaremos a recopilar y organizar toda la documentación necesaria para tu reclamo."
+      },
+      "recovery": {
+        "title": "Recuperación",
+        "description": "Negociaremos en tu nombre para maximizar tu compensación y recuperación."
+      }
+    },
+    "returnHome": "Volver al Inicio"
+  },
+  "notFound": {
+    "title": "404 - Página No Encontrada | ClaimSaver+",
+    "description": "Página no encontrada",
+    "subtitle": "Página No Encontrada",
+    "message": "Lo sentimos, la página que buscas no existe. Es posible que haya sido movida o eliminada.",
+    "goHome": "Ir al Inicio",
+    "learnAboutUs": "Conoce Sobre Nosotros"
+  }
+}

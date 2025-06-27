@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import Footer from "@/components/footer";
 import { useClerk } from "@clerk/nextjs";
 import { getStripe } from "@/lib/stripe";
+import { useTranslation } from "react-i18next";
 import {
   CheckCircle,
   X,
@@ -23,6 +24,7 @@ import {
 } from "lucide-react";
 
 export default function Pricing() {
+  const { t } = useTranslation();
   const { openSignIn } = useClerk();
   const [selectedServices, setSelectedServices] = useState<string[]>([]);
   const [isProcessing, setIsProcessing] = useState(false);
@@ -36,44 +38,41 @@ export default function Pricing() {
   };
 
   const traditionalCosts = [
-    "Average auto policy: $10,000.00",
-    "Attorney contingency fee: 33%",
-    "Net to victim: Less than $7,000.00",
-    "Additional processing costs",
-    "Hidden fees and charges",
+    t("pricing.traditionalCosts.averagePolicy"),
+    t("pricing.traditionalCosts.attorneyFee"),
+    t("pricing.traditionalCosts.netToVictim"),
+    t("pricing.traditionalCosts.additionalCosts"),
+    t("pricing.traditionalCosts.hiddenFees"),
   ];
 
   const claimSaverAdvantages = [
-    "Keep 95% of your settlement",
-    "No contingency fees",
-    "Transparent flat rate",
-    "Professional service",
-    "Maximum recovery for you",
+    t("pricing.claimSaverAdvantages.keep95Percent"),
+    t("pricing.claimSaverAdvantages.noContingency"),
+    t("pricing.claimSaverAdvantages.transparentPricing"),
+    t("pricing.claimSaverAdvantages.professionalService"),
+    t("pricing.claimSaverAdvantages.maximumRecovery"),
   ];
 
   const features = [
     {
       icon: <Calculator className="w-6 h-6 text-blue-600" />,
-      title: "Transparent Pricing",
-      description:
-        "No hidden fees, no surprises. Know exactly what you&apos;ll pay upfront.",
+      title: t("pricing.features.transparentPricing.title"),
+      description: t("pricing.features.transparentPricing.description"),
     },
     {
       icon: <TrendingUp className="w-6 h-6 text-green-600" />,
-      title: "Maximum Recovery",
-      description: "Keep more of your settlement with our flat-rate structure.",
+      title: t("pricing.features.maximumRecovery.title"),
+      description: t("pricing.features.maximumRecovery.description"),
     },
     {
       icon: <Shield className="w-6 h-6 text-purple-600" />,
-      title: "Professional Service",
-      description:
-        "Expert legal support without the traditional attorney fees.",
+      title: t("pricing.features.professionalService.title"),
+      description: t("pricing.features.professionalService.description"),
     },
     {
       icon: <Clock className="w-6 h-6 text-orange-600" />,
-      title: "Faster Processing",
-      description:
-        "Streamlined process gets you results faster than traditional methods.",
+      title: t("pricing.features.fasterProcessing.title"),
+      description: t("pricing.features.fasterProcessing.description"),
     },
   ];
 
@@ -101,15 +100,15 @@ export default function Pricing() {
   const services = [
     {
       id: "no-fault-assistance",
-      name: "No-Fault Assistance",
-      description: "Complete accident claim filing and recovery assistance",
+      name: t("pricing.services.noFaultAssistance.name"),
+      description: t("pricing.services.noFaultAssistance.description"),
       price: 500.0,
       icon: <Shield className="w-6 h-6" />,
     },
     {
       id: "notarization",
-      name: "Notarization Services",
-      description: "Online document notarization via DocuSign",
+      name: t("pricing.services.notarization.name"),
+      description: t("pricing.services.notarization.description"),
       price: 25.0,
       icon: <FileText className="w-6 h-6" />,
     },
@@ -302,13 +301,10 @@ export default function Pricing() {
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-24">
           <div className="text-center max-w-4xl mx-auto">
             <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
-              Transparent, Fair, and{" "}
-              <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                Cost-Effective
-              </span>
+              {t("pricing.title")}
             </h1>
             <p className="text-xl sm:text-2xl text-gray-600 dark:text-gray-300 mb-8 leading-relaxed max-w-3xl mx-auto">
-              More Money in Your Pocket, Less Stress in Your Life
+              {t("pricing.subtitle")}
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
@@ -317,7 +313,7 @@ export default function Pricing() {
                 onClick={handleStartClaim}
                 className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-4 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
               >
-                Start Your Claim
+                {t("pricing.startClaim")}
                 <ArrowRight className="ml-2 w-5 h-5" />
               </Button>
               <Button
@@ -326,7 +322,7 @@ export default function Pricing() {
                 className="border-2 border-gray-300 hover:border-gray-400 text-gray-700 dark:text-gray-300 px-8 py-4 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm"
                 onClick={() => setShowLearnMoreModal(true)}
               >
-                Learn More
+                {t("pricing.learnMore")}
                 <ArrowRight className="ml-2 w-5 h-5" />
               </Button>
             </div>
@@ -337,11 +333,10 @@ export default function Pricing() {
                 <CardHeader className="pb-6">
                   <CardTitle className="text-2xl font-bold text-gray-900 dark:text-white text-center flex items-center justify-center gap-2">
                     <CreditCard className="w-6 h-6" />
-                    Select Your Services & Payment
+                    {t("pricing.selectServices")}
                   </CardTitle>
                   <p className="text-gray-600 dark:text-gray-300 text-center">
-                    Choose the services you need and complete your payment
-                    securely with Stripe
+                    {t("pricing.selectServicesDesc")}
                   </p>
                 </CardHeader>
                 <CardContent className="space-y-6">
@@ -527,7 +522,7 @@ export default function Pricing() {
                 <div className="flex items-center justify-center gap-3 mb-4">
                   <X className="w-8 h-8 text-red-600" />
                   <CardTitle className="text-2xl font-semibold text-gray-900 dark:text-white">
-                    Traditional Costs
+                    {t("pricing.traditionalCosts.title")}
                   </CardTitle>
                 </div>
                 <div className="text-center">
@@ -552,7 +547,7 @@ export default function Pricing() {
                 </ul>
                 <div className="mt-6 p-4 bg-red-100 dark:bg-red-900/50 rounded-lg">
                   <p className="text-sm text-red-800 dark:text-red-200 font-medium">
-                    Net to victim: Less than $7,000.00
+                    {t("pricing.traditionalCosts.netToVictim")}
                   </p>
                 </div>
               </CardContent>
@@ -567,7 +562,7 @@ export default function Pricing() {
                 <div className="flex items-center justify-center gap-3 mb-4">
                   <CheckCircle className="w-8 h-8 text-green-600" />
                   <CardTitle className="text-2xl font-semibold text-gray-900 dark:text-white">
-                    ClaimSaver+ Advantage
+                    {t("pricing.claimSaverAdvantages.title")}
                   </CardTitle>
                 </div>
                 <div className="text-center">
@@ -711,13 +706,10 @@ export default function Pricing() {
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-6">
-              What Our{" "}
-              <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                Clients Say
-              </span>
+              {t("pricing.testimonials.title")}
             </h2>
             <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-              Real stories from real people who saved thousands with ClaimSaver+
+              {t("pricing.testimonials.subtitle")}
             </p>
           </div>
 
@@ -768,12 +760,10 @@ export default function Pricing() {
       <section className="py-24 bg-gradient-to-br from-blue-600 to-purple-600 relative overflow-hidden">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-4xl sm:text-5xl font-bold text-white mb-6">
-            Ready to Save Thousands?
+            {t("pricing.cta.title")}
           </h2>
           <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
-            Join thousands of accident victims who have used ClaimSaver+ to
-            maximize their recovery. Get started today with our transparent
-            flat-rate pricing.
+            {t("pricing.cta.subtitle")}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button
@@ -781,7 +771,7 @@ export default function Pricing() {
               className="bg-white text-blue-600 hover:bg-gray-100 px-8 py-4 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
               onClick={handleStartClaim}
             >
-              Start Your Claim
+              {t("pricing.cta.button")}
               <ArrowRight className="ml-2 w-5 h-5" />
             </Button>
             <Button
@@ -790,7 +780,7 @@ export default function Pricing() {
               className="border-2 border-gray-300 hover:border-gray-400 text-gray-700 dark:text-gray-300 px-8 py-4 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm"
               onClick={() => setShowLearnMoreModal(true)}
             >
-              Learn More
+              {t("pricing.learnMore")}
               <ArrowRight className="ml-2 w-5 h-5" />
             </Button>
           </div>

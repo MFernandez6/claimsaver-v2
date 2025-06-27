@@ -1,12 +1,17 @@
+"use client";
+
 import Link from "next/link";
+import { useTranslation } from "react-i18next";
 import { Home, ArrowLeft } from "lucide-react";
 
 export default function NotFound() {
+  const { t } = useTranslation();
+
   return (
     <html lang="en">
       <head>
-        <title>404 - Page Not Found | ClaimSaver+</title>
-        <meta name="description" content="Page not found" />
+        <title>{t("notFound.title")}</title>
+        <meta name="description" content={t("notFound.description")} />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <style>{`
           * {
@@ -144,22 +149,19 @@ export default function NotFound() {
           <div className="content">
             <div className="mb-8">
               <h1 className="title">404</h1>
-              <h2 className="subtitle">Page Not Found</h2>
-              <p className="description">
-                Sorry, the page you&apos;re looking for doesn&apos;t exist. It
-                might have been moved or deleted.
-              </p>
+              <h2 className="subtitle">{t("notFound.subtitle")}</h2>
+              <p className="description">{t("notFound.message")}</p>
             </div>
 
             <div className="button-group">
               <Link href="/" className="button button-primary">
                 <Home className="icon" />
-                Go Home
+                {t("notFound.goHome")}
               </Link>
 
               <Link href="/who-we-are" className="button button-secondary">
                 <ArrowLeft className="icon" />
-                Learn About Us
+                {t("notFound.learnAboutUs")}
               </Link>
             </div>
           </div>

@@ -6,6 +6,7 @@ import Image from "next/image";
 import Footer from "@/components/footer";
 import Link from "next/link";
 import { useClerk } from "@clerk/nextjs";
+import { useTranslation } from "react-i18next";
 import {
   Heart,
   Target,
@@ -18,6 +19,7 @@ import {
 
 export default function WhoWeAre() {
   const { openSignIn } = useClerk();
+  const { t } = useTranslation();
 
   const handleStartClaim = () => {
     openSignIn();
@@ -26,27 +28,23 @@ export default function WhoWeAre() {
   const values = [
     {
       icon: <Target className="w-8 h-8 text-blue-600" />,
-      title: "Our Mission",
-      description:
-        "To simplify the accident claim process and help victims recover the compensation they deserve through innovative technology and expert legal support.",
+      title: t("whoWeAre.values.mission.title"),
+      description: t("whoWeAre.values.mission.description"),
     },
     {
       icon: <Eye className="w-8 h-8 text-green-600" />,
-      title: "Our Vision",
-      description:
-        "To become the leading platform for accident victims, providing seamless access to legal resources and ensuring fair compensation for all.",
+      title: t("whoWeAre.values.vision.title"),
+      description: t("whoWeAre.values.vision.description"),
     },
     {
       icon: <Shield className="w-8 h-8 text-purple-600" />,
-      title: "Our Values",
-      description:
-        "We are committed to transparency, integrity, and putting our clients first. We believe in making legal support accessible to everyone.",
+      title: t("whoWeAre.values.values.title"),
+      description: t("whoWeAre.values.values.description"),
     },
     {
       icon: <Users className="w-8 h-8 text-orange-600" />,
-      title: "Our Support",
-      description:
-        "Our dedicated team is available to assist you throughout your recovery journey, providing personalized support and guidance.",
+      title: t("whoWeAre.values.support.title"),
+      description: t("whoWeAre.values.support.description"),
     },
   ];
 
@@ -74,16 +72,13 @@ export default function WhoWeAre() {
             <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
               <div className="text-center animate-in fade-in slide-in-from-bottom-4 duration-800 delay-200">
                 <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6">
-                  Your Trusted Partner in{" "}
+                  {t("whoWeAre.hero.title")}{" "}
                   <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                    Accident Recovery
+                    {t("whoWeAre.hero.subtitle")}
                   </span>
                 </h1>
                 <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
-                  We understand that dealing with the aftermath of an accident
-                  can be overwhelming. That&apos;s why we&apos;ve created a
-                  revolutionary platform that connects you with experienced
-                  attorneys in Florida and New York.
+                  {t("whoWeAre.hero.description")}
                 </p>
               </div>
             </div>
@@ -95,32 +90,12 @@ export default function WhoWeAre() {
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                 <div className="animate-in fade-in slide-in-from-left-4 duration-600">
                   <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-6">
-                    About ClaimSaver+
+                    {t("whoWeAre.about.title")}
                   </h2>
                   <div className="space-y-6 text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
-                    <p>
-                      ClaimSaver+ is a revolutionary platform designed to
-                      simplify the process of filing no-fault accident forms and
-                      recovering compensation for accident victims. We
-                      understand that dealing with the aftermath of an accident
-                      can be overwhelming, which is why we&apos;ve created a
-                      user-friendly solution that connects you with experienced
-                      attorneys in Florida and New York.
-                    </p>
-                    <p>
-                      Our platform combines cutting-edge technology with expert
-                      legal knowledge to ensure that you receive the support and
-                      compensation you deserve. We believe that everyone should
-                      have access to quality legal representation, regardless of
-                      their circumstances.
-                    </p>
-                    <p>
-                      At ClaimSaver+, we&apos;re committed to making the legal
-                      process as smooth and stress-free as possible. Our team of
-                      professionals works tirelessly to ensure that your case
-                      receives the attention it deserves, and we&apos;re here to
-                      guide you every step of the way.
-                    </p>
+                    <p>{t("whoWeAre.about.paragraph1")}</p>
+                    <p>{t("whoWeAre.about.paragraph2")}</p>
+                    <p>{t("whoWeAre.about.paragraph3")}</p>
                   </div>
                 </div>
 
@@ -128,7 +103,7 @@ export default function WhoWeAre() {
                   <div className="relative rounded-2xl overflow-hidden shadow-2xl hover:shadow-3xl transition-shadow duration-300">
                     <Image
                       src="/images/family.jpg"
-                      alt="ClaimSaver+ Family"
+                      alt={t("whoWeAre.about.imageAlt")}
                       width={600}
                       height={400}
                       className="w-full h-auto object-cover"
@@ -138,7 +113,7 @@ export default function WhoWeAre() {
                     <div className="flex items-center gap-2">
                       <Heart className="w-5 h-5 text-red-500" />
                       <span className="font-semibold text-gray-900 dark:text-white">
-                        Family First
+                        {t("whoWeAre.about.familyFirst")}
                       </span>
                     </div>
                   </div>
@@ -152,11 +127,10 @@ export default function WhoWeAre() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="text-center mb-16 animate-in fade-in slide-in-from-bottom-4 duration-600">
                 <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-6">
-                  Our Family Story
+                  {t("whoWeAre.familyStory.title")}
                 </h2>
                 <p className="text-xl text-gray-600 dark:text-gray-300 max-w-4xl mx-auto">
-                  ClaimSaver+ was born from a personal experience that changed
-                  our family forever.
+                  {t("whoWeAre.familyStory.subtitle")}
                 </p>
               </div>
 
@@ -169,12 +143,12 @@ export default function WhoWeAre() {
                       </div>
                       <div>
                         <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
-                          A Personal Journey
+                          {t("whoWeAre.familyStory.personalJourney.title")}
                         </h3>
                         <p className="text-gray-600 dark:text-gray-300">
-                          After our family faced the challenges of navigating
-                          the complex world of accident claims and legal fees,
-                          we realized there had to be a better way.
+                          {t(
+                            "whoWeAre.familyStory.personalJourney.description"
+                          )}
                         </p>
                       </div>
                     </div>
@@ -185,14 +159,10 @@ export default function WhoWeAre() {
                       </div>
                       <div>
                         <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
-                          Our Mission
+                          {t("whoWeAre.familyStory.mission.title")}
                         </h3>
                         <p className="text-gray-600 dark:text-gray-300">
-                          To make quality legal support accessible and
-                          affordable for every family. We believe that when life
-                          throws unexpected challenges your way, you
-                          shouldn&apos;t have to worry about the cost of getting
-                          the help you deserve.
+                          {t("whoWeAre.familyStory.mission.description")}
                         </p>
                       </div>
                     </div>
@@ -202,12 +172,12 @@ export default function WhoWeAre() {
                     <div className="bg-gradient-to-br from-blue-600 to-purple-600 rounded-2xl p-8 text-white">
                       <div className="flex items-center gap-3 mb-4">
                         <Star className="w-6 h-6" />
-                        <h3 className="text-xl font-semibold">Why We Care</h3>
+                        <h3 className="text-xl font-semibold">
+                          {t("whoWeAre.familyStory.whyWeCare.title")}
+                        </h3>
                       </div>
                       <p className="text-blue-100 leading-relaxed">
-                        &ldquo;We created this platform to help families like
-                        ours avoid the financial burden of traditional legal
-                        services during already difficult times.&rdquo;
+                        {t("whoWeAre.familyStory.whyWeCare.quote")}
                       </p>
                     </div>
                   </div>
@@ -221,10 +191,10 @@ export default function WhoWeAre() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="text-center mb-16 animate-in fade-in slide-in-from-bottom-4 duration-600">
                 <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-6">
-                  Our Core Values
+                  {t("whoWeAre.coreValues.title")}
                 </h2>
                 <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-                  The principles that guide everything we do at ClaimSaver+
+                  {t("whoWeAre.coreValues.subtitle")}
                 </p>
               </div>
 
@@ -261,11 +231,10 @@ export default function WhoWeAre() {
             <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
               <div className="animate-in fade-in slide-in-from-bottom-4 duration-600">
                 <h2 className="text-3xl sm:text-4xl font-bold text-white mb-6">
-                  Ready to Get Started?
+                  {t("whoWeAre.cta.title")}
                 </h2>
                 <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
-                  Join thousands of families who have trusted ClaimSaver+ to
-                  help them recover the compensation they deserve.
+                  {t("whoWeAre.cta.description")}
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <Button
@@ -273,7 +242,7 @@ export default function WhoWeAre() {
                     className="bg-white text-blue-600 hover:bg-gray-100 px-8 py-4 text-lg font-semibold hover:scale-105 transition-transform duration-200"
                     onClick={handleStartClaim}
                   >
-                    Start Your Claim
+                    {t("whoWeAre.cta.startClaim")}
                     <ArrowRight className="ml-2 w-5 h-5" />
                   </Button>
                   <Link href="/what-we-do">
@@ -282,7 +251,7 @@ export default function WhoWeAre() {
                       variant="outline"
                       className="border-white text-white bg-transparent hover:bg-white hover:text-blue-600 px-8 py-4 text-lg font-semibold hover:scale-105 transition-transform duration-200 shadow-lg"
                     >
-                      Learn More
+                      {t("whoWeAre.cta.learnMore")}
                     </Button>
                   </Link>
                 </div>

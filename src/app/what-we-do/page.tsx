@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import Footer from "@/components/footer";
 import FAQ from "@/components/faq";
 import { useClerk } from "@clerk/nextjs";
+import { useTranslation } from "react-i18next";
 import {
   CheckCircle,
   FileText,
@@ -20,6 +21,7 @@ import {
 
 export default function WhatWeDo() {
   const { openSignIn } = useClerk();
+  const { t } = useTranslation();
 
   const handleStartClaim = () => {
     openSignIn();
@@ -27,101 +29,89 @@ export default function WhatWeDo() {
 
   const faqItems = [
     {
-      question: "What exactly does ClaimSaver+ do for me?",
-      answer:
-        "ClaimSaver+ provides comprehensive administrative support for accident victims. We help you file no-fault accident forms, connect you with qualified attorneys, manage your documents securely, and guide you through the recovery process. We handle the paperwork while you focus on your recovery.",
+      question: t("whatWeDo.faq.whatDoWeDo.question"),
+      answer: t("whatWeDo.faq.whatDoWeDo.answer"),
     },
     {
-      question: "How does the attorney matching process work?",
-      answer:
-        "Our intelligent matching system analyzes your case details, location, and specific needs to connect you with attorneys who specialize in accident cases in your area. We consider factors like attorney experience, case success rates, and availability to ensure the best possible match for your situation.",
+      question: t("whatWeDo.faq.attorneyMatching.question"),
+      answer: t("whatWeDo.faq.attorneyMatching.answer"),
     },
     {
-      question: "What documents do I need to provide?",
-      answer:
-        "You'll need to provide police reports, medical records, insurance information, photos of the accident scene, vehicle damage photos, medical bills, and any other evidence related to your case. Our platform makes it easy to upload and organize these documents securely.",
+      question: t("whatWeDo.faq.documents.question"),
+      answer: t("whatWeDo.faq.documents.answer"),
     },
     {
-      question: "How secure is my personal information?",
-      answer:
-        "We use bank-level security with end-to-end encryption for all data. Our platform is HIPAA-compliant and follows strict security protocols to protect your personal information, medical records, and case documents. Your privacy and security are our top priorities.",
+      question: t("whatWeDo.faq.security.question"),
+      answer: t("whatWeDo.faq.security.answer"),
     },
     {
-      question: "Can I access my case information on my phone?",
-      answer:
-        "Yes! Our platform is fully mobile-optimized. You can upload documents, check case status, communicate with your attorney, and receive real-time updates on any device. The platform works seamlessly on smartphones, tablets, and computers.",
+      question: t("whatWeDo.faq.mobile.question"),
+      answer: t("whatWeDo.faq.mobile.answer"),
     },
     {
-      question: "What if I need help during the process?",
-      answer:
-        "Our dedicated support team is available to help you throughout the entire process. You can contact us via phone, email, or through the platform. We provide guidance on document requirements, answer questions about the process, and ensure you have everything you need for a successful claim.",
+      question: t("whatWeDo.faq.help.question"),
+      answer: t("whatWeDo.faq.help.answer"),
     },
     {
-      question: "How long does the entire process take?",
-      answer:
-        "The timeline varies depending on the complexity of your case and the state where the accident occurred. Generally, the initial form filing and attorney matching happens within 24-48 hours. The overall recovery process typically takes 3-6 months, but we work to expedite your case as much as possible.",
+      question: t("whatWeDo.faq.timeline.question"),
+      answer: t("whatWeDo.faq.timeline.answer"),
     },
     {
-      question: "Do you guarantee compensation?",
-      answer:
-        "While we cannot guarantee specific compensation amounts, our network of experienced attorneys works diligently to maximize your recovery. Success depends on various factors including the severity of injuries, available insurance coverage, and the specific circumstances of your accident.",
+      question: t("whatWeDo.faq.guarantee.question"),
+      answer: t("whatWeDo.faq.guarantee.answer"),
     },
   ];
 
   const services = [
     {
       icon: <FileText className="w-8 h-8 text-blue-600" />,
-      title: "No-Fault Accident Form Filing",
-      description:
-        "Streamlined form submission with real-time validation and instant confirmation.",
+      title: t("whatWeDo.services.noFault.title"),
+      description: t("whatWeDo.services.noFault.description"),
       features: [
-        "Easy-to-use form submission interface",
-        "Secure document upload system",
-        "Real-time form validation",
-        "Automated error checking",
-        "Instant submission confirmation",
+        t("whatWeDo.services.noFault.features.interface"),
+        t("whatWeDo.services.noFault.features.upload"),
+        t("whatWeDo.services.noFault.features.validation"),
+        t("whatWeDo.services.noFault.features.errorChecking"),
+        t("whatWeDo.services.noFault.features.confirmation"),
       ],
       color: "blue",
     },
     {
       icon: <Users className="w-8 h-8 text-green-600" />,
-      title: "Attorney Connection Service",
-      description:
-        "Connect with qualified attorneys in Florida and New York through our referral system.",
+      title: t("whatWeDo.services.attorney.title"),
+      description: t("whatWeDo.services.attorney.description"),
       features: [
-        "Regional network of qualified attorneys in Florida and New York",
-        "Specialized in accident cases",
-        "Attorney profiles and ratings",
-        "Free initial consultation",
-        "Direct attorney contact",
+        t("whatWeDo.services.attorney.features.network"),
+        t("whatWeDo.services.attorney.features.specialized"),
+        t("whatWeDo.services.attorney.features.profiles"),
+        t("whatWeDo.services.attorney.features.consultation"),
+        t("whatWeDo.services.attorney.features.contact"),
       ],
       color: "green",
     },
     {
       icon: <Shield className="w-8 h-8 text-purple-600" />,
-      title: "Secure Document Management",
-      description:
-        "Bank-level security for all your case documents with seamless access.",
+      title: t("whatWeDo.services.documents.title"),
+      description: t("whatWeDo.services.documents.description"),
       features: [
-        "Cloud-based document storage",
-        "End-to-end encryption",
-        "Easy document sharing",
-        "Version control and history",
-        "Mobile access to documents",
+        t("whatWeDo.services.documents.features.storage"),
+        t("whatWeDo.services.documents.features.encryption"),
+        t("whatWeDo.services.documents.features.sharing"),
+        t("whatWeDo.services.documents.features.version"),
+        t("whatWeDo.services.documents.features.mobile"),
       ],
       color: "purple",
     },
     {
       icon: <DollarSign className="w-8 h-8 text-orange-600" />,
-      title: "Recovery Process Support",
-      description:
-        "Administrative support throughout your recovery and claims process.",
+      title: t("whatWeDo.services.recovery.title"),
+      description: t("whatWeDo.services.recovery.description"),
       features: [
-        "Document organization assistance",
-        "Medical expense tracking",
-        "Wage loss documentation",
-        "Property damage documentation",
-        "Process guidance and support",
+        t("whatWeDo.services.recovery.features.organization"),
+        t("whatWeDo.services.recovery.features.tracking"),
+        t("whatWeDo.services.recovery.features.wageLoss"),
+        t("whatWeDo.services.recovery.features.property"),
+        t("whatWeDo.services.recovery.features.guidance"),
       ],
       color: "orange",
     },
@@ -130,30 +120,26 @@ export default function WhatWeDo() {
   const processSteps = [
     {
       step: "01",
-      title: "Submit Your Information",
-      description:
-        "Fill out our user-friendly forms and upload supporting documents securely.",
+      title: t("whatWeDo.process.step1.title"),
+      description: t("whatWeDo.process.step1.description"),
       icon: <Upload className="w-6 h-6" />,
     },
     {
       step: "02",
-      title: "Begin Recovery Process",
-      description:
-        "Focus on physical therapy, pain relief methodologies, and following your medical treatment plan.",
+      title: t("whatWeDo.process.step2.title"),
+      description: t("whatWeDo.process.step2.description"),
       icon: <TrendingUp className="w-6 h-6" />,
     },
     {
       step: "03",
-      title: "Follow Medical Guidance",
-      description:
-        "Continue following your doctors' and medical professionals' treatment plans and recommendations.",
+      title: t("whatWeDo.process.step3.title"),
+      description: t("whatWeDo.process.step3.description"),
       icon: <CheckCircle className="w-6 h-6" />,
     },
     {
       step: "04",
-      title: "Submit Claim & Receive Compensation",
-      description:
-        "Submit your completed claim and receive compensation for your injuries and damages.",
+      title: t("whatWeDo.process.step4.title"),
+      description: t("whatWeDo.process.step4.description"),
       icon: <DollarSign className="w-6 h-6" />,
     },
   ];
@@ -166,7 +152,7 @@ export default function WhatWeDo() {
         <div className="fixed inset-0 z-0">
           <Image
             src="/images/long-logo-ClaimSaver.jpg"
-            alt="ClaimSaver+ Background"
+            alt={t("whatWeDo.hero.imageAlt")}
             className="w-full h-full object-cover opacity-25"
             fill
           />
@@ -176,16 +162,13 @@ export default function WhatWeDo() {
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-24">
           <div className="text-center max-w-4xl mx-auto">
             <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
-              Comprehensive{" "}
+              {t("whatWeDo.hero.title")}{" "}
               <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                Accident Recovery Support
+                {t("whatWeDo.hero.subtitle")}
               </span>
             </h1>
             <p className="text-xl sm:text-2xl text-gray-600 dark:text-gray-300 mb-8 leading-relaxed max-w-3xl mx-auto">
-              We provide administrative support and technology solutions to help
-              accident victims navigate the claims process. Our platform
-              connects you with qualified attorneys and streamlines document
-              management for your recovery journey.
+              {t("whatWeDo.hero.description")}
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-4">
@@ -194,7 +177,7 @@ export default function WhatWeDo() {
                 onClick={handleStartClaim}
                 className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-4 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
               >
-                Start Your Recovery
+                {t("whatWeDo.hero.startRecovery")}
                 <ArrowRight className="ml-2 w-5 h-5" />
               </Button>
               <Button
@@ -202,7 +185,7 @@ export default function WhatWeDo() {
                 variant="outline"
                 className="border-2 border-gray-300 hover:border-gray-400 text-gray-700 dark:text-gray-300 px-8 py-4 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
               >
-                <Link href="/claim-form">File a Claim</Link>
+                <Link href="/claim-form">{t("whatWeDo.hero.fileClaim")}</Link>
               </Button>
             </div>
           </div>
@@ -228,14 +211,13 @@ export default function WhatWeDo() {
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-6">
-              Our{" "}
+              {t("whatWeDo.services.title")}{" "}
               <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                Services
+                {t("whatWeDo.services.subtitle")}
               </span>
             </h2>
             <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-              Comprehensive tools and support to streamline your accident
-              recovery process
+              {t("whatWeDo.services.description")}
             </p>
           </div>
 
@@ -283,7 +265,7 @@ export default function WhatWeDo() {
         <div className="fixed inset-0 z-0">
           <Image
             src="/images/long-logo-ClaimSaver.jpg"
-            alt="ClaimSaver+ Background"
+            alt={t("whatWeDo.process.imageAlt")}
             className="w-full h-full object-cover opacity-20"
             fill
           />
@@ -293,13 +275,13 @@ export default function WhatWeDo() {
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-6">
-              Your Recovery{" "}
+              {t("whatWeDo.process.title")}{" "}
               <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                Journey
+                {t("whatWeDo.process.subtitle")}
               </span>
             </h2>
             <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-              A simple, step-by-step process designed to get you back on track
+              {t("whatWeDo.process.description")}
             </p>
           </div>
 
@@ -330,8 +312,8 @@ export default function WhatWeDo() {
 
       {/* FAQ Section */}
       <FAQ
-        title="Frequently Asked Questions"
-        subtitle="Get answers to the most common questions about our services"
+        title={t("whatWeDo.faq.title")}
+        subtitle={t("whatWeDo.faq.subtitle")}
         items={faqItems}
       />
 

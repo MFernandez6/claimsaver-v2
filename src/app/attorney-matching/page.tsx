@@ -5,6 +5,7 @@ import Image from "next/image";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Footer from "@/components/footer";
+import { useTranslation } from "react-i18next";
 import {
   Users,
   Shield,
@@ -55,6 +56,7 @@ interface PracticeArea {
 }
 
 export default function AttorneyMatching() {
+  const { t } = useTranslation();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isPracticeModalOpen, setIsPracticeModalOpen] = useState(false);
   const [isLearnMoreModalOpen, setIsLearnMoreModalOpen] = useState(false);
@@ -211,81 +213,89 @@ export default function AttorneyMatching() {
     // This would integrate with ClaimSaver+ backend
     console.log(`Connecting to attorney ${attorneyId}`);
     // For now, just show a success message
-    alert(
-      "Connection request sent! The attorney will contact you within 24 hours."
-    );
+    alert(t("attorneyMatching.connectionSuccess"));
   };
 
   const practiceAreas: PracticeArea[] = [
     {
       id: "slip-falls",
-      title: "Slip and Falls",
-      description: "Premises liability and slip/trip accidents",
-      detailedDescription:
-        "Slip and fall cases involve injuries that occur due to hazardous conditions on someone else's property. This includes wet floors, uneven surfaces, poor lighting, or other dangerous conditions. These cases fall under premises liability law and can result in compensation for medical expenses, lost wages, and pain and suffering. Common locations include retail stores, restaurants, office buildings, and public spaces.",
+      title: t("attorneyMatching.practiceAreas.slipFalls.title"),
+      description: t("attorneyMatching.practiceAreas.slipFalls.description"),
+      detailedDescription: t(
+        "attorneyMatching.practiceAreas.slipFalls.detailedDescription"
+      ),
       icon: <FileText className="w-6 h-6" />,
       color: "blue",
     },
     {
       id: "automobile",
-      title: "Automobile Accidents",
-      description: "Car, truck, motorcycle, and pedestrian accidents",
-      detailedDescription:
-        "Automobile accident law covers all types of motor vehicle collisions including cars, trucks, motorcycles, and pedestrian accidents. This practice area handles cases involving personal injury, property damage, and wrongful death claims. Attorneys help victims recover compensation for medical bills, vehicle repairs, lost wages, and pain and suffering. They also deal with insurance companies and ensure fair settlements.",
+      title: t("attorneyMatching.practiceAreas.automobile.title"),
+      description: t("attorneyMatching.practiceAreas.automobile.description"),
+      detailedDescription: t(
+        "attorneyMatching.practiceAreas.automobile.detailedDescription"
+      ),
       icon: <Car className="w-6 h-6" />,
       color: "green",
     },
     {
       id: "immigration",
-      title: "Immigration",
-      description: "Visa applications, citizenship, and deportation defense",
-      detailedDescription:
-        "Immigration law encompasses a wide range of legal matters related to entering, living, and working in the United States. This includes visa applications, green card processes, citizenship applications, deportation defense, and family-based immigration. Immigration attorneys help individuals navigate complex federal regulations and represent clients in immigration court proceedings.",
+      title: t("attorneyMatching.practiceAreas.immigration.title"),
+      description: t("attorneyMatching.practiceAreas.immigration.description"),
+      detailedDescription: t(
+        "attorneyMatching.practiceAreas.immigration.detailedDescription"
+      ),
       icon: <Globe className="w-6 h-6" />,
       color: "purple",
     },
     {
       id: "wills-trusts",
-      title: "Wills & Trusts",
-      description: "Estate planning and probate matters",
-      detailedDescription:
-        "Estate planning and probate law involves creating wills, trusts, and other legal documents to protect assets and ensure proper distribution after death. This practice area includes drafting estate planning documents, probate administration, trust administration, and guardianship matters. Attorneys help families minimize taxes, avoid probate when possible, and ensure their wishes are carried out.",
+      title: t("attorneyMatching.practiceAreas.willsTrusts.title"),
+      description: t("attorneyMatching.practiceAreas.willsTrusts.description"),
+      detailedDescription: t(
+        "attorneyMatching.practiceAreas.willsTrusts.detailedDescription"
+      ),
       icon: <Scale className="w-6 h-6" />,
       color: "orange",
     },
     {
       id: "personal-injury",
-      title: "Personal Injury",
-      description: "General personal injury and medical malpractice",
-      detailedDescription:
-        "Personal injury law covers cases where individuals are harmed due to someone else's negligence or intentional actions. This includes medical malpractice, product liability, dog bites, and various accident types. Attorneys help victims recover compensation for medical expenses, lost income, pain and suffering, and other damages. They handle complex negotiations with insurance companies and represent clients in court when necessary.",
+      title: t("attorneyMatching.practiceAreas.personalInjury.title"),
+      description: t(
+        "attorneyMatching.practiceAreas.personalInjury.description"
+      ),
+      detailedDescription: t(
+        "attorneyMatching.practiceAreas.personalInjury.detailedDescription"
+      ),
       icon: <Stethoscope className="w-6 h-6" />,
       color: "red",
     },
     {
       id: "workers-comp",
-      title: "Workers' Compensation",
-      description: "Workplace injuries and compensation claims",
-      detailedDescription:
-        "Workers' compensation law provides benefits to employees who are injured or become ill due to their job. This includes medical treatment, disability benefits, vocational rehabilitation, and death benefits for dependents. Attorneys help injured workers navigate the complex workers' compensation system, appeal denied claims, and ensure they receive all benefits they're entitled to under the law.",
+      title: t("attorneyMatching.practiceAreas.workersComp.title"),
+      description: t("attorneyMatching.practiceAreas.workersComp.description"),
+      detailedDescription: t(
+        "attorneyMatching.practiceAreas.workersComp.detailedDescription"
+      ),
       icon: <HardHat className="w-6 h-6" />,
       color: "yellow",
     },
     {
       id: "business",
-      title: "Business Law",
-      description: "Corporate law, contracts, and business disputes",
-      detailedDescription:
-        "Business law encompasses all legal matters related to commercial enterprises. This includes business formation, contract drafting and negotiation, employment law, intellectual property protection, mergers and acquisitions, and business litigation. Attorneys help businesses comply with regulations, protect their interests, and resolve disputes through negotiation or litigation.",
+      title: t("attorneyMatching.practiceAreas.business.title"),
+      description: t("attorneyMatching.practiceAreas.business.description"),
+      detailedDescription: t(
+        "attorneyMatching.practiceAreas.business.detailedDescription"
+      ),
       icon: <Briefcase className="w-6 h-6" />,
       color: "indigo",
     },
     {
       id: "criminal",
-      title: "Criminal Defense",
-      description: "Criminal charges and defense representation",
-      detailedDescription:
-        "Criminal defense law involves representing individuals accused of committing crimes. This includes misdemeanors, felonies, DUI cases, drug offenses, and white-collar crimes. Criminal defense attorneys protect constitutional rights, investigate cases, negotiate plea deals, and represent clients in court. They ensure fair treatment throughout the criminal justice process and work to achieve the best possible outcome.",
+      title: t("attorneyMatching.practiceAreas.criminal.title"),
+      description: t("attorneyMatching.practiceAreas.criminal.description"),
+      detailedDescription: t(
+        "attorneyMatching.practiceAreas.criminal.detailedDescription"
+      ),
       icon: <Gavel className="w-6 h-6" />,
       color: "pink",
     },
@@ -313,7 +323,7 @@ export default function AttorneyMatching() {
         <div className="fixed inset-0 z-0">
           <Image
             src="/images/long-logo-ClaimSaver.jpg"
-            alt="ClaimSaver+ Background"
+            alt={t("attorneyMatching.hero.imageAlt")}
             className="w-full h-full object-cover opacity-25"
             fill
           />
@@ -323,15 +333,13 @@ export default function AttorneyMatching() {
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-24">
           <div className="text-center max-w-4xl mx-auto">
             <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
-              Find Your{" "}
+              {t("attorneyMatching.hero.title")}{" "}
               <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                Perfect Attorney Match
+                {t("attorneyMatching.hero.subtitle")}
               </span>
             </h1>
             <p className="text-xl sm:text-2xl text-gray-600 dark:text-gray-300 mb-8 leading-relaxed max-w-3xl mx-auto">
-              Connect with experienced attorneys who specialize in your specific
-              legal needs. Our intelligent matching system ensures you find the
-              right representation for your case.
+              {t("attorneyMatching.hero.description")}
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
@@ -340,7 +348,7 @@ export default function AttorneyMatching() {
                 onClick={handleOpenModal}
                 className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-4 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
               >
-                Find Your Attorney
+                {t("attorneyMatching.hero.findAttorney")}
                 <Search className="ml-2 w-5 h-5" />
               </Button>
               <Button
@@ -349,7 +357,7 @@ export default function AttorneyMatching() {
                 onClick={handleLearnMoreClick}
                 className="border-2 border-gray-300 hover:border-gray-400 text-gray-700 dark:text-gray-300 px-8 py-4 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
               >
-                Learn More
+                {t("attorneyMatching.hero.learnMore")}
                 <ArrowRight className="ml-2 w-5 h-5" />
               </Button>
             </div>
@@ -376,14 +384,13 @@ export default function AttorneyMatching() {
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-6">
-              Why Choose Our{" "}
+              {t("attorneyMatching.features.title")}{" "}
               <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                Attorney Network?
+                {t("attorneyMatching.features.subtitle")}
               </span>
             </h2>
             <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-              Access to qualified attorneys in Florida and New York with proven
-              track records
+              {t("attorneyMatching.features.description")}
             </p>
           </div>
 
@@ -395,12 +402,12 @@ export default function AttorneyMatching() {
                   <Users className="w-6 h-6" />
                 </div>
                 <CardTitle className="text-xl font-semibold text-gray-900 dark:text-white">
-                  Regional Network
+                  {t("attorneyMatching.features.network.title")}
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-                  Access to qualified attorneys in Florida and New York,
+                  {t("attorneyMatching.features.network.description")}
                 </p>
               </CardContent>
             </Card>
@@ -412,13 +419,12 @@ export default function AttorneyMatching() {
                   <Award className="w-6 h-6" />
                 </div>
                 <CardTitle className="text-xl font-semibold text-gray-900 dark:text-white">
-                  Proven Track Record
+                  {t("attorneyMatching.features.trackRecord.title")}
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-                  All attorneys in our network have verified credentials and
-                  successful case histories.
+                  {t("attorneyMatching.features.trackRecord.description")}
                 </p>
               </CardContent>
             </Card>
@@ -430,13 +436,12 @@ export default function AttorneyMatching() {
                   <Shield className="w-6 h-6" />
                 </div>
                 <CardTitle className="text-xl font-semibold text-gray-900 dark:text-white">
-                  Secure & Confidential
+                  {t("attorneyMatching.features.secure.title")}
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-                  Your information is protected with bank-level security and
-                  attorney-client privilege.
+                  {t("attorneyMatching.features.secure.description")}
                 </p>
               </CardContent>
             </Card>
@@ -448,13 +453,12 @@ export default function AttorneyMatching() {
                   <Clock className="w-6 h-6" />
                 </div>
                 <CardTitle className="text-xl font-semibold text-gray-900 dark:text-white">
-                  Instant matching
+                  {t("attorneyMatching.features.instant.title")}
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-                  Get matched with qualified attorneys within minutes, not days
-                  or weeks.
+                  {t("attorneyMatching.features.instant.description")}
                 </p>
               </CardContent>
             </Card>
@@ -466,13 +470,12 @@ export default function AttorneyMatching() {
                   <TrendingUp className="w-6 h-6" />
                 </div>
                 <CardTitle className="text-xl font-semibold text-gray-900 dark:text-white">
-                  Success Rates
+                  {t("attorneyMatching.features.successRates.title")}
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-                  Our network attorneys have consistently high success rates and
-                  client satisfaction scores.
+                  {t("attorneyMatching.features.successRates.description")}
                 </p>
               </CardContent>
             </Card>
@@ -484,13 +487,12 @@ export default function AttorneyMatching() {
                   <Heart className="w-6 h-6" />
                 </div>
                 <CardTitle className="text-xl font-semibold text-gray-900 dark:text-white">
-                  Personalized Care
+                  {t("attorneyMatching.features.personalized.title")}
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-                  Each attorney provides personalized attention and dedicated
-                  support throughout your case.
+                  {t("attorneyMatching.features.personalized.description")}
                 </p>
               </CardContent>
             </Card>
@@ -504,7 +506,7 @@ export default function AttorneyMatching() {
         <div className="fixed inset-0 z-0">
           <Image
             src="/images/long-logo-ClaimSaver.jpg"
-            alt="ClaimSaver+ Background"
+            alt={t("attorneyMatching.practiceAreas.imageAlt")}
             className="w-full h-full object-cover opacity-20"
             fill
           />
@@ -514,13 +516,13 @@ export default function AttorneyMatching() {
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-6">
-              Practice{" "}
+              {t("attorneyMatching.practiceAreas.title")}{" "}
               <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                Areas
+                {t("attorneyMatching.practiceAreas.subtitle")}
               </span>
             </h2>
             <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-              Find attorneys specialized in your specific legal needs
+              {t("attorneyMatching.practiceAreas.description")}
             </p>
           </div>
 
