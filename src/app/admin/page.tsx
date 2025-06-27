@@ -39,6 +39,8 @@ import {
   Calendar,
 } from "lucide-react";
 import { claimsApi, usersApi, type Claim, type User } from "@/lib/api";
+import jsPDF from "jspdf";
+import html2canvas from "html2canvas";
 
 export default function AdminPage() {
   const { user, isLoaded } = useUser();
@@ -123,6 +125,207 @@ export default function AdminPage() {
     }
   };
 
+  // Handle claim status update
+  const handleStatusUpdate = async (claimId: string, newStatus: string) => {
+    try {
+      const response = await claimsApi.updateClaim(claimId, {
+        status: newStatus,
+      });
+      if (response.error) {
+        throw new Error(response.error);
+      }
+
+      // Refresh data
+      await loadData();
+    } catch (err) {
+      console.error("Error updating claim status:", err);
+      setError(
+        err instanceof Error ? err.message : "Failed to update claim status"
+      );
+    }
+  };
+
+  // Handle claim download
+  const handleDownloadClaim = async (claim: Claim) => {
+    try {
+      // 1. Create a hidden iframe
+      const iframe = document.createElement("iframe");
+      iframe.style.position = "fixed";
+      iframe.style.left = "-9999px";
+      iframe.style.top = "0";
+      iframe.style.width = "900px";
+      iframe.style.height = "1200px";
+      iframe.style.visibility = "hidden";
+      document.body.appendChild(iframe);
+
+      // 2. Write the PDF HTML into the iframe
+      const doc = iframe.contentDocument || iframe.contentWindow?.document;
+      if (!doc) throw new Error("Could not access iframe document");
+      doc.open();
+      doc.write(`
+        <html><head>
+        <style>
+          html, body { background: #fff !important; color: #000 !important; font-family: Arial, sans-serif; font-size: 12px; line-height: 1.4; }
+          * { background: #fff !important; color: #000 !important; box-sizing: border-box; }
+        </style>
+        </head><body>
+        <div style="padding: 40px;">
+          <div style="text-align: center; margin-bottom: 30px; border-bottom: 2px solid #2563eb; padding-bottom: 20px;">
+            <h1 style="color: #2563eb; font-size: 28px; margin: 0; font-weight: bold;">ClaimSaver+</h1>
+            <h2 style="color: #374151; font-size: 20px; margin: 10px 0 0 0;">APPLICATION FOR FLORIDA "NO FAULT" BENEFITS</h2>
+          </div>
+          <div style="margin-bottom: 25px;">
+            <h3 style="color: #2563eb; font-size: 16px; margin: 0 0 15px 0; border-bottom: 1px solid #e5e7eb; padding-bottom: 5px;">Claim Information</h3>
+            <table style="width: 100%; border-collapse: collapse;">
+              <tr><td style="width: 200px; font-weight: bold; padding: 8px 0; border-bottom: 1px solid #f3f4f6;">Claim Number:</td><td style="padding: 8px 0; border-bottom: 1px solid #f3f4f6;">${
+                claim.claimNumber
+              }</td></tr>
+              <tr><td style="font-weight: bold; padding: 8px 0; border-bottom: 1px solid #f3f4f6;">Status:</td><td style="padding: 8px 0; border-bottom: 1px solid #f3f4f6;">${claim.status
+                .replace("_", " ")
+                .toUpperCase()}</td></tr>
+              <tr><td style="font-weight: bold; padding: 8px 0; border-bottom: 1px solid #f3f4f6;">Priority:</td><td style="padding: 8px 0; border-bottom: 1px solid #f3f4f6;">${claim.priority.toUpperCase()}</td></tr>
+              <tr><td style="font-weight: bold; padding: 8px 0; border-bottom: 1px solid #f3f4f6;">Submitted Date:</td><td style="padding: 8px 0; border-bottom: 1px solid #f3f4f6;">${new Date(
+                claim.submittedAt
+              ).toLocaleDateString()}</td></tr>
+              <tr><td style="font-weight: bold; padding: 8px 0; border-bottom: 1px solid #f3f4f6;">Estimated Value:</td><td style="padding: 8px 0; border-bottom: 1px solid #f3f4f6;">$${
+                claim.estimatedValue?.toLocaleString() || "0"
+              }</td></tr>
+            </table>
+          </div>
+          <div style="margin-bottom: 25px;">
+            <h3 style="color: #2563eb; font-size: 16px; margin: 0 0 15px 0; border-bottom: 1px solid #e5e7eb; padding-bottom: 5px;">Claimant Information</h3>
+            <table style="width: 100%; border-collapse: collapse;">
+              <tr><td style="width: 200px; font-weight: bold; padding: 8px 0; border-bottom: 1px solid #f3f4f6;">Name:</td><td style="padding: 8px 0; border-bottom: 1px solid #f3f4f6;">${
+                claim.claimantName || "Not provided"
+              }</td></tr>
+              <tr><td style="font-weight: bold; padding: 8px 0; border-bottom: 1px solid #f3f4f6;">Address:</td><td style="padding: 8px 0; border-bottom: 1px solid #f3f4f6;">${
+                claim.claimantAddress || "Not provided"
+              }</td></tr>
+              <tr><td style="font-weight: bold; padding: 8px 0; border-bottom: 1px solid #f3f4f6;">Phone (Home):</td><td style="padding: 8px 0; border-bottom: 1px solid #f3f4f6;">${
+                claim.claimantPhoneHome || "Not provided"
+              }</td></tr>
+              <tr><td style="font-weight: bold; padding: 8px 0; border-bottom: 1px solid #f3f4f6;">Phone (Business):</td><td style="padding: 8px 0; border-bottom: 1px solid #f3f4f6;">${
+                claim.claimantPhoneBusiness || "Not provided"
+              }</td></tr>
+              <tr><td style="font-weight: bold; padding: 8px 0; border-bottom: 1px solid #f3f4f6;">Date of Birth:</td><td style="padding: 8px 0; border-bottom: 1px solid #f3f4f6;">${
+                claim.claimantDOB || "Not provided"
+              }</td></tr>
+              <tr><td style="font-weight: bold; padding: 8px 0; border-bottom: 1px solid #f3f4f6;">SSN:</td><td style="padding: 8px 0; border-bottom: 1px solid #f3f4f6;">${
+                claim.claimantSSN || "Not provided"
+              }</td></tr>
+            </table>
+          </div>
+          <div style="margin-bottom: 25px;">
+            <h3 style="color: #2563eb; font-size: 16px; margin: 0 0 15px 0; border-bottom: 1px solid #e5e7eb; padding-bottom: 5px;">Insurance Information</h3>
+            <table style="width: 100%; border-collapse: collapse;">
+              <tr><td style="width: 200px; font-weight: bold; padding: 8px 0; border-bottom: 1px solid #f3f4f6;">Insurance Company:</td><td style="padding: 8px 0; border-bottom: 1px solid #f3f4f6;">${
+                claim.insuranceCompany || "Not provided"
+              }</td></tr>
+              <tr><td style="font-weight: bold; padding: 8px 0; border-bottom: 1px solid #f3f4f6;">Policy Number:</td><td style="padding: 8px 0; border-bottom: 1px solid #f3f4f6;">${
+                claim.policyNumber || "Not provided"
+              }</td></tr>
+              <tr><td style="font-weight: bold; padding: 8px 0; border-bottom: 1px solid #f3f4f6;">File Number:</td><td style="padding: 8px 0; border-bottom: 1px solid #f3f4f6;">${
+                claim.fileNumber || "Not provided"
+              }</td></tr>
+              <tr><td style="font-weight: bold; padding: 8px 0; border-bottom: 1px solid #f3f4f6;">Adjuster Name:</td><td style="padding: 8px 0; border-bottom: 1px solid #f3f4f6;">${
+                claim.adjusterName || "Not provided"
+              }</td></tr>
+              <tr><td style="font-weight: bold; padding: 8px 0; border-bottom: 1px solid #f3f4f6;">Adjuster Phone:</td><td style="padding: 8px 0; border-bottom: 1px solid #f3f4f6;">${
+                claim.adjusterPhone || "Not provided"
+              }</td></tr>
+            </table>
+          </div>
+          <div style="margin-bottom: 25px;">
+            <h3 style="color: #2563eb; font-size: 16px; margin: 0 0 15px 0; border-bottom: 1px solid #e5e7eb; padding-bottom: 5px;">Accident Details</h3>
+            <table style="width: 100%; border-collapse: collapse;">
+              <tr><td style="width: 200px; font-weight: bold; padding: 8px 0; border-bottom: 1px solid #f3f4f6;">Accident Date:</td><td style="padding: 8px 0; border-bottom: 1px solid #f3f4f6;">${new Date(
+                claim.accidentDate
+              ).toLocaleDateString()}</td></tr>
+              <tr><td style="font-weight: bold; padding: 8px 0; border-bottom: 1px solid #f3f4f6;">Accident Place:</td><td style="padding: 8px 0; border-bottom: 1px solid #f3f4f6;">${
+                claim.accidentPlace || "Not provided"
+              }</td></tr>
+              <tr><td style="font-weight: bold; padding: 8px 0; border-bottom: 1px solid #f3f4f6;">Your Vehicle:</td><td style="padding: 8px 0; border-bottom: 1px solid #f3f4f6;">${
+                claim.yourVehicle || "Not provided"
+              }</td></tr>
+              <tr><td style="font-weight: bold; padding: 8px 0; border-bottom: 1px solid #f3f4f6;">Family Vehicle:</td><td style="padding: 8px 0; border-bottom: 1px solid #f3f4f6;">${
+                claim.familyVehicle || "Not provided"
+              }</td></tr>
+              <tr><td style="font-weight: bold; padding: 8px 0; border-bottom: 1px solid #f3f4f6;">Injured:</td><td style="padding: 8px 0; border-bottom: 1px solid #f3f4f6;">${
+                claim.injured ? "Yes" : "No"
+              }</td></tr>
+            </table>
+          </div>
+          ${
+            claim.accidentDescription
+              ? `<div style="margin-bottom: 25px;"><h3 style="color: #2563eb; font-size: 16px; margin: 0 0 15px 0; border-bottom: 1px solid #e5e7eb; padding-bottom: 5px;">Accident Description</h3><p style="margin: 0; padding: 10px; background-color: #f9fafb; border-radius: 4px; border-left: 4px solid #2563eb;">${claim.accidentDescription}</p></div>`
+              : ""
+          }
+          ${
+            claim.injured && claim.injuryDescription
+              ? `<div style="margin-bottom: 25px;"><h3 style="color: #2563eb; font-size: 16px; margin: 0 0 15px 0; border-bottom: 1px solid #e5e7eb; padding-bottom: 5px;">Injury Description</h3><p style="margin: 0; padding: 10px; background-color: #f9fafb; border-radius: 4px; border-left: 4px solid #dc2626;">${claim.injuryDescription}</p></div>`
+              : ""
+          }
+          <div style="margin-top: 40px; padding-top: 20px; border-top: 2px solid #2563eb; text-align: center; color: #6b7280; font-size: 10px;"><p style="margin: 0;">Generated by ClaimSaver+ on ${new Date().toLocaleDateString()} at ${new Date().toLocaleTimeString()}</p><p style="margin: 5px 0 0 0;">This document contains confidential information and should be handled accordingly.</p></div>
+        </div>
+        </body></html>
+      `);
+      doc.close();
+
+      // 3. Wait for the iframe to load
+      await new Promise((resolve) => setTimeout(resolve, 100));
+
+      // 4. Use html2canvas on the iframe's document body
+      const canvas = await html2canvas(
+        iframe.contentDocument?.body as HTMLElement,
+        {
+          scale: 2,
+          useCORS: true,
+          allowTaint: true,
+          backgroundColor: "#ffffff",
+        }
+      );
+
+      // 5. Remove the iframe
+      document.body.removeChild(iframe);
+
+      // 6. Create PDF
+      const imgData = canvas.toDataURL("image/png");
+      const pdf = new jsPDF("p", "mm", "a4");
+      const imgWidth = 210;
+      const pageHeight = 295;
+      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+      let heightLeft = imgHeight;
+      let position = 0;
+
+      // Add first page
+      pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
+      heightLeft -= pageHeight;
+
+      // Add additional pages if needed
+      while (heightLeft >= 0) {
+        position = heightLeft - imgHeight;
+        pdf.addPage();
+        pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+      }
+
+      // Download the PDF
+      pdf.save(
+        `claim-${claim.claimNumber}-${
+          new Date().toISOString().split("T")[0]
+        }.pdf`
+      );
+    } catch (err) {
+      console.error("Error generating PDF:", err);
+      setError("Failed to generate PDF");
+    }
+  };
+
+  // Handle view claim
+  const handleViewClaim = (claimId: string) => {
+    router.push(`/admin/claims/${claimId}`);
+  };
+
   // Handle user deletion
   const handleDeleteUser = async (userId: string) => {
     if (!confirm("Are you sure you want to delete this user?")) {
@@ -140,6 +343,95 @@ export default function AdminPage() {
     } catch (err) {
       console.error("Error deleting user:", err);
       setError(err instanceof Error ? err.message : "Failed to delete user");
+    }
+  };
+
+  // Handle user editing
+  const handleEditUser = (userId: string) => {
+    router.push(`/admin/users/${userId}?edit=true`);
+  };
+
+  // Handle user viewing
+  const handleViewUser = (userId: string) => {
+    router.push(`/admin/users/${userId}`);
+  };
+
+  // Handle data export
+  const handleExportData = () => {
+    try {
+      // Create CSV content
+      const csvHeaders = [
+        "Claim Number",
+        "Claimant Name",
+        "Status",
+        "Priority",
+        "Accident Date",
+        "Estimated Value",
+        "Submitted At",
+      ].join(",");
+
+      const csvRows = claims.map((claim) =>
+        [
+          claim.claimNumber,
+          claim.claimantName,
+          claim.status,
+          claim.priority,
+          new Date(claim.accidentDate).toLocaleDateString(),
+          claim.estimatedValue || 0,
+          new Date(claim.submittedAt).toLocaleDateString(),
+        ].join(",")
+      );
+
+      const csvContent = [csvHeaders, ...csvRows].join("\n");
+
+      // Create and download file
+      const blob = new Blob([csvContent], { type: "text/csv" });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `claims-export-${
+        new Date().toISOString().split("T")[0]
+      }.csv`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      window.URL.revokeObjectURL(url);
+    } catch (err) {
+      console.error("Error exporting data:", err);
+      setError("Failed to export data");
+    }
+  };
+
+  // Handle quick actions
+  const handleQuickAction = (action: string) => {
+    switch (action) {
+      case "view":
+        setActiveTab("claims");
+        break;
+      case "status":
+        setActiveTab("claims");
+        // Focus on status filter
+        setTimeout(() => {
+          const statusFilter = document.querySelector(
+            "[data-radix-collection-item]"
+          );
+          if (statusFilter) {
+            (statusFilter as HTMLElement).focus();
+          }
+        }, 100);
+        break;
+      case "notes":
+        // Navigate to first claim for adding notes
+        if (claims.length > 0) {
+          router.push(`/admin/claims/${claims[0]._id}?action=notes`);
+        }
+        break;
+      case "progress":
+        // Navigate to first claim for tracking progress
+        if (claims.length > 0) {
+          router.push(`/admin/claims/${claims[0]._id}?action=progress`);
+        }
+        break;
     }
   };
 
@@ -265,6 +557,7 @@ export default function AdminPage() {
               <Button
                 size="lg"
                 variant="outline"
+                onClick={handleExportData}
                 className="border-2 border-gray-300 hover:border-gray-400 text-gray-700 dark:text-gray-300 px-8 py-4 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
               >
                 <Download className="mr-2 w-5 h-5" />
@@ -521,30 +814,38 @@ export default function AdminPage() {
                         and track progress.
                       </p>
                       <div className="flex flex-wrap gap-2 text-xs">
-                        <Badge
+                        <Button
+                          size="sm"
                           variant="outline"
-                          className="text-blue-600 border-blue-200"
+                          onClick={() => handleQuickAction("view")}
+                          className="text-blue-600 border-blue-200 hover:bg-blue-50 dark:hover:bg-blue-950/50 hover:border-blue-300 dark:hover:border-blue-700"
                         >
                           View Details
-                        </Badge>
-                        <Badge
+                        </Button>
+                        <Button
+                          size="sm"
                           variant="outline"
-                          className="text-green-600 border-green-200"
+                          onClick={() => handleQuickAction("status")}
+                          className="text-green-600 border-green-200 hover:bg-green-50 dark:hover:bg-green-950/50 hover:border-green-300 dark:hover:border-green-700"
                         >
                           Update Status
-                        </Badge>
-                        <Badge
+                        </Button>
+                        <Button
+                          size="sm"
                           variant="outline"
-                          className="text-purple-600 border-purple-200"
+                          onClick={() => handleQuickAction("notes")}
+                          className="text-purple-600 border-purple-200 hover:bg-purple-50 dark:hover:bg-purple-950/50 hover:border-purple-300 dark:hover:border-purple-700"
                         >
                           Add Notes
-                        </Badge>
-                        <Badge
+                        </Button>
+                        <Button
+                          size="sm"
                           variant="outline"
-                          className="text-orange-600 border-orange-200"
+                          onClick={() => handleQuickAction("progress")}
+                          className="text-orange-600 border-orange-200 hover:bg-orange-50 dark:hover:bg-orange-950/50 hover:border-orange-300 dark:hover:border-orange-700"
                         >
                           Track Progress
-                        </Badge>
+                        </Button>
                       </div>
                     </div>
                   </div>
@@ -637,7 +938,7 @@ export default function AdminPage() {
                           </CardTitle>
                           <div className="flex gap-2">
                             <Badge className={getStatusColor(claim.status)}>
-                              {claim.status.replace("_", " ")}
+                              {claim.status}
                             </Badge>
                             <Badge className={getPriorityColor(claim.priority)}>
                               {claim.priority}
@@ -675,24 +976,63 @@ export default function AdminPage() {
                               <Button
                                 size="sm"
                                 variant="outline"
-                                onClick={() =>
-                                  router.push(`/admin/claims/${claim._id}`)
-                                }
-                                className="hover:bg-blue-50 dark:hover:bg-blue-950/50 hover:border-blue-300 dark:hover:border-blue-700"
+                                onClick={() => handleViewClaim(claim._id)}
+                                className="hover:bg-blue-50 dark:hover:bg-blue-950/50 hover:border-blue-300 dark:hover:border-blue-700 cursor-pointer z-10 relative"
+                                aria-label={`View claim ${claim.claimNumber}`}
                               >
                                 <Eye className="w-4 h-4" />
                               </Button>
-                              <Button size="sm" variant="outline">
-                                <Edit className="w-4 h-4" />
+                              <Button
+                                size="sm"
+                                variant="outline"
+                                onClick={() => handleDownloadClaim(claim)}
+                                className="hover:bg-green-50 dark:hover:bg-green-950/50 hover:border-green-300 dark:hover:border-green-700 cursor-pointer z-10 relative"
+                                aria-label={`Download claim ${claim.claimNumber}`}
+                              >
+                                <Download className="w-4 h-4" />
                               </Button>
                             </div>
-                            <Button
-                              size="sm"
-                              variant="destructive"
-                              onClick={() => handleDeleteClaim(claim._id)}
-                            >
-                              <Trash2 className="w-4 h-4" />
-                            </Button>
+                            <div className="flex gap-2">
+                              <Select
+                                value={claim.status}
+                                onValueChange={(value) =>
+                                  handleStatusUpdate(claim._id, value)
+                                }
+                              >
+                                <SelectTrigger className="w-32 h-8 text-xs cursor-pointer z-10 relative">
+                                  <SelectValue />
+                                </SelectTrigger>
+                                <SelectContent>
+                                  <SelectItem value="pending">
+                                    Pending
+                                  </SelectItem>
+                                  <SelectItem value="reviewing">
+                                    Reviewing
+                                  </SelectItem>
+                                  <SelectItem value="approved">
+                                    Approved
+                                  </SelectItem>
+                                  <SelectItem value="rejected">
+                                    Rejected
+                                  </SelectItem>
+                                  <SelectItem value="in_progress">
+                                    In Progress
+                                  </SelectItem>
+                                  <SelectItem value="completed">
+                                    Completed
+                                  </SelectItem>
+                                </SelectContent>
+                              </Select>
+                              <Button
+                                size="sm"
+                                variant="destructive"
+                                onClick={() => handleDeleteClaim(claim._id)}
+                                className="hover:bg-red-600 hover:text-white cursor-pointer z-10 relative"
+                                aria-label={`Delete claim ${claim.claimNumber}`}
+                              >
+                                <Trash2 className="w-4 h-4" />
+                              </Button>
+                            </div>
                           </div>
                         </div>
                       </CardContent>
@@ -741,10 +1081,20 @@ export default function AdminPage() {
                         </div>
                         <div className="flex items-center justify-between pt-3 border-t border-gray-200 dark:border-gray-700">
                           <div className="flex gap-2">
-                            <Button size="sm" variant="outline">
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              onClick={() => handleViewUser(user._id)}
+                              className="hover:bg-blue-50 dark:hover:bg-blue-950/50 hover:border-blue-300 dark:hover:border-blue-700"
+                            >
                               <Eye className="w-4 h-4" />
                             </Button>
-                            <Button size="sm" variant="outline">
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              onClick={() => handleEditUser(user._id)}
+                              className="hover:bg-green-50 dark:hover:bg-green-950/50 hover:border-green-300 dark:hover:border-green-700"
+                            >
                               <Edit className="w-4 h-4" />
                             </Button>
                           </div>

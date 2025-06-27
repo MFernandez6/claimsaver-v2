@@ -164,8 +164,18 @@ export default function ClaimDetailPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-950 dark:to-gray-900">
-        <div className="container mx-auto px-4 py-8">
+      <div className="min-h-screen bg-white dark:bg-gray-950">
+        {/* Background Image */}
+        <div className="fixed inset-0 z-0">
+          <img
+            src="/images/long-logo-ClaimSaver.jpg"
+            alt="ClaimSaver+ Background"
+            className="w-full h-full object-cover opacity-25"
+          />
+          <div className="absolute inset-0 bg-gradient-to-br from-blue-50/70 via-white/80 to-indigo-50/70 dark:from-gray-950/70 dark:via-gray-900/80 dark:to-blue-950/70"></div>
+        </div>
+
+        <div className="relative z-10 container mx-auto px-4 py-8 pt-24">
           <div className="flex items-center justify-center min-h-[400px]">
             <div className="flex items-center gap-2">
               <Loader2 className="h-6 w-6 animate-spin" />
@@ -181,15 +191,28 @@ export default function ClaimDetailPage() {
 
   if (error && !claim) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-950 dark:to-gray-900">
-        <div className="container mx-auto px-4 py-8">
+      <div className="min-h-screen bg-white dark:bg-gray-950">
+        {/* Background Image */}
+        <div className="fixed inset-0 z-0">
+          <img
+            src="/images/long-logo-ClaimSaver.jpg"
+            alt="ClaimSaver+ Background"
+            className="w-full h-full object-cover opacity-25"
+          />
+          <div className="absolute inset-0 bg-gradient-to-br from-blue-50/70 via-white/80 to-indigo-50/70 dark:from-gray-950/70 dark:via-gray-900/80 dark:to-blue-950/70"></div>
+        </div>
+
+        <div className="relative z-10 container mx-auto px-4 py-8 pt-24">
           <div className="text-center">
             <AlertTriangle className="h-16 w-16 text-red-500 mx-auto mb-4" />
             <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
               Error Loading Claim
             </h1>
             <p className="text-gray-600 dark:text-gray-400 mb-4">{error}</p>
-            <Button onClick={() => router.push("/admin")}>
+            <Button
+              onClick={() => router.push("/admin")}
+              className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white"
+            >
               <ArrowLeft className="h-4 w-4 mr-2" />
               Back to Admin
             </Button>
@@ -201,8 +224,18 @@ export default function ClaimDetailPage() {
 
   if (!claim) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-950 dark:to-gray-900">
-        <div className="container mx-auto px-4 py-8">
+      <div className="min-h-screen bg-white dark:bg-gray-950">
+        {/* Background Image */}
+        <div className="fixed inset-0 z-0">
+          <img
+            src="/images/long-logo-ClaimSaver.jpg"
+            alt="ClaimSaver+ Background"
+            className="w-full h-full object-cover opacity-25"
+          />
+          <div className="absolute inset-0 bg-gradient-to-br from-blue-50/70 via-white/80 to-indigo-50/70 dark:from-gray-950/70 dark:via-gray-900/80 dark:to-blue-950/70"></div>
+        </div>
+
+        <div className="relative z-10 container mx-auto px-4 py-8 pt-24">
           <div className="text-center">
             <AlertTriangle className="h-16 w-16 text-red-500 mx-auto mb-4" />
             <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
@@ -212,7 +245,10 @@ export default function ClaimDetailPage() {
               The claim you&apos;re looking for doesn&apos;t exist or has been
               removed.
             </p>
-            <Button onClick={() => router.push("/admin")}>
+            <Button
+              onClick={() => router.push("/admin")}
+              className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white"
+            >
               <ArrowLeft className="h-4 w-4 mr-2" />
               Back to Admin
             </Button>
@@ -223,36 +259,61 @@ export default function ClaimDetailPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-950 dark:to-gray-900">
-      <div className="container mx-auto px-4 py-8">
+    <div className="min-h-screen bg-white dark:bg-gray-950">
+      {/* Background Image */}
+      <div className="fixed inset-0 z-0">
+        <img
+          src="/images/long-logo-ClaimSaver.jpg"
+          alt="ClaimSaver+ Background"
+          className="w-full h-full object-cover opacity-25"
+        />
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-50/70 via-white/80 to-indigo-50/70 dark:from-gray-950/70 dark:via-gray-900/80 dark:to-blue-950/70"></div>
+      </div>
+
+      <div className="relative z-10 container mx-auto px-4 py-8 pt-24">
         {/* Header */}
         <div className="mb-8">
-          <div className="flex items-center gap-4 mb-4">
-            <Button variant="ghost" onClick={() => router.push("/admin")}>
+          <div className="flex items-center gap-4 mb-6">
+            <Button
+              variant="ghost"
+              onClick={() => router.push("/admin")}
+              className="hover:bg-gray-100 dark:hover:bg-gray-800"
+            >
               <ArrowLeft className="h-4 w-4 mr-2" />
               Back to Admin
             </Button>
             <div className="flex-1">
-              <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
-                Claim {claim.claimNumber}
+              <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-2">
+                Claim{" "}
+                <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                  {claim.claimNumber}
+                </span>
               </h1>
-              <p className="text-gray-600 dark:text-gray-400">
+              <p className="text-xl text-gray-600 dark:text-gray-400">
                 {claim.claimantName} •{" "}
                 {new Date(claim.accidentDate).toLocaleDateString()}
               </p>
             </div>
             <div className="flex items-center gap-2">
-              <Badge className={getStatusColor(claim.status)}>
-                {claim.status}
+              <Badge
+                className={`${getStatusColor(
+                  claim.status
+                )} px-4 py-2 text-sm font-semibold`}
+              >
+                {claim.status.replace("_", " ")}
               </Badge>
-              <Badge className={getPriorityColor(claim.priority)}>
+              <Badge
+                className={`${getPriorityColor(
+                  claim.priority
+                )} px-4 py-2 text-sm font-semibold`}
+              >
                 {claim.priority}
               </Badge>
             </div>
           </div>
 
           {error && (
-            <div className="mb-4 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg flex items-center gap-2">
+            <div className="mb-6 p-4 bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800 rounded-xl flex items-center gap-2">
               <AlertTriangle className="h-5 w-5 text-red-600" />
               <span className="text-red-800 dark:text-red-200">{error}</span>
             </div>
@@ -261,11 +322,15 @@ export default function ClaimDetailPage() {
           <div className="flex items-center gap-4">
             {editing ? (
               <>
-                <Button onClick={handleSave} disabled={saving}>
+                <Button
+                  onClick={handleSave}
+                  disabled={saving}
+                  className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white px-6 py-3 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+                >
                   {saving ? (
-                    <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                    <Loader2 className="h-5 w-5 mr-2 animate-spin" />
                   ) : (
-                    <Save className="h-4 w-4 mr-2" />
+                    <Save className="h-5 w-5 mr-2" />
                   )}
                   {saving ? "Saving..." : "Save Changes"}
                 </Button>
@@ -273,18 +338,25 @@ export default function ClaimDetailPage() {
                   variant="outline"
                   onClick={() => setEditing(false)}
                   disabled={saving}
+                  className="border-2 border-gray-300 hover:border-gray-400 text-gray-700 dark:text-gray-300 px-6 py-3 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
                 >
                   Cancel
                 </Button>
               </>
             ) : (
               <>
-                <Button onClick={() => setEditing(true)}>
-                  <Edit className="h-4 w-4 mr-2" />
+                <Button
+                  onClick={() => setEditing(true)}
+                  className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-6 py-3 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+                >
+                  <Edit className="h-5 w-5 mr-2" />
                   Edit Claim
                 </Button>
-                <Button variant="outline">
-                  <Download className="h-4 w-4 mr-2" />
+                <Button
+                  variant="outline"
+                  className="border-2 border-gray-300 hover:border-gray-400 text-gray-700 dark:text-gray-300 px-6 py-3 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+                >
+                  <Download className="h-5 w-5 mr-2" />
                   Export
                 </Button>
               </>
@@ -292,21 +364,22 @@ export default function ClaimDetailPage() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Main Content */}
-          <div className="lg:col-span-2 space-y-6">
+          <div className="lg:col-span-2 space-y-8">
             {/* Insurance Information */}
-            <Card>
+            <Card className="group relative overflow-hidden border-0 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 backdrop-blur-sm">
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-600/5 to-purple-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
               <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Shield className="h-5 w-5" />
+                <CardTitle className="flex items-center gap-2 text-gray-900 dark:text-white">
+                  <Shield className="h-6 w-6" />
                   Insurance Information
                 </CardTitle>
               </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <CardContent className="space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <label className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                    <label className="text-sm font-medium text-gray-600 dark:text-gray-400 mb-2 block">
                       Insurance Company
                     </label>
                     {editing ? (
@@ -318,15 +391,16 @@ export default function ClaimDetailPage() {
                             insuranceCompany: e.target.value,
                           })
                         }
+                        className="border-2 border-gray-200 focus:border-blue-500 rounded-lg"
                       />
                     ) : (
-                      <p className="text-gray-900 dark:text-white">
+                      <p className="text-gray-900 dark:text-white font-medium">
                         {claim.insuranceCompany || "Not provided"}
                       </p>
                     )}
                   </div>
                   <div>
-                    <label className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                    <label className="text-sm font-medium text-gray-600 dark:text-gray-400 mb-2 block">
                       Policy Number
                     </label>
                     {editing ? (
@@ -335,15 +409,16 @@ export default function ClaimDetailPage() {
                         onChange={(e) =>
                           setClaim({ ...claim, policyNumber: e.target.value })
                         }
+                        className="border-2 border-gray-200 focus:border-blue-500 rounded-lg"
                       />
                     ) : (
-                      <p className="text-gray-900 dark:text-white">
+                      <p className="text-gray-900 dark:text-white font-medium">
                         {claim.policyNumber || "Not provided"}
                       </p>
                     )}
                   </div>
                   <div>
-                    <label className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                    <label className="text-sm font-medium text-gray-600 dark:text-gray-400 mb-2 block">
                       Claim Number
                     </label>
                     {editing ? (
@@ -352,15 +427,16 @@ export default function ClaimDetailPage() {
                         onChange={(e) =>
                           setClaim({ ...claim, claimNumber: e.target.value })
                         }
+                        className="border-2 border-gray-200 focus:border-blue-500 rounded-lg"
                       />
                     ) : (
-                      <p className="text-gray-900 dark:text-white">
+                      <p className="text-gray-900 dark:text-white font-medium">
                         {claim.claimNumber || "Not provided"}
                       </p>
                     )}
                   </div>
                   <div>
-                    <label className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                    <label className="text-sm font-medium text-gray-600 dark:text-gray-400 mb-2 block">
                       Adjuster Name
                     </label>
                     {editing ? (
@@ -369,15 +445,16 @@ export default function ClaimDetailPage() {
                         onChange={(e) =>
                           setClaim({ ...claim, adjusterName: e.target.value })
                         }
+                        className="border-2 border-gray-200 focus:border-blue-500 rounded-lg"
                       />
                     ) : (
-                      <p className="text-gray-900 dark:text-white">
+                      <p className="text-gray-900 dark:text-white font-medium">
                         {claim.adjusterName || "Not provided"}
                       </p>
                     )}
                   </div>
                   <div>
-                    <label className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                    <label className="text-sm font-medium text-gray-600 dark:text-gray-400 mb-2 block">
                       Adjuster Phone
                     </label>
                     {editing ? (
@@ -386,15 +463,16 @@ export default function ClaimDetailPage() {
                         onChange={(e) =>
                           setClaim({ ...claim, adjusterPhone: e.target.value })
                         }
+                        className="border-2 border-gray-200 focus:border-blue-500 rounded-lg"
                       />
                     ) : (
-                      <p className="text-gray-900 dark:text-white">
+                      <p className="text-gray-900 dark:text-white font-medium">
                         {claim.adjusterPhone || "Not provided"}
                       </p>
                     )}
                   </div>
                   <div>
-                    <label className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                    <label className="text-sm font-medium text-gray-600 dark:text-gray-400 mb-2 block">
                       File Number
                     </label>
                     {editing ? (
@@ -403,45 +481,11 @@ export default function ClaimDetailPage() {
                         onChange={(e) =>
                           setClaim({ ...claim, fileNumber: e.target.value })
                         }
+                        className="border-2 border-gray-200 focus:border-blue-500 rounded-lg"
                       />
                     ) : (
-                      <p className="text-gray-900 dark:text-white">
+                      <p className="text-gray-900 dark:text-white font-medium">
                         {claim.fileNumber || "Not provided"}
-                      </p>
-                    )}
-                  </div>
-                  <div>
-                    <label className="text-sm font-medium text-gray-600 dark:text-gray-400">
-                      Policy Holder
-                    </label>
-                    {editing ? (
-                      <Input
-                        value={claim.policyHolder || ""}
-                        onChange={(e) =>
-                          setClaim({ ...claim, policyHolder: e.target.value })
-                        }
-                      />
-                    ) : (
-                      <p className="text-gray-900 dark:text-white">
-                        {claim.policyHolder || "Not provided"}
-                      </p>
-                    )}
-                  </div>
-                  <div>
-                    <label className="text-sm font-medium text-gray-600 dark:text-gray-400">
-                      Date of Accident
-                    </label>
-                    {editing ? (
-                      <Input
-                        type="date"
-                        value={claim.dateOfAccident || ""}
-                        onChange={(e) =>
-                          setClaim({ ...claim, dateOfAccident: e.target.value })
-                        }
-                      />
-                    ) : (
-                      <p className="text-gray-900 dark:text-white">
-                        {claim.dateOfAccident || "Not provided"}
                       </p>
                     )}
                   </div>
@@ -1631,15 +1675,18 @@ export default function ClaimDetailPage() {
           </div>
 
           {/* Sidebar */}
-          <div className="space-y-6">
+          <div className="space-y-8">
             {/* Status & Priority */}
-            <Card>
+            <Card className="group relative overflow-hidden border-0 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 backdrop-blur-sm">
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-600/5 to-purple-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
               <CardHeader>
-                <CardTitle>Status & Priority</CardTitle>
+                <CardTitle className="text-gray-900 dark:text-white">
+                  Status & Priority
+                </CardTitle>
               </CardHeader>
-              <CardContent className="space-y-4">
+              <CardContent className="space-y-6">
                 <div>
-                  <label className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                  <label className="text-sm font-medium text-gray-600 dark:text-gray-400 mb-2 block">
                     Status
                   </label>
                   {editing ? (
@@ -1649,7 +1696,7 @@ export default function ClaimDetailPage() {
                         setClaim({ ...claim, status: value })
                       }
                     >
-                      <SelectTrigger>
+                      <SelectTrigger className="border-2 border-gray-200 focus:border-blue-500 rounded-lg">
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
@@ -1662,13 +1709,17 @@ export default function ClaimDetailPage() {
                       </SelectContent>
                     </Select>
                   ) : (
-                    <Badge className={getStatusColor(claim.status)}>
-                      {claim.status}
+                    <Badge
+                      className={`${getStatusColor(
+                        claim.status
+                      )} px-4 py-2 text-sm font-semibold`}
+                    >
+                      {claim.status.replace("_", " ")}
                     </Badge>
                   )}
                 </div>
                 <div>
-                  <label className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                  <label className="text-sm font-medium text-gray-600 dark:text-gray-400 mb-2 block">
                     Priority
                   </label>
                   {editing ? (
@@ -1678,7 +1729,7 @@ export default function ClaimDetailPage() {
                         setClaim({ ...claim, priority: value })
                       }
                     >
-                      <SelectTrigger>
+                      <SelectTrigger className="border-2 border-gray-200 focus:border-blue-500 rounded-lg">
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
@@ -1689,7 +1740,11 @@ export default function ClaimDetailPage() {
                       </SelectContent>
                     </Select>
                   ) : (
-                    <Badge className={getPriorityColor(claim.priority)}>
+                    <Badge
+                      className={`${getPriorityColor(
+                        claim.priority
+                      )} px-4 py-2 text-sm font-semibold`}
+                    >
                       {claim.priority}
                     </Badge>
                   )}
@@ -1698,16 +1753,17 @@ export default function ClaimDetailPage() {
             </Card>
 
             {/* Financial Information */}
-            <Card>
+            <Card className="group relative overflow-hidden border-0 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 backdrop-blur-sm">
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-600/5 to-purple-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
               <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <DollarSign className="h-5 w-5" />
+                <CardTitle className="flex items-center gap-2 text-gray-900 dark:text-white">
+                  <DollarSign className="h-6 w-6" />
                   Financial Information
                 </CardTitle>
               </CardHeader>
-              <CardContent className="space-y-4">
+              <CardContent className="space-y-6">
                 <div>
-                  <label className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                  <label className="text-sm font-medium text-gray-600 dark:text-gray-400 mb-2 block">
                     Estimated Value
                   </label>
                   {editing ? (
@@ -1720,15 +1776,16 @@ export default function ClaimDetailPage() {
                           estimatedValue: parseFloat(e.target.value) || 0,
                         })
                       }
+                      className="border-2 border-gray-200 focus:border-blue-500 rounded-lg"
                     />
                   ) : (
-                    <p className="text-2xl font-bold text-gray-900 dark:text-white">
+                    <p className="text-3xl font-bold text-gray-900 dark:text-white">
                       ${claim.estimatedValue.toLocaleString()}
                     </p>
                   )}
                 </div>
                 <div>
-                  <label className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                  <label className="text-sm font-medium text-gray-600 dark:text-gray-400 mb-2 block">
                     Settlement Amount
                   </label>
                   {editing ? (
@@ -1741,9 +1798,10 @@ export default function ClaimDetailPage() {
                           settlementAmount: parseFloat(e.target.value) || 0,
                         })
                       }
+                      className="border-2 border-gray-200 focus:border-blue-500 rounded-lg"
                     />
                   ) : (
-                    <p className="text-2xl font-bold text-gray-900 dark:text-white">
+                    <p className="text-3xl font-bold text-gray-900 dark:text-white">
                       ${claim.settlementAmount.toLocaleString()}
                     </p>
                   )}
@@ -1752,25 +1810,26 @@ export default function ClaimDetailPage() {
             </Card>
 
             {/* Notes */}
-            <Card>
+            <Card className="group relative overflow-hidden border-0 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 backdrop-blur-sm">
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-600/5 to-purple-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
               <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <MessageSquare className="h-5 w-5" />
+                <CardTitle className="flex items-center gap-2 text-gray-900 dark:text-white">
+                  <MessageSquare className="h-6 w-6" />
                   Notes
                 </CardTitle>
               </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="space-y-3 max-h-64 overflow-y-auto">
+              <CardContent className="space-y-6">
+                <div className="space-y-4 max-h-64 overflow-y-auto">
                   {claim.notes.map((note, index) => (
                     <div
                       key={index}
-                      className="p-3 bg-gray-50 dark:bg-gray-800 rounded-lg"
+                      className="p-4 bg-gray-50 dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700"
                     >
                       <p className="text-sm text-gray-900 dark:text-white">
                         {note.content}
                       </p>
-                      <div className="flex items-center justify-between mt-2">
-                        <span className="text-xs text-gray-500 dark:text-gray-400">
+                      <div className="flex items-center justify-between mt-3">
+                        <span className="text-xs text-gray-500 dark:text-gray-400 font-medium">
                           {note.author}
                         </span>
                         <span className="text-xs text-gray-500 dark:text-gray-400">
@@ -1780,14 +1839,18 @@ export default function ClaimDetailPage() {
                     </div>
                   ))}
                 </div>
-                <div className="space-y-2">
+                <div className="space-y-3">
                   <Textarea
                     placeholder="Add a note..."
                     value={newNote}
                     onChange={(e) => setNewNote(e.target.value)}
                     rows={3}
+                    className="border-2 border-gray-200 focus:border-blue-500 rounded-lg resize-none"
                   />
-                  <Button onClick={handleAddNote} className="w-full">
+                  <Button
+                    onClick={handleAddNote}
+                    className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+                  >
                     Add Note
                   </Button>
                 </div>
