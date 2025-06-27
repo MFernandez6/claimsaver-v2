@@ -534,7 +534,7 @@ export default function Navbar() {
 
         {/* Mobile Navigation */}
         {isMobileMenuOpen && (
-          <div className="lg:hidden border-t border-gray-200 dark:border-gray-700 animate-in slide-in-from-top-2 duration-300 bg-white/95 backdrop-blur-xl dark:bg-gray-950/95 shadow-xl">
+          <div className="lg:hidden border-t border-gray-200 dark:border-gray-700 animate-in slide-in-from-top-2 duration-300 bg-white/95 backdrop-blur-xl dark:bg-gray-950/95 shadow-xl max-h-[calc(100vh-4rem)] overflow-y-auto">
             <div className="px-4 py-6 space-y-4">
               {/* About Section */}
               <div className="space-y-2">
@@ -655,7 +655,7 @@ export default function Navbar() {
               <div className="border-t border-gray-200 dark:border-gray-700 my-4"></div>
 
               {/* Settings Section */}
-              <div className="space-y-3">
+              <div className="space-y-3 pb-4">
                 <h3 className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider px-3">
                   Settings
                 </h3>
