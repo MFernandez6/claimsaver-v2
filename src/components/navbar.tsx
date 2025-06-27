@@ -11,6 +11,7 @@ const navItems = [
   { name: "Who We Are", href: "/who-we-are" },
   { name: "What We Do", href: "/what-we-do" },
   { name: "Attorney Matching", href: "/attorney-matching" },
+  { name: "Notarization", href: "/notarization" },
   { name: "Pricing", href: "/pricing" },
   { name: "Submit Claim", href: "/claim-form" },
 ];
