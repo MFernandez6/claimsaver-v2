@@ -256,6 +256,14 @@ export default function AdminPage() {
               </Button>
               <Button
                 size="lg"
+                onClick={() => setActiveTab("claims")}
+                className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white px-8 py-4 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+              >
+                <FileText className="mr-2 w-5 h-5" />
+                View All Claims
+              </Button>
+              <Button
+                size="lg"
                 variant="outline"
                 className="border-2 border-gray-300 hover:border-gray-400 text-gray-700 dark:text-gray-300 px-8 py-4 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
               >
@@ -420,7 +428,10 @@ export default function AdminPage() {
                       {claims.slice(0, 5).map((claim) => (
                         <div
                           key={claim._id}
-                          className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800 rounded-lg"
+                          className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-800 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors cursor-pointer"
+                          onClick={() =>
+                            router.push(`/admin/claims/${claim._id}`)
+                          }
                         >
                           <div>
                             <p className="font-medium text-gray-900 dark:text-white">
@@ -435,6 +446,18 @@ export default function AdminPage() {
                           </Badge>
                         </div>
                       ))}
+                      {claims.length > 5 && (
+                        <div className="text-center pt-2">
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() => setActiveTab("claims")}
+                            className="text-blue-600 hover:text-blue-700 border-blue-200 hover:border-blue-300"
+                          >
+                            View All Claims ({claims.length})
+                          </Button>
+                        </div>
+                      )}
                     </div>
                   </CardContent>
                 </Card>
@@ -480,6 +503,54 @@ export default function AdminPage() {
             </TabsContent>
 
             <TabsContent value="claims" className="space-y-6">
+              {/* Claims Info */}
+              <Card className="group relative overflow-hidden border-0 shadow-lg bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-950/30 dark:to-indigo-950/30 backdrop-blur-sm">
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-600/5 to-purple-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <CardContent className="p-6">
+                  <div className="flex items-start gap-4">
+                    <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <FileText className="w-5 h-5 text-white" />
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="font-semibold text-gray-900 dark:text-white mb-2">
+                        Claims Management
+                      </h3>
+                      <p className="text-sm text-gray-600 dark:text-gray-300 mb-3">
+                        View and manage all submitted claims. Click the eye icon
+                        to view detailed information, edit status, add notes,
+                        and track progress.
+                      </p>
+                      <div className="flex flex-wrap gap-2 text-xs">
+                        <Badge
+                          variant="outline"
+                          className="text-blue-600 border-blue-200"
+                        >
+                          View Details
+                        </Badge>
+                        <Badge
+                          variant="outline"
+                          className="text-green-600 border-green-200"
+                        >
+                          Update Status
+                        </Badge>
+                        <Badge
+                          variant="outline"
+                          className="text-purple-600 border-purple-200"
+                        >
+                          Add Notes
+                        </Badge>
+                        <Badge
+                          variant="outline"
+                          className="text-orange-600 border-orange-200"
+                        >
+                          Track Progress
+                        </Badge>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
               {/* Claims Filters */}
               <Card className="group relative overflow-hidden border-0 shadow-lg bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 backdrop-blur-sm">
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-600/5 to-purple-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
@@ -522,71 +593,112 @@ export default function AdminPage() {
 
               {/* Claims List */}
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                {claims.map((claim) => (
-                  <Card
-                    key={claim._id}
-                    className="group relative overflow-hidden border-0 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 backdrop-blur-sm"
-                  >
-                    <div className="absolute inset-0 bg-gradient-to-r from-blue-600/5 to-purple-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                    <CardHeader className="pb-4">
-                      <div className="flex items-center justify-between mb-2">
-                        <CardTitle className="text-lg font-semibold text-gray-900 dark:text-white">
-                          {claim.claimNumber}
-                        </CardTitle>
-                        <div className="flex gap-2">
-                          <Badge className={getStatusColor(claim.status)}>
-                            {claim.status.replace("_", " ")}
-                          </Badge>
-                          <Badge className={getPriorityColor(claim.priority)}>
-                            {claim.priority}
-                          </Badge>
+                {claims.length === 0 ? (
+                  <div className="col-span-full">
+                    <Card className="group relative overflow-hidden border-0 shadow-lg bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 backdrop-blur-sm">
+                      <div className="absolute inset-0 bg-gradient-to-r from-blue-600/5 to-purple-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                      <CardContent className="p-12 text-center">
+                        <div className="w-16 h-16 bg-gradient-to-r from-gray-400 to-gray-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                          <FileText className="w-8 h-8 text-white" />
                         </div>
-                      </div>
-                      <CardDescription className="text-gray-600 dark:text-gray-300">
-                        Filed on{" "}
-                        {new Date(claim.submittedAt).toLocaleDateString()}
-                      </CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="space-y-3">
-                        <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
-                          <Users className="w-4 h-4" />
-                          <span>{claim.claimantName}</span>
-                        </div>
-                        <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
-                          <Clock className="w-4 h-4" />
-                          <span>
-                            Accident:{" "}
-                            {new Date(claim.accidentDate).toLocaleDateString()}
-                          </span>
-                        </div>
-                        <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
-                          <DollarSign className="w-4 h-4" />
-                          <span>
-                            ${claim.estimatedValue?.toLocaleString() || "0"}
-                          </span>
-                        </div>
-                        <div className="flex items-center justify-between pt-3 border-t border-gray-200 dark:border-gray-700">
+                        <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+                          No Claims Found
+                        </h3>
+                        <p className="text-gray-600 dark:text-gray-300 mb-6">
+                          {searchTerm || statusFilter !== "all"
+                            ? "No claims match your current filters. Try adjusting your search criteria."
+                            : "No claims have been submitted yet. Claims will appear here once users start filing them."}
+                        </p>
+                        {(searchTerm || statusFilter !== "all") && (
+                          <Button
+                            onClick={() => {
+                              setSearchTerm("");
+                              setStatusFilter("all");
+                            }}
+                            className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white"
+                          >
+                            Clear Filters
+                          </Button>
+                        )}
+                      </CardContent>
+                    </Card>
+                  </div>
+                ) : (
+                  claims.map((claim) => (
+                    <Card
+                      key={claim._id}
+                      className="group relative overflow-hidden border-0 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 backdrop-blur-sm"
+                    >
+                      <div className="absolute inset-0 bg-gradient-to-r from-blue-600/5 to-purple-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                      <CardHeader className="pb-4">
+                        <div className="flex items-center justify-between mb-2">
+                          <CardTitle className="text-lg font-semibold text-gray-900 dark:text-white">
+                            {claim.claimNumber}
+                          </CardTitle>
                           <div className="flex gap-2">
-                            <Button size="sm" variant="outline">
-                              <Eye className="w-4 h-4" />
-                            </Button>
-                            <Button size="sm" variant="outline">
-                              <Edit className="w-4 h-4" />
+                            <Badge className={getStatusColor(claim.status)}>
+                              {claim.status.replace("_", " ")}
+                            </Badge>
+                            <Badge className={getPriorityColor(claim.priority)}>
+                              {claim.priority}
+                            </Badge>
+                          </div>
+                        </div>
+                        <CardDescription className="text-gray-600 dark:text-gray-300">
+                          Filed on{" "}
+                          {new Date(claim.submittedAt).toLocaleDateString()}
+                        </CardDescription>
+                      </CardHeader>
+                      <CardContent>
+                        <div className="space-y-3">
+                          <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
+                            <Users className="w-4 h-4" />
+                            <span>{claim.claimantName}</span>
+                          </div>
+                          <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
+                            <Clock className="w-4 h-4" />
+                            <span>
+                              Accident:{" "}
+                              {new Date(
+                                claim.accidentDate
+                              ).toLocaleDateString()}
+                            </span>
+                          </div>
+                          <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
+                            <DollarSign className="w-4 h-4" />
+                            <span>
+                              ${claim.estimatedValue?.toLocaleString() || "0"}
+                            </span>
+                          </div>
+                          <div className="flex items-center justify-between pt-3 border-t border-gray-200 dark:border-gray-700">
+                            <div className="flex gap-2">
+                              <Button
+                                size="sm"
+                                variant="outline"
+                                onClick={() =>
+                                  router.push(`/admin/claims/${claim._id}`)
+                                }
+                                className="hover:bg-blue-50 dark:hover:bg-blue-950/50 hover:border-blue-300 dark:hover:border-blue-700"
+                              >
+                                <Eye className="w-4 h-4" />
+                              </Button>
+                              <Button size="sm" variant="outline">
+                                <Edit className="w-4 h-4" />
+                              </Button>
+                            </div>
+                            <Button
+                              size="sm"
+                              variant="destructive"
+                              onClick={() => handleDeleteClaim(claim._id)}
+                            >
+                              <Trash2 className="w-4 h-4" />
                             </Button>
                           </div>
-                          <Button
-                            size="sm"
-                            variant="destructive"
-                            onClick={() => handleDeleteClaim(claim._id)}
-                          >
-                            <Trash2 className="w-4 h-4" />
-                          </Button>
                         </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
+                      </CardContent>
+                    </Card>
+                  ))
+                )}
               </div>
             </TabsContent>
 
