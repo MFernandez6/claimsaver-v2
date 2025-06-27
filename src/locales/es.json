@@ -30,7 +30,10 @@
     "submitClaim": "Presentar Reclamo",
     "signIn": "Iniciar Sesión",
     "signUp": "Registrarse",
-    "signOut": "Cerrar Sesión"
+    "signOut": "Cerrar Sesión",
+    "ourStory": "Nuestra Historia",
+    "howWeHelp": "Cómo Ayudamos",
+    "getStarted": "Comenzar"
   },
   "home": {
     "hero": {

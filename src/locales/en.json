@@ -30,7 +30,10 @@
     "submitClaim": "Submit Claim",
     "signIn": "Sign In",
     "signUp": "Sign Up",
-    "signOut": "Sign Out"
+    "signOut": "Sign Out",
+    "ourStory": "Our Story",
+    "howWeHelp": "How We Help",
+    "getStarted": "Get Started"
   },
   "home": {
     "hero": {

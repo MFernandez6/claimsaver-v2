@@ -472,7 +472,7 @@ export default function Navbar() {
           <div className="hidden lg:flex items-center space-x-2">
             {/* About Dropdown */}
             <DropdownMenu
-              trigger={<span>Our Story</span>}
+              trigger={<span>{t("navigation.ourStory")}</span>}
               items={aboutItems}
               isOpen={activeDropdown === "about"}
               onToggle={() => handleDropdownToggle("about")}
@@ -481,7 +481,7 @@ export default function Navbar() {
 
             {/* Services Dropdown */}
             <DropdownMenu
-              trigger={<span>How We Help</span>}
+              trigger={<span>{t("navigation.howWeHelp")}</span>}
               items={servicesItems}
               isOpen={activeDropdown === "services"}
               onToggle={() => handleDropdownToggle("services")}
@@ -490,7 +490,7 @@ export default function Navbar() {
 
             {/* Actions Dropdown */}
             <DropdownMenu
-              trigger={<span>Get Started</span>}
+              trigger={<span>{t("navigation.getStarted")}</span>}
               items={actionItems}
               isOpen={activeDropdown === "actions"}
               onToggle={() => handleDropdownToggle("actions")}
@@ -539,7 +539,7 @@ export default function Navbar() {
               {/* About Section */}
               <div className="space-y-2">
                 <h3 className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider px-3">
-                  Our Story
+                  {t("navigation.ourStory")}
                 </h3>
                 {aboutItems.map((item, index) => (
                   <div
@@ -573,7 +573,7 @@ export default function Navbar() {
               {/* Services Section */}
               <div className="space-y-2">
                 <h3 className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider px-3">
-                  How We Help
+                  {t("navigation.howWeHelp")}
                 </h3>
                 {servicesItems.map((item, index) => (
                   <div
@@ -607,7 +607,7 @@ export default function Navbar() {
               {/* Actions Section */}
               <div className="space-y-2">
                 <h3 className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider px-3">
-                  Get Started
+                  {t("navigation.getStarted")}
                 </h3>
                 {actionItems.map((item, index) => (
                   <div
