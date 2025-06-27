@@ -1,6 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import { stripe, formatAmountForStripe } from "@/lib/stripe-server";
 
+// Force dynamic rendering to prevent build-time analysis
+export const dynamic = "force-dynamic";
+export const runtime = "nodejs";
+
 interface CheckoutItem {
   name: string;
   description: string;
@@ -11,8 +15,8 @@ interface CheckoutItem {
 export async function POST(req: NextRequest) {
   try {
     // Check if Stripe is properly configured
-    if (!process.env.STRIPE_SECRET_KEY) {
-      console.error("Stripe secret key is missing");
+    if (!stripe) {
+      console.error("Stripe is not properly configured");
       return NextResponse.json(
         {
           error:
@@ -85,7 +89,9 @@ export async function POST(req: NextRequest) {
     const origin =
       headers.get("origin") ||
       process.env.NEXT_PUBLIC_BASE_URL ||
-      "http://localhost:3000";
+      process.env.VERCEL_URL
+        ? `https://${process.env.VERCEL_URL}`
+        : "http://localhost:3000";
 
     // Create checkout session
     const sessionData = {

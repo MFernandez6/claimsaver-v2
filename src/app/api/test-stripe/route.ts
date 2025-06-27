@@ -1,6 +1,10 @@
 import { NextResponse } from "next/server";
 import { stripe } from "@/lib/stripe-server";
 
+// Force dynamic rendering to prevent build-time analysis
+export const dynamic = "force-dynamic";
+export const runtime = "nodejs";
+
 export async function GET() {
   try {
     // Check environment variables
@@ -9,7 +13,7 @@ export async function GET() {
 
     // Test Stripe connection
     let stripeTest = null;
-    if (hasSecretKey) {
+    if (hasSecretKey && stripe) {
       try {
         // Try to create a test product to verify Stripe connection
         stripeTest = await stripe.products.list({ limit: 1 });

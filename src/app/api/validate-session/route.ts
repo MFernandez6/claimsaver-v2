@@ -1,6 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import { stripe } from "@/lib/stripe-server";
 
+// Force dynamic rendering to prevent build-time analysis
+export const dynamic = "force-dynamic";
+export const runtime = "nodejs";
+
 export async function POST(req: NextRequest) {
   try {
     const { sessionId } = await req.json();
@@ -9,6 +13,13 @@ export async function POST(req: NextRequest) {
       return NextResponse.json(
         { error: "Session ID is required" },
         { status: 400 }
+      );
+    }
+
+    if (!stripe) {
+      return NextResponse.json(
+        { error: "Stripe is not configured" },
+        { status: 500 }
       );
     }
 

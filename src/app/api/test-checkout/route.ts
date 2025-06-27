@@ -1,8 +1,19 @@
 import { NextRequest, NextResponse } from "next/server";
 import { stripe, formatAmountForStripe } from "@/lib/stripe-server";
 
+// Force dynamic rendering to prevent build-time analysis
+export const dynamic = "force-dynamic";
+export const runtime = "nodejs";
+
 export async function POST(req: NextRequest) {
   try {
+    if (!stripe) {
+      return NextResponse.json(
+        { error: "Stripe is not configured" },
+        { status: 500 }
+      );
+    }
+
     console.log("Testing minimal checkout session creation...");
 
     // Create a minimal test session

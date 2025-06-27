@@ -5,6 +5,10 @@ import { NextResponse } from "next/server";
 import dbConnect from "@/lib/db";
 import User from "@/models/User";
 
+// Force dynamic rendering to prevent build-time analysis
+export const dynamic = "force-dynamic";
+export const runtime = "nodejs";
+
 export async function POST(req: Request) {
   // Get the headers
   const headerPayload = await headers();
