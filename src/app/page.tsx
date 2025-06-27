@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Footer from "@/components/footer";
@@ -128,10 +129,11 @@ export default function Home() {
       <section className="relative overflow-hidden bg-gradient-to-br from-blue-50 via-white to-indigo-50 dark:from-gray-950 dark:via-gray-900 dark:to-blue-950">
         {/* Background Image */}
         <div className="fixed inset-0 z-0">
-          <img
+          <Image
             src="/images/long-logo-ClaimSaver.jpg"
             alt="ClaimSaver+ Background"
             className="w-full h-full object-cover opacity-25"
+            fill
           />
           <div className="absolute inset-0 bg-gradient-to-br from-blue-50/70 via-white/80 to-indigo-50/70 dark:from-gray-950/70 dark:via-gray-900/80 dark:to-blue-950/70"></div>
         </div>
@@ -299,10 +301,11 @@ export default function Home() {
       <section className="py-24 bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-900 dark:to-blue-950/30 relative overflow-hidden">
         {/* Background Image */}
         <div className="fixed inset-0 z-0">
-          <img
+          <Image
             src="/images/long-logo-ClaimSaver.jpg"
             alt="ClaimSaver+ Background"
             className="w-full h-full object-cover opacity-20"
+            fill
           />
           <div className="absolute inset-0 bg-gradient-to-br from-gray-50/80 to-blue-50/80 dark:from-gray-900/80 dark:to-blue-950/80"></div>
         </div>

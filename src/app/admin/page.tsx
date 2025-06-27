@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
+import Image from "next/image";
 import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import {
@@ -22,21 +23,21 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import {
-  Users,
   FileText,
-  TrendingUp,
   Clock,
   DollarSign,
-  Filter,
-  Download,
+  Calendar,
+  RefreshCw,
   Eye,
   Edit,
   Trash2,
-  AlertCircle,
-  RefreshCw,
-  Activity,
+  Filter,
+  Download,
   BarChart3,
-  Calendar,
+  TrendingUp,
+  Users,
+  AlertCircle,
+  Activity,
 } from "lucide-react";
 import { claimsApi, usersApi, type Claim, type User } from "@/lib/api";
 import jsPDF from "jspdf";
@@ -514,10 +515,11 @@ export default function AdminPage() {
       <section className="relative overflow-hidden bg-gradient-to-br from-blue-50 via-white to-indigo-50 dark:from-gray-950 dark:via-gray-900 dark:to-blue-950">
         {/* Background Image */}
         <div className="fixed inset-0 z-0">
-          <img
+          <Image
             src="/images/long-logo-ClaimSaver.jpg"
             alt="ClaimSaver+ Background"
             className="w-full h-full object-cover opacity-25"
+            fill
           />
           <div className="absolute inset-0 bg-gradient-to-br from-blue-50/70 via-white/80 to-indigo-50/70 dark:from-gray-950/70 dark:via-gray-900/80 dark:to-blue-950/70"></div>
         </div>

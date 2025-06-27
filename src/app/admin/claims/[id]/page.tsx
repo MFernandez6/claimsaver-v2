@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
+import Image from "next/image";
 import { useUser } from "@clerk/nextjs";
 import { useRouter, useParams } from "next/navigation";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -17,15 +18,13 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import {
   ArrowLeft,
-  Save,
-  Edit,
-  Download,
-  MessageSquare,
-  Shield,
-  User,
-  DollarSign,
   AlertTriangle,
+  DollarSign,
+  User,
   Loader2,
+  Edit,
+  Shield,
+  FileText,
 } from "lucide-react";
 import { claimsApi, type Claim } from "@/lib/api";
 
@@ -167,10 +166,11 @@ export default function ClaimDetailPage() {
       <div className="min-h-screen bg-white dark:bg-gray-950">
         {/* Background Image */}
         <div className="fixed inset-0 z-0">
-          <img
+          <Image
             src="/images/long-logo-ClaimSaver.jpg"
             alt="ClaimSaver+ Background"
             className="w-full h-full object-cover opacity-25"
+            fill
           />
           <div className="absolute inset-0 bg-gradient-to-br from-blue-50/70 via-white/80 to-indigo-50/70 dark:from-gray-950/70 dark:via-gray-900/80 dark:to-blue-950/70"></div>
         </div>
@@ -194,10 +194,11 @@ export default function ClaimDetailPage() {
       <div className="min-h-screen bg-white dark:bg-gray-950">
         {/* Background Image */}
         <div className="fixed inset-0 z-0">
-          <img
+          <Image
             src="/images/long-logo-ClaimSaver.jpg"
             alt="ClaimSaver+ Background"
             className="w-full h-full object-cover opacity-25"
+            fill
           />
           <div className="absolute inset-0 bg-gradient-to-br from-blue-50/70 via-white/80 to-indigo-50/70 dark:from-gray-950/70 dark:via-gray-900/80 dark:to-blue-950/70"></div>
         </div>
@@ -227,10 +228,11 @@ export default function ClaimDetailPage() {
       <div className="min-h-screen bg-white dark:bg-gray-950">
         {/* Background Image */}
         <div className="fixed inset-0 z-0">
-          <img
+          <Image
             src="/images/long-logo-ClaimSaver.jpg"
             alt="ClaimSaver+ Background"
             className="w-full h-full object-cover opacity-25"
+            fill
           />
           <div className="absolute inset-0 bg-gradient-to-br from-blue-50/70 via-white/80 to-indigo-50/70 dark:from-gray-950/70 dark:via-gray-900/80 dark:to-blue-950/70"></div>
         </div>
@@ -262,10 +264,11 @@ export default function ClaimDetailPage() {
     <div className="min-h-screen bg-white dark:bg-gray-950">
       {/* Background Image */}
       <div className="fixed inset-0 z-0">
-        <img
+        <Image
           src="/images/long-logo-ClaimSaver.jpg"
           alt="ClaimSaver+ Background"
           className="w-full h-full object-cover opacity-25"
+          fill
         />
         <div className="absolute inset-0 bg-gradient-to-br from-blue-50/70 via-white/80 to-indigo-50/70 dark:from-gray-950/70 dark:via-gray-900/80 dark:to-blue-950/70"></div>
       </div>
@@ -330,7 +333,7 @@ export default function ClaimDetailPage() {
                   {saving ? (
                     <Loader2 className="h-5 w-5 mr-2 animate-spin" />
                   ) : (
-                    <Save className="h-5 w-5 mr-2" />
+                    <Edit className="h-5 w-5 mr-2" />
                   )}
                   {saving ? "Saving..." : "Save Changes"}
                 </Button>
@@ -351,13 +354,6 @@ export default function ClaimDetailPage() {
                 >
                   <Edit className="h-5 w-5 mr-2" />
                   Edit Claim
-                </Button>
-                <Button
-                  variant="outline"
-                  className="border-2 border-gray-300 hover:border-gray-400 text-gray-700 dark:text-gray-300 px-6 py-3 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
-                >
-                  <Download className="h-5 w-5 mr-2" />
-                  Export
                 </Button>
               </>
             )}
@@ -1814,7 +1810,7 @@ export default function ClaimDetailPage() {
               <div className="absolute inset-0 bg-gradient-to-r from-blue-600/5 to-purple-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-gray-900 dark:text-white">
-                  <MessageSquare className="h-6 w-6" />
+                  <FileText className="h-6 w-6" />
                   Notes
                 </CardTitle>
               </CardHeader>

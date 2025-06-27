@@ -1,7 +1,7 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { stripe } from "@/lib/stripe-server";
 
-export async function GET(req: NextRequest) {
+export async function GET() {
   try {
     // Check environment variables
     const hasSecretKey = !!process.env.STRIPE_SECRET_KEY;
