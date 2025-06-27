@@ -1,9 +1,11 @@
 "use client";
 
+import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Footer from "@/components/footer";
 import { useClerk } from "@clerk/nextjs";
+import { getStripe } from "@/lib/stripe";
 import {
   CheckCircle,
   X,
@@ -15,10 +17,17 @@ import {
   Calculator,
   Award,
   Users,
+  CreditCard,
+  FileText,
 } from "lucide-react";
 
 export default function Pricing() {
   const { openSignIn } = useClerk();
+  const [selectedServices, setSelectedServices] = useState<string[]>([]);
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [isValidating, setIsValidating] = useState(false);
+  const [showLearnMoreModal, setShowLearnMoreModal] = useState(false);
+  const [showServicesModal, setShowServicesModal] = useState(false);
 
   const handleStartClaim = () => {
     openSignIn();
@@ -45,7 +54,7 @@ export default function Pricing() {
       icon: <Calculator className="w-6 h-6 text-blue-600" />,
       title: "Transparent Pricing",
       description:
-        "No hidden fees, no surprises. Know exactly what you'll pay upfront.",
+        "No hidden fees, no surprises. Know exactly what you&apos;ll pay upfront.",
     },
     {
       icon: <TrendingUp className="w-6 h-6 text-green-600" />,
@@ -87,8 +96,194 @@ export default function Pricing() {
     },
   ];
 
+  const services = [
+    {
+      id: "no-fault-assistance",
+      name: "No-Fault Assistance",
+      description: "Complete accident claim filing and recovery assistance",
+      price: 500,
+      icon: <Shield className="w-6 h-6" />,
+    },
+    {
+      id: "notarization",
+      name: "Notarization Services",
+      description: "Online document notarization via DocuSign",
+      price: 25,
+      icon: <FileText className="w-6 h-6" />,
+    },
+  ];
+
+  const toggleService = (serviceId: string) => {
+    setSelectedServices((prev) =>
+      prev.includes(serviceId)
+        ? prev.filter((id) => id !== serviceId)
+        : [...prev, serviceId]
+    );
+  };
+
+  const getTotalPrice = () => {
+    return selectedServices.reduce((total, serviceId) => {
+      const service = services.find((s) => s.id === serviceId);
+      return total + (service?.price || 0);
+    }, 0);
+  };
+
+  const handleCheckout = async () => {
+    if (selectedServices.length === 0) {
+      alert("Please select at least one service");
+      return;
+    }
+
+    setIsProcessing(true);
+
+    try {
+      const selectedItems = services.filter((service) =>
+        selectedServices.includes(service.id)
+      );
+
+      console.log("Sending checkout request with items:", selectedItems);
+
+      const response = await fetch("/api/create-checkout-session", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          items: selectedItems.map((item) => ({
+            name: item.name,
+            description: item.description,
+            price: item.price,
+          })),
+          successUrl: `${window.location.origin}/success`,
+          cancelUrl: `${window.location.origin}/pricing`,
+        }),
+      });
+
+      const responseData = await response.json();
+      console.log("Checkout response:", responseData);
+
+      if (!response.ok) {
+        throw new Error(
+          responseData.error ||
+            `HTTP ${response.status}: ${response.statusText}`
+        );
+      }
+
+      const { sessionId, error } = responseData;
+
+      if (error) {
+        throw new Error(error);
+      }
+
+      if (!sessionId) {
+        throw new Error("No session ID received from server");
+      }
+
+      // Validate the session before redirecting
+      setIsValidating(true);
+      console.log("Validating session before redirect...");
+      const validationResponse = await fetch("/api/validate-session", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ sessionId }),
+      });
+
+      const validationData = await validationResponse.json();
+      console.log("Session validation:", validationData);
+
+      if (!validationData.valid) {
+        throw new Error(
+          "Checkout session is invalid or expired. Please try again."
+        );
+      }
+
+      const stripe = await getStripe();
+      if (stripe) {
+        console.log("Stripe loaded successfully, redirecting to checkout...");
+
+        const { error: stripeError } = await stripe.redirectToCheckout({
+          sessionId,
+        });
+
+        if (stripeError) {
+          console.error("Stripe redirect error:", stripeError);
+          throw new Error(stripeError.message);
+        }
+
+        console.log("Stripe redirect initiated successfully");
+      } else {
+        console.error("Stripe failed to load");
+        throw new Error(
+          "Stripe is not available. Please check your configuration."
+        );
+      }
+    } catch (error) {
+      console.error("Error during checkout:", error);
+
+      let errorMessage =
+        "There was an error processing your payment. Please try again or contact support.";
+
+      if (error instanceof Error) {
+        if (error.message.includes("apiKey")) {
+          errorMessage =
+            "Payment system is not properly configured. Please contact support.";
+        } else if (error.message.includes("session")) {
+          errorMessage = "Unable to create payment session. Please try again.";
+        } else {
+          errorMessage = error.message;
+        }
+      }
+
+      alert(errorMessage);
+    } finally {
+      setIsProcessing(false);
+      setIsValidating(false);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-white dark:bg-gray-950">
+      {/* Loading Overlay */}
+      {isValidating && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
+          <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-2xl max-w-sm w-full mx-4">
+            <div className="text-center">
+              {/* Cool Loading Wheel */}
+              <div className="relative w-16 h-16 mx-auto mb-6">
+                {/* Outer ring */}
+                <div className="absolute inset-0 border-4 border-gray-200 dark:border-gray-700 rounded-full"></div>
+                {/* Animated ring */}
+                <div className="absolute inset-0 border-4 border-transparent border-t-blue-500 border-r-purple-500 rounded-full animate-spin"></div>
+                {/* Inner pulse */}
+                <div className="absolute inset-2 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full animate-pulse"></div>
+                {/* Center dot */}
+                <div className="absolute inset-4 bg-white dark:bg-gray-800 rounded-full"></div>
+              </div>
+
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                Preparing Your Payment
+              </h3>
+              <p className="text-gray-600 dark:text-gray-300 text-sm">
+                Validating session and redirecting to secure payment...
+              </p>
+
+              {/* Progress dots */}
+              <div className="flex justify-center gap-1 mt-4">
+                <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce"></div>
+                <div
+                  className="w-2 h-2 bg-purple-500 rounded-full animate-bounce"
+                  style={{ animationDelay: "0.1s" }}
+                ></div>
+                <div
+                  className="w-2 h-2 bg-blue-500 rounded-full animate-bounce"
+                  style={{ animationDelay: "0.2s" }}
+                ></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Hero Section */}
       <section className="relative overflow-hidden bg-gradient-to-br from-blue-50 via-white to-indigo-50 dark:from-gray-950 dark:via-gray-900 dark:to-blue-950">
         {/* Background Image */}
@@ -125,11 +320,168 @@ export default function Pricing() {
               <Button
                 size="lg"
                 variant="outline"
-                className="border-2 border-gray-300 hover:border-gray-400 text-gray-700 dark:text-gray-300 px-8 py-4 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+                className="border-2 border-gray-300 hover:border-gray-400 text-gray-700 dark:text-gray-300 px-8 py-4 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm"
+                onClick={() => setShowLearnMoreModal(true)}
               >
                 Learn More
                 <ArrowRight className="ml-2 w-5 h-5" />
               </Button>
+            </div>
+
+            {/* Payment Services & Summary Card */}
+            <div className="max-w-4xl mx-auto">
+              <Card className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm border-0 shadow-xl">
+                <CardHeader className="pb-6">
+                  <CardTitle className="text-2xl font-bold text-gray-900 dark:text-white text-center flex items-center justify-center gap-2">
+                    <CreditCard className="w-6 h-6" />
+                    Select Your Services & Payment
+                  </CardTitle>
+                  <p className="text-gray-600 dark:text-gray-300 text-center">
+                    Choose the services you need and complete your payment
+                    securely with Stripe
+                  </p>
+                </CardHeader>
+                <CardContent className="space-y-6">
+                  {/* Service Selection */}
+                  <div className="space-y-4">
+                    {services.map((service) => (
+                      <Card
+                        key={service.id}
+                        className={`cursor-pointer transition-all duration-300 hover:shadow-lg ${
+                          selectedServices.includes(service.id)
+                            ? "ring-2 ring-blue-500 bg-blue-50 dark:bg-blue-950/30"
+                            : "hover:bg-gray-50 dark:hover:bg-gray-800/50"
+                        }`}
+                        onClick={() => toggleService(service.id)}
+                      >
+                        <CardContent className="p-4">
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-4">
+                              <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg flex items-center justify-center text-white">
+                                {service.icon}
+                              </div>
+                              <div>
+                                <h3 className="text-lg font-semibold text-gray-900 dark:text-white text-left">
+                                  ClaimSaver+
+                                </h3>
+                                <p className="text-gray-600 dark:text-gray-300 text-sm text-left">
+                                  {service.name}
+                                </p>
+                              </div>
+                            </div>
+                            <div className="flex items-center gap-4">
+                              <div className="text-right">
+                                <div className="text-xl font-bold text-gray-900 dark:text-white">
+                                  ${service.price}
+                                </div>
+                                <div className="text-sm text-gray-500 dark:text-gray-400">
+                                  One-time fee
+                                </div>
+                              </div>
+                              <div
+                                className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
+                                  selectedServices.includes(service.id)
+                                    ? "bg-blue-500 border-blue-500"
+                                    : "border-gray-300 dark:border-gray-600"
+                                }`}
+                              >
+                                {selectedServices.includes(service.id) && (
+                                  <CheckCircle className="w-3 h-3 text-white" />
+                                )}
+                              </div>
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    ))}
+                  </div>
+
+                  {/* Payment Summary */}
+                  <div className="border-t pt-6">
+                    <div className="space-y-4">
+                      {/* Selected Services */}
+                      <div className="space-y-3">
+                        <h4 className="font-semibold text-gray-900 dark:text-white">
+                          Selected Services:
+                        </h4>
+                        {selectedServices.length === 0 ? (
+                          <p className="text-gray-500 dark:text-gray-400 text-sm">
+                            No services selected
+                          </p>
+                        ) : (
+                          selectedServices.map((serviceId) => {
+                            const service = services.find(
+                              (s) => s.id === serviceId
+                            );
+                            return service ? (
+                              <div
+                                key={serviceId}
+                                className="flex justify-between items-center"
+                              >
+                                <div>
+                                  <p className="font-medium text-gray-900 dark:text-white text-sm">
+                                    {service.name}
+                                  </p>
+                                  <p className="text-gray-500 dark:text-gray-400 text-xs">
+                                    {service.description}
+                                  </p>
+                                </div>
+                                <span className="font-semibold text-gray-900 dark:text-white">
+                                  ${service.price}
+                                </span>
+                              </div>
+                            ) : null;
+                          })
+                        )}
+                      </div>
+
+                      {/* Total */}
+                      <div className="border-t pt-4">
+                        <div className="flex justify-between items-center">
+                          <span className="text-lg font-semibold text-gray-900 dark:text-white">
+                            Total
+                          </span>
+                          <span className="text-2xl font-bold text-blue-600">
+                            ${getTotalPrice()}
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* Checkout Button */}
+                      <Button
+                        onClick={handleCheckout}
+                        disabled={selectedServices.length === 0 || isProcessing}
+                        className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
+                      >
+                        {isProcessing ? (
+                          <div className="flex items-center gap-2">
+                            <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                            Processing...
+                          </div>
+                        ) : (
+                          <>
+                            Proceed to Payment
+                            <ArrowRight className="ml-2 w-4 h-4" />
+                          </>
+                        )}
+                      </Button>
+
+                      {/* Security Notice */}
+                      <div className="text-center">
+                        <p className="text-xs text-gray-500 dark:text-gray-400">
+                          🔒 Secure payment powered by Stripe
+                        </p>
+                        {!process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY && (
+                          <p className="text-xs text-orange-500 mt-1">
+                            ⚠️ Stripe not configured - payment processing
+                            disabled
+                          </p>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
             </div>
           </div>
         </div>
@@ -450,6 +802,277 @@ export default function Pricing() {
 
       {/* Footer */}
       <Footer />
+
+      {/* Learn More Modal */}
+      {showLearnMoreModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
+          <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-2xl max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto">
+            <div className="flex justify-between items-start mb-6">
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+                About ClaimSaver+
+              </h2>
+              <button
+                onClick={() => setShowLearnMoreModal(false)}
+                className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+              >
+                <X className="w-6 h-6" />
+              </button>
+            </div>
+
+            <div className="space-y-6">
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">
+                  Revolutionizing Accident Claims
+                </h3>
+                <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+                  ClaimSaver+ is a revolutionary platform that helps accident
+                  victims maximize their settlements while minimizing costs.
+                  Unlike traditional attorneys who take 33% of your settlement,
+                  we charge a flat $500 fee, allowing you to keep 95% of your
+                  money.
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="bg-blue-50 dark:bg-blue-950/30 p-4 rounded-lg">
+                  <h4 className="font-semibold text-blue-900 dark:text-blue-100 mb-2">
+                    Traditional Method
+                  </h4>
+                  <ul className="text-sm text-blue-800 dark:text-blue-200 space-y-1">
+                    <li>• 33% attorney contingency fee</li>
+                    <li>• Hidden processing costs</li>
+                    <li>• Complex legal procedures</li>
+                    <li>• Long waiting periods</li>
+                  </ul>
+                </div>
+                <div className="bg-green-50 dark:bg-green-950/30 p-4 rounded-lg">
+                  <h4 className="font-semibold text-green-900 dark:text-green-100 mb-2">
+                    ClaimSaver+ Method
+                  </h4>
+                  <ul className="text-sm text-green-800 dark:text-green-200 space-y-1">
+                    <li>• Flat $500 fee</li>
+                    <li>• No hidden costs</li>
+                    <li>• Streamlined process</li>
+                    <li>• Faster results</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">
+                  How It Works
+                </h3>
+                <div className="space-y-3">
+                  <div className="flex items-start gap-3">
+                    <div className="w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center text-sm font-semibold flex-shrink-0 mt-0.5">
+                      1
+                    </div>
+                    <div>
+                      <h4 className="font-medium text-gray-900 dark:text-white">
+                        Submit Your Claim
+                      </h4>
+                      <p className="text-sm text-gray-600 dark:text-gray-300">
+                        Complete our simple online form with your accident
+                        details
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <div className="w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center text-sm font-semibold flex-shrink-0 mt-0.5">
+                      2
+                    </div>
+                    <div>
+                      <h4 className="font-medium text-gray-900 dark:text-white">
+                        Professional Processing
+                      </h4>
+                      <p className="text-sm text-gray-600 dark:text-gray-300">
+                        Our experts handle all paperwork and negotiations
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <div className="w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center text-sm font-semibold flex-shrink-0 mt-0.5">
+                      3
+                    </div>
+                    <div>
+                      <h4 className="font-medium text-gray-900 dark:text-white">
+                        Maximum Recovery
+                      </h4>
+                      <p className="text-sm text-gray-600 dark:text-gray-300">
+                        Keep 95% of your settlement with our flat-rate structure
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-950/30 dark:to-purple-950/30 p-4 rounded-lg">
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                  Why Choose ClaimSaver+?
+                </h3>
+                <ul className="text-sm text-gray-600 dark:text-gray-300 space-y-1">
+                  <li>
+                    • <strong>Transparent Pricing:</strong> Know exactly what
+                    you&apos;ll pay upfront
+                  </li>
+                  <li>
+                    • <strong>Maximum Recovery:</strong> Keep more of your
+                    settlement
+                  </li>
+                  <li>
+                    • <strong>Professional Service:</strong> Expert support
+                    without attorney fees
+                  </li>
+                  <li>
+                    • <strong>Faster Processing:</strong> Streamlined process
+                    gets results quickly
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div className="mt-6 flex gap-3">
+              <Button
+                onClick={() => setShowLearnMoreModal(false)}
+                variant="outline"
+                className="flex-1"
+              >
+                Close
+              </Button>
+              <Button
+                onClick={() => {
+                  setShowLearnMoreModal(false);
+                  handleStartClaim();
+                }}
+                className="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
+              >
+                Start Your Claim
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Services Modal */}
+      {showServicesModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
+          <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-2xl max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto">
+            <div className="flex justify-between items-start mb-6">
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+                Our Services
+              </h2>
+              <button
+                onClick={() => setShowServicesModal(false)}
+                className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+              >
+                <X className="w-6 h-6" />
+              </button>
+            </div>
+
+            <div className="space-y-6">
+              <div className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-950/30 dark:to-purple-950/30 p-6 rounded-lg">
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">
+                  Complete Accident Claim Services
+                </h3>
+                <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+                  We provide comprehensive accident claim assistance to help you
+                  navigate the complex process and maximize your recovery. Our
+                  flat-rate pricing ensures you keep more of your settlement.
+                </p>
+              </div>
+
+              <div className="space-y-4">
+                <div className="border border-gray-200 dark:border-gray-700 rounded-lg p-6">
+                  <div className="flex items-start gap-4">
+                    <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg flex items-center justify-center text-white flex-shrink-0">
+                      <Shield className="w-6 h-6" />
+                    </div>
+                    <div className="flex-1">
+                      <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                        No-Fault Assistance - $500
+                      </h4>
+                      <p className="text-gray-600 dark:text-gray-300 mb-3">
+                        Complete accident claim filing and recovery assistance.
+                        This comprehensive service includes:
+                      </p>
+                      <ul className="text-sm text-gray-600 dark:text-gray-300 space-y-1">
+                        <li>• Accident claim form preparation and filing</li>
+                        <li>• Medical documentation review and organization</li>
+                        <li>
+                          • Insurance company communication and negotiation
+                        </li>
+                        <li>• Settlement evaluation and optimization</li>
+                        <li>• Legal compliance and documentation</li>
+                        <li>• Ongoing support throughout the process</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="border border-gray-200 dark:border-gray-700 rounded-lg p-6">
+                  <div className="flex items-start gap-4">
+                    <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg flex items-center justify-center text-white flex-shrink-0">
+                      <FileText className="w-6 h-6" />
+                    </div>
+                    <div className="flex-1">
+                      <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                        Notarization Services - $25
+                      </h4>
+                      <p className="text-gray-600 dark:text-gray-300 mb-3">
+                        Online document notarization via DocuSign for all your
+                        legal documents:
+                      </p>
+                      <ul className="text-sm text-gray-600 dark:text-gray-300 space-y-1">
+                        <li>• Remote online notarization</li>
+                        <li>• Secure digital signatures</li>
+                        <li>• Legal document verification</li>
+                        <li>• 24/7 availability</li>
+                        <li>• Instant completion</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-green-50 dark:bg-green-950/30 p-4 rounded-lg">
+                <h3 className="text-lg font-semibold text-green-900 dark:text-green-100 mb-2">
+                  💰 Savings Calculator
+                </h3>
+                <div className="space-y-2 text-sm">
+                  <div className="flex justify-between">
+                    <span>Traditional Attorney Fee (33% of $10,000)</span>
+                    <span className="font-semibold text-red-600">-$3,300</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>ClaimSaver+ Flat Fee</span>
+                    <span className="font-semibold text-green-600">-$500</span>
+                  </div>
+                  <div className="border-t pt-2 flex justify-between font-bold">
+                    <span>Your Additional Savings</span>
+                    <span className="text-green-600">+$2,800</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-6 flex gap-3">
+              <Button
+                onClick={() => setShowServicesModal(false)}
+                variant="outline"
+                className="flex-1"
+              >
+                Close
+              </Button>
+              <Button
+                onClick={() => setShowServicesModal(false)}
+                className="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
+              >
+                Select Services
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

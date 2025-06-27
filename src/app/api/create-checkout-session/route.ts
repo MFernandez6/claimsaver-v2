@@ -1,0 +1,140 @@
+import { NextRequest, NextResponse } from "next/server";
+import { stripe, formatAmountForStripe } from "@/lib/stripe-server";
+
+interface CheckoutItem {
+  name: string;
+  description: string;
+  price: number;
+  quantity?: number;
+}
+
+export async function POST(req: NextRequest) {
+  try {
+    // Check if Stripe is properly configured
+    if (!process.env.STRIPE_SECRET_KEY) {
+      console.error("Stripe secret key is missing");
+      return NextResponse.json(
+        {
+          error:
+            "Stripe is not configured. Please check your environment variables.",
+        },
+        { status: 500 }
+      );
+    }
+
+    // Log the request for debugging
+    console.log("Creating checkout session...");
+
+    const {
+      items,
+      successUrl,
+      cancelUrl,
+    }: { items: CheckoutItem[]; successUrl?: string; cancelUrl?: string } =
+      await req.json();
+
+    console.log("Received items:", items);
+
+    if (!items || !Array.isArray(items) || items.length === 0) {
+      console.error("Invalid items provided:", items);
+      return NextResponse.json(
+        { error: "Invalid items provided" },
+        { status: 400 }
+      );
+    }
+
+    // Validate each item
+    for (const item of items) {
+      if (
+        !item.name ||
+        !item.description ||
+        typeof item.price !== "number" ||
+        item.price <= 0
+      ) {
+        console.error("Invalid item:", item);
+        return NextResponse.json(
+          { error: `Invalid item: ${JSON.stringify(item)}` },
+          { status: 400 }
+        );
+      }
+    }
+
+    // Create line items for Stripe
+    const lineItems = items.map((item: CheckoutItem) => {
+      const amount = formatAmountForStripe(item.price, "USD");
+      console.log(
+        `Item: ${item.name}, Price: $${item.price}, Stripe amount: ${amount}`
+      );
+
+      return {
+        price_data: {
+          currency: "usd",
+          product_data: {
+            name: item.name,
+            description: item.description,
+          },
+          unit_amount: amount,
+        },
+        quantity: item.quantity || 1,
+      };
+    });
+
+    console.log("Line items created:", lineItems);
+
+    // Create checkout session
+    const sessionData = {
+      payment_method_types: ["card" as const],
+      line_items: lineItems,
+      mode: "payment" as const,
+      success_url:
+        successUrl ||
+        `${req.nextUrl.origin}/success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: cancelUrl || `${req.nextUrl.origin}/pricing`,
+      expires_at: Math.floor(Date.now() / 1000) + 30 * 60, // 30 minutes from now
+      metadata: {
+        items: JSON.stringify(
+          items.map((item: CheckoutItem) => ({
+            name: item.name,
+            price: item.price,
+          }))
+        ),
+      },
+    };
+
+    console.log("Creating session with data:", sessionData);
+
+    const session = await stripe.checkout.sessions.create(sessionData);
+
+    console.log("Session created successfully:", session.id);
+
+    return NextResponse.json({ sessionId: session.id });
+  } catch (error) {
+    console.error("Error creating checkout session:", error);
+
+    // Provide more specific error messages
+    if (error instanceof Error) {
+      if (error.message.includes("apiKey")) {
+        return NextResponse.json(
+          { error: "Stripe API key is invalid or missing" },
+          { status: 500 }
+        );
+      }
+      if (error.message.includes("currency")) {
+        return NextResponse.json(
+          { error: "Invalid currency specified" },
+          { status: 400 }
+        );
+      }
+      if (error.message.includes("amount")) {
+        return NextResponse.json(
+          { error: "Invalid amount specified" },
+          { status: 400 }
+        );
+      }
+    }
+
+    return NextResponse.json(
+      { error: "Failed to create checkout session. Please try again." },
+      { status: 500 }
+    );
+  }
+}
