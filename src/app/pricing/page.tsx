@@ -102,14 +102,14 @@ export default function Pricing() {
       id: "no-fault-assistance",
       name: "No-Fault Assistance",
       description: "Complete accident claim filing and recovery assistance",
-      price: 500,
+      price: 500.0,
       icon: <Shield className="w-6 h-6" />,
     },
     {
       id: "notarization",
       name: "Notarization Services",
       description: "Online document notarization via DocuSign",
-      price: 25,
+      price: 25.0,
       icon: <FileText className="w-6 h-6" />,
     },
   ];
@@ -571,7 +571,7 @@ export default function Pricing() {
                 </div>
                 <div className="text-center">
                   <div className="text-4xl font-bold text-green-600 mb-2">
-                    $500
+                    $500.00
                   </div>
                   <p className="text-gray-600 dark:text-gray-300">
                     One-time flat fee
@@ -630,7 +630,7 @@ export default function Pricing() {
                   processing costs.
                 </p>
                 <p>
-                  ClaimSaver+ revolutionizes this process with our flat $500
+                  ClaimSaver+ revolutionizes this process with our flat $500.00
                   fee, allowing you to keep 95% of your settlement.
                 </p>
                 <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg">
@@ -650,7 +650,7 @@ export default function Pricing() {
                     <div className="flex justify-between">
                       <span>ClaimSaver+ Flat Fee</span>
                       <span className="font-semibold text-green-600">
-                        -$500
+                        -$500.00
                       </span>
                     </div>
                     <div className="border-t pt-2 flex justify-between font-bold text-lg">
@@ -796,7 +796,7 @@ export default function Pricing() {
             <div className="flex items-center justify-center gap-2 text-blue-100">
               <Award className="w-5 h-5" />
               <span className="font-semibold">
-                Flat fee $500 • No hidden costs • Keep 95% of settlement
+                Flat fee $500.00 • No hidden costs • Keep 95% of settlement
               </span>
             </div>
           </div>
@@ -831,7 +831,7 @@ export default function Pricing() {
                   ClaimSaver+ is a revolutionary platform that helps accident
                   victims maximize their settlements while minimizing costs.
                   Unlike traditional attorneys who take 33% of your settlement,
-                  we charge a flat $500 fee, allowing you to keep 95% of your
+                  we charge a flat $500.00 fee, allowing you to keep 95% of your
                   money.
                 </p>
               </div>
@@ -853,7 +853,7 @@ export default function Pricing() {
                     ClaimSaver+ Method
                   </h4>
                   <ul className="text-sm text-green-800 dark:text-green-200 space-y-1">
-                    <li>• Flat $500 fee</li>
+                    <li>• Flat $500.00 fee</li>
                     <li>• No hidden costs</li>
                     <li>• Streamlined process</li>
                     <li>• Faster results</li>
@@ -992,7 +992,7 @@ export default function Pricing() {
                     </div>
                     <div className="flex-1">
                       <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-                        No-Fault Assistance - $500
+                        No-Fault Assistance - $500.00
                       </h4>
                       <p className="text-gray-600 dark:text-gray-300 mb-3">
                         Complete accident claim filing and recovery assistance.
@@ -1019,7 +1019,7 @@ export default function Pricing() {
                     </div>
                     <div className="flex-1">
                       <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-                        Notarization Services - $25
+                        Notarization Services - $25.00
                       </h4>
                       <p className="text-gray-600 dark:text-gray-300 mb-3">
                         Online document notarization via DocuSign for all your
@@ -1048,7 +1048,9 @@ export default function Pricing() {
                   </div>
                   <div className="flex justify-between">
                     <span>ClaimSaver+ Flat Fee</span>
-                    <span className="font-semibold text-green-600">-$500</span>
+                    <span className="font-semibold text-green-600">
+                      -$500.00
+                    </span>
                   </div>
                   <div className="border-t pt-2 flex justify-between font-bold">
                     <span>Your Additional Savings</span>
