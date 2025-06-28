@@ -49,41 +49,46 @@ export default function FAQ({
         </div>
 
         {/* FAQ Content - Responsive Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 lg:gap-8">
-          {/* Title Column - Mobile: Full width, Desktop: Sidebar */}
-          <div className="lg:col-span-1 order-2 lg:order-1">
-            <div className="lg:sticky lg:top-8">
-              <h3 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-3 sm:mb-4 text-center lg:text-left">
-                Frequently Asked Questions
-              </h3>
-              <p className="text-gray-600 dark:text-gray-300 text-sm sm:text-base leading-relaxed mb-4 sm:mb-6 text-center lg:text-left">
-                Find answers to the most common questions about our platform and
-                services.
-              </p>
-
-              {/* Contact Info */}
-              <div className="bg-gradient-to-r from-blue-50/90 to-purple-50/90 dark:from-blue-950/90 dark:to-purple-950/90 rounded-xl p-4 border border-blue-200 dark:border-blue-800 w-full lg:w-3/4 backdrop-blur-[1px] mx-auto lg:mx-0">
-                <h3 className="text-sm font-semibold text-gray-900 dark:text-white mb-2 text-center lg:text-left">
-                  Need help?
+        <div className="grid grid-cols-1 gap-6 lg:gap-8">
+          {/* Enhanced Help Box - Full width, prominent placement */}
+          <div className="bg-gradient-to-r from-blue-50/90 to-purple-50/90 dark:from-blue-950/90 dark:to-purple-950/90 rounded-2xl p-8 border border-blue-200 dark:border-blue-800 backdrop-blur-[1px] shadow-xl">
+            <div className="flex flex-col lg:flex-row items-center justify-between gap-6">
+              <div className="text-center lg:text-left">
+                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">
+                  Need Help?
                 </h3>
-                <p className="text-gray-600 dark:text-gray-300 text-xs mb-3 text-center lg:text-left">
-                  Our team is here to help you get the compensation you deserve.
+                <p className="text-gray-600 dark:text-gray-300 text-lg mb-4 max-w-2xl">
+                  Our expert team is here to help you get the compensation you
+                  deserve. We&apos;re available 24/7 to answer your questions
+                  and guide you through the process.
                 </p>
-                <div className="text-center lg:text-left">
+                <div className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
                   <Button
                     asChild
-                    size="sm"
-                    className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-4 py-2 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 text-xs sm:text-sm"
+                    size="lg"
+                    className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-6 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
                   >
-                    <a href="mailto:ClaimSaverPlus@gmail.com">Email Us</a>
+                    <a href="mailto:ClaimSaverPlus@gmail.com">Email Our Team</a>
                   </Button>
+                  <Button
+                    variant="outline"
+                    size="lg"
+                    className="border-2 border-blue-300 hover:border-blue-400 text-blue-700 dark:text-blue-300 px-6 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+                  >
+                    Live Chat
+                  </Button>
+                </div>
+              </div>
+              <div className="flex-shrink-0">
+                <div className="w-24 h-24 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center shadow-lg">
+                  <HelpCircle className="h-12 w-12 text-white" />
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Questions Column - Mobile: Full width, Desktop: Main content */}
-          <div className="lg:col-span-3 order-1 lg:order-2">
+          {/* Questions Column - Full width */}
+          <div>
             <div className="space-y-3 sm:space-y-4">
               {items.map((item, index) => (
                 <div

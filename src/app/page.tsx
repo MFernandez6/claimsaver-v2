@@ -383,23 +383,19 @@ export default function Home() {
                       {t("home.stats.attorneyNetworkValue")}
                     </span>
                   </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-lg">
-                      {t("home.stats.satisfaction")}
-                    </span>
-                    <span className="text-2xl font-bold">
-                      {t("home.stats.satisfactionValue")}
-                    </span>
-                  </div>
+                  {/* Empty space to maintain layout */}
+                  <div className="h-6"></div>
                 </div>
               </div>
-              <div className="absolute -bottom-6 -right-6 bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-xl">
+
+              {/* Flat Fee Card - Repositioned to middle lower part */}
+              <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-xl border border-gray-200 dark:border-gray-700">
                 <div className="flex items-center gap-3">
                   <div className="w-12 h-12 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center">
                     <CheckCircle className="w-6 h-6 text-green-600" />
                   </div>
                   <div>
-                    <p className="font-semibold text-gray-900 dark:text-white">
+                    <p className="font-semibold text-gray-900 dark:text-white text-sm">
                       {t("home.stats.flatFeeLabel")}
                     </p>
                     <p className="text-2xl font-bold text-green-600">
