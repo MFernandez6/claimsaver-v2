@@ -4,11 +4,36 @@ import { useClerk, useUser } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
 
+interface DebugInfo {
+  timestamp: string;
+  environment: string | undefined;
+  clerkKeys: {
+    hasPublishableKey: boolean;
+    publishableKeyType: string;
+    hasSecretKey: boolean;
+    secretKeyType: string;
+  };
+  database: {
+    hasMongoUri: boolean;
+    mongoUriLength: number;
+  };
+  authentication: {
+    clerkUserId: string | null;
+    userFound: boolean;
+    userRole: string | null;
+    error?: string;
+  };
+  databaseConnection: {
+    connected: boolean;
+    error: string | null;
+  };
+}
+
 export default function DebugClerk() {
   const { openSignIn, openSignUp, loaded } = useClerk();
   const { user, isLoaded } = useUser();
   const [error, setError] = useState<string | null>(null);
-  const [debugInfo, setDebugInfo] = useState<any>(null);
+  const [debugInfo, setDebugInfo] = useState<DebugInfo | null>(null);
 
   useEffect(() => {
     // Get debug info from API
@@ -203,15 +228,15 @@ export default function DebugClerk() {
             <div className="flex items-start gap-2">
               <span className="font-semibold">2.</span>
               <span>
-                Check "User & Authentication" → "Email, Phone, Username" -
-                ensure Email is enabled
+                Check &ldquo;User & Authentication&rdquo; → &ldquo;Email, Phone,
+                Username&rdquo; - ensure Email is enabled
               </span>
             </div>
 
             <div className="flex items-start gap-2">
               <span className="font-semibold">3.</span>
               <span>
-                Go to "Domains" and add{" "}
+                Go to &ldquo;Domains&rdquo; and add{" "}
                 <code className="bg-blue-100 px-1 rounded">localhost:3000</code>{" "}
                 if not present
               </span>
@@ -220,8 +245,8 @@ export default function DebugClerk() {
             <div className="flex items-start gap-2">
               <span className="font-semibold">4.</span>
               <span>
-                Check "Paths" settings - ensure sign-in/sign-up URLs are
-                configured
+                Check &ldquo;Paths&rdquo; settings - ensure sign-in/sign-up URLs
+                are configured
               </span>
             </div>
 
