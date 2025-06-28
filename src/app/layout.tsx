@@ -85,8 +85,6 @@ export default function RootLayout({
           headerSubtitle: "text-gray-600 dark:text-gray-300",
         },
       }}
-      signInFallbackRedirectUrl="/"
-      signUpFallbackRedirectUrl="/"
     >
       <html lang="en">
         <body
