@@ -181,14 +181,14 @@ export default function Home() {
             </div>
 
             {/* Video Section */}
-            <div className="relative max-w-4xl mx-auto">
+            <div className="relative max-w-5xl mx-auto">
               <video
                 autoPlay
                 loop
                 playsInline
                 controls
                 className="w-full h-auto rounded-2xl shadow-2xl"
-                style={{ maxHeight: "50vh" }}
+                style={{ aspectRatio: "16/9" }}
               >
                 <source src="/video/Whiteboard.mp4" type="video/mp4" />
                 {t("home.video.notSupported")}

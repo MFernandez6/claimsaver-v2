@@ -1,58 +1,81 @@
-#!/usr/bin/env node
+const https = require("https");
 
-/**
- * Clerk Domain Configuration Checker
- *
- * This script helps diagnose Clerk authentication issues related to domain configuration.
- *
- * Common issues:
- * 1. Port mismatch (3000 vs 3001)
- * 2. Missing domain in Clerk dashboard
- * 3. Incorrect environment variables
- */
+async function checkDomain(domain) {
+  return new Promise((resolve) => {
+    const req = https.request(
+      {
+        hostname: domain,
+        port: 443,
+        path: "/",
+        method: "GET",
+        timeout: 5000,
+      },
+      (res) => {
+        resolve({
+          status: res.statusCode,
+          headers: res.headers,
+          working: res.statusCode < 400,
+        });
+      }
+    );
 
-console.log("🔍 Clerk Domain Configuration Checker");
-console.log("=====================================\n");
+    req.on("error", (err) => {
+      resolve({
+        error: err.message,
+        working: false,
+      });
+    });
 
-// Check environment variables
-const envVars = {
-  NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
-  NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: process.env
-    .NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
-    ? "Set"
-    : "Not Set",
-  CLERK_SECRET_KEY: process.env.CLERK_SECRET_KEY ? "Set" : "Not Set",
-  NEXT_PUBLIC_CLERK_SIGN_IN_URL: process.env.NEXT_PUBLIC_CLERK_SIGN_IN_URL,
-  NEXT_PUBLIC_CLERK_SIGN_UP_URL: process.env.NEXT_PUBLIC_CLERK_SIGN_UP_URL,
-  NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL:
-    process.env.NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL,
-  NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL:
-    process.env.NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL,
-};
+    req.on("timeout", () => {
+      req.destroy();
+      resolve({
+        error: "Timeout",
+        working: false,
+      });
+    });
 
-console.log("📋 Environment Variables:");
-Object.entries(envVars).forEach(([key, value]) => {
-  console.log(`  ${key}: ${value}`);
-});
+    req.end();
+  });
+}
 
-console.log("\n🔧 To fix the 422 error, follow these steps:");
-console.log("\n1. Go to your Clerk Dashboard: https://dashboard.clerk.com");
-console.log("2. Select your application");
-console.log('3. Go to "User & Authentication" → "Email, Phone, Username"');
-console.log('4. Scroll down to "Allowed origins"');
-console.log("5. Add these URLs:");
-console.log("   - http://localhost:3000");
-console.log("   - http://localhost:3001");
-console.log("   - http://127.0.0.1:3000");
-console.log("   - http://127.0.0.1:3001");
-console.log("\n6. Save the changes");
-console.log("\n7. Clear your browser cache and cookies for localhost");
-console.log("8. Restart your development server");
-console.log(
-  "\n💡 Alternative: Kill any process using port 3000 so your app runs on 3000:"
-);
-console.log("   lsof -ti:3000 | xargs kill -9");
+async function diagnoseClerkIssue() {
+  console.log("🔍 Diagnosing Clerk domain issue...\n");
 
-console.log(
-  "\n✅ After making these changes, the 422 error should be resolved."
-);
+  const domains = [
+    "clerk.claimsaverplus.net",
+    "www.claimsaverplus.net",
+    "claimsaverplus.net",
+  ];
+
+  for (const domain of domains) {
+    console.log(`📋 Checking ${domain}...`);
+    const result = await checkDomain(domain);
+
+    if (result.working) {
+      console.log(`✅ ${domain} is accessible (Status: ${result.status})`);
+    } else {
+      console.log(
+        `❌ ${domain} is not accessible: ${result.error || "Unknown error"}`
+      );
+    }
+    console.log("");
+  }
+
+  console.log("🔧 Solutions to try:\n");
+  console.log("1. Go to https://dashboard.clerk.com/");
+  console.log("2. Select your application");
+  console.log('3. Go to "Domains" in the sidebar');
+  console.log("4. Add these domains:");
+  console.log("   - www.claimsaverplus.net");
+  console.log("   - claimsaverplus.net");
+  console.log("5. Verify each domain (follow the verification steps)");
+  console.log("6. Make sure the domains are active (not disabled)");
+  console.log(
+    "\n7. Alternative: Use Clerk's default domain by removing custom domain"
+  );
+  console.log("   - In your Clerk dashboard, remove the custom domain");
+  console.log("   - This will make Clerk use their default domain");
+  console.log("\n8. After making changes, redeploy your application");
+}
+
+diagnoseClerkIssue().catch(console.error);

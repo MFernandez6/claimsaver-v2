@@ -253,7 +253,7 @@ export default function Notarization() {
       {/* Document Upload Section */}
       <section
         id="notarization-section"
-        className="pt-8 pb-0 bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-900 dark:to-blue-950/30 relative overflow-hidden"
+        className="pt-4 pb-0 bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-900 dark:to-blue-950/30 relative overflow-hidden"
       >
         {/* Background Image */}
         <div className="fixed inset-0 z-0">
@@ -267,7 +267,7 @@ export default function Notarization() {
         </div>
 
         <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-8">
+          <div className="text-center mb-4">
             <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4">
               Get Started with{" "}
               <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
@@ -281,7 +281,7 @@ export default function Notarization() {
           </div>
 
           {/* Notarization Steps */}
-          <div className="mb-6">
+          <div className="mb-2">
             <div className="flex justify-center mb-4">
               <div className="flex items-center space-x-3">
                 {[1, 2, 3, 4].map((step) => (
@@ -459,9 +459,9 @@ export default function Notarization() {
       </section>
 
       {/* Document Types Section */}
-      <section className="py-8 bg-white dark:bg-gray-950">
+      <section className="pt-0 pb-8 bg-white dark:bg-gray-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-6">
+          <div className="text-center mb-2">
             <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4">
               Documents We{" "}
               <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
@@ -493,7 +493,7 @@ export default function Notarization() {
       </section>
 
       {/* Benefits Section */}
-      <section className="pt-0 pb-12 bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-900 dark:to-blue-950/30 relative overflow-hidden">
+      <section className="pb-12 bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-900 dark:to-blue-950/30 relative overflow-hidden">
         {/* Background Image */}
         <div className="fixed inset-0 z-0">
           <Image
