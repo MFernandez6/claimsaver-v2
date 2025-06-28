@@ -87,6 +87,8 @@ export default function RootLayout({
       }}
       signInFallbackRedirectUrl="/"
       signUpFallbackRedirectUrl="/"
+      afterSignInUrl="/"
+      afterSignUpUrl="/"
     >
       <html lang="en">
         <body

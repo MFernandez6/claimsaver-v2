@@ -550,6 +550,12 @@ export default function AttorneyMatching() {
                   <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
                     {area.description}
                   </p>
+                  <div className="mt-4 pt-3 border-t border-gray-200 dark:border-gray-700">
+                    <div className="flex items-center justify-center gap-1 text-blue-600 dark:text-blue-400 text-xs font-medium group-hover:text-blue-700 dark:group-hover:text-blue-300 transition-colors duration-300">
+                      <span>Learn more</span>
+                      <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform duration-300" />
+                    </div>
+                  </div>
                 </CardContent>
               </Card>
             ))}
@@ -560,7 +566,10 @@ export default function AttorneyMatching() {
       {/* Modal */}
       {isModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-          <div className="absolute inset-0 bg-black/50 backdrop-blur-sm"></div>
+          <div
+            className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+            onClick={handleCloseModal}
+          ></div>
           <div className="relative bg-white dark:bg-gray-900 rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
             <div className="p-6">
               <div className="flex justify-between items-center mb-6">
@@ -845,7 +854,10 @@ export default function AttorneyMatching() {
       {/* Practice Area Details Modal */}
       {isPracticeModalOpen && selectedPracticeDetails && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-          <div className="absolute inset-0 bg-black/50 backdrop-blur-sm"></div>
+          <div
+            className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+            onClick={handleClosePracticeModal}
+          ></div>
           <div className="relative bg-white dark:bg-gray-900 rounded-2xl shadow-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto">
             <div className="p-8">
               <div className="flex justify-between items-start mb-6">
@@ -957,16 +969,8 @@ export default function AttorneyMatching() {
               <div className="flex gap-4 pt-6 border-t border-gray-200 dark:border-gray-700">
                 <Button
                   type="button"
-                  variant="outline"
-                  onClick={handleClosePracticeModal}
-                  className="flex-1"
-                >
-                  Learn More
-                </Button>
-                <Button
-                  type="button"
                   onClick={handleConnectToAttorney}
-                  className="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
+                  className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
                 >
                   Connect with Attorney
                   <ArrowRight className="ml-2 w-4 h-4" />
@@ -980,7 +984,10 @@ export default function AttorneyMatching() {
       {/* Learn More Modal */}
       {isLearnMoreModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-          <div className="absolute inset-0 bg-black/50 backdrop-blur-sm"></div>
+          <div
+            className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+            onClick={handleCloseLearnMoreModal}
+          ></div>
           <div className="relative bg-white dark:bg-gray-900 rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
             <div className="p-8">
               <div className="flex justify-between items-start mb-8">

@@ -253,7 +253,7 @@ export default function Notarization() {
       {/* Document Upload Section */}
       <section
         id="notarization-section"
-        className="pt-8 pb-6 bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-900 dark:to-blue-950/30 relative overflow-hidden"
+        className="pt-8 pb-0 bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-900 dark:to-blue-950/30 relative overflow-hidden"
       >
         {/* Background Image */}
         <div className="fixed inset-0 z-0">
@@ -267,7 +267,7 @@ export default function Notarization() {
         </div>
 
         <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-6">
+          <div className="text-center mb-8">
             <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4">
               Get Started with{" "}
               <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
@@ -459,7 +459,7 @@ export default function Notarization() {
       </section>
 
       {/* Document Types Section */}
-      <section className="pb-8 bg-white dark:bg-gray-950">
+      <section className="py-8 bg-white dark:bg-gray-950">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-6">
             <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4">
@@ -493,7 +493,7 @@ export default function Notarization() {
       </section>
 
       {/* Benefits Section */}
-      <section className="pb-12 bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-900 dark:to-blue-950/30 relative overflow-hidden">
+      <section className="pt-0 pb-12 bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-900 dark:to-blue-950/30 relative overflow-hidden">
         {/* Background Image */}
         <div className="fixed inset-0 z-0">
           <Image
@@ -600,7 +600,8 @@ export default function Notarization() {
       {/* Learn More Modal */}
       {isLearnMoreModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
-          <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-2xl max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto">
+          <div className="absolute inset-0" onClick={handleCloseModal}></div>
+          <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-2xl max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto relative z-10">
             <div className="flex justify-between items-start mb-6">
               <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
                 About Our Notarization Service
