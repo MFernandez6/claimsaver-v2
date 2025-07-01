@@ -9,13 +9,11 @@ import { useTranslation } from "react-i18next";
 import {
   Play,
   Shield,
-  Users,
   FileText,
   Smartphone,
   TrendingUp,
   CheckCircle,
   ArrowRight,
-  Star,
   Zap,
   Globe,
   Award,
@@ -64,12 +62,6 @@ export default function Home() {
       color: "blue",
     },
     {
-      icon: <Users className="w-6 h-6" />,
-      title: t("home.features.feature2.title"),
-      description: t("home.features.feature2.description"),
-      color: "green",
-    },
-    {
       icon: <Shield className="w-6 h-6" />,
       title: t("home.features.feature3.title"),
       description: t("home.features.feature3.description"),
@@ -99,16 +91,6 @@ export default function Home() {
       icon: <Globe className="w-5 h-5" />,
       title: t("home.benefits.benefit2.title"),
       description: t("home.benefits.benefit2.description"),
-    },
-    {
-      icon: <Award className="w-5 h-5" />,
-      title: t("home.benefits.benefit3.title"),
-      description: t("home.benefits.benefit3.description"),
-    },
-    {
-      icon: <Star className="w-5 h-5" />,
-      title: t("home.benefits.benefit4.title"),
-      description: t("home.benefits.benefit4.description"),
     },
   ];
 

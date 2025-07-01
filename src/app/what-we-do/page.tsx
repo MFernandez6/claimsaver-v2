@@ -16,10 +16,6 @@ import {
   DollarSign,
   ArrowRight,
   Upload,
-  Smartphone,
-  Settings,
-  Clock,
-  Award,
 } from "lucide-react";
 
 export default function WhatWeDo() {

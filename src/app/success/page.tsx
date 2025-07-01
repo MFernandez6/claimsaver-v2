@@ -2,22 +2,11 @@
 
 import { useEffect, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
-import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
 import { useTranslation } from "react-i18next";
-import {
-  CheckCircle,
-  ArrowRight,
-  Mail,
-  Phone,
-  Clock,
-  FileText,
-  Users,
-  Award,
-  Star,
-} from "lucide-react";
+import { CheckCircle, ArrowRight, Mail, Phone } from "lucide-react";
 
 function SuccessContent() {
   const { t } = useTranslation();
