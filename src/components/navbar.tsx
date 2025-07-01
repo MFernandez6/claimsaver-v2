@@ -346,7 +346,6 @@ function ThemeToggle() {
 
 export default function Navbar() {
   const { t } = useTranslation();
-  const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
   const [isClerkAvailable, setIsClerkAvailable] = useState(true);
@@ -402,13 +401,6 @@ export default function Navbar() {
   useEffect(() => {
     setIsMounted(true);
     setIsClerkAvailable(true);
-
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const handleDropdownToggle = (dropdownName: string) => {
@@ -447,238 +439,234 @@ export default function Navbar() {
   }
 
   return (
-    <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        isScrolled
-          ? "bg-white/90 backdrop-blur-xl shadow-xl border-b border-gray-200/50 dark:bg-gray-950/90 dark:border-gray-800/50"
-          : "bg-transparent"
-      }`}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo/Brand */}
-          <div className="flex-shrink-0 hover:scale-105 transition-all duration-300">
-            <Link href="/" className="flex items-center space-x-3">
-              <div className="w-9 h-9 bg-gradient-to-br from-blue-600 to-purple-600 rounded-xl flex items-center justify-center shadow-lg">
-                <span className="text-white font-black text-sm">C+</span>
-              </div>
-              <span className="text-xl font-black bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                ClaimSaver+
-              </span>
-            </Link>
-          </div>
-
-          {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center space-x-2">
-            {/* About Dropdown */}
-            <DropdownMenu
-              trigger={<span>{t("navigation.ourStory")}</span>}
-              items={aboutItems}
-              isOpen={activeDropdown === "about"}
-              onToggle={() => handleDropdownToggle("about")}
-              onClose={closeAllDropdowns}
-            />
-
-            {/* Services Dropdown */}
-            <DropdownMenu
-              trigger={<span>{t("navigation.howWeHelp")}</span>}
-              items={servicesItems}
-              isOpen={activeDropdown === "services"}
-              onToggle={() => handleDropdownToggle("services")}
-              onClose={closeAllDropdowns}
-            />
-
-            {/* Actions Dropdown */}
-            <DropdownMenu
-              trigger={<span>{t("navigation.getStarted")}</span>}
-              items={actionItems}
-              isOpen={activeDropdown === "actions"}
-              onToggle={() => handleDropdownToggle("actions")}
-              onClose={closeAllDropdowns}
-            />
-
-            {/* Dashboard Link */}
-            {isClerkAvailable && <DashboardLink pathname={pathname} />}
-
-            {/* Divider */}
-            <div className="w-px h-6 bg-gray-300 dark:bg-gray-600 mx-2"></div>
-
-            {/* Language Switcher */}
-            <div className="hover:scale-105 transition-all duration-300">
-              <LanguageSwitcher />
+    <>
+      <nav className="bg-white dark:bg-gray-900 shadow-lg border-b border-gray-200 dark:border-gray-800 fixed top-0 left-0 right-0 z-40">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16">
+            {/* Logo/Brand */}
+            <div className="flex-shrink-0 hover:scale-105 transition-all duration-300">
+              <Link href="/" className="flex items-center space-x-3">
+                <div className="w-9 h-9 bg-gradient-to-br from-blue-600 to-purple-600 rounded-xl flex items-center justify-center shadow-lg">
+                  <span className="text-white font-black text-sm">C+</span>
+                </div>
+                <span className="text-xl font-black bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                  ClaimSaver+
+                </span>
+              </Link>
             </div>
 
-            {/* Authentication */}
-            {isClerkAvailable && <AuthSection />}
+            {/* Desktop Navigation */}
+            <div className="hidden lg:flex items-center space-x-2">
+              {/* About Dropdown */}
+              <DropdownMenu
+                trigger={<span>{t("navigation.ourStory")}</span>}
+                items={aboutItems}
+                isOpen={activeDropdown === "about"}
+                onToggle={() => handleDropdownToggle("about")}
+                onClose={closeAllDropdowns}
+              />
 
-            {/* Theme Toggle */}
-            <div className="hover:scale-105 transition-all duration-300 ml-2">
-              <ThemeToggle />
-            </div>
-          </div>
+              {/* Services Dropdown */}
+              <DropdownMenu
+                trigger={<span>{t("navigation.howWeHelp")}</span>}
+                items={servicesItems}
+                isOpen={activeDropdown === "services"}
+                onToggle={() => handleDropdownToggle("services")}
+                onClose={closeAllDropdowns}
+              />
 
-          {/* Mobile menu button */}
-          <div className="lg:hidden">
-            <button
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="p-2 rounded-lg text-gray-700 hover:text-blue-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:text-blue-400 dark:hover:bg-gray-800 transition-all duration-300"
-            >
-              {isMobileMenuOpen ? (
-                <X className="w-6 h-6" />
-              ) : (
-                <Menu className="w-6 h-6" />
-              )}
-            </button>
-          </div>
-        </div>
-
-        {/* Mobile Navigation */}
-        {isMobileMenuOpen && (
-          <div className="lg:hidden border-t border-gray-200 dark:border-gray-700 animate-in slide-in-from-top-2 duration-300 bg-white/95 backdrop-blur-xl dark:bg-gray-950/95 shadow-xl max-h-[calc(100vh-4rem)] overflow-y-auto">
-            <div className="px-4 py-6 space-y-4">
-              {/* About Section */}
-              <div className="space-y-2">
-                <h3 className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider px-3">
-                  {t("navigation.ourStory")}
-                </h3>
-                {aboutItems.map((item, index) => (
-                  <div
-                    key={item.name}
-                    className="animate-in slide-in-from-left-2 duration-300"
-                    style={{ animationDelay: `${index * 100}ms` }}
-                  >
-                    <Link
-                      href={item.href}
-                      className={`flex items-center gap-3 px-3 py-3 rounded-lg text-base font-medium transition-all duration-300 ${
-                        pathname === item.href
-                          ? "text-blue-600 bg-blue-50 dark:text-blue-400 dark:bg-blue-950/30"
-                          : "text-gray-700 hover:text-blue-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-blue-400 dark:hover:bg-gray-800/50"
-                      }`}
-                      onClick={() => setIsMobileMenuOpen(false)}
-                    >
-                      <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg flex items-center justify-center text-white">
-                        {item.icon}
-                      </div>
-                      <div>
-                        <div>{item.name}</div>
-                        <div className="text-sm text-gray-500 dark:text-gray-400">
-                          {item.description}
-                        </div>
-                      </div>
-                    </Link>
-                  </div>
-                ))}
-              </div>
-
-              {/* Services Section */}
-              <div className="space-y-2">
-                <h3 className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider px-3">
-                  {t("navigation.howWeHelp")}
-                </h3>
-                {servicesItems.map((item, index) => (
-                  <div
-                    key={item.name}
-                    className="animate-in slide-in-from-left-2 duration-300"
-                    style={{ animationDelay: `${(index + 2) * 100}ms` }}
-                  >
-                    <Link
-                      href={item.href}
-                      className={`flex items-center gap-3 px-3 py-3 rounded-lg text-base font-medium transition-all duration-300 ${
-                        pathname === item.href
-                          ? "text-blue-600 bg-blue-50 dark:text-blue-400 dark:bg-blue-950/30"
-                          : "text-gray-700 hover:text-blue-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-blue-400 dark:hover:bg-gray-800/50"
-                      }`}
-                      onClick={() => setIsMobileMenuOpen(false)}
-                    >
-                      <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg flex items-center justify-center text-white">
-                        {item.icon}
-                      </div>
-                      <div>
-                        <div>{item.name}</div>
-                        <div className="text-sm text-gray-500 dark:text-gray-400">
-                          {item.description}
-                        </div>
-                      </div>
-                    </Link>
-                  </div>
-                ))}
-              </div>
-
-              {/* Actions Section */}
-              <div className="space-y-2">
-                <h3 className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider px-3">
-                  {t("navigation.getStarted")}
-                </h3>
-                {actionItems.map((item, index) => (
-                  <div
-                    key={item.name}
-                    className="animate-in slide-in-from-left-2 duration-300"
-                    style={{ animationDelay: `${(index + 4) * 100}ms` }}
-                  >
-                    <Link
-                      href={item.href}
-                      className={`flex items-center gap-3 px-3 py-3 rounded-lg text-base font-medium transition-all duration-300 ${
-                        pathname === item.href
-                          ? "text-blue-600 bg-blue-50 dark:text-blue-400 dark:bg-blue-950/30"
-                          : "text-gray-700 hover:text-blue-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-blue-400 dark:hover:bg-gray-800/50"
-                      }`}
-                      onClick={() => setIsMobileMenuOpen(false)}
-                    >
-                      <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg flex items-center justify-center text-white">
-                        {item.icon}
-                      </div>
-                      <div>
-                        <div>{item.name}</div>
-                        <div className="text-sm text-gray-500 dark:text-gray-400">
-                          {item.description}
-                        </div>
-                      </div>
-                    </Link>
-                  </div>
-                ))}
-              </div>
+              {/* Actions Dropdown */}
+              <DropdownMenu
+                trigger={<span>{t("navigation.getStarted")}</span>}
+                items={actionItems}
+                isOpen={activeDropdown === "actions"}
+                onToggle={() => handleDropdownToggle("actions")}
+                onClose={closeAllDropdowns}
+              />
 
               {/* Dashboard Link */}
-              {isClerkAvailable && (
-                <MobileDashboardLink
-                  pathname={pathname}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  navItemsLength={
-                    aboutItems.length +
-                    servicesItems.length +
-                    actionItems.length
-                  }
-                />
-              )}
+              {isClerkAvailable && <DashboardLink pathname={pathname} />}
 
               {/* Divider */}
-              <div className="border-t border-gray-200 dark:border-gray-700 my-4"></div>
+              <div className="w-px h-6 bg-gray-300 dark:bg-gray-600 mx-2"></div>
 
-              {/* Settings Section */}
-              <div className="space-y-3 pb-4">
-                <h3 className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider px-3">
-                  Settings
-                </h3>
+              {/* Language Switcher */}
+              <div className="hover:scale-105 transition-all duration-300">
+                <LanguageSwitcher />
+              </div>
 
-                {/* Language Switcher */}
-                <div className="flex justify-center">
-                  <LanguageSwitcher />
+              {/* Authentication */}
+              {isClerkAvailable && <AuthSection />}
+
+              {/* Theme Toggle */}
+              <div className="hover:scale-105 transition-all duration-300 ml-2">
+                <ThemeToggle />
+              </div>
+            </div>
+
+            {/* Mobile menu button */}
+            <div className="lg:hidden">
+              <button
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                className="p-2 rounded-lg text-gray-700 hover:text-blue-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:text-blue-400 dark:hover:bg-gray-800 transition-all duration-300"
+              >
+                {isMobileMenuOpen ? (
+                  <X className="w-6 h-6" />
+                ) : (
+                  <Menu className="w-6 h-6" />
+                )}
+              </button>
+            </div>
+          </div>
+
+          {/* Mobile Navigation */}
+          {isMobileMenuOpen && (
+            <div className="lg:hidden border-t border-gray-200 dark:border-gray-700 animate-in slide-in-from-top-2 duration-300 bg-white/95 backdrop-blur-xl dark:bg-gray-950/95 shadow-xl max-h-[calc(100vh-4rem)] overflow-y-auto">
+              <div className="px-4 py-6 space-y-4">
+                {/* About Section */}
+                <div className="space-y-2">
+                  <h3 className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider px-3">
+                    {t("navigation.ourStory")}
+                  </h3>
+                  {aboutItems.map((item, index) => (
+                    <div
+                      key={item.name}
+                      className="animate-in slide-in-from-left-2 duration-300"
+                      style={{ animationDelay: `${index * 100}ms` }}
+                    >
+                      <Link
+                        href={item.href}
+                        className={`flex items-center gap-3 px-3 py-3 rounded-lg text-base font-medium transition-all duration-300 ${
+                          pathname === item.href
+                            ? "text-blue-600 bg-blue-50 dark:text-blue-400 dark:bg-blue-950/30"
+                            : "text-gray-700 hover:text-blue-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-blue-400 dark:hover:bg-gray-800/50"
+                        }`}
+                        onClick={() => setIsMobileMenuOpen(false)}
+                      >
+                        <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg flex items-center justify-center text-white">
+                          {item.icon}
+                        </div>
+                        <div>
+                          <div>{item.name}</div>
+                          <div className="text-sm text-gray-500 dark:text-gray-400">
+                            {item.description}
+                          </div>
+                        </div>
+                      </Link>
+                    </div>
+                  ))}
                 </div>
 
-                {/* Theme Toggle */}
-                <div className="flex justify-center">
-                  <ThemeToggle />
+                {/* Services Section */}
+                <div className="space-y-2">
+                  <h3 className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider px-3">
+                    {t("navigation.howWeHelp")}
+                  </h3>
+                  {servicesItems.map((item, index) => (
+                    <div
+                      key={item.name}
+                      className="animate-in slide-in-from-left-2 duration-300"
+                      style={{ animationDelay: `${(index + 2) * 100}ms` }}
+                    >
+                      <Link
+                        href={item.href}
+                        className={`flex items-center gap-3 px-3 py-3 rounded-lg text-base font-medium transition-all duration-300 ${
+                          pathname === item.href
+                            ? "text-blue-600 bg-blue-50 dark:text-blue-400 dark:bg-blue-950/30"
+                            : "text-gray-700 hover:text-blue-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-blue-400 dark:hover:bg-gray-800/50"
+                        }`}
+                        onClick={() => setIsMobileMenuOpen(false)}
+                      >
+                        <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg flex items-center justify-center text-white">
+                          {item.icon}
+                        </div>
+                        <div>
+                          <div>{item.name}</div>
+                          <div className="text-sm text-gray-500 dark:text-gray-400">
+                            {item.description}
+                          </div>
+                        </div>
+                      </Link>
+                    </div>
+                  ))}
                 </div>
 
-                {/* Authentication */}
-                <div className="pt-2">
-                  {isClerkAvailable && <MobileAuthSection />}
+                {/* Actions Section */}
+                <div className="space-y-2">
+                  <h3 className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider px-3">
+                    {t("navigation.getStarted")}
+                  </h3>
+                  {actionItems.map((item, index) => (
+                    <div
+                      key={item.name}
+                      className="animate-in slide-in-from-left-2 duration-300"
+                      style={{ animationDelay: `${(index + 4) * 100}ms` }}
+                    >
+                      <Link
+                        href={item.href}
+                        className={`flex items-center gap-3 px-3 py-3 rounded-lg text-base font-medium transition-all duration-300 ${
+                          pathname === item.href
+                            ? "text-blue-600 bg-blue-50 dark:text-blue-400 dark:bg-blue-950/30"
+                            : "text-gray-700 hover:text-blue-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-blue-400 dark:hover:bg-gray-800/50"
+                        }`}
+                        onClick={() => setIsMobileMenuOpen(false)}
+                      >
+                        <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg flex items-center justify-center text-white">
+                          {item.icon}
+                        </div>
+                        <div>
+                          <div>{item.name}</div>
+                          <div className="text-sm text-gray-500 dark:text-gray-400">
+                            {item.description}
+                          </div>
+                        </div>
+                      </Link>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Dashboard Link */}
+                {isClerkAvailable && (
+                  <MobileDashboardLink
+                    pathname={pathname}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    navItemsLength={
+                      aboutItems.length +
+                      servicesItems.length +
+                      actionItems.length
+                    }
+                  />
+                )}
+
+                {/* Divider */}
+                <div className="border-t border-gray-200 dark:border-gray-700 my-4"></div>
+
+                {/* Settings Section */}
+                <div className="space-y-3 pb-4">
+                  <h3 className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider px-3">
+                    Settings
+                  </h3>
+
+                  {/* Language Switcher */}
+                  <div className="flex justify-center">
+                    <LanguageSwitcher />
+                  </div>
+
+                  {/* Theme Toggle */}
+                  <div className="flex justify-center">
+                    <ThemeToggle />
+                  </div>
+
+                  {/* Authentication */}
+                  <div className="pt-2">
+                    {isClerkAvailable && <MobileAuthSection />}
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        )}
-      </div>
-    </nav>
+          )}
+        </div>
+      </nav>
+    </>
   );
 }

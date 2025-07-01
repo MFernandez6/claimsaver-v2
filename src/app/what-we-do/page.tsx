@@ -4,7 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import Footer from "@/components/footer";
 import FAQ from "@/components/faq";
 import { useClerk } from "@clerk/nextjs";
 import { useTranslation } from "react-i18next";
@@ -17,6 +16,10 @@ import {
   DollarSign,
   ArrowRight,
   Upload,
+  Smartphone,
+  Settings,
+  Clock,
+  Award,
 } from "lucide-react";
 
 export default function WhatWeDo() {
@@ -316,9 +319,6 @@ export default function WhatWeDo() {
         subtitle={t("whatWeDo.faq.subtitle")}
         items={faqItems}
       />
-
-      {/* Footer */}
-      <Footer />
     </div>
   );
 }

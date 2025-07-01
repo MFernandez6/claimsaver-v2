@@ -2,12 +2,22 @@
 
 import { useEffect, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
-import Link from "next/link";
-import { useTranslation } from "react-i18next";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { CheckCircle, ArrowRight, Mail, Phone } from "lucide-react";
-import Footer from "@/components/footer";
+import Link from "next/link";
+import { useTranslation } from "react-i18next";
+import {
+  CheckCircle,
+  ArrowRight,
+  Mail,
+  Phone,
+  Clock,
+  FileText,
+  Users,
+  Award,
+  Star,
+} from "lucide-react";
 
 function SuccessContent() {
   const { t } = useTranslation();
@@ -174,8 +184,6 @@ function SuccessContent() {
           </div>
         </div>
       </section>
-
-      <Footer />
     </div>
   );
 }

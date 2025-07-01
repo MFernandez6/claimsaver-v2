@@ -2,29 +2,25 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { useTranslation } from "react-i18next";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import Footer from "@/components/footer";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import FAQ from "@/components/faq";
+import { useTranslation } from "react-i18next";
 import {
-  FileText,
+  ArrowRight,
   Shield,
   Clock,
-  Upload,
-  ArrowRight,
-  Award,
+  Star,
+  FileText,
   Users,
+  Award,
   Globe,
   Zap,
-  Star,
-  Lock,
-  Calendar,
-  DollarSign,
-  X,
+  Upload,
+  Rocket,
   Sparkles,
   Bell,
-  Rocket,
+  X,
 } from "lucide-react";
 
 export default function Notarization() {
@@ -65,7 +61,7 @@ export default function Notarization() {
       color: "orange",
     },
     {
-      icon: <Lock className="w-6 h-6" />,
+      icon: <Shield className="w-6 h-6" />,
       title: t("notarization.features.security.title"),
       description: t("notarization.features.security.description"),
       color: "red",
@@ -80,12 +76,12 @@ export default function Notarization() {
 
   const benefits = [
     {
-      icon: <Calendar className="w-5 h-5" />,
+      icon: <Clock className="w-5 h-5" />,
       title: t("notarization.benefits.noAppointments.title"),
       description: t("notarization.benefits.noAppointments.description"),
     },
     {
-      icon: <DollarSign className="w-5 h-5" />,
+      icon: <Award className="w-5 h-5" />,
       title: t("notarization.benefits.affordable.title"),
       description: t("notarization.benefits.affordable.description"),
     },
@@ -593,9 +589,6 @@ export default function Notarization() {
           />
         </div>
       </section>
-
-      {/* Footer */}
-      <Footer />
 
       {/* Learn More Modal */}
       {isLearnMoreModalOpen && (

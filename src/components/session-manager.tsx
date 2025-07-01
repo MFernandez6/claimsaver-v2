@@ -11,6 +11,9 @@ export default function SessionManager() {
     // Only run session management if user is signed in
     if (!isSignedIn) return;
 
+    // Extended timeout - 30 minutes instead of immediate
+    const SESSION_TIMEOUT = 30 * 60 * 1000; // 30 minutes in milliseconds
+
     // Function to handle page visibility change
     const handleVisibilityChange = () => {
       if (document.visibilityState === "hidden") {
@@ -35,13 +38,17 @@ export default function SessionManager() {
 
       if (userLeftPage === "true" && leftPageTimestamp) {
         const timeSinceLeft = Date.now() - parseInt(leftPageTimestamp);
-        // Only sign out if user was away for more than 1 second (to avoid false positives)
-        if (timeSinceLeft > 1000) {
-          // User has returned after leaving the page
+        // Only sign out if user was away for more than the session timeout
+        if (timeSinceLeft > SESSION_TIMEOUT) {
+          // User has returned after being away for too long
           // Clear the flags and sign them out
           sessionStorage.removeItem("userLeftPage");
           sessionStorage.removeItem("leftPageTimestamp");
           signOut();
+        } else {
+          // User returned within the timeout period, clear the flags
+          sessionStorage.removeItem("userLeftPage");
+          sessionStorage.removeItem("leftPageTimestamp");
         }
       }
     };
@@ -50,7 +57,14 @@ export default function SessionManager() {
     const handleStorageChange = (e: StorageEvent) => {
       if (e.key === "userLeftPage" && e.newValue === "true") {
         // Another tab has indicated the user left
-        signOut();
+        // Don't immediately sign out, let the timeout handle it
+        const leftPageTimestamp = sessionStorage.getItem("leftPageTimestamp");
+        if (leftPageTimestamp) {
+          const timeSinceLeft = Date.now() - parseInt(leftPageTimestamp);
+          if (timeSinceLeft > SESSION_TIMEOUT) {
+            signOut();
+          }
+        }
       }
     };
 
@@ -73,11 +87,15 @@ export default function SessionManager() {
 
     if (userLeftPage === "true" && leftPageTimestamp) {
       const timeSinceLeft = Date.now() - parseInt(leftPageTimestamp);
-      // Only sign out if user was away for more than 1 second
-      if (timeSinceLeft > 1000) {
+      // Only sign out if user was away for more than the session timeout
+      if (timeSinceLeft > SESSION_TIMEOUT) {
         sessionStorage.removeItem("userLeftPage");
         sessionStorage.removeItem("leftPageTimestamp");
         signOut();
+      } else {
+        // User returned within the timeout period, clear the flags
+        sessionStorage.removeItem("userLeftPage");
+        sessionStorage.removeItem("leftPageTimestamp");
       }
     }
 

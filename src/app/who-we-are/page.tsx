@@ -1,20 +1,19 @@
 "use client";
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import Footer from "@/components/footer";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
 import { useClerk } from "@clerk/nextjs";
 import { useTranslation } from "react-i18next";
 import {
+  ArrowRight,
+  Users,
   Heart,
+  Shield,
+  Star,
   Target,
   Eye,
-  Shield,
-  Users,
-  Star,
-  ArrowRight,
 } from "lucide-react";
 
 export default function WhoWeAre() {
@@ -260,9 +259,6 @@ export default function WhoWeAre() {
           </section>
         </div>
       </div>
-
-      {/* Footer */}
-      <Footer />
     </div>
   );
 }

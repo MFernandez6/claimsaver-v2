@@ -4,7 +4,6 @@ import { useState } from "react";
 import Image from "next/image";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import Footer from "@/components/footer";
 import { useClerk } from "@clerk/nextjs";
 import { getStripe } from "@/lib/stripe";
 import { useTranslation } from "react-i18next";
@@ -794,9 +793,6 @@ export default function Pricing() {
           </div>
         </div>
       </section>
-
-      {/* Footer */}
-      <Footer />
 
       {/* Learn More Modal */}
       {showLearnMoreModal && (

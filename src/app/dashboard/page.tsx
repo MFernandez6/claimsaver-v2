@@ -1,17 +1,10 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Image from "next/image";
 import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import { useTranslation } from "react-i18next";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -27,6 +20,11 @@ import {
   Car,
   Loader2,
   RefreshCw,
+  Upload,
+  Download,
+  Eye,
+  Folder,
+  FileImage,
 } from "lucide-react";
 
 interface UserClaim {
@@ -45,16 +43,166 @@ interface UserClaim {
   vehicleYear: string;
 }
 
+interface Document {
+  _id: string;
+  name: string;
+  category: string;
+  subcategory: string;
+  fileType: string;
+  fileSize: number;
+  uploadedAt: string;
+  claimId?: string;
+  url: string;
+  status: "pending" | "approved" | "rejected";
+}
+
+const documentCategories = {
+  medical: {
+    label: "Medical Records",
+    color: "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300",
+    icon: FileText,
+    subcategories: {
+      bills: "Medical Bills",
+      reports: "Medical Reports",
+      prescriptions: "Prescriptions",
+      therapy: "Physical Therapy",
+    },
+  },
+  insurance: {
+    label: "Insurance",
+    color: "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300",
+    icon: FileText,
+    subcategories: {
+      policy: "Insurance Policy",
+      correspondence: "Correspondence",
+      claims: "Claims Forms",
+    },
+  },
+  accident: {
+    label: "Accident Details",
+    color: "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300",
+    icon: FileImage,
+    subcategories: {
+      photos: "Accident Photos",
+      police: "Police Report",
+      witness: "Witness Statements",
+    },
+  },
+  vehicle: {
+    label: "Vehicle",
+    color:
+      "bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-300",
+    icon: Car,
+    subcategories: {
+      damage: "Damage Photos",
+      repair: "Repair Estimates",
+      registration: "Registration",
+    },
+  },
+  employment: {
+    label: "Employment",
+    color:
+      "bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-300",
+    icon: FileText,
+    subcategories: {
+      wages: "Wage Loss",
+      employment: "Employment Records",
+      benefits: "Benefits Information",
+    },
+  },
+  legal: {
+    label: "Legal Documents",
+    color: "bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-300",
+    icon: FileText,
+    subcategories: {
+      contracts: "Contracts",
+      agreements: "Agreements",
+      correspondence: "Legal Correspondence",
+    },
+  },
+};
+
 export default function DashboardPage() {
   const { t } = useTranslation();
   const { user, isLoaded } = useUser();
   const router = useRouter();
   const [claims, setClaims] = useState<UserClaim[]>([]);
+  const [documents, setDocuments] = useState<Document[]>([]);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isAdmin, setIsAdmin] = useState(false);
   const [checkingRole, setCheckingRole] = useState(true);
+  const [selectedCategory, setSelectedCategory] = useState<string>("all");
+
+  // Mock documents data for demonstration
+  const mockDocuments: Document[] = [
+    {
+      _id: "1",
+      name: "Medical Bill - Emergency Room",
+      category: "medical",
+      subcategory: "bills",
+      fileType: "pdf",
+      fileSize: 245760,
+      uploadedAt: "2024-01-15T10:30:00Z",
+      claimId: "claim-001",
+      url: "#",
+      status: "approved",
+    },
+    {
+      _id: "2",
+      name: "Police Report",
+      category: "accident",
+      subcategory: "police",
+      fileType: "pdf",
+      fileSize: 512000,
+      uploadedAt: "2024-01-14T15:45:00Z",
+      claimId: "claim-001",
+      url: "#",
+      status: "approved",
+    },
+    {
+      _id: "3",
+      name: "Vehicle Damage Photos",
+      category: "vehicle",
+      subcategory: "damage",
+      fileType: "jpg",
+      fileSize: 1024000,
+      uploadedAt: "2024-01-13T09:20:00Z",
+      claimId: "claim-001",
+      url: "#",
+      status: "pending",
+    },
+    {
+      _id: "4",
+      name: "Insurance Policy",
+      category: "insurance",
+      subcategory: "policy",
+      fileType: "pdf",
+      fileSize: 1536000,
+      uploadedAt: "2024-01-12T14:15:00Z",
+      claimId: "claim-001",
+      url: "#",
+      status: "approved",
+    },
+    {
+      _id: "5",
+      name: "Wage Loss Statement",
+      category: "employment",
+      subcategory: "wages",
+      fileType: "pdf",
+      fileSize: 307200,
+      uploadedAt: "2024-01-11T11:30:00Z",
+      claimId: "claim-001",
+      url: "#",
+      status: "pending",
+    },
+  ];
+
+  // Load mock documents on component mount
+  useEffect(() => {
+    setDocuments(mockDocuments);
+  }, []);
 
   // Check if user is admin
   useEffect(() => {
@@ -125,6 +273,36 @@ export default function DashboardPage() {
     }
   }, [isLoaded, user, router, isAdmin, checkingRole]);
 
+  const stats = {
+    totalClaims: claims.length,
+    pendingClaims: claims.filter((c) => c.status === "pending").length,
+    approvedClaims: claims.filter((c) => c.status === "approved").length,
+    totalValue: claims.reduce((sum, c) => sum + c.estimatedValue, 0),
+  };
+
+  // Document management functions
+  const getFileIcon = (fileType: string) => {
+    switch (fileType.toLowerCase()) {
+      case "pdf":
+        return <FileText className="w-4 h-4" />;
+      case "jpg":
+      case "jpeg":
+      case "png":
+      case "gif":
+        return <FileImage className="w-4 h-4" />;
+      default:
+        return <FileText className="w-4 h-4" />;
+    }
+  };
+
+  const formatFileSize = (bytes: number) => {
+    if (bytes === 0) return "0 Bytes";
+    const k = 1024;
+    const sizes = ["Bytes", "KB", "MB", "GB"];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + " " + sizes[i];
+  };
+
   const getStatusColor = (status: string) => {
     switch (status) {
       case "pending":
@@ -178,13 +356,6 @@ export default function DashboardPage() {
     }
   };
 
-  const stats = {
-    totalClaims: claims.length,
-    pendingClaims: claims.filter((c) => c.status === "pending").length,
-    approvedClaims: claims.filter((c) => c.status === "approved").length,
-    totalValue: claims.reduce((sum, c) => sum + c.estimatedValue, 0),
-  };
-
   // Show loading while checking admin role or loading data
   if (!isLoaded || checkingRole || (isAdmin && loading)) {
     return (
@@ -213,254 +384,423 @@ export default function DashboardPage() {
   }
 
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-950">
-      {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-blue-50 via-white to-indigo-50 dark:from-gray-950 dark:via-gray-900 dark:to-blue-950">
-        {/* Background Image */}
-        <div className="fixed inset-0 z-0">
-          <Image
-            src="/images/long-logo-ClaimSaver.jpg"
-            alt={t("dashboard.hero.imageAlt")}
-            className="w-full h-full object-cover opacity-25"
-            fill
-          />
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-50/70 via-white/80 to-indigo-50/70 dark:from-gray-950/70 dark:via-gray-900/80 dark:to-blue-950/70"></div>
-        </div>
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-950 pt-20">
+      {/* Compact Header */}
+      <section className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl flex items-center justify-center">
+                <FileText className="w-6 h-6 text-white" />
+              </div>
+              <div>
+                <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+                  {t("dashboard.hero.title")}
+                </h1>
+                <p className="text-sm text-gray-600 dark:text-gray-300">
+                  Welcome back,{" "}
+                  {user?.firstName || user?.emailAddresses[0]?.emailAddress}
+                </p>
+              </div>
+            </div>
 
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-24">
-          <div className="text-center max-w-4xl mx-auto">
-            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
-              {t("dashboard.hero.title")}{" "}
-              <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                {t("dashboard.hero.subtitle")}
-              </span>
-            </h1>
-            <p className="text-xl sm:text-2xl text-gray-600 dark:text-gray-300 mb-8 leading-relaxed max-w-3xl mx-auto">
-              {t("dashboard.hero.description")}
-            </p>
-
-            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+            <div className="flex gap-3">
               <Button
-                size="lg"
                 onClick={() => router.push("/claim-form")}
-                className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-4 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+                className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white"
               >
-                <Plus className="mr-2 w-5 h-5" />
+                <Plus className="mr-2 w-4 h-4" />
                 {t("dashboard.hero.newClaim")}
               </Button>
               <Button
-                size="lg"
                 variant="outline"
                 onClick={loadClaims}
                 disabled={refreshing}
-                className="border-2 border-gray-300 hover:border-gray-400 text-gray-700 dark:text-gray-300 px-8 py-4 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+                className="border-gray-300 hover:border-gray-400"
               >
                 <RefreshCw
-                  className={`mr-2 w-5 h-5 ${refreshing ? "animate-spin" : ""}`}
+                  className={`w-4 h-4 ${refreshing ? "animate-spin" : ""}`}
                 />
-                {t("dashboard.hero.refresh")}
               </Button>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Stats Section */}
-      <section className="py-24 bg-white dark:bg-gray-950 relative overflow-hidden">
-        {/* Background Pattern */}
-        <div className="fixed inset-0 z-0 opacity-15">
-          <div
-            className="absolute inset-0"
-            style={{
-              backgroundImage: `url('/images/logo-blue-black.png')`,
-              backgroundSize: "300px 300px",
-              backgroundRepeat: "repeat",
-              backgroundPosition: "center",
-              opacity: 0.15,
-            }}
-          ></div>
-        </div>
-
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-6">
-              {t("dashboard.overview.title")}{" "}
-              <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                {t("dashboard.overview.subtitle")}
-              </span>
-            </h2>
-            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-              {t("dashboard.overview.description")}
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
-            <Card className="group relative overflow-hidden border-0 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 bg-gradient-to-br from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 backdrop-blur-sm">
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-600/5 to-purple-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-              <CardContent className="p-6 text-center">
-                <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-500 rounded-xl flex items-center justify-center text-white mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
-                  <FileText className="w-6 h-6" />
+      {/* Main Content */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Real-time Stats */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+          <Card className="bg-white dark:bg-gray-900 border-0 shadow-lg hover:shadow-xl transition-all duration-300">
+            <CardContent className="p-4">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-xs font-medium text-gray-600 dark:text-gray-400">
+                    {t("dashboard.stats.totalClaims")}
+                  </p>
+                  <p className="text-2xl font-bold text-gray-900 dark:text-white">
+                    {stats.totalClaims}
+                  </p>
                 </div>
-                <div className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
-                  {stats.totalClaims}
+                <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg flex items-center justify-center">
+                  <FileText className="w-5 h-5 text-white" />
                 </div>
-                <p className="text-gray-600 dark:text-gray-300">
-                  {t("dashboard.stats.totalClaims")}
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="group relative overflow-hidden border-0 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 bg-gradient-to-br from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 backdrop-blur-sm">
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-600/5 to-purple-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-              <CardContent className="p-6 text-center">
-                <div className="w-12 h-12 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-xl flex items-center justify-center text-white mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
-                  <Clock className="w-6 h-6" />
-                </div>
-                <div className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
-                  {stats.pendingClaims}
-                </div>
-                <p className="text-gray-600 dark:text-gray-300">
-                  {t("dashboard.stats.pendingClaims")}
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="group relative overflow-hidden border-0 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 bg-gradient-to-br from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 backdrop-blur-sm">
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-600/5 to-purple-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-              <CardContent className="p-6 text-center">
-                <div className="w-12 h-12 bg-gradient-to-r from-green-500 to-emerald-500 rounded-xl flex items-center justify-center text-white mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
-                  <CheckCircle className="w-6 h-6" />
-                </div>
-                <div className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
-                  {stats.approvedClaims}
-                </div>
-                <p className="text-gray-600 dark:text-gray-300">
-                  {t("dashboard.stats.approvedClaims")}
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="group relative overflow-hidden border-0 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 bg-gradient-to-br from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 backdrop-blur-sm">
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-600/5 to-purple-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-              <CardContent className="p-6 text-center">
-                <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-violet-500 rounded-xl flex items-center justify-center text-white mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
-                  <DollarSign className="w-6 h-6" />
-                </div>
-                <div className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
-                  ${stats.totalValue.toLocaleString()}
-                </div>
-                <p className="text-gray-600 dark:text-gray-300">
-                  {t("dashboard.stats.totalValue")}
-                </p>
-              </CardContent>
-            </Card>
-          </div>
-
-          {/* Claims List */}
-          <div className="text-center mb-8">
-            <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-              {t("dashboard.claims.title")}
-            </h3>
-            {error && (
-              <div className="bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800 rounded-lg p-4 mb-6">
-                <p className="text-red-800 dark:text-red-200">{error}</p>
               </div>
-            )}
+            </CardContent>
+          </Card>
+
+          <Card className="bg-white dark:bg-gray-900 border-0 shadow-lg hover:shadow-xl transition-all duration-300">
+            <CardContent className="p-4">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-xs font-medium text-gray-600 dark:text-gray-400">
+                    {t("dashboard.stats.pendingClaims")}
+                  </p>
+                  <p className="text-2xl font-bold text-gray-900 dark:text-white">
+                    {stats.pendingClaims}
+                  </p>
+                </div>
+                <div className="w-10 h-10 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-lg flex items-center justify-center">
+                  <Clock className="w-5 h-5 text-white" />
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="bg-white dark:bg-gray-900 border-0 shadow-lg hover:shadow-xl transition-all duration-300">
+            <CardContent className="p-4">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-xs font-medium text-gray-600 dark:text-gray-400">
+                    {t("dashboard.stats.approvedClaims")}
+                  </p>
+                  <p className="text-2xl font-bold text-gray-900 dark:text-white">
+                    {stats.approvedClaims}
+                  </p>
+                </div>
+                <div className="w-10 h-10 bg-gradient-to-r from-green-500 to-emerald-500 rounded-lg flex items-center justify-center">
+                  <CheckCircle className="w-5 h-5 text-white" />
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="bg-white dark:bg-gray-900 border-0 shadow-lg hover:shadow-xl transition-all duration-300">
+            <CardContent className="p-4">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-xs font-medium text-gray-600 dark:text-gray-400">
+                    {t("dashboard.stats.totalValue")}
+                  </p>
+                  <p className="text-2xl font-bold text-gray-900 dark:text-white">
+                    ${stats.totalValue.toLocaleString()}
+                  </p>
+                </div>
+                <div className="w-10 h-10 bg-gradient-to-r from-purple-500 to-violet-500 rounded-lg flex items-center justify-center">
+                  <DollarSign className="w-5 h-5 text-white" />
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Main Content Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          {/* Claims Section - Left Column */}
+          <div className="bg-white dark:bg-gray-900 rounded-xl shadow-lg border-0">
+            <div className="p-6 border-b border-gray-200 dark:border-gray-800">
+              <div className="flex items-center justify-between">
+                <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
+                  {t("dashboard.claims.title")}
+                </h2>
+                <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
+                  <span>Last updated:</span>
+                  <span>{new Date().toLocaleTimeString()}</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="p-6">
+              {error && (
+                <div className="bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800 rounded-lg p-4 mb-6">
+                  <p className="text-red-800 dark:text-red-200">{error}</p>
+                </div>
+              )}
+
+              {loading ? (
+                <div className="flex items-center justify-center py-12">
+                  <div className="flex items-center gap-3">
+                    <Loader2 className="h-6 w-6 animate-spin" />
+                    <span className="text-gray-600 dark:text-gray-400">
+                      Loading claims...
+                    </span>
+                  </div>
+                </div>
+              ) : claims.length === 0 ? (
+                <div className="text-center py-12">
+                  <div className="w-16 h-16 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <FileText className="w-8 h-8 text-gray-400" />
+                  </div>
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                    {t("dashboard.claims.noClaims.title")}
+                  </h3>
+                  <p className="text-gray-600 dark:text-gray-300 mb-6 max-w-md mx-auto">
+                    {t("dashboard.claims.noClaims.description")}
+                  </p>
+                  <Button
+                    onClick={() => router.push("/claim-form")}
+                    className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
+                  >
+                    <Plus className="mr-2 w-4 h-4" />
+                    {t("dashboard.claims.noClaims.button")}
+                  </Button>
+                </div>
+              ) : (
+                <div className="space-y-4">
+                  {claims.map((claim) => (
+                    <Card
+                      key={claim._id}
+                      className="border border-gray-200 dark:border-gray-800 hover:border-gray-300 dark:hover:border-gray-700 transition-all duration-200 hover:shadow-md"
+                    >
+                      <CardContent className="p-6">
+                        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+                          <div className="flex-1">
+                            <div className="flex items-start justify-between mb-3">
+                              <div>
+                                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-1">
+                                  {claim.claimNumber}
+                                </h3>
+                                <p className="text-sm text-gray-600 dark:text-gray-400">
+                                  Filed on{" "}
+                                  {new Date(
+                                    claim.submittedAt
+                                  ).toLocaleDateString()}
+                                </p>
+                              </div>
+                              <div className="flex gap-2">
+                                <Badge className={getStatusColor(claim.status)}>
+                                  {getStatusIcon(claim.status)}
+                                  <span className="ml-1 capitalize">
+                                    {claim.status.replace("_", " ")}
+                                  </span>
+                                </Badge>
+                                <Badge
+                                  className={getPriorityColor(claim.priority)}
+                                >
+                                  {claim.priority}
+                                </Badge>
+                              </div>
+                            </div>
+
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 text-sm">
+                              <div className="flex items-center gap-2 text-gray-600 dark:text-gray-300">
+                                <User className="w-4 h-4" />
+                                <span>{claim.claimantName}</span>
+                              </div>
+                              <div className="flex items-center gap-2 text-gray-600 dark:text-gray-300">
+                                <Calendar className="w-4 h-4" />
+                                <span>
+                                  {new Date(
+                                    claim.accidentDate
+                                  ).toLocaleDateString()}
+                                </span>
+                              </div>
+                              <div className="flex items-center gap-2 text-gray-600 dark:text-gray-300">
+                                <MapPin className="w-4 h-4" />
+                                <span className="truncate">
+                                  {claim.accidentLocation}
+                                </span>
+                              </div>
+                              <div className="flex items-center gap-2 text-gray-600 dark:text-gray-300">
+                                <Car className="w-4 h-4" />
+                                <span>
+                                  {claim.vehicleYear} {claim.vehicleMake}{" "}
+                                  {claim.vehicleModel}
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div className="flex items-center gap-4 lg:flex-col lg:items-end">
+                            <div className="text-right">
+                              <p className="text-sm text-gray-600 dark:text-gray-400">
+                                {t("dashboard.claims.estimatedValue")}
+                              </p>
+                              <p className="text-xl font-bold text-gray-900 dark:text-white">
+                                ${claim.estimatedValue.toLocaleString()}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
 
-          {loading ? (
-            <div className="flex items-center justify-center py-12">
-              <Loader2 className="h-8 w-8 animate-spin" />
-            </div>
-          ) : claims.length === 0 ? (
-            <Card className="text-center py-12 bg-gradient-to-br from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
-              <CardContent>
-                <FileText className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
-                  {t("dashboard.claims.noClaims.title")}
-                </h3>
-                <p className="text-gray-600 dark:text-gray-300 mb-6">
-                  {t("dashboard.claims.noClaims.description")}
-                </p>
+          {/* Document Repository - Right Column */}
+          <div className="bg-white dark:bg-gray-900 rounded-xl shadow-lg border-0">
+            <div className="p-6 border-b border-gray-200 dark:border-gray-800">
+              <div className="flex items-center justify-between">
+                <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
+                  Document Repository
+                </h2>
                 <Button
-                  onClick={() => router.push("/claim-form")}
-                  className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
+                  variant="outline"
+                  size="sm"
+                  className="border-gray-300 hover:border-gray-400"
                 >
-                  <Plus className="mr-2 w-4 h-4" />
-                  {t("dashboard.claims.noClaims.button")}
+                  <Upload className="mr-2 w-4 h-4" />
+                  Upload Document
                 </Button>
-              </CardContent>
-            </Card>
-          ) : (
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              {claims.map((claim) => (
-                <Card
-                  key={claim._id}
-                  className="group relative overflow-hidden border-0 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 backdrop-blur-sm"
-                >
-                  <div className="absolute inset-0 bg-gradient-to-r from-blue-600/5 to-purple-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                  <CardHeader className="pb-4">
-                    <div className="flex items-center justify-between mb-2">
-                      <CardTitle className="text-lg font-semibold text-gray-900 dark:text-white">
-                        {claim.claimNumber}
-                      </CardTitle>
-                      <div className="flex gap-2">
-                        <Badge className={getStatusColor(claim.status)}>
-                          {getStatusIcon(claim.status)}
-                          <span className="ml-1 capitalize">
-                            {claim.status.replace("_", " ")}
-                          </span>
-                        </Badge>
-                        <Badge className={getPriorityColor(claim.priority)}>
-                          {claim.priority}
-                        </Badge>
-                      </div>
-                    </div>
-                    <CardDescription className="text-gray-600 dark:text-gray-300">
-                      {t("dashboard.claims.filedOn")}{" "}
-                      {new Date(claim.submittedAt).toLocaleDateString()}
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-3">
-                      <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
-                        <User className="w-4 h-4" />
-                        <span>{claim.claimantName}</span>
-                      </div>
-                      <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
-                        <Calendar className="w-4 h-4" />
-                        <span>
-                          {t("dashboard.claims.accident")}:{" "}
-                          {new Date(claim.accidentDate).toLocaleDateString()}
-                        </span>
-                      </div>
-                      <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
-                        <MapPin className="w-4 h-4" />
-                        <span>{claim.accidentLocation}</span>
-                      </div>
-                      <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
-                        <Car className="w-4 h-4" />
-                        <span>
-                          {claim.vehicleYear} {claim.vehicleMake}{" "}
-                          {claim.vehicleModel}
-                        </span>
-                      </div>
-                      <div className="flex items-center justify-between pt-3 border-t border-gray-200 dark:border-gray-700">
-                        <span className="text-sm text-gray-600 dark:text-gray-300">
-                          {t("dashboard.claims.estimatedValue")}:
-                        </span>
-                        <span className="font-semibold text-gray-900 dark:text-white">
-                          ${claim.estimatedValue.toLocaleString()}
-                        </span>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
+              </div>
             </div>
-          )}
+
+            <div className="p-6">
+              {/* Category Filter */}
+              <div className="mb-6">
+                <div className="flex flex-wrap gap-2">
+                  <Badge
+                    className={`cursor-pointer ${
+                      selectedCategory === "all"
+                        ? "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300"
+                        : "bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-300"
+                    }`}
+                    onClick={() => setSelectedCategory("all")}
+                  >
+                    All Documents
+                  </Badge>
+                  {Object.entries(documentCategories).map(([key, category]) => (
+                    <Badge
+                      key={key}
+                      className={`cursor-pointer ${
+                        selectedCategory === key
+                          ? category.color
+                          : "bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-300"
+                      }`}
+                      onClick={() => setSelectedCategory(key)}
+                    >
+                      {category.label}
+                    </Badge>
+                  ))}
+                </div>
+              </div>
+
+              {/* Documents List */}
+              <div className="space-y-2">
+                {documents
+                  .filter(
+                    (doc) =>
+                      selectedCategory === "all" ||
+                      doc.category === selectedCategory
+                  )
+                  .map((document) => {
+                    const category =
+                      documentCategories[
+                        document.category as keyof typeof documentCategories
+                      ];
+                    const subcategory =
+                      category?.subcategories[
+                        document.subcategory as keyof typeof category.subcategories
+                      ];
+
+                    return (
+                      <Card
+                        key={document._id}
+                        className="border border-gray-200 dark:border-gray-800 hover:border-gray-300 dark:hover:border-gray-700 transition-all duration-200 hover:shadow-sm"
+                      >
+                        <CardContent className="p-3">
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-2 flex-1 min-w-0">
+                              <div className="w-8 h-8 bg-gray-100 dark:bg-gray-800 rounded-md flex items-center justify-center flex-shrink-0">
+                                {getFileIcon(document.fileType)}
+                              </div>
+                              <div className="flex-1 min-w-0">
+                                <h4 className="text-sm font-medium text-gray-900 dark:text-white truncate">
+                                  {document.name}
+                                </h4>
+                                <div className="flex items-center gap-2 mt-0.5">
+                                  <Badge
+                                    className={`text-xs px-2 py-0.5 ${
+                                      category?.color ||
+                                      "bg-gray-100 text-gray-600"
+                                    }`}
+                                  >
+                                    {category?.label}
+                                  </Badge>
+                                  {subcategory && (
+                                    <span className="text-xs text-gray-500 dark:text-gray-400">
+                                      {subcategory}
+                                    </span>
+                                  )}
+                                </div>
+                                <div className="flex items-center gap-3 mt-0.5 text-xs text-gray-500 dark:text-gray-400">
+                                  <span>
+                                    {formatFileSize(document.fileSize)}
+                                  </span>
+                                  <span>
+                                    {new Date(
+                                      document.uploadedAt
+                                    ).toLocaleDateString()}
+                                  </span>
+                                </div>
+                              </div>
+                            </div>
+                            <div className="flex items-center gap-1 flex-shrink-0">
+                              <Button
+                                variant="ghost"
+                                size="sm"
+                                className="h-7 w-7 p-0"
+                                title="View Document"
+                              >
+                                <Eye className="w-3.5 h-3.5" />
+                              </Button>
+                              <Button
+                                variant="ghost"
+                                size="sm"
+                                className="h-7 w-7 p-0"
+                                title="Download Document"
+                              >
+                                <Download className="w-3.5 h-3.5" />
+                              </Button>
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    );
+                  })}
+              </div>
+
+              {documents.filter(
+                (doc) =>
+                  selectedCategory === "all" ||
+                  doc.category === selectedCategory
+              ).length === 0 && (
+                <div className="text-center py-12">
+                  <div className="w-16 h-16 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Folder className="w-8 h-8 text-gray-400" />
+                  </div>
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                    No Documents Found
+                  </h3>
+                  <p className="text-gray-600 dark:text-gray-300 mb-6 max-w-md mx-auto">
+                    Upload your first document to get started with your claim.
+                  </p>
+                  <Button
+                    variant="outline"
+                    className="border-gray-300 hover:border-gray-400"
+                  >
+                    <Upload className="mr-2 w-4 h-4" />
+                    Upload Document
+                  </Button>
+                </div>
+              )}
+            </div>
+          </div>
         </div>
-      </section>
+      </div>
     </div>
   );
 }

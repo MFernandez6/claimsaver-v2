@@ -482,14 +482,20 @@ export default function Footer() {
               Description of Service
             </h3>
             <p className="mb-4 text-gray-600 dark:text-gray-300 leading-relaxed">
-              ClaimSaver+ is a platform that connects accident victims with
-              attorneys and provides tools for managing accident claims. Our
-              services include:
+              ClaimSaver+ is a technology platform that provides administrative
+              support and connects accident victims with attorneys.
+              <strong className="text-red-600 dark:text-red-400">
+                We are NOT a law firm and do NOT provide legal advice or
+                representation.
+              </strong>{" "}
+              Our services include:
             </p>
             <ul className="space-y-2 text-gray-600 dark:text-gray-300">
               <li className="flex items-start gap-3">
                 <div className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0"></div>
-                <span>No-fault accident form filing assistance</span>
+                <span>
+                  Administrative support for no-fault accident form filing
+                </span>
               </li>
               <li className="flex items-start gap-3">
                 <div className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0"></div>
@@ -504,6 +510,14 @@ export default function Footer() {
                 <span>Case tracking and communication tools</span>
               </li>
             </ul>
+            <div className="mt-4 p-4 bg-red-50 dark:bg-red-950/30 rounded-lg border border-red-200 dark:border-red-800">
+              <p className="text-sm text-red-800 dark:text-red-200">
+                <strong>Important:</strong> We do not provide legal advice, case
+                evaluation, or legal representation. For legal services, you
+                must consult with attorneys in our network or other qualified
+                legal professionals.
+              </p>
+            </div>
           </div>
 
           <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-100 dark:border-gray-700">
@@ -569,12 +583,29 @@ export default function Footer() {
               </div>
               Limitation of Liability
             </h3>
-            <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-              ClaimSaver+ is not a law firm and does not provide legal advice.
-              We connect you with attorneys but are not responsible for the
-              legal services they provide. Our liability is limited to the
-              amount of fees paid for our services.
+            <p className="text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
+              <strong className="text-red-600 dark:text-red-400">
+                ClaimSaver+ is NOT a law firm and does NOT provide legal advice,
+                legal representation, or legal services.
+              </strong>
             </p>
+            <p className="text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
+              We connect you with attorneys but are not responsible for the
+              legal services they provide. We do not evaluate cases, provide
+              legal opinions, or represent clients in legal matters.
+            </p>
+            <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+              Our liability is limited to the amount of fees paid for our
+              administrative services. We do not guarantee case outcomes,
+              compensation amounts, or attorney performance.
+            </p>
+            <div className="mt-4 p-4 bg-orange-50 dark:bg-orange-950/30 rounded-lg border border-orange-200 dark:border-orange-800">
+              <p className="text-sm text-orange-800 dark:text-orange-200">
+                <strong>Important:</strong> For legal advice and representation,
+                you must consult with qualified attorneys. We provide
+                administrative support only.
+              </p>
+            </div>
           </div>
 
           <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-100 dark:border-gray-700">

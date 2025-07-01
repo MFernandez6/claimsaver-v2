@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/navbar";
-import SessionManager from "@/components/session-manager";
 import I18nProvider from "@/components/i18n-provider";
 import { ClerkProvider } from "@clerk/nextjs";
+import Footer from "@/components/footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -52,9 +52,9 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   const publishableKey = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
 
   // If no publishable key is available (like during static generation), render without Clerk
@@ -65,8 +65,11 @@ export default function RootLayout({
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
           <I18nProvider>
-            <Navbar />
-            {children}
+            <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-blue-50 dark:from-gray-950 dark:via-gray-900 dark:to-blue-950">
+              <Navbar />
+              <main className="pt-16">{children}</main>
+              <Footer />
+            </div>
           </I18nProvider>
         </body>
       </html>
@@ -91,9 +94,11 @@ export default function RootLayout({
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
           <I18nProvider>
-            <SessionManager />
-            <Navbar />
-            {children}
+            <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-blue-50 dark:from-gray-950 dark:via-gray-900 dark:to-blue-950">
+              <Navbar />
+              <main className="pt-16">{children}</main>
+              <Footer />
+            </div>
           </I18nProvider>
         </body>
       </html>

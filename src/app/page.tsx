@@ -3,7 +3,6 @@
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import Footer from "@/components/footer";
 import FAQ from "@/components/faq";
 import { useClerk } from "@clerk/nextjs";
 import { useTranslation } from "react-i18next";
@@ -415,9 +414,6 @@ export default function Home() {
         subtitle={t("home.faq.subtitle")}
         items={faqItems}
       />
-
-      {/* Footer */}
-      <Footer />
     </div>
   );
 }

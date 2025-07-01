@@ -69,7 +69,7 @@
       },
       "feature5": {
         "title": "Recovery Assistance",
-        "description": "Our network works to negotiate fair compensation for your damages."
+        "description": "Our network of attorneys works to negotiate fair compensation for your damages."
       }
     },
     "benefits": {
@@ -117,7 +117,7 @@
       "subtitle": "Get answers to the most common questions about ClaimSaver+",
       "legal": {
         "question": "Is this legal?",
-        "answer": "ClaimSaver+ was created by experienced legal professionals who wanted to streamline the process of accident claim filing and recovery. Our platform connects you with licensed attorneys who specialize in accident cases and are authorized to practice law in your state. We provide form filing assistance, document management, and attorney matching services that comply with all applicable laws and regulations. The attorneys in our network are independent legal professionals who will provide you with proper legal representation. As with any legal matter, it's important to work with qualified attorneys who can provide you with the legal advice and representation you need."
+        "answer": "ClaimSaver+ is a technology platform that provides administrative support and attorney referral services. We are NOT a law firm and do NOT provide legal advice or representation. Our platform connects you with licensed attorneys who are independent legal professionals authorized to practice law in your state. We provide administrative support for document organization and attorney referral services that comply with applicable laws and regulations. The attorneys in our network are independent and will provide you with proper legal representation. We do not evaluate cases, provide legal opinions, or represent clients. For legal advice, you should consult with qualified attorneys who can provide you with the legal advice and representation you need."
       },
       "matching": {
         "question": "How long does it take to get matched with an attorney?",
@@ -151,7 +151,7 @@
     "services": {
       "noFaultAssistance": {
         "name": "No-Fault Assistance",
-        "description": "Complete accident claim filing and recovery assistance",
+        "description": "Complete accident claim filing and recovery support",
         "price": "500.00"
       },
       "notarization": {
@@ -173,7 +173,7 @@
       "keep95Percent": "Keep 95% of your settlement",
       "noContingency": "No contingency fees",
       "transparentPricing": "Transparent flat rate",
-      "professionalService": "Professional service",
+      "professionalService": "Professional support service",
       "maximumRecovery": "Maximum recovery for you"
     },
     "features": {
@@ -186,8 +186,8 @@
         "description": "Keep more of your settlement with our flat-rate structure."
       },
       "professionalService": {
-        "title": "Professional Service",
-        "description": "Expert legal support without the traditional attorney fees."
+        "title": "Professional Support",
+        "description": "Expert administrative support without the traditional attorney fees."
       },
       "fasterProcessing": {
         "title": "Faster Processing",
@@ -326,7 +326,11 @@
   "dashboard": {
     "title": "Dashboard",
     "welcome": "Welcome back",
-    "overview": "Overview",
+    "overview": {
+      "title": "Recovery Overview",
+      "subtitle": "Recovery Overview",
+      "description": "Track your progress and stay informed about your claims"
+    },
     "recentActivity": "Recent Activity",
     "quickActions": "Quick Actions",
     "claims": "Claims",
@@ -334,17 +338,12 @@
     "payments": "Payments",
     "settings": "Settings",
     "hero": {
-      "title": "Your",
+      "title": "Dashboard",
       "subtitle": "Recovery Dashboard",
       "description": "Track your claims, monitor progress, and stay updated on your recovery journey",
       "newClaim": "New Claim",
       "refresh": "Refresh",
       "imageAlt": "ClaimSaver+ Background"
-    },
-    "overview": {
-      "title": "Your",
-      "subtitle": "Recovery Overview",
-      "description": "Track your progress and stay informed about your claims"
     },
     "stats": {
       "totalClaims": "Total Claims",
@@ -381,7 +380,7 @@
     "termsOfService": "Terms of Service",
     "cookiePolicy": "Cookie Policy",
     "legalDisclaimer": "Legal Disclaimer",
-    "legalText": "ClaimSaver+ does not offer legal advice or representation and is not a law firm or a substitute for the advice or services of an attorney or law firm. The information provided on this site is not legal advice. If you are looking for advice or representation regarding your specific situation, you should contact an attorney in your state. Attorneys advertised on this site are independent attorneys. The attorneys in your area who are responsible for each advertisement are listed directly in the advertisement. ClaimSaver+ is not an \"attorney referral service.\""
+    "legalText": "ClaimSaver+ is NOT a law firm and does NOT provide legal advice, legal representation, or legal services. We are a technology platform that provides administrative support and attorney referral services. The information provided on this site is for informational purposes only and should not be construed as legal advice. We do not evaluate cases, provide legal opinions, or represent clients in legal matters. If you need legal advice or representation, you should consult with a qualified attorney in your state. Attorneys in our network are independent legal professionals who are not employees or agents of ClaimSaver+. We do not guarantee the outcome of any legal matter. Our services are limited to administrative support and attorney referrals. We are not responsible for the legal services provided by attorneys in our network. This is not an attorney referral service as defined by state bar regulations. We do not receive fees from attorneys for referrals."
   },
   "whoWeAre": {
     "hero": {
@@ -392,8 +391,8 @@
     "about": {
       "title": "About ClaimSaver+",
       "paragraph1": "ClaimSaver+ is a revolutionary platform designed to simplify the process of filing no-fault accident forms and recovering compensation for accident victims. We understand that dealing with the aftermath of an accident can be overwhelming, which is why we've created a user-friendly solution that connects you with experienced attorneys in Florida and New York.",
-      "paragraph2": "Our platform combines cutting-edge technology with expert legal knowledge to ensure that you receive the support and compensation you deserve. We believe that everyone should have access to quality legal representation, regardless of their circumstances.",
-      "paragraph3": "At ClaimSaver+, we're committed to making the legal process as smooth and stress-free as possible. Our team of professionals works tirelessly to ensure that your case receives the attention it deserves, and we're here to guide you every step of the way.",
+      "paragraph2": "Our platform combines cutting-edge technology with expert administrative knowledge to ensure that you receive the support and compensation you deserve. We believe that everyone should have access to quality administrative support, regardless of their circumstances.",
+      "paragraph3": "At ClaimSaver+, we're committed to making the administrative process as smooth and stress-free as possible. Our team of professionals works tirelessly to ensure that your case receives the attention it deserves, and we're here to guide you every step of the way.",
       "imageAlt": "ClaimSaver+ Family",
       "familyFirst": "Family First"
     },
@@ -402,29 +401,29 @@
       "subtitle": "ClaimSaver+ was born from a personal experience that changed our family forever.",
       "personalJourney": {
         "title": "A Personal Journey",
-        "description": "After our family faced the challenges of navigating the complex world of accident claims and legal fees, we realized there had to be a better way."
+        "description": "After our family faced the challenges of navigating the complex world of accident claims and administrative fees, we realized there had to be a better way."
       },
       "mission": {
         "title": "Our Mission",
-        "description": "To make quality legal support accessible and affordable for every family. We believe that when life throws unexpected challenges your way, you shouldn't have to worry about the cost of getting the help you deserve."
+        "description": "To make quality administrative support accessible and affordable for every family. We believe that when life throws unexpected challenges your way, you shouldn't have to worry about the cost of getting the help you deserve."
       },
       "whyWeCare": {
         "title": "Why We Care",
-        "quote": "\"We created this platform to help families like ours avoid the financial burden of traditional legal services during already difficult times.\""
+        "quote": "\"We created this platform to help families like ours avoid the financial burden of traditional administrative services during already difficult times.\""
       }
     },
     "values": {
       "mission": {
         "title": "Our Mission",
-        "description": "To simplify the accident claim process and help victims recover the compensation they deserve through innovative technology and expert legal support."
+        "description": "To simplify the accident claim process and help victims recover the compensation they deserve through innovative technology and expert administrative support."
       },
       "vision": {
         "title": "Our Vision",
-        "description": "To become the leading platform for accident victims, providing seamless access to legal resources and ensuring fair compensation for all."
+        "description": "To become the leading platform for accident victims, providing seamless access to administrative resources and ensuring fair compensation for all."
       },
       "values": {
         "title": "Our Values",
-        "description": "We are committed to transparency, integrity, and putting our clients first. We believe in making legal support accessible to everyone."
+        "description": "We are committed to transparency, integrity, and putting our clients first. We believe in making administrative support accessible to everyone."
       },
       "support": {
         "title": "Our Support",

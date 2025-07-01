@@ -4,7 +4,6 @@ import { useState } from "react";
 import Image from "next/image";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import Footer from "@/components/footer";
 import { useTranslation } from "react-i18next";
 import {
   Users,
@@ -1230,9 +1229,6 @@ export default function AttorneyMatching() {
           </div>
         </div>
       )}
-
-      {/* Footer */}
-      <Footer />
     </div>
   );
 }
