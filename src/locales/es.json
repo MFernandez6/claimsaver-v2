@@ -632,8 +632,9 @@
       "insuranceInfo": "Información de Seguro",
       "medicalInfo": "Información Médica",
       "employmentWages": "Empleo y Salarios",
-      "authorizations": "Autorizaciones",
+      "insuranceAuthorization": "Autorización de Seguro",
       "reviewSubmit": "Revisar y Enviar",
+      "hipaaAuthorization": "Autorización HIPAA",
       "step": "Paso"
     },
     "success": {

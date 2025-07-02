@@ -86,11 +86,29 @@ interface FloridaNoFaultFormData {
   signature: string;
   signatureDate: string;
 
-  // Authorizations
-  medicalAuthSignature: string;
-  medicalAuthDate: string;
-  wageAuthSignature: string;
-  wageAuthDate: string;
+  // Insurance Information Disclosure Authorization
+  insuranceAuthInsuredName: string;
+  insuranceAuthPolicyNumber: string;
+  insuranceAuthInsuranceCompany: string;
+  insuranceAuthDisclosureType: string;
+  insuranceAuthExcludedInfo: string[];
+  insuranceAuthDisclosureForm: string;
+  insuranceAuthReasonForDisclosure: string;
+  insuranceAuthRecipientName: string;
+  insuranceAuthRecipientOrganization: string;
+  insuranceAuthRecipientAddress: string;
+  insuranceAuthDurationType: string;
+  insuranceAuthStartDate: string;
+  insuranceAuthEndDate: string;
+  insuranceAuthEndEvent: string;
+  insuranceAuthRevocationName: string;
+  insuranceAuthRevocationOrganization: string;
+  insuranceAuthRevocationAddress: string;
+  insuranceAuthSignature: string;
+  insuranceAuthSignatureDate: string;
+  insuranceAuthLegalAuthorityName: string;
+  insuranceAuthLegalAuthoritySignature: string;
+  insuranceAuthLegalAuthorityDescription: string;
 
   // OIR-B1-1571 Disclosure
   pipPatientName: string;
@@ -99,6 +117,29 @@ interface FloridaNoFaultFormData {
   pipProviderName: string;
   pipProviderSignature: string;
   pipProviderDate: string;
+
+  // HIPAA Authorization
+  hipaaPatientName: string;
+  hipaaHealthcareProvider: string;
+  hipaaDisclosureType: string;
+  hipaaExcludedInfo: string[];
+  hipaaDisclosureForm: string;
+  hipaaReasonForDisclosure: string;
+  hipaaRecipientName: string;
+  hipaaRecipientOrganization: string;
+  hipaaRecipientAddress: string;
+  hipaaDurationType: string;
+  hipaaStartDate: string;
+  hipaaEndDate: string;
+  hipaaEndEvent: string;
+  hipaaRevocationName: string;
+  hipaaRevocationOrganization: string;
+  hipaaRevocationAddress: string;
+  hipaaSignature: string;
+  hipaaSignatureDate: string;
+  hipaaLegalAuthorityName: string;
+  hipaaLegalAuthoritySignature: string;
+  hipaaLegalAuthorityDescription: string;
 
   // Legacy fields for backward compatibility
   vehicleMake: string;
@@ -129,7 +170,7 @@ export default function ClaimFormPage() {
   const [lastX, setLastX] = useState(0);
   const [lastY, setLastY] = useState(0);
 
-  const totalSteps = 8;
+  const totalSteps = 9;
 
   // Initialize form data with proper defaults
   const [formData, setFormData] = useState<FloridaNoFaultFormData>({
@@ -195,11 +236,29 @@ export default function ClaimFormPage() {
     signature: "",
     signatureDate: "",
 
-    // Authorizations
-    medicalAuthSignature: "",
-    medicalAuthDate: "",
-    wageAuthSignature: "",
-    wageAuthDate: "",
+    // Insurance Information Disclosure Authorization
+    insuranceAuthInsuredName: "",
+    insuranceAuthPolicyNumber: "",
+    insuranceAuthInsuranceCompany: "",
+    insuranceAuthDisclosureType: "",
+    insuranceAuthExcludedInfo: [],
+    insuranceAuthDisclosureForm: "",
+    insuranceAuthReasonForDisclosure: "",
+    insuranceAuthRecipientName: "",
+    insuranceAuthRecipientOrganization: "",
+    insuranceAuthRecipientAddress: "",
+    insuranceAuthDurationType: "",
+    insuranceAuthStartDate: "",
+    insuranceAuthEndDate: "",
+    insuranceAuthEndEvent: "",
+    insuranceAuthRevocationName: "",
+    insuranceAuthRevocationOrganization: "",
+    insuranceAuthRevocationAddress: "",
+    insuranceAuthSignature: "",
+    insuranceAuthSignatureDate: "",
+    insuranceAuthLegalAuthorityName: "",
+    insuranceAuthLegalAuthoritySignature: "",
+    insuranceAuthLegalAuthorityDescription: "",
 
     // OIR-B1-1571 Disclosure
     pipPatientName: "",
@@ -208,6 +267,29 @@ export default function ClaimFormPage() {
     pipProviderName: "",
     pipProviderSignature: "",
     pipProviderDate: "",
+
+    // HIPAA Authorization
+    hipaaPatientName: "",
+    hipaaHealthcareProvider: "",
+    hipaaDisclosureType: "",
+    hipaaExcludedInfo: [],
+    hipaaDisclosureForm: "",
+    hipaaReasonForDisclosure: "",
+    hipaaRecipientName: "",
+    hipaaRecipientOrganization: "",
+    hipaaRecipientAddress: "",
+    hipaaDurationType: "",
+    hipaaStartDate: "",
+    hipaaEndDate: "",
+    hipaaEndEvent: "",
+    hipaaRevocationName: "",
+    hipaaRevocationOrganization: "",
+    hipaaRevocationAddress: "",
+    hipaaSignature: "",
+    hipaaSignatureDate: "",
+    hipaaLegalAuthorityName: "",
+    hipaaLegalAuthoritySignature: "",
+    hipaaLegalAuthorityDescription: "",
 
     // Legacy fields for backward compatibility
     vehicleMake: "",
@@ -240,7 +322,10 @@ export default function ClaimFormPage() {
     }
   }, [isLoaded, user]);
 
-  const handleInputChange = (field: string, value: string | boolean) => {
+  const handleInputChange = (
+    field: string,
+    value: string | boolean | string[]
+  ) => {
     console.log("handleInputChange called:", field, value);
     setFormData((prev) => {
       const newData = {
@@ -342,13 +427,15 @@ export default function ClaimFormPage() {
       case 4:
         return <Shield className="w-5 h-5" />;
       case 5:
-        return <DollarSign className="w-5 h-5" />;
-      case 6:
         return <FileText className="w-5 h-5" />;
+      case 6:
+        return <DollarSign className="w-5 h-5" />;
       case 7:
         return <Award className="w-5 h-5" />;
       case 8:
         return <Zap className="w-5 h-5" />;
+      case 9:
+        return <Shield className="w-5 h-5" />;
       default:
         return <FileText className="w-5 h-5" />;
     }
@@ -369,8 +456,10 @@ export default function ClaimFormPage() {
       case 6:
         return t("claimForm.steps.employmentWages");
       case 7:
-        return t("claimForm.steps.authorizations");
+        return t("claimForm.steps.insuranceAuthorization");
       case 8:
+        return t("claimForm.steps.hipaaAuthorization");
+      case 9:
         return t("claimForm.steps.reviewSubmit");
       default:
         return t("claimForm.steps.step");
@@ -1109,59 +1198,1425 @@ export default function ClaimFormPage() {
               </div>
             )}
 
-            {/* Step 7: Authorizations */}
+            {/* Step 7: Insurance Information Disclosure Authorization */}
             {currentStep === 7 && (
-              <div className="space-y-6">
-                <h3 className="text-xl font-semibold mb-6">Authorizations</h3>
-                <div className="bg-blue-50 rounded-lg p-4 mb-6">
-                  <p className="text-sm text-blue-800">
-                    Please provide your digital signature for the following
-                    authorizations.
+              <div className="space-y-8">
+                <div className="text-center mb-8">
+                  <div className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-r from-green-100 to-emerald-100 dark:from-green-900/50 dark:to-emerald-900/50 rounded-xl mb-4">
+                    <Shield className="w-6 h-6 text-green-600 dark:text-green-400" />
+                  </div>
+                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+                    Insurance Information Disclosure Authorization
+                  </h3>
+                  <p className="text-gray-600 dark:text-gray-300">
+                    Authorization for Release of Insurance Information
                   </p>
                 </div>
 
-                <div className="space-y-4">
-                  <div className="border border-gray-200 rounded-lg p-4">
-                    <h4 className="font-semibold mb-2">
-                      Medical Authorization
-                    </h4>
-                    <p className="text-sm text-gray-600 mb-3">
-                      I authorize the release of my medical information to the
-                      insurance company.
+                {/* Legal Notice */}
+                <div className="bg-red-50 dark:bg-red-950/50 border border-red-200 dark:border-red-800 rounded-lg p-4 mb-6">
+                  <div className="flex items-start gap-3">
+                    <div className="w-6 h-6 bg-red-100 dark:bg-red-900/50 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <svg
+                        className="w-4 h-4 text-red-600"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-red-800 dark:text-red-200 mb-2">
+                        Important Legal Notice
+                      </h4>
+                      <p className="text-sm text-red-700 dark:text-red-300">
+                        This insurance information disclosure authorization
+                        allows ClaimSaver+ and our attorney network to receive
+                        claim updates and information from your insurance
+                        company. By signing this form, you are giving explicit
+                        permission for your insurance company to share claim
+                        information with us. This authorization is necessary to
+                        provide you with comprehensive claim support and ensure
+                        you receive all updates regarding your case.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Section I: Insured Information */}
+                <div className="space-y-6">
+                  <h4 className="text-lg font-semibold text-gray-900 dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2">
+                    Section I - Insured Information
+                  </h4>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="group">
+                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3 group-hover:text-green-600 dark:group-hover:text-green-400 transition-colors">
+                        Insured Name *
+                      </label>
+                      <Input
+                        value={formData.insuranceAuthInsuredName}
+                        onChange={(e) =>
+                          handleInputChange(
+                            "insuranceAuthInsuredName",
+                            e.target.value
+                          )
+                        }
+                        placeholder="Enter your full name"
+                        className="w-full border-2 border-gray-200 dark:border-gray-600 focus:border-green-500 dark:focus:border-green-400 focus:ring-2 focus:ring-green-500/20 dark:focus:ring-green-400/20 transition-all duration-200 bg-white/50 dark:bg-gray-700/50 backdrop-blur-sm"
+                      />
+                    </div>
+
+                    <div className="group">
+                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3 group-hover:text-green-600 dark:group-hover:text-green-400 transition-colors">
+                        Policy Number *
+                      </label>
+                      <Input
+                        value={formData.insuranceAuthPolicyNumber}
+                        onChange={(e) =>
+                          handleInputChange(
+                            "insuranceAuthPolicyNumber",
+                            e.target.value
+                          )
+                        }
+                        placeholder="Enter your policy number"
+                        className="w-full border-2 border-gray-200 dark:border-gray-600 focus:border-green-500 dark:focus:border-green-400 focus:ring-2 focus:ring-green-500/20 dark:focus:ring-green-400/20 transition-all duration-200 bg-white/50 dark:bg-gray-700/50 backdrop-blur-sm"
+                      />
+                    </div>
+
+                    <div className="group">
+                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3 group-hover:text-green-600 dark:group-hover:text-green-400 transition-colors">
+                        Insurance Company *
+                      </label>
+                      <Input
+                        value={formData.insuranceAuthInsuranceCompany}
+                        onChange={(e) =>
+                          handleInputChange(
+                            "insuranceAuthInsuranceCompany",
+                            e.target.value
+                          )
+                        }
+                        placeholder="Enter insurance company name"
+                        className="w-full border-2 border-gray-200 dark:border-gray-600 focus:border-green-500 dark:focus:border-green-400 focus:ring-2 focus:ring-green-500/20 dark:focus:ring-green-400/20 transition-all duration-200 bg-white/50 dark:bg-gray-700/50 backdrop-blur-sm"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Section II: Information to be Disclosed */}
+                <div className="space-y-6">
+                  <h4 className="text-lg font-semibold text-gray-900 dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2">
+                    Section II - Information to be Disclosed
+                  </h4>
+
+                  <div className="bg-green-50 dark:bg-green-950/30 rounded-lg p-4 mb-4">
+                    <p className="text-sm text-green-800 dark:text-green-200 mb-4">
+                      <strong>What this means:</strong> You are authorizing the
+                      release of your complete insurance claim information
+                      related to the accident. This includes claim status
+                      updates, settlement offers, correspondence, and any other
+                      information related to your claim processing.
                     </p>
-                    <Button
-                      onClick={() => openSignatureModal("medicalAuth")}
-                      variant="outline"
-                      className="w-full"
-                    >
-                      {formData.medicalAuthSignature
-                        ? "✓ Signed"
-                        : "Sign Medical Authorization"}
-                    </Button>
                   </div>
 
-                  <div className="border border-gray-200 rounded-lg p-4">
-                    <h4 className="font-semibold mb-2">Wage Authorization</h4>
-                    <p className="text-sm text-gray-600 mb-3">
-                      I authorize the release of my employment and wage
-                      information.
+                  <div className="space-y-4">
+                    <div className="flex items-start gap-3">
+                      <input
+                        type="radio"
+                        id="insuranceDisclosureComplete"
+                        name="insuranceAuthDisclosureType"
+                        value="complete"
+                        checked={
+                          formData.insuranceAuthDisclosureType === "complete"
+                        }
+                        onChange={(e) =>
+                          handleInputChange(
+                            "insuranceAuthDisclosureType",
+                            e.target.value
+                          )
+                        }
+                        className="mt-1 w-4 h-4 text-green-600 border-gray-300 focus:ring-green-500"
+                      />
+                      <label
+                        htmlFor="insuranceDisclosureComplete"
+                        className="text-sm text-gray-700 dark:text-gray-300"
+                      >
+                        <strong>
+                          Disclose my complete insurance claim information
+                        </strong>{" "}
+                        including, but not limited to, claim status, settlement
+                        offers, correspondence, and all claim-related documents.
+                      </label>
+                    </div>
+
+                    <div className="flex items-start gap-3">
+                      <input
+                        type="radio"
+                        id="insuranceDisclosurePartial"
+                        name="insuranceAuthDisclosureType"
+                        value="partial"
+                        checked={
+                          formData.insuranceAuthDisclosureType === "partial"
+                        }
+                        onChange={(e) =>
+                          handleInputChange(
+                            "insuranceAuthDisclosureType",
+                            e.target.value
+                          )
+                        }
+                        className="mt-1 w-4 h-4 text-green-600 border-gray-300 focus:ring-green-500"
+                      />
+                      <label
+                        htmlFor="insuranceDisclosurePartial"
+                        className="text-sm text-gray-700 dark:text-gray-300"
+                      >
+                        <strong>
+                          Disclose my insurance claim information EXCEPT for the
+                          following:
+                        </strong>
+                      </label>
+                    </div>
+
+                    {formData.insuranceAuthDisclosureType === "partial" && (
+                      <div className="ml-7 space-y-3">
+                        <div className="flex items-center gap-3">
+                          <input
+                            type="checkbox"
+                            id="excludeSettlementOffers"
+                            checked={formData.insuranceAuthExcludedInfo.includes(
+                              "settlementOffers"
+                            )}
+                            onChange={(e) => {
+                              const newExcluded = e.target.checked
+                                ? [
+                                    ...formData.insuranceAuthExcludedInfo,
+                                    "settlementOffers",
+                                  ]
+                                : formData.insuranceAuthExcludedInfo.filter(
+                                    (item) => item !== "settlementOffers"
+                                  );
+                              handleInputChange(
+                                "insuranceAuthExcludedInfo",
+                                newExcluded
+                              );
+                            }}
+                            className="w-4 h-4 text-green-600 border-gray-300 rounded focus:ring-green-500"
+                          />
+                          <label
+                            htmlFor="excludeSettlementOffers"
+                            className="text-sm text-gray-700 dark:text-gray-300"
+                          >
+                            Settlement offers and negotiations
+                          </label>
+                        </div>
+
+                        <div className="flex items-center gap-3">
+                          <input
+                            type="checkbox"
+                            id="excludeInternalNotes"
+                            checked={formData.insuranceAuthExcludedInfo.includes(
+                              "internalNotes"
+                            )}
+                            onChange={(e) => {
+                              const newExcluded = e.target.checked
+                                ? [
+                                    ...formData.insuranceAuthExcludedInfo,
+                                    "internalNotes",
+                                  ]
+                                : formData.insuranceAuthExcludedInfo.filter(
+                                    (item) => item !== "internalNotes"
+                                  );
+                              handleInputChange(
+                                "insuranceAuthExcludedInfo",
+                                newExcluded
+                              );
+                            }}
+                            className="w-4 h-4 text-green-600 border-gray-300 rounded focus:ring-green-500"
+                          />
+                          <label
+                            htmlFor="excludeInternalNotes"
+                            className="text-sm text-gray-700 dark:text-gray-300"
+                          >
+                            Internal company notes and communications
+                          </label>
+                        </div>
+
+                        <div className="flex items-center gap-3">
+                          <input
+                            type="checkbox"
+                            id="excludeFinancialInfo"
+                            checked={formData.insuranceAuthExcludedInfo.includes(
+                              "financialInfo"
+                            )}
+                            onChange={(e) => {
+                              const newExcluded = e.target.checked
+                                ? [
+                                    ...formData.insuranceAuthExcludedInfo,
+                                    "financialInfo",
+                                  ]
+                                : formData.insuranceAuthExcludedInfo.filter(
+                                    (item) => item !== "financialInfo"
+                                  );
+                              handleInputChange(
+                                "insuranceAuthExcludedInfo",
+                                newExcluded
+                              );
+                            }}
+                            className="w-4 h-4 text-green-600 border-gray-300 rounded focus:ring-green-500"
+                          />
+                          <label
+                            htmlFor="excludeFinancialInfo"
+                            className="text-sm text-gray-700 dark:text-gray-300"
+                          >
+                            Detailed financial information beyond claim amounts
+                          </label>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="space-y-4">
+                    <h5 className="font-semibold text-gray-900 dark:text-white">
+                      Form of Disclosure:
+                    </h5>
+                    <div className="space-y-3">
+                      <div className="flex items-center gap-3">
+                        <input
+                          type="radio"
+                          id="insuranceDisclosureElectronic"
+                          name="insuranceAuthDisclosureForm"
+                          value="electronic"
+                          checked={
+                            formData.insuranceAuthDisclosureForm ===
+                            "electronic"
+                          }
+                          onChange={(e) =>
+                            handleInputChange(
+                              "insuranceAuthDisclosureForm",
+                              e.target.value
+                            )
+                          }
+                          className="w-4 h-4 text-green-600 border-gray-300 focus:ring-green-500"
+                        />
+                        <label
+                          htmlFor="insuranceDisclosureElectronic"
+                          className="text-sm text-gray-700 dark:text-gray-300"
+                        >
+                          Electronic copy or access via a web-based portal
+                        </label>
+                      </div>
+
+                      <div className="flex items-center gap-3">
+                        <input
+                          type="radio"
+                          id="insuranceDisclosureHard"
+                          name="insuranceAuthDisclosureForm"
+                          value="hard"
+                          checked={
+                            formData.insuranceAuthDisclosureForm === "hard"
+                          }
+                          onChange={(e) =>
+                            handleInputChange(
+                              "insuranceAuthDisclosureForm",
+                              e.target.value
+                            )
+                          }
+                          className="w-4 h-4 text-green-600 border-gray-300 focus:ring-green-500"
+                        />
+                        <label
+                          htmlFor="insuranceDisclosureHard"
+                          className="text-sm text-gray-700 dark:text-gray-300"
+                        >
+                          Hard copy
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Section III: Reason for Disclosure */}
+                <div className="space-y-6">
+                  <h4 className="text-lg font-semibold text-gray-900 dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2">
+                    Section III - Reason for Disclosure
+                  </h4>
+
+                  <div className="bg-green-50 dark:bg-green-950/30 rounded-lg p-4 mb-4">
+                    <p className="text-sm text-green-800 dark:text-green-200">
+                      <strong>Purpose:</strong> This information is being
+                      requested to provide comprehensive claim support and
+                      ensure you receive all updates regarding your accident
+                      claim. ClaimSaver+ will use this information to assist
+                      with your claim processing and keep you informed of all
+                      developments.
                     </p>
+                  </div>
+
+                  <div className="group">
+                    <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3 group-hover:text-green-600 dark:group-hover:text-green-400 transition-colors">
+                      Reason for Disclosure *
+                    </label>
+                    <Textarea
+                      value={formData.insuranceAuthReasonForDisclosure}
+                      onChange={(e) =>
+                        handleInputChange(
+                          "insuranceAuthReasonForDisclosure",
+                          e.target.value
+                        )
+                      }
+                      placeholder="Comprehensive claim support and claim status updates"
+                      rows={3}
+                      className="w-full border-2 border-gray-200 dark:border-gray-600 focus:border-green-500 dark:focus:border-green-400 focus:ring-2 focus:ring-green-500/20 dark:focus:ring-green-400/20 transition-all duration-200 bg-white/50 dark:bg-gray-700/50 backdrop-blur-sm"
+                    />
+                  </div>
+                </div>
+
+                {/* Section IV: Who Can Receive Information */}
+                <div className="space-y-6">
+                  <h4 className="text-lg font-semibold text-gray-900 dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2">
+                    Section IV - Who Can Receive My Insurance Information
+                  </h4>
+
+                  <div className="bg-green-50 dark:bg-green-950/30 rounded-lg p-4 mb-4">
+                    <p className="text-sm text-green-800 dark:text-green-200">
+                      <strong>Recipient:</strong> ClaimSaver+ and our attorney
+                      network will receive this information to provide
+                      comprehensive claim support and keep you informed of all
+                      claim developments.
+                    </p>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="group">
+                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3 group-hover:text-green-600 dark:group-hover:text-green-400 transition-colors">
+                        Recipient Name *
+                      </label>
+                      <Input
+                        value={formData.insuranceAuthRecipientName}
+                        onChange={(e) =>
+                          handleInputChange(
+                            "insuranceAuthRecipientName",
+                            e.target.value
+                          )
+                        }
+                        placeholder="ClaimSaver+ Legal Team"
+                        className="w-full border-2 border-gray-200 dark:border-gray-600 focus:border-green-500 dark:focus:border-green-400 focus:ring-2 focus:ring-green-500/20 dark:focus:ring-green-400/20 transition-all duration-200 bg-white/50 dark:bg-gray-700/50 backdrop-blur-sm"
+                      />
+                    </div>
+
+                    <div className="group">
+                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3 group-hover:text-green-600 dark:group-hover:text-green-400 transition-colors">
+                        Organization *
+                      </label>
+                      <Input
+                        value={formData.insuranceAuthRecipientOrganization}
+                        onChange={(e) =>
+                          handleInputChange(
+                            "insuranceAuthRecipientOrganization",
+                            e.target.value
+                          )
+                        }
+                        placeholder="ClaimSaver+"
+                        className="w-full border-2 border-gray-200 dark:border-gray-600 focus:border-green-500 dark:focus:border-green-400 focus:ring-2 focus:ring-green-500/20 dark:focus:ring-green-400/20 transition-all duration-200 bg-white/50 dark:bg-gray-700/50 backdrop-blur-sm"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="group">
+                    <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3 group-hover:text-green-600 dark:group-hover:text-green-400 transition-colors">
+                      Address *
+                    </label>
+                    <Input
+                      value={formData.insuranceAuthRecipientAddress}
+                      onChange={(e) =>
+                        handleInputChange(
+                          "insuranceAuthRecipientAddress",
+                          e.target.value
+                        )
+                      }
+                      placeholder="Miami, FL"
+                      className="w-full border-2 border-gray-200 dark:border-gray-600 focus:border-green-500 dark:focus:border-green-400 focus:ring-2 focus:ring-green-500/20 dark:focus:ring-green-400/20 transition-all duration-200 bg-white/50 dark:bg-gray-700/50 backdrop-blur-sm"
+                    />
+                  </div>
+
+                  <div className="bg-yellow-50 dark:bg-yellow-950/30 border border-yellow-200 dark:border-yellow-800 rounded-lg p-4">
+                    <p className="text-sm text-yellow-800 dark:text-yellow-200">
+                      <strong>Important:</strong> I understand that the
+                      person(s)/organization(s) listed above may not be covered
+                      by state/federal rules governing privacy and security of
+                      data and may be permitted to further share the information
+                      that is provided to them.
+                    </p>
+                  </div>
+                </div>
+
+                {/* Section V: Duration of Authorization */}
+                <div className="space-y-6">
+                  <h4 className="text-lg font-semibold text-gray-900 dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2">
+                    Section V - Duration of Authorization
+                  </h4>
+
+                  <div className="space-y-4">
+                    <div className="flex items-start gap-3">
+                      <input
+                        type="radio"
+                        id="insuranceDurationSpecific"
+                        name="insuranceAuthDurationType"
+                        value="specific"
+                        checked={
+                          formData.insuranceAuthDurationType === "specific"
+                        }
+                        onChange={(e) =>
+                          handleInputChange(
+                            "insuranceAuthDurationType",
+                            e.target.value
+                          )
+                        }
+                        className="mt-1 w-4 h-4 text-green-600 border-gray-300 focus:ring-green-500"
+                      />
+                      <label
+                        htmlFor="insuranceDurationSpecific"
+                        className="text-sm text-gray-700 dark:text-gray-300"
+                      >
+                        <strong>From</strong> a specific date{" "}
+                        <strong>to</strong> a specific date
+                      </label>
+                    </div>
+
+                    {formData.insuranceAuthDurationType === "specific" && (
+                      <div className="ml-7 grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div className="group">
+                          <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                            Start Date
+                          </label>
+                          <Input
+                            type="date"
+                            value={formData.insuranceAuthStartDate}
+                            onChange={(e) =>
+                              handleInputChange(
+                                "insuranceAuthStartDate",
+                                e.target.value
+                              )
+                            }
+                            className="w-full border-2 border-gray-200 dark:border-gray-600 focus:border-green-500 dark:focus:border-green-400 focus:ring-2 focus:ring-green-500/20 dark:focus:ring-green-400/20 transition-all duration-200 bg-white/50 dark:bg-gray-700/50 backdrop-blur-sm"
+                          />
+                        </div>
+
+                        <div className="group">
+                          <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                            End Date
+                          </label>
+                          <Input
+                            type="date"
+                            value={formData.insuranceAuthEndDate}
+                            onChange={(e) =>
+                              handleInputChange(
+                                "insuranceAuthEndDate",
+                                e.target.value
+                              )
+                            }
+                            className="w-full border-2 border-gray-200 dark:border-gray-600 focus:border-green-500 dark:focus:border-green-400 focus:ring-2 focus:ring-green-500/20 dark:focus:ring-green-400/20 transition-all duration-200 bg-white/50 dark:bg-gray-700/50 backdrop-blur-sm"
+                          />
+                        </div>
+                      </div>
+                    )}
+
+                    <div className="flex items-start gap-3">
+                      <input
+                        type="radio"
+                        id="insuranceDurationAll"
+                        name="insuranceAuthDurationType"
+                        value="all"
+                        checked={formData.insuranceAuthDurationType === "all"}
+                        onChange={(e) =>
+                          handleInputChange(
+                            "insuranceAuthDurationType",
+                            e.target.value
+                          )
+                        }
+                        className="mt-1 w-4 h-4 text-green-600 border-gray-300 focus:ring-green-500"
+                      />
+                      <label
+                        htmlFor="insuranceDurationAll"
+                        className="text-sm text-gray-700 dark:text-gray-300"
+                      >
+                        <strong>All past, present, and future periods</strong>
+                      </label>
+                    </div>
+
+                    <div className="flex items-start gap-3">
+                      <input
+                        type="radio"
+                        id="insuranceDurationEvent"
+                        name="insuranceAuthDurationType"
+                        value="event"
+                        checked={formData.insuranceAuthDurationType === "event"}
+                        onChange={(e) =>
+                          handleInputChange(
+                            "insuranceAuthDurationType",
+                            e.target.value
+                          )
+                        }
+                        className="mt-1 w-4 h-4 text-green-600 border-gray-300 focus:ring-green-500"
+                      />
+                      <label
+                        htmlFor="insuranceDurationEvent"
+                        className="text-sm text-gray-700 dark:text-gray-300"
+                      >
+                        <strong>Until the following event:</strong>
+                      </label>
+                    </div>
+
+                    {formData.insuranceAuthDurationType === "event" && (
+                      <div className="ml-7">
+                        <div className="group">
+                          <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                            End Event
+                          </label>
+                          <Input
+                            value={formData.insuranceAuthEndEvent}
+                            onChange={(e) =>
+                              handleInputChange(
+                                "insuranceAuthEndEvent",
+                                e.target.value
+                              )
+                            }
+                            placeholder="e.g., Claim settlement completed"
+                            className="w-full border-2 border-gray-200 dark:border-gray-600 focus:border-green-500 dark:focus:border-green-400 focus:ring-2 focus:ring-green-500/20 dark:focus:ring-green-400/20 transition-all duration-200 bg-white/50 dark:bg-gray-700/50 backdrop-blur-sm"
+                          />
+                        </div>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Revocation Information */}
+                  <div className="space-y-4">
+                    <h5 className="font-semibold text-gray-900 dark:text-white">
+                      Revocation Information:
+                    </h5>
+                    <div className="bg-green-50 dark:bg-green-950/30 rounded-lg p-4">
+                      <p className="text-sm text-green-800 dark:text-green-200 mb-4">
+                        I understand that I am permitted to revoke this
+                        authorization to share my insurance information at any
+                        time and can do so by submitting a request in writing
+                        to:
+                      </p>
+
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div className="group">
+                          <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                            Revocation Contact Name
+                          </label>
+                          <Input
+                            value={formData.insuranceAuthRevocationName}
+                            onChange={(e) =>
+                              handleInputChange(
+                                "insuranceAuthRevocationName",
+                                e.target.value
+                              )
+                            }
+                            placeholder="Legal Department"
+                            className="w-full border-2 border-gray-200 dark:border-gray-600 focus:border-green-500 dark:focus:border-green-400 focus:ring-2 focus:ring-green-500/20 dark:focus:ring-green-400/20 transition-all duration-200 bg-white/50 dark:bg-gray-700/50 backdrop-blur-sm"
+                          />
+                        </div>
+
+                        <div className="group">
+                          <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                            Organization
+                          </label>
+                          <Input
+                            value={formData.insuranceAuthRevocationOrganization}
+                            onChange={(e) =>
+                              handleInputChange(
+                                "insuranceAuthRevocationOrganization",
+                                e.target.value
+                              )
+                            }
+                            placeholder="ClaimSaver+"
+                            className="w-full border-2 border-gray-200 dark:border-gray-600 focus:border-green-500 dark:focus:border-green-400 focus:ring-2 focus:ring-green-500/20 dark:focus:ring-green-400/20 transition-all duration-200 bg-white/50 dark:bg-gray-700/50 backdrop-blur-sm"
+                          />
+                        </div>
+                      </div>
+
+                      <div className="group mt-4">
+                        <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+                          Address
+                        </label>
+                        <Input
+                          value={formData.insuranceAuthRevocationAddress}
+                          onChange={(e) =>
+                            handleInputChange(
+                              "insuranceAuthRevocationAddress",
+                              e.target.value
+                            )
+                          }
+                          placeholder="Miami, FL"
+                          className="w-full border-2 border-gray-200 dark:border-gray-600 focus:border-green-500 dark:focus:border-green-400 focus:ring-2 focus:ring-green-500/20 dark:focus:ring-green-400/20 transition-all duration-200 bg-white/50 dark:bg-gray-700/50 backdrop-blur-sm"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Important Notices */}
+                <div className="space-y-4">
+                  <h4 className="text-lg font-semibold text-gray-900 dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2">
+                    Important Notices
+                  </h4>
+
+                  <div className="space-y-3">
+                    <div className="flex items-start gap-3">
+                      <div className="w-2 h-2 bg-green-600 rounded-full mt-2 flex-shrink-0"></div>
+                      <p className="text-sm text-gray-700 dark:text-gray-300">
+                        In the event that my information has already been shared
+                        by the time my authorization is revoked, it may be too
+                        late to cancel permission to share my insurance
+                        information.
+                      </p>
+                    </div>
+
+                    <div className="flex items-start gap-3">
+                      <div className="w-2 h-2 bg-green-600 rounded-full mt-2 flex-shrink-0"></div>
+                      <p className="text-sm text-gray-700 dark:text-gray-300">
+                        I understand that I do not need to give any further
+                        permission for the information detailed in Section II to
+                        be shared with the person(s) or organization(s) listed
+                        in Section IV.
+                      </p>
+                    </div>
+
+                    <div className="flex items-start gap-3">
+                      <div className="w-2 h-2 bg-green-600 rounded-full mt-2 flex-shrink-0"></div>
+                      <p className="text-sm text-gray-700 dark:text-gray-300">
+                        I understand that the failure to sign/submit this
+                        authorization or the cancellation of this authorization
+                        will not prevent me from receiving any treatment or
+                        benefits I am entitled to receive, provided this
+                        information is not required to determine if I am
+                        eligible to receive those treatments or benefits or to
+                        pay for the services I receive.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Section VI: Signature */}
+                <div className="space-y-6">
+                  <h4 className="text-lg font-semibold text-gray-900 dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2">
+                    Section VI - Signature
+                  </h4>
+
+                  <div className="bg-green-50 dark:bg-green-950/30 border border-green-200 dark:border-green-800 rounded-lg p-4 mb-6">
+                    <p className="text-sm text-green-800 dark:text-green-200">
+                      <strong>Final Step:</strong> Please provide your digital
+                      signature below to complete this insurance information
+                      disclosure authorization. This signature indicates that
+                      you have read, understood, and agree to all terms of this
+                      authorization.
+                    </p>
+                  </div>
+
+                  <div className="border border-gray-200 dark:border-gray-700 rounded-lg p-6 bg-gray-50 dark:bg-gray-800/50">
+                    <div className="text-center mb-4">
+                      <h5 className="font-semibold text-gray-900 dark:text-white mb-2">
+                        Digital Signature Required
+                      </h5>
+                      <p className="text-sm text-gray-600 dark:text-gray-300">
+                        By signing below, you acknowledge that you have read and
+                        understood this insurance information disclosure
+                        authorization form and agree to its terms.
+                      </p>
+                    </div>
+
                     <Button
-                      onClick={() => openSignatureModal("wageAuth")}
+                      onClick={() => openSignatureModal("insuranceAuth")}
                       variant="outline"
-                      className="w-full"
+                      className="w-full py-4 border-2 border-gray-300 dark:border-gray-600 hover:border-green-500 dark:hover:border-green-400 hover:bg-green-50 dark:hover:bg-green-950/50 transition-all duration-200"
                     >
-                      {formData.wageAuthSignature
-                        ? "✓ Signed"
-                        : "Sign Wage Authorization"}
+                      {formData.insuranceAuthSignature ? (
+                        <div className="flex items-center justify-center gap-2">
+                          <CheckCircle className="w-5 h-5 text-green-600" />
+                          <span>✓ Insurance Authorization Signed</span>
+                        </div>
+                      ) : (
+                        <div className="flex items-center justify-center gap-2">
+                          <Shield className="w-5 h-5" />
+                          <span>Sign Insurance Authorization</span>
+                        </div>
+                      )}
                     </Button>
+
+                    {formData.insuranceAuthSignature && (
+                      <div className="mt-4 text-center">
+                        <p className="text-sm text-gray-600 dark:text-gray-300">
+                          Signed on: {formData.insuranceAuthSignatureDate}
+                        </p>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
             )}
 
-            {/* Step 8: Review & Submit */}
+            {/* Step 8: HIPAA Authorization */}
             {currentStep === 8 && (
+              <div className="space-y-8">
+                <div className="text-center mb-8">
+                  <div className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-r from-blue-100 to-purple-100 dark:from-blue-900/50 dark:to-purple-900/50 rounded-xl mb-4">
+                    <Shield className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+                  </div>
+                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+                    HIPAA Authorization Form
+                  </h3>
+                  <p className="text-gray-600 dark:text-gray-300">
+                    Authorization for Release of Health Information
+                  </p>
+                </div>
+
+                {/* Legal Notice */}
+                <div className="bg-red-50 dark:bg-red-950/50 border border-red-200 dark:border-red-800 rounded-lg p-4 mb-6">
+                  <div className="flex items-start gap-3">
+                    <div className="w-6 h-6 bg-red-100 dark:bg-red-900/50 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <svg
+                        className="w-4 h-4 text-red-600"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-red-800 dark:text-red-200 mb-2">
+                        Important Legal Notice
+                      </h4>
+                      <p className="text-sm text-red-700 dark:text-red-300">
+                        This HIPAA authorization form allows ClaimSaver+ and our
+                        attorney network to access your health information for
+                        the purpose of processing your accident claim. By
+                        signing this form, you are giving explicit permission
+                        for healthcare providers to release your medical records
+                        to us. This authorization is required by federal law
+                        (HIPAA) and is necessary to pursue your claim
+                        effectively.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Section I: Patient Information */}
+                <div className="space-y-6">
+                  <h4 className="text-lg font-semibold text-gray-900 dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2">
+                    Section I - Patient Information
+                  </h4>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="group">
+                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                        Patient Name *
+                      </label>
+                      <Input
+                        value={formData.hipaaPatientName}
+                        onChange={(e) =>
+                          handleInputChange("hipaaPatientName", e.target.value)
+                        }
+                        placeholder="Enter your full name"
+                        className="w-full border-2 border-gray-200 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-400 focus:ring-2 focus:ring-blue-500/20 dark:focus:ring-blue-400/20 transition-all duration-200 bg-white/50 dark:bg-gray-700/50 backdrop-blur-sm"
+                      />
+                    </div>
+
+                    <div className="group">
+                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                        Healthcare Provider/Organization *
+                      </label>
+                      <Input
+                        value={formData.hipaaHealthcareProvider}
+                        onChange={(e) =>
+                          handleInputChange(
+                            "hipaaHealthcareProvider",
+                            e.target.value
+                          )
+                        }
+                        placeholder="Enter healthcare provider name"
+                        className="w-full border-2 border-gray-200 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-400 focus:ring-2 focus:ring-blue-500/20 dark:focus:ring-blue-400/20 transition-all duration-200 bg-white/50 dark:bg-gray-700/50 backdrop-blur-sm"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Section II: Health Information */}
+                <div className="space-y-6">
+                  <h4 className="text-lg font-semibold text-gray-900 dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2">
+                    Section II - Health Information to be Disclosed
+                  </h4>
+
+                  <div className="bg-blue-50 dark:bg-blue-950/30 rounded-lg p-4 mb-4">
+                    <p className="text-sm text-blue-800 dark:text-blue-200 mb-4">
+                      <strong>What this means:</strong> You are authorizing the
+                      release of your complete health record related to the
+                      accident and any subsequent treatment. This includes
+                      diagnoses, lab results, treatment plans, and billing
+                      records.
+                    </p>
+                  </div>
+
+                  <div className="space-y-4">
+                    <div className="flex items-start gap-3">
+                      <input
+                        type="radio"
+                        id="disclosureComplete"
+                        name="hipaaDisclosureType"
+                        value="complete"
+                        checked={formData.hipaaDisclosureType === "complete"}
+                        onChange={(e) =>
+                          handleInputChange(
+                            "hipaaDisclosureType",
+                            e.target.value
+                          )
+                        }
+                        className="mt-1 w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
+                      />
+                      <label
+                        htmlFor="disclosureComplete"
+                        className="text-sm text-gray-700 dark:text-gray-300"
+                      >
+                        <strong>Disclose my complete health record</strong>{" "}
+                        including, but not limited to, diagnoses, lab test
+                        results, treatment, and billing records for all
+                        conditions.
+                      </label>
+                    </div>
+
+                    <div className="flex items-start gap-3">
+                      <input
+                        type="radio"
+                        id="disclosurePartial"
+                        name="hipaaDisclosureType"
+                        value="partial"
+                        checked={formData.hipaaDisclosureType === "partial"}
+                        onChange={(e) =>
+                          handleInputChange(
+                            "hipaaDisclosureType",
+                            e.target.value
+                          )
+                        }
+                        className="mt-1 w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
+                      />
+                      <label
+                        htmlFor="disclosurePartial"
+                        className="text-sm text-gray-700 dark:text-gray-300"
+                      >
+                        <strong>
+                          Disclose my complete health record except for the
+                          following information:
+                        </strong>
+                      </label>
+                    </div>
+
+                    {formData.hipaaDisclosureType === "partial" && (
+                      <div className="ml-7 space-y-3">
+                        <div className="flex items-center gap-3">
+                          <input
+                            type="checkbox"
+                            id="excludeMentalHealth"
+                            checked={formData.hipaaExcludedInfo.includes(
+                              "mentalHealth"
+                            )}
+                            onChange={(e) => {
+                              const newExcluded = e.target.checked
+                                ? [
+                                    ...formData.hipaaExcludedInfo,
+                                    "mentalHealth",
+                                  ]
+                                : formData.hipaaExcludedInfo.filter(
+                                    (item) => item !== "mentalHealth"
+                                  );
+                              handleInputChange(
+                                "hipaaExcludedInfo",
+                                newExcluded
+                              );
+                            }}
+                            className="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
+                          />
+                          <label
+                            htmlFor="excludeMentalHealth"
+                            className="text-sm text-gray-700 dark:text-gray-300"
+                          >
+                            Mental health records
+                          </label>
+                        </div>
+                        <div className="flex items-center gap-3">
+                          <input
+                            type="checkbox"
+                            id="excludeCommunicable"
+                            checked={formData.hipaaExcludedInfo.includes(
+                              "communicable"
+                            )}
+                            onChange={(e) => {
+                              const newExcluded = e.target.checked
+                                ? [
+                                    ...formData.hipaaExcludedInfo,
+                                    "communicable",
+                                  ]
+                                : formData.hipaaExcludedInfo.filter(
+                                    (item) => item !== "communicable"
+                                  );
+                              handleInputChange(
+                                "hipaaExcludedInfo",
+                                newExcluded
+                              );
+                            }}
+                            className="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
+                          />
+                          <label
+                            htmlFor="excludeCommunicable"
+                            className="text-sm text-gray-700 dark:text-gray-300"
+                          >
+                            Communicable diseases including, but not limited to,
+                            HIV and AIDS
+                          </label>
+                        </div>
+                        <div className="flex items-center gap-3">
+                          <input
+                            type="checkbox"
+                            id="excludeSubstanceAbuse"
+                            checked={formData.hipaaExcludedInfo.includes(
+                              "substanceAbuse"
+                            )}
+                            onChange={(e) => {
+                              const newExcluded = e.target.checked
+                                ? [
+                                    ...formData.hipaaExcludedInfo,
+                                    "substanceAbuse",
+                                  ]
+                                : formData.hipaaExcludedInfo.filter(
+                                    (item) => item !== "substanceAbuse"
+                                  );
+                              handleInputChange(
+                                "hipaaExcludedInfo",
+                                newExcluded
+                              );
+                            }}
+                            className="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
+                          />
+                          <label
+                            htmlFor="excludeSubstanceAbuse"
+                            className="text-sm text-gray-700 dark:text-gray-300"
+                          >
+                            Alcohol/drug abuse treatment records
+                          </label>
+                        </div>
+                        <div className="flex items-center gap-3">
+                          <input
+                            type="checkbox"
+                            id="excludeGenetic"
+                            checked={formData.hipaaExcludedInfo.includes(
+                              "genetic"
+                            )}
+                            onChange={(e) => {
+                              const newExcluded = e.target.checked
+                                ? [...formData.hipaaExcludedInfo, "genetic"]
+                                : formData.hipaaExcludedInfo.filter(
+                                    (item) => item !== "genetic"
+                                  );
+                              handleInputChange(
+                                "hipaaExcludedInfo",
+                                newExcluded
+                              );
+                            }}
+                            className="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
+                          />
+                          <label
+                            htmlFor="excludeGenetic"
+                            className="text-sm text-gray-700 dark:text-gray-300"
+                          >
+                            Genetic information
+                          </label>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="space-y-4">
+                    <h5 className="font-semibold text-gray-900 dark:text-white">
+                      Form of Disclosure:
+                    </h5>
+                    <div className="space-y-3">
+                      <div className="flex items-center gap-3">
+                        <input
+                          type="radio"
+                          id="disclosureElectronic"
+                          name="hipaaDisclosureForm"
+                          value="electronic"
+                          checked={
+                            formData.hipaaDisclosureForm === "electronic"
+                          }
+                          onChange={(e) =>
+                            handleInputChange(
+                              "hipaaDisclosureForm",
+                              e.target.value
+                            )
+                          }
+                          className="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
+                        />
+                        <label
+                          htmlFor="disclosureElectronic"
+                          className="text-sm text-gray-700 dark:text-gray-300"
+                        >
+                          Electronic copy or access via a web-based portal
+                        </label>
+                      </div>
+                      <div className="flex items-center gap-3">
+                        <input
+                          type="radio"
+                          id="disclosureHardCopy"
+                          name="hipaaDisclosureForm"
+                          value="hardCopy"
+                          checked={formData.hipaaDisclosureForm === "hardCopy"}
+                          onChange={(e) =>
+                            handleInputChange(
+                              "hipaaDisclosureForm",
+                              e.target.value
+                            )
+                          }
+                          className="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
+                        />
+                        <label
+                          htmlFor="disclosureHardCopy"
+                          className="text-sm text-gray-700 dark:text-gray-300"
+                        >
+                          Hard copy
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Section III: Reason for Disclosure */}
+                <div className="space-y-6">
+                  <h4 className="text-lg font-semibold text-gray-900 dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2">
+                    Section III - Reason for Disclosure
+                  </h4>
+
+                  <div className="bg-blue-50 dark:bg-blue-950/30 rounded-lg p-4 mb-4">
+                    <p className="text-sm text-blue-800 dark:text-blue-200">
+                      <strong>Purpose:</strong> This authorization is for the
+                      purpose of processing your accident claim, including but
+                      not limited to: claim evaluation, settlement negotiations,
+                      legal proceedings, and coordination with healthcare
+                      providers and insurance companies.
+                    </p>
+                  </div>
+
+                  <div className="group">
+                    <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                      Reason for Disclosure *
+                    </label>
+                    <textarea
+                      value={formData.hipaaReasonForDisclosure}
+                      onChange={(e) =>
+                        handleInputChange(
+                          "hipaaReasonForDisclosure",
+                          e.target.value
+                        )
+                      }
+                      placeholder="Please detail the reasons why information is being shared. If you are initiating the request for sharing information and do not wish to list the reasons for sharing, write 'at my request'."
+                      rows={4}
+                      className="w-full border-2 border-gray-200 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-400 focus:ring-2 focus:ring-blue-500/20 dark:focus:ring-blue-400/20 transition-all duration-200 bg-white/50 dark:bg-gray-700/50 backdrop-blur-sm rounded-lg p-3 resize-none"
+                    />
+                  </div>
+                </div>
+
+                {/* Section IV: Who Can Receive Information */}
+                <div className="space-y-6">
+                  <h4 className="text-lg font-semibold text-gray-900 dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2">
+                    Section IV - Who Can Receive My Health Information
+                  </h4>
+
+                  <div className="bg-blue-50 dark:bg-blue-950/30 rounded-lg p-4 mb-4">
+                    <p className="text-sm text-blue-800 dark:text-blue-200">
+                      <strong>Recipients:</strong> ClaimSaver+ and our attorney
+                      network will receive your health information for the
+                      purpose of processing your claim. We maintain strict
+                      confidentiality and security protocols to protect your
+                      information.
+                    </p>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="group">
+                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                        Recipient Name *
+                      </label>
+                      <Input
+                        value={formData.hipaaRecipientName}
+                        onChange={(e) =>
+                          handleInputChange(
+                            "hipaaRecipientName",
+                            e.target.value
+                          )
+                        }
+                        placeholder="Enter recipient name"
+                        className="w-full border-2 border-gray-200 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-400 focus:ring-2 focus:ring-blue-500/20 dark:focus:ring-blue-400/20 transition-all duration-200 bg-white/50 dark:bg-gray-700/50 backdrop-blur-sm"
+                      />
+                    </div>
+
+                    <div className="group">
+                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                        Recipient Organization *
+                      </label>
+                      <Input
+                        value={formData.hipaaRecipientOrganization}
+                        onChange={(e) =>
+                          handleInputChange(
+                            "hipaaRecipientOrganization",
+                            e.target.value
+                          )
+                        }
+                        placeholder="ClaimSaver+"
+                        className="w-full border-2 border-gray-200 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-400 focus:ring-2 focus:ring-blue-500/20 dark:focus:ring-blue-400/20 transition-all duration-200 bg-white/50 dark:bg-gray-700/50 backdrop-blur-sm"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="group">
+                    <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                      Recipient Address *
+                    </label>
+                    <Input
+                      value={formData.hipaaRecipientAddress}
+                      onChange={(e) =>
+                        handleInputChange(
+                          "hipaaRecipientAddress",
+                          e.target.value
+                        )
+                      }
+                      placeholder="Enter recipient address"
+                      className="w-full border-2 border-gray-200 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-400 focus:ring-2 focus:ring-blue-500/20 dark:focus:ring-blue-400/20 transition-all duration-200 bg-white/50 dark:bg-gray-700/50 backdrop-blur-sm"
+                    />
+                  </div>
+                </div>
+
+                {/* Section V: Duration */}
+                <div className="space-y-6">
+                  <h4 className="text-lg font-semibold text-gray-900 dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2">
+                    Section V - Duration of Authorization
+                  </h4>
+
+                  <div className="bg-blue-50 dark:bg-blue-950/30 rounded-lg p-4 mb-4">
+                    <p className="text-sm text-blue-800 dark:text-blue-200">
+                      <strong>Duration:</strong> This authorization will remain
+                      in effect until your claim is resolved or you revoke it in
+                      writing. You have the right to revoke this authorization
+                      at any time.
+                    </p>
+                  </div>
+
+                  <div className="space-y-4">
+                    <div className="flex items-center gap-3">
+                      <input
+                        type="radio"
+                        id="durationClaim"
+                        name="hipaaDurationType"
+                        value="claimResolution"
+                        checked={
+                          formData.hipaaDurationType === "claimResolution"
+                        }
+                        onChange={(e) =>
+                          handleInputChange("hipaaDurationType", e.target.value)
+                        }
+                        className="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
+                      />
+                      <label
+                        htmlFor="durationClaim"
+                        className="text-sm text-gray-700 dark:text-gray-300"
+                      >
+                        Until claim resolution
+                      </label>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <input
+                        type="radio"
+                        id="durationSpecific"
+                        name="hipaaDurationType"
+                        value="specificDate"
+                        checked={formData.hipaaDurationType === "specificDate"}
+                        onChange={(e) =>
+                          handleInputChange("hipaaDurationType", e.target.value)
+                        }
+                        className="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
+                      />
+                      <label
+                        htmlFor="durationSpecific"
+                        className="text-sm text-gray-700 dark:text-gray-300"
+                      >
+                        Until a specific date
+                      </label>
+                    </div>
+                    {formData.hipaaDurationType === "specificDate" && (
+                      <div className="ml-7">
+                        <div className="group">
+                          <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                            End Date *
+                          </label>
+                          <Input
+                            type="date"
+                            value={formData.hipaaEndDate}
+                            onChange={(e) =>
+                              handleInputChange("hipaaEndDate", e.target.value)
+                            }
+                            className="w-full border-2 border-gray-200 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-400 focus:ring-2 focus:ring-blue-500/20 dark:focus:ring-blue-400/20 transition-all duration-200 bg-white/50 dark:bg-gray-700/50 backdrop-blur-sm"
+                          />
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                {/* Section VI: Revocation */}
+                <div className="space-y-6">
+                  <h4 className="text-lg font-semibold text-gray-900 dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2">
+                    Section VI - Revocation Information
+                  </h4>
+
+                  <div className="bg-blue-50 dark:bg-blue-950/30 rounded-lg p-4 mb-4">
+                    <p className="text-sm text-blue-800 dark:text-blue-200">
+                      <strong>Your Rights:</strong> You have the right to revoke
+                      this authorization at any time by providing written notice
+                      to the healthcare provider and ClaimSaver+. However, any
+                      information already disclosed cannot be retrieved.
+                    </p>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="group">
+                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                        Revocation Contact Name *
+                      </label>
+                      <Input
+                        value={formData.hipaaRevocationName}
+                        onChange={(e) =>
+                          handleInputChange(
+                            "hipaaRevocationName",
+                            e.target.value
+                          )
+                        }
+                        placeholder="Enter contact name for revocation"
+                        className="w-full border-2 border-gray-200 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-400 focus:ring-2 focus:ring-blue-500/20 dark:focus:ring-blue-400/20 transition-all duration-200 bg-white/50 dark:bg-gray-700/50 backdrop-blur-sm"
+                      />
+                    </div>
+
+                    <div className="group">
+                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                        Revocation Contact Organization *
+                      </label>
+                      <Input
+                        value={formData.hipaaRevocationOrganization}
+                        onChange={(e) =>
+                          handleInputChange(
+                            "hipaaRevocationOrganization",
+                            e.target.value
+                          )
+                        }
+                        placeholder="ClaimSaver+"
+                        className="w-full border-2 border-gray-200 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-400 focus:ring-2 focus:ring-blue-500/20 dark:focus:ring-blue-400/20 transition-all duration-200 bg-white/50 dark:bg-gray-700/50 backdrop-blur-sm"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="group">
+                    <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                      Revocation Contact Address *
+                    </label>
+                    <Input
+                      value={formData.hipaaRevocationAddress}
+                      onChange={(e) =>
+                        handleInputChange(
+                          "hipaaRevocationAddress",
+                          e.target.value
+                        )
+                      }
+                      placeholder="Enter revocation contact address"
+                      className="w-full border-2 border-gray-200 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-400 focus:ring-2 focus:ring-blue-500/20 dark:focus:ring-blue-400/20 transition-all duration-200 bg-white/50 dark:bg-gray-700/50 backdrop-blur-sm"
+                    />
+                  </div>
+                </div>
+
+                {/* Section VII: Signature */}
+                <div className="space-y-6">
+                  <h4 className="text-lg font-semibold text-gray-900 dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2">
+                    Section VII - Signature
+                  </h4>
+
+                  <div className="bg-blue-50 dark:bg-blue-950/30 rounded-lg p-4 mb-4">
+                    <p className="text-sm text-blue-800 dark:text-blue-200">
+                      <strong>Important:</strong> By signing this form, you
+                      acknowledge that you have read and understand this
+                      authorization, and you voluntarily agree to the disclosure
+                      of your health information as described above.
+                    </p>
+                  </div>
+
+                  <div className="space-y-4">
+                    <div className="group">
+                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                        Patient/Legal Representative Signature *
+                      </label>
+                      <div className="border-2 border-gray-200 dark:border-gray-600 rounded-lg p-4 bg-white/50 dark:bg-gray-700/50 backdrop-blur-sm">
+                        {formData.hipaaSignature ? (
+                          <div className="flex items-center justify-between">
+                            <img
+                              src={formData.hipaaSignature}
+                              alt="Signature"
+                              className="max-w-full h-16 object-contain"
+                            />
+                            <button
+                              onClick={() => clearSignature()}
+                              className="text-red-600 hover:text-red-800 dark:text-red-400 dark:hover:text-red-200 text-sm"
+                            >
+                              Clear
+                            </button>
+                          </div>
+                        ) : (
+                          <button
+                            onClick={() => openSignatureModal("hipaaAuth")}
+                            className="w-full py-8 border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg text-gray-500 dark:text-gray-400 hover:border-blue-500 dark:hover:border-blue-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                          >
+                            Click to sign
+                          </button>
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="group">
+                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                        Date *
+                      </label>
+                      <Input
+                        type="date"
+                        value={formData.hipaaSignatureDate}
+                        onChange={(e) =>
+                          handleInputChange(
+                            "hipaaSignatureDate",
+                            e.target.value
+                          )
+                        }
+                        className="w-full border-2 border-gray-200 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-400 focus:ring-2 focus:ring-blue-500/20 dark:focus:ring-blue-400/20 transition-all duration-200 bg-white/50 dark:bg-gray-700/50 backdrop-blur-sm"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Step 9: Review & Submit */}
+            {currentStep === 9 && (
               <div className="space-y-6">
                 <h3 className="text-xl font-semibold mb-6">Review & Submit</h3>
                 <div className="bg-yellow-50 rounded-lg p-4 mb-6">

@@ -240,6 +240,158 @@ const ClaimSchema = new mongoose.Schema(
       default: "",
     },
 
+    // Insurance Authorization
+    insuranceAuthInsuredName: {
+      type: String,
+      default: "",
+    },
+    insuranceAuthPolicyNumber: {
+      type: String,
+      default: "",
+    },
+    insuranceAuthInsuranceCompany: {
+      type: String,
+      default: "",
+    },
+    insuranceAuthDisclosureType: {
+      type: String,
+      default: "",
+    },
+    insuranceAuthExcludedInfo: {
+      type: [String],
+      default: [],
+    },
+    insuranceAuthDisclosureForm: {
+      type: String,
+      default: "",
+    },
+    insuranceAuthReasonForDisclosure: {
+      type: String,
+      default: "",
+    },
+    insuranceAuthRecipientName: {
+      type: String,
+      default: "",
+    },
+    insuranceAuthRecipientOrganization: {
+      type: String,
+      default: "",
+    },
+    insuranceAuthRecipientAddress: {
+      type: String,
+      default: "",
+    },
+    insuranceAuthDurationType: {
+      type: String,
+      default: "",
+    },
+    insuranceAuthStartDate: {
+      type: String,
+      default: "",
+    },
+    insuranceAuthEndDate: {
+      type: String,
+      default: "",
+    },
+    insuranceAuthEndEvent: {
+      type: String,
+      default: "",
+    },
+    insuranceAuthRevocationName: {
+      type: String,
+      default: "",
+    },
+    insuranceAuthRevocationOrganization: {
+      type: String,
+      default: "",
+    },
+    insuranceAuthRevocationAddress: {
+      type: String,
+      default: "",
+    },
+    insuranceAuthSignature: {
+      type: String,
+      default: "",
+    },
+    insuranceAuthSignatureDate: {
+      type: String,
+      default: "",
+    },
+
+    // HIPAA Authorization
+    hipaaPatientName: {
+      type: String,
+      default: "",
+    },
+    hipaaHealthcareProvider: {
+      type: String,
+      default: "",
+    },
+    hipaaDisclosureType: {
+      type: String,
+      default: "",
+    },
+    hipaaExcludedInfo: {
+      type: [String],
+      default: [],
+    },
+    hipaaDisclosureForm: {
+      type: String,
+      default: "",
+    },
+    hipaaReasonForDisclosure: {
+      type: String,
+      default: "",
+    },
+    hipaaRecipientName: {
+      type: String,
+      default: "",
+    },
+    hipaaRecipientOrganization: {
+      type: String,
+      default: "",
+    },
+    hipaaRecipientAddress: {
+      type: String,
+      default: "",
+    },
+    hipaaDurationType: {
+      type: String,
+      default: "",
+    },
+    hipaaStartDate: {
+      type: String,
+      default: "",
+    },
+    hipaaEndDate: {
+      type: String,
+      default: "",
+    },
+    hipaaEndEvent: {
+      type: String,
+      default: "",
+    },
+    hipaaRevocationName: {
+      type: String,
+      default: "",
+    },
+    hipaaRevocationOrganization: {
+      type: String,
+      default: "",
+    },
+    hipaaRevocationAddress: {
+      type: String,
+      default: "",
+    },
+    hipaaSignature: {
+      type: String,
+      default: "",
+    },
+    hipaaSignatureDate: {
+      type: String,
+      default: "",
+    },
+
     // OIR-B1-1571 Disclosure
     pipPatientName: {
       type: String,

@@ -26,6 +26,9 @@ import {
   Folder,
   FileImage,
 } from "lucide-react";
+import ClaimDetail from "@/components/ClaimDetail";
+import { Modal } from "@/components/ui/modal";
+import { generateClaimPDF } from "@/utils/pdfGenerator";
 
 interface UserClaim {
   _id: string;
@@ -54,6 +57,101 @@ interface Document {
   claimId?: string;
   url: string;
   status: "pending" | "approved" | "rejected";
+}
+
+interface ClaimData {
+  _id: string;
+  claimNumber: string;
+  status: string;
+  priority: string;
+  claimantName: string;
+  claimantEmail: string;
+  claimantPhone: string;
+  claimantAddress: string;
+  claimantDOB: string;
+  accidentDate: string;
+  accidentLocation: string;
+  accidentDescription: string;
+  estimatedValue: number;
+  submittedAt: string;
+  lastUpdated: string;
+  vehicleMake: string;
+  vehicleModel: string;
+  vehicleYear: string;
+  licensePlate: string;
+  insuranceCompany: string;
+  policyNumber: string;
+  policyHolder: string;
+  adjusterName: string;
+  adjusterPhone: string;
+  fileNumber: string;
+  injured: boolean;
+  injuryDescription: string;
+  treatedByDoctor: boolean;
+  doctorName: string;
+  doctorAddress: string;
+  hospitalInpatient: boolean;
+  hospitalOutpatient: boolean;
+  hospitalName: string;
+  hospitalAddress: string;
+  medicalBillsToDate: string;
+  inCourseOfEmployment: boolean;
+  lostWages: boolean;
+  wageLossToDate: string;
+  averageWeeklyWage: string;
+  disabilityStart: string;
+  disabilityEnd: string;
+  workersComp: boolean;
+  workersCompAmount: string;
+  otherExpenses: string;
+  signature: string;
+  signatureDate: string;
+  // Insurance Authorization
+  insuranceAuthInsuredName: string;
+  insuranceAuthPolicyNumber: string;
+  insuranceAuthInsuranceCompany: string;
+  insuranceAuthDisclosureType: string;
+  insuranceAuthExcludedInfo: string[];
+  insuranceAuthDisclosureForm: string;
+  insuranceAuthReasonForDisclosure: string;
+  insuranceAuthRecipientName: string;
+  insuranceAuthRecipientOrganization: string;
+  insuranceAuthRecipientAddress: string;
+  insuranceAuthDurationType: string;
+  insuranceAuthStartDate: string;
+  insuranceAuthEndDate: string;
+  insuranceAuthEndEvent: string;
+  insuranceAuthRevocationName: string;
+  insuranceAuthRevocationOrganization: string;
+  insuranceAuthRevocationAddress: string;
+  insuranceAuthSignature: string;
+  insuranceAuthSignatureDate: string;
+  // HIPAA Authorization
+  hipaaPatientName: string;
+  hipaaHealthcareProvider: string;
+  hipaaDisclosureType: string;
+  hipaaExcludedInfo: string[];
+  hipaaDisclosureForm: string;
+  hipaaReasonForDisclosure: string;
+  hipaaRecipientName: string;
+  hipaaRecipientOrganization: string;
+  hipaaRecipientAddress: string;
+  hipaaDurationType: string;
+  hipaaStartDate: string;
+  hipaaEndDate: string;
+  hipaaEndEvent: string;
+  hipaaRevocationName: string;
+  hipaaRevocationOrganization: string;
+  hipaaRevocationAddress: string;
+  hipaaSignature: string;
+  hipaaSignatureDate: string;
+  // OIR-B1-1571 Disclosure
+  pipPatientName: string;
+  pipPatientSignature: string;
+  pipPatientDate: string;
+  pipProviderName: string;
+  pipProviderSignature: string;
+  pipProviderDate: string;
 }
 
 const documentCategories = {
@@ -134,6 +232,13 @@ export default function DashboardPage() {
   const [isAdmin, setIsAdmin] = useState(false);
   const [checkingRole, setCheckingRole] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
+  const [modalOpen, setModalOpen] = useState(false);
+  const [selectedClaimFull, setSelectedClaimFull] = useState<ClaimData | null>(
+    null
+  );
+  const [modalLoading, setModalLoading] = useState(false);
+  const [modalError, setModalError] = useState<string | null>(null);
+  const [downloadingId, setDownloadingId] = useState<string | null>(null);
 
   // Mock documents data for demonstration
   const mockDocuments: Document[] = [
@@ -356,6 +461,90 @@ export default function DashboardPage() {
     }
   };
 
+  // Fetch full claim for modal
+  const handleViewClaim = async (claimId: string) => {
+    setModalOpen(true);
+    setModalLoading(true);
+    setModalError(null);
+    setSelectedClaimFull(null);
+    try {
+      const response = await fetch(`/api/claims/${claimId}`);
+      if (!response.ok) {
+        let errorMessage = "Failed to load claim details";
+
+        try {
+          const errorData = await response.json();
+          errorMessage = errorData.error || errorData.details || errorMessage;
+        } catch {
+          // If we can't parse JSON, it might be an HTML error page
+          errorMessage = `Server error: ${response.status} ${response.statusText}`;
+        }
+
+        setModalError(errorMessage);
+        return;
+      }
+      const data = await response.json();
+      setSelectedClaimFull(data);
+    } catch (error) {
+      const errorMessage =
+        error instanceof Error ? error.message : "Failed to load claim details";
+      setModalError(errorMessage);
+    } finally {
+      setModalLoading(false);
+    }
+  };
+
+  // Download claim document
+  const handleDownloadClaim = async (claimId: string, claimNumber: string) => {
+    setDownloadingId(claimId);
+    try {
+      const response = await fetch(`/api/claims/${claimId}`);
+
+      if (!response.ok) {
+        let errorMessage = "Failed to download claim";
+
+        try {
+          const errorData = await response.json();
+          errorMessage = errorData.error || errorData.details || errorMessage;
+        } catch {
+          // If we can't parse JSON, it might be an HTML error page
+          console.error(
+            "Response is not JSON:",
+            response.status,
+            response.statusText
+          );
+          errorMessage = `Server error: ${response.status} ${response.statusText}`;
+        }
+
+        console.error("Download error:", errorMessage);
+        alert(errorMessage);
+        return;
+      }
+
+      const claim = await response.json();
+
+      // Generate PDF
+      const pdfBlob = await generateClaimPDF(claim);
+
+      // Create download link
+      const url = window.URL.createObjectURL(pdfBlob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `claim-${claimNumber}.pdf`;
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+    } catch (error) {
+      console.error("Download error:", error);
+      const errorMessage =
+        error instanceof Error ? error.message : "Unknown error occurred";
+      alert(`Failed to download claim PDF: ${errorMessage}`);
+    } finally {
+      setDownloadingId(null);
+    }
+  };
+
   // Show loading while checking admin role or loading data
   if (!isLoaded || checkingRole || (isAdmin && loading)) {
     return (
@@ -385,6 +574,22 @@ export default function DashboardPage() {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950 pt-20">
+      {/* Modal for claim view */}
+      <Modal
+        isOpen={modalOpen}
+        onClose={() => setModalOpen(false)}
+        title="Claim Details"
+      >
+        {modalLoading ? (
+          <div className="flex items-center justify-center py-12">
+            <Loader2 className="h-6 w-6 animate-spin" />
+          </div>
+        ) : modalError ? (
+          <div className="text-red-600 text-center py-8">{modalError}</div>
+        ) : selectedClaimFull ? (
+          <ClaimDetail claim={selectedClaimFull} />
+        ) : null}
+      </Modal>
       {/* Compact Header */}
       <section className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
@@ -556,80 +761,92 @@ export default function DashboardPage() {
                   </Button>
                 </div>
               ) : (
-                <div className="space-y-4">
+                <div className="space-y-2">
                   {claims.map((claim) => (
                     <Card
                       key={claim._id}
-                      className="border border-gray-200 dark:border-gray-800 hover:border-gray-300 dark:hover:border-gray-700 transition-all duration-200 hover:shadow-md"
+                      className="border border-gray-200 dark:border-gray-800 hover:border-gray-300 dark:hover:border-gray-700 transition-all duration-200 hover:shadow-sm"
                     >
-                      <CardContent className="p-6">
-                        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
-                          <div className="flex-1">
-                            <div className="flex items-start justify-between mb-3">
-                              <div>
-                                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-1">
-                                  {claim.claimNumber}
-                                </h3>
-                                <p className="text-sm text-gray-600 dark:text-gray-400">
-                                  Filed on{" "}
-                                  {new Date(
-                                    claim.submittedAt
-                                  ).toLocaleDateString()}
-                                </p>
-                              </div>
-                              <div className="flex gap-2">
+                      <CardContent className="p-3">
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-2 flex-1 min-w-0">
+                            <div className="w-8 h-8 bg-blue-100 dark:bg-blue-900/30 rounded-md flex items-center justify-center flex-shrink-0">
+                              <FileText className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <h4 className="text-sm font-medium text-gray-900 dark:text-white truncate">
+                                {claim.claimNumber}
+                              </h4>
+                              <div className="flex items-center gap-2 mt-0.5">
                                 <Badge className={getStatusColor(claim.status)}>
                                   {getStatusIcon(claim.status)}
-                                  <span className="ml-1 capitalize">
+                                  <span className="ml-1 capitalize text-xs">
                                     {claim.status.replace("_", " ")}
                                   </span>
                                 </Badge>
                                 <Badge
                                   className={getPriorityColor(claim.priority)}
                                 >
-                                  {claim.priority}
+                                  <span className="text-xs">
+                                    {claim.priority}
+                                  </span>
                                 </Badge>
                               </div>
-                            </div>
-
-                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 text-sm">
-                              <div className="flex items-center gap-2 text-gray-600 dark:text-gray-300">
-                                <User className="w-4 h-4" />
-                                <span>{claim.claimantName}</span>
-                              </div>
-                              <div className="flex items-center gap-2 text-gray-600 dark:text-gray-300">
-                                <Calendar className="w-4 h-4" />
-                                <span>
+                              <div className="flex items-center gap-3 mt-0.5 text-xs text-gray-500 dark:text-gray-400">
+                                <span className="flex items-center gap-1">
+                                  <User className="w-3 h-3" />
+                                  {claim.claimantName}
+                                </span>
+                                <span className="flex items-center gap-1">
+                                  <Calendar className="w-3 h-3" />
                                   {new Date(
                                     claim.accidentDate
                                   ).toLocaleDateString()}
                                 </span>
-                              </div>
-                              <div className="flex items-center gap-2 text-gray-600 dark:text-gray-300">
-                                <MapPin className="w-4 h-4" />
-                                <span className="truncate">
+                                <span className="flex items-center gap-1">
+                                  <MapPin className="w-3 h-3" />
                                   {claim.accidentLocation}
                                 </span>
                               </div>
-                              <div className="flex items-center gap-2 text-gray-600 dark:text-gray-300">
-                                <Car className="w-4 h-4" />
-                                <span>
-                                  {claim.vehicleYear} {claim.vehicleMake}{" "}
-                                  {claim.vehicleModel}
+                              <div className="flex items-center gap-2 mt-0.5">
+                                <span className="text-xs text-gray-600 dark:text-gray-400">
+                                  Est. Value:
+                                </span>
+                                <span className="text-xs font-semibold text-gray-900 dark:text-white">
+                                  ${claim.estimatedValue.toLocaleString()}
                                 </span>
                               </div>
                             </div>
                           </div>
-
-                          <div className="flex items-center gap-4 lg:flex-col lg:items-end">
-                            <div className="text-right">
-                              <p className="text-sm text-gray-600 dark:text-gray-400">
-                                {t("dashboard.claims.estimatedValue")}
-                              </p>
-                              <p className="text-xl font-bold text-gray-900 dark:text-white">
-                                ${claim.estimatedValue.toLocaleString()}
-                              </p>
-                            </div>
+                          <div className="flex items-center gap-1 flex-shrink-0">
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => handleViewClaim(claim._id)}
+                              className="h-7 w-7 p-0"
+                              title="View Claim"
+                            >
+                              <Eye className="w-3.5 h-3.5" />
+                            </Button>
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={() =>
+                                handleDownloadClaim(
+                                  claim._id,
+                                  claim.claimNumber
+                                )
+                              }
+                              className="h-7 w-7 p-0"
+                              title="Download Claim"
+                              disabled={downloadingId === claim._id}
+                            >
+                              {downloadingId === claim._id ? (
+                                <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                              ) : (
+                                <Download className="w-3.5 h-3.5" />
+                              )}
+                            </Button>
                           </div>
                         </div>
                       </CardContent>

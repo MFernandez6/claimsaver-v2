@@ -217,8 +217,9 @@
       "insuranceInfo": "Insurance Information",
       "medicalInfo": "Medical Information",
       "employmentWages": "Employment & Wages",
-      "authorizations": "Authorizations",
+      "insuranceAuthorization": "Insurance Authorization",
       "reviewSubmit": "Review & Submit",
+      "hipaaAuthorization": "HIPAA Authorization",
       "step": "Step"
     },
     "success": {
