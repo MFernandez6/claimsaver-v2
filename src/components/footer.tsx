@@ -2,26 +2,12 @@
 
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import {
-  Phone,
-  Mail,
-  MapPin,
-  Facebook,
-  Instagram,
-  Linkedin,
-  Youtube,
-  X,
-} from "lucide-react";
+import { Phone, Mail, MapPin, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
 
 export default function Footer() {
   const { t } = useTranslation();
   const [activeModal, setActiveModal] = useState<string | null>(null);
-
-  const openModal = (modalType: string) => {
-    setActiveModal(modalType);
-  };
 
   const closeModal = () => {
     setActiveModal(null);

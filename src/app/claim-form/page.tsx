@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import Image from "next/image";
 import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import { useTranslation } from "react-i18next";
@@ -534,8 +535,8 @@ export default function ClaimFormPage() {
                     i + 1 === currentStep
                       ? "bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg scale-110"
                       : i + 1 < currentStep
-                      ? "bg-gradient-to-r from-green-500 to-emerald-600 text-white shadow-md"
-                      : "bg-white/70 dark:bg-gray-700/70 text-gray-500 dark:text-gray-400 shadow-sm"
+                        ? "bg-gradient-to-r from-green-500 to-emerald-600 text-white shadow-md"
+                        : "bg-white/70 dark:bg-gray-700/70 text-gray-500 dark:text-gray-400 shadow-sm"
                   }`}
                 >
                   {i + 1 < currentStep ? (
@@ -1937,9 +1938,20 @@ export default function ClaimFormPage() {
                       className="w-full py-4 border-2 border-gray-300 dark:border-gray-600 hover:border-green-500 dark:hover:border-green-400 hover:bg-green-50 dark:hover:bg-green-950/50 transition-all duration-200"
                     >
                       {formData.insuranceAuthSignature ? (
-                        <div className="flex items-center justify-center gap-2">
-                          <CheckCircle className="w-5 h-5 text-green-600" />
-                          <span>✓ Insurance Authorization Signed</span>
+                        <div className="flex items-center justify-between">
+                          <Image
+                            src={formData.insuranceAuthSignature}
+                            alt="Signature"
+                            width={200}
+                            height={64}
+                            className="max-w-full h-16 object-contain"
+                          />
+                          <button
+                            onClick={() => clearSignature()}
+                            className="text-red-600 hover:text-red-800 dark:text-red-400 dark:hover:text-red-200 text-sm"
+                          >
+                            Clear
+                          </button>
                         </div>
                       ) : (
                         <div className="flex items-center justify-center gap-2">
@@ -2571,9 +2583,11 @@ export default function ClaimFormPage() {
                       <div className="border-2 border-gray-200 dark:border-gray-600 rounded-lg p-4 bg-white/50 dark:bg-gray-700/50 backdrop-blur-sm">
                         {formData.hipaaSignature ? (
                           <div className="flex items-center justify-between">
-                            <img
+                            <Image
                               src={formData.hipaaSignature}
                               alt="Signature"
+                              width={200}
+                              height={64}
                               className="max-w-full h-16 object-contain"
                             />
                             <button

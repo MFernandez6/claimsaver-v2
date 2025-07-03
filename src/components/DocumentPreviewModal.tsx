@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { FileText, FileImage, Calendar } from "lucide-react";
 import PDFViewer from "./PDFViewer";
+import Image from "next/image";
 
 interface Document {
   _id: string;
@@ -150,9 +151,11 @@ export default function DocumentPreviewModal({
               </div>
             </div>
             <div className="flex justify-center">
-              <img
+              <Image
                 src={`/api/documents/${document._id}/view`}
                 alt={document.fileName}
+                width={500}
+                height={500}
                 className="max-h-[500px] rounded-lg border border-gray-200 dark:border-gray-700 shadow"
                 style={{ maxWidth: "100%", objectFit: "contain" }}
               />
