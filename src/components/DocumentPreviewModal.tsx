@@ -1,10 +1,10 @@
 "use client";
 
-import { useState } from "react";
 import { Modal } from "@/components/ui/modal";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { FileText, FileImage, Calendar, Download, Loader2 } from "lucide-react";
+import { FileText, FileImage, Calendar } from "lucide-react";
+import PDFViewer from "./PDFViewer";
 
 interface Document {
   _id: string;
@@ -56,8 +56,6 @@ export default function DocumentPreviewModal({
   onClose,
   document,
 }: DocumentPreviewModalProps) {
-  const [downloading, setDownloading] = useState(false);
-
   if (!document) return null;
 
   const category =
@@ -70,31 +68,9 @@ export default function DocumentPreviewModal({
     return <FileText className="w-6 h-6" />;
   };
 
-  const handleDownload = async () => {
-    setDownloading(true);
-    try {
-      const response = await fetch(`/api/documents/${document._id}/download`);
-
-      if (!response.ok) {
-        throw new Error("Failed to download file");
-      }
-
-      const blob = await response.blob();
-      const url = window.URL.createObjectURL(blob);
-      const a = window.document.createElement("a");
-      a.href = url;
-      a.download = document.fileName;
-      window.document.body.appendChild(a);
-      a.click();
-      window.URL.revokeObjectURL(url);
-      window.document.body.removeChild(a);
-    } catch (error) {
-      console.error("Download error:", error);
-      alert("Failed to download file. Please try again.");
-    } finally {
-      setDownloading(false);
-    }
-  };
+  const isPDF =
+    document.mimeType === "application/pdf" ||
+    document.fileName.toLowerCase().endsWith(".pdf");
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} title="Document Details">
@@ -118,6 +94,35 @@ export default function DocumentPreviewModal({
             </div>
           </div>
         </div>
+
+        {/* PDF Viewer for PDF files */}
+        {isPDF && (
+          <div className="space-y-4">
+            <div className="bg-blue-50 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
+              <div className="flex items-start gap-2">
+                <div className="w-5 h-5 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <span className="text-xs text-blue-600 dark:text-blue-400">
+                    📄
+                  </span>
+                </div>
+                <div>
+                  <p className="text-sm font-medium text-blue-800 dark:text-blue-200 mb-1">
+                    PDF Viewer
+                  </p>
+                  <p className="text-xs text-blue-700 dark:text-blue-300">
+                    View and interact with your PDF document below. Use the
+                    controls to zoom, rotate, or download the file.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <PDFViewer
+              fileUrl={`/api/documents/${document._id}/view`}
+              fileName={document.fileName}
+            />
+          </div>
+        )}
 
         {/* Document Information */}
         <div className="space-y-4">
@@ -201,34 +206,18 @@ export default function DocumentPreviewModal({
                 File Storage Active
               </p>
               <p className="text-xs text-green-700 dark:text-green-300">
-                Files are now stored locally and can be downloaded. The actual
-                file will be attached when sharing via email.
+                {isPDF
+                  ? "PDF files can now be viewed directly in the browser with zoom and rotation controls."
+                  : "Files are now stored locally and can be downloaded. The actual file will be attached when sharing via email."}
               </p>
             </div>
           </div>
         </div>
 
         {/* Action Buttons */}
-        <div className="flex justify-end gap-3">
+        <div className="flex justify-end">
           <Button variant="outline" onClick={onClose}>
             Close
-          </Button>
-          <Button
-            onClick={handleDownload}
-            disabled={downloading}
-            className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
-          >
-            {downloading ? (
-              <>
-                <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                Downloading...
-              </>
-            ) : (
-              <>
-                <Download className="w-4 h-4 mr-2" />
-                Download File
-              </>
-            )}
           </Button>
         </div>
       </div>
