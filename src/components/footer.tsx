@@ -80,191 +80,205 @@ export default function Footer() {
 
   return (
     <>
-      <footer className="w-full bg-gradient-to-r from-gray-900 via-blue-900 to-gray-900 text-white relative z-20">
+      <footer className="w-full bg-gradient-to-r from-blue-500 to-blue-800 text-white relative z-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           {/* Main Footer Content */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
-            {/* Company Info */}
-            <div className="lg:col-span-2">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-700 rounded-xl flex items-center justify-center">
-                  <span className="text-white font-bold text-lg">C+</span>
+          <div className="bg-gradient-to-r from-blue-500 to-blue-800 p-6 text-white relative">
+            <div className="absolute inset-0 bg-black/10"></div>
+            <div className="relative z-10 max-w-7xl mx-auto">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                {/* Services */}
+                <div className="space-y-4">
+                  <h3 className="text-lg font-semibold text-white mb-4">
+                    {t("footer.services")}
+                  </h3>
+                  <ul className="space-y-2">
+                    <li>
+                      <a
+                        href="/claim-form"
+                        className="text-blue-100 hover:text-white transition-colors duration-300"
+                      >
+                        {t("footer.claimForm")}
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        href="/attorney-matching"
+                        className="text-blue-100 hover:text-white transition-colors duration-300"
+                      >
+                        {t("footer.attorneyMatching")}
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        href="/notarization"
+                        className="text-blue-100 hover:text-white transition-colors duration-300"
+                      >
+                        {t("footer.notarization")}
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        href="/pricing"
+                        className="text-blue-100 hover:text-white transition-colors duration-300"
+                      >
+                        {t("footer.pricing")}
+                      </a>
+                    </li>
+                  </ul>
                 </div>
-                <h3 className="text-2xl font-black bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent">
-                  ClaimSaver+
-                </h3>
-              </div>
-              <p className="text-gray-300 text-lg leading-relaxed mb-6 max-w-md">
-                {t("footer.description")}
-              </p>
-              <div className="flex space-x-4">
-                <a
-                  href="#"
-                  className="w-12 h-12 bg-blue-600 hover:bg-blue-700 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg"
-                >
-                  <Facebook className="w-5 h-5" />
-                </a>
-                <a
-                  href="https://www.instagram.com/claimsaverplus"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg"
-                  aria-label="Follow us on Instagram"
-                >
-                  <Instagram className="w-5 h-5" />
-                </a>
-                <a
-                  href="https://www.linkedin.com/company/claimsaver"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-12 h-12 bg-blue-700 hover:bg-blue-800 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg"
-                >
-                  <Linkedin className="w-5 h-5" />
-                </a>
-                <a
-                  href="#"
-                  className="w-12 h-12 bg-red-600 hover:bg-red-700 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg"
-                >
-                  <Youtube className="w-5 h-5" />
-                </a>
-              </div>
-            </div>
 
-            {/* Quick Links */}
-            <div>
-              <h4 className="text-xl font-bold mb-6 text-blue-300">
-                {t("footer.quickLinks")}
-              </h4>
-              <ul className="space-y-4">
-                <li>
-                  <Link
-                    href="/who-we-are"
-                    className="text-gray-300 hover:text-blue-400 transition-colors duration-300 hover:translate-x-1 inline-block"
-                  >
-                    {t("navigation.whoWeAre")}
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/what-we-do"
-                    className="text-gray-300 hover:text-blue-400 transition-colors duration-300 hover:translate-x-1 inline-block"
-                  >
-                    {t("navigation.whatWeDo")}
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/attorney-matching"
-                    className="text-gray-300 hover:text-blue-400 transition-colors duration-300 hover:translate-x-1 inline-block"
-                  >
-                    {t("navigation.attorneyMatching")}
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/pricing"
-                    className="text-gray-300 hover:text-blue-400 transition-colors duration-300 hover:translate-x-1 inline-block"
-                  >
-                    {t("navigation.pricing")}
-                  </Link>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="text-gray-300 hover:text-blue-400 transition-colors duration-300 hover:translate-x-1 inline-block"
-                  >
+                {/* Company */}
+                <div className="space-y-4">
+                  <h3 className="text-lg font-semibold text-white mb-4">
+                    {t("footer.company")}
+                  </h3>
+                  <ul className="space-y-2">
+                    <li>
+                      <a
+                        href="/who-we-are"
+                        className="text-blue-100 hover:text-white transition-colors duration-300"
+                      >
+                        {t("footer.aboutUs")}
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        href="/what-we-do"
+                        className="text-blue-100 hover:text-white transition-colors duration-300"
+                      >
+                        {t("footer.whatWeDo")}
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        href="/pricing"
+                        className="text-blue-100 hover:text-white transition-colors duration-300"
+                      >
+                        {t("footer.pricing")}
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        href="/contact"
+                        className="text-blue-100 hover:text-white transition-colors duration-300"
+                      >
+                        {t("footer.contact")}
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+
+                {/* Support */}
+                <div className="space-y-4">
+                  <h3 className="text-lg font-semibold text-white mb-4">
                     {t("footer.support")}
-                  </a>
-                </li>
-              </ul>
-            </div>
-
-            {/* Contact Information */}
-            <div>
-              <h4 className="text-xl font-bold mb-6 text-blue-300">
-                {t("footer.contactUs")}
-              </h4>
-              <div className="space-y-4">
-                <div className="flex items-start gap-3">
-                  <Phone className="w-5 h-5 text-blue-400 mt-1 flex-shrink-0" />
-                  <div>
-                    <p className="text-gray-300 font-medium">
-                      {t("footer.phone")}
-                    </p>
-                    <a
-                      href="tel:+17864173869"
-                      className="text-blue-400 hover:text-blue-300 transition-colors duration-300"
-                    >
-                      (786) 417-3869
-                    </a>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <Mail className="w-5 h-5 text-blue-400 mt-1 flex-shrink-0" />
-                  <div>
-                    <p className="text-gray-300 font-medium">
-                      {t("footer.email")}
-                    </p>
-                    <a
-                      href="mailto:ClaimSaverPlus@gmail.com"
-                      className="text-blue-400 hover:text-blue-300 transition-colors duration-300"
-                    >
-                      ClaimSaverPlus@gmail.com
-                    </a>
-                  </div>
-                </div>
-                <div className="flex items-start gap-3">
-                  <MapPin className="w-5 h-5 text-blue-400 mt-1 flex-shrink-0" />
-                  <div>
-                    <p className="text-gray-300 font-medium">
-                      {t("footer.location")}
-                    </p>
-                    <p className="text-blue-400">{t("footer.headquarters")}</p>
-                  </div>
+                  </h3>
+                  <ul className="space-y-2">
+                    <li>
+                      <a
+                        href="/faq"
+                        className="text-blue-100 hover:text-white transition-colors duration-300"
+                      >
+                        {t("footer.faq")}
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        href="/help"
+                        className="text-blue-100 hover:text-white transition-colors duration-300"
+                      >
+                        {t("footer.help")}
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        href="/contact"
+                        className="text-blue-100 hover:text-white transition-colors duration-300"
+                      >
+                        {t("footer.contact")}
+                      </a>
+                    </li>
+                  </ul>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Bottom Bar */}
-          <div className="border-t border-gray-700 pt-8">
-            <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-              <div className="text-gray-400 text-sm">
-                &copy; {new Date().getFullYear()} ClaimSaver+
-                <br />
-                <span className="text-xs">{t("footer.copyright")}</span>
+          {/* Contact Info Section */}
+          <div className="bg-gradient-to-r from-blue-50 to-blue-100 dark:from-blue-950/50 dark:to-blue-900/50 rounded-xl p-6 border border-blue-200 dark:border-blue-800">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div className="text-center md:text-left">
+                <div className="flex items-center justify-center md:justify-start gap-3 mb-3">
+                  <Phone className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+                  <h4 className="text-lg font-semibold text-gray-900 dark:text-white">
+                    {t("footer.phone")}
+                  </h4>
+                </div>
+                <a
+                  href="tel:+17864173869"
+                  className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors duration-300 text-lg font-medium"
+                >
+                  (786) 417-3869
+                </a>
               </div>
-              <div className="flex space-x-6 text-sm">
-                <button
-                  onClick={() => openModal("privacy")}
-                  className="text-gray-400 hover:text-blue-400 transition-colors duration-300"
+
+              <div className="text-center md:text-left">
+                <div className="flex items-center justify-center md:justify-start gap-3 mb-3">
+                  <Mail className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+                  <h4 className="text-lg font-semibold text-gray-900 dark:text-white">
+                    {t("footer.email")}
+                  </h4>
+                </div>
+                <a
+                  href="mailto:ClaimSaverPlus@gmail.com"
+                  className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors duration-300 text-lg font-medium"
                 >
-                  {t("footer.privacyPolicy")}
-                </button>
-                <button
-                  onClick={() => openModal("terms")}
-                  className="text-gray-400 hover:text-blue-400 transition-colors duration-300"
-                >
-                  {t("footer.termsOfService")}
-                </button>
-                <button
-                  onClick={() => openModal("cookies")}
-                  className="text-gray-400 hover:text-blue-400 transition-colors duration-300"
-                >
-                  {t("footer.cookiePolicy")}
-                </button>
+                  ClaimSaverPlus@gmail.com
+                </a>
+              </div>
+
+              <div className="text-center md:text-left">
+                <div className="flex items-center justify-center md:justify-start gap-3 mb-3">
+                  <MapPin className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+                  <h4 className="text-lg font-semibold text-gray-900 dark:text-white">
+                    {t("footer.location")}
+                  </h4>
+                </div>
+                <p className="text-blue-600 dark:text-blue-400 text-lg font-medium">
+                  {t("footer.headquarters")}
+                </p>
               </div>
             </div>
+          </div>
 
-            {/* Legal Disclaimer */}
-            <div className="mt-6 pt-6 border-t border-gray-700">
-              <div className="bg-gray-800/80 rounded-lg p-4 border border-gray-600">
-                <p className="text-gray-300 text-xs leading-relaxed">
-                  <strong className="text-gray-200">
-                    {t("footer.legalDisclaimer")}:
-                  </strong>{" "}
-                  {t("footer.legalText")}
+          {/* Bottom Section */}
+          <div className="border-t border-blue-200 dark:border-blue-800 pt-8 mt-12">
+            <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+              <div className="text-center md:text-left">
+                <p className="text-blue-100 text-sm">
+                  © 2024 ClaimSaver+. {t("footer.allRightsReserved")}
                 </p>
+              </div>
+              <div className="flex flex-wrap justify-center gap-6 text-sm">
+                <a
+                  href="/privacy"
+                  className="text-blue-100 hover:text-white transition-colors duration-300"
+                >
+                  {t("footer.privacyPolicy")}
+                </a>
+                <a
+                  href="/terms"
+                  className="text-blue-100 hover:text-white transition-colors duration-300"
+                >
+                  {t("footer.termsOfService")}
+                </a>
+                <a
+                  href="/cookies"
+                  className="text-blue-100 hover:text-white transition-colors duration-300"
+                >
+                  {t("footer.cookiePolicy")}
+                </a>
               </div>
             </div>
           </div>

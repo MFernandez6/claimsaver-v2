@@ -255,9 +255,11 @@ export default function Pricing() {
                 {/* Animated ring */}
                 <div className="absolute inset-0 border-4 border-transparent border-t-blue-500 border-r-purple-500 rounded-full animate-spin"></div>
                 {/* Inner pulse */}
-                <div className="absolute inset-2 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full animate-pulse"></div>
+                <div className="absolute inset-2 bg-gradient-to-r from-blue-500 to-blue-700 rounded-full animate-pulse"></div>
                 {/* Center dot */}
-                <div className="absolute inset-4 bg-white dark:bg-gray-800 rounded-full"></div>
+                <div className="absolute inset-4 bg-white dark:bg-gray-900 rounded-full"></div>
+                {/* Outer ring */}
+                <div className="absolute inset-6 bg-gradient-to-r from-blue-500 to-blue-700 rounded-full"></div>
               </div>
 
               <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
@@ -310,7 +312,7 @@ export default function Pricing() {
               <Button
                 size="lg"
                 onClick={handleStartClaim}
-                className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-4 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+                className="bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 text-white px-8 py-4 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
               >
                 {t("pricing.startClaim")}
                 <ArrowRight className="ml-2 w-5 h-5" />
@@ -354,7 +356,7 @@ export default function Pricing() {
                         <CardContent className="p-4">
                           <div className="flex items-center justify-between">
                             <div className="flex items-center gap-4">
-                              <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg flex items-center justify-center text-white">
+                              <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-blue-700 rounded-lg flex items-center justify-center text-white">
                                 {service.icon}
                               </div>
                               <div>
@@ -448,7 +450,7 @@ export default function Pricing() {
                       <Button
                         onClick={handleCheckout}
                         disabled={selectedServices.length === 0 || isProcessing}
-                        className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="w-full bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 text-white py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
                       >
                         {isProcessing ? (
                           <div className="flex items-center gap-2">

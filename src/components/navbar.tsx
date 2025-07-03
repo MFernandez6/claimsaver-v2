@@ -47,7 +47,7 @@ function AuthSection() {
         <SignInButton mode="modal">
           <Button
             size="sm"
-            className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-4 py-2 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5"
+            className="bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 text-white px-4 py-2 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5"
           >
             {t("navigation.signIn")}
           </Button>
@@ -102,7 +102,7 @@ function DashboardLink({ pathname }: { pathname: string }) {
       >
         {isAdmin ? "Admin" : t("navigation.dashboard")}
         {(pathname === "/admin" || pathname === "/dashboard") && (
-          <div className="absolute inset-0 bg-gradient-to-r from-blue-600/10 to-purple-600/10 rounded-lg" />
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-blue-700/10 rounded-lg" />
         )}
       </Link>
     </div>
@@ -172,15 +172,15 @@ function DropdownMenu({
                 key={item.name}
                 href={item.href}
                 onClick={onClose}
-                className={`group flex items-start gap-3 p-3 rounded-lg transition-all duration-300 hover:bg-gradient-to-r hover:from-blue-50 hover:to-purple-50 dark:hover:from-blue-950/30 dark:hover:to-purple-950/30 ${
+                className={`group flex items-start gap-3 p-3 rounded-lg transition-all duration-300 hover:bg-gradient-to-r hover:from-blue-50 hover:to-blue-100 dark:hover:from-blue-950/30 dark:hover:to-blue-900/30 ${
                   pathname === item.href
-                    ? "bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-950/30 dark:to-purple-950/30 text-blue-600 dark:text-blue-400"
+                    ? "bg-gradient-to-r from-blue-50 to-blue-100 dark:from-blue-950/30 dark:to-blue-900/30 text-blue-600 dark:text-blue-400"
                     : "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
                 }`}
                 style={{ animationDelay: `${index * 50}ms` }}
               >
                 {item.icon && (
-                  <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg flex items-center justify-center text-white group-hover:scale-110 transition-transform duration-300 flex-shrink-0">
+                  <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-blue-700 rounded-lg flex items-center justify-center text-white group-hover:scale-110 transition-transform duration-300 flex-shrink-0">
                     {item.icon}
                   </div>
                 )}
@@ -230,7 +230,7 @@ function MobileAuthSection() {
         <SignInButton mode="modal">
           <Button
             size="sm"
-            className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-4 py-2 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300"
+            className="w-full bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 text-white px-4 py-2 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300"
           >
             {t("navigation.signIn")}
           </Button>
@@ -446,10 +446,10 @@ export default function Navbar() {
             {/* Logo/Brand */}
             <div className="flex-shrink-0 hover:scale-105 transition-all duration-300">
               <Link href="/" className="flex items-center space-x-3">
-                <div className="w-9 h-9 bg-gradient-to-br from-blue-600 to-purple-600 rounded-xl flex items-center justify-center shadow-lg">
+                <div className="w-9 h-9 bg-gradient-to-br from-blue-500 to-blue-700 rounded-xl flex items-center justify-center shadow-lg">
                   <span className="text-white font-black text-sm">C+</span>
                 </div>
-                <span className="text-xl font-black bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                <span className="text-xl font-black bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
                   ClaimSaver+
                 </span>
               </Link>
@@ -528,33 +528,26 @@ export default function Navbar() {
                   <h3 className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider px-3">
                     {t("navigation.ourStory")}
                   </h3>
-                  {aboutItems.map((item, index) => (
-                    <div
-                      key={item.name}
-                      className="animate-in slide-in-from-left-2 duration-300"
-                      style={{ animationDelay: `${index * 100}ms` }}
-                    >
-                      <Link
-                        href={item.href}
-                        className={`flex items-center gap-3 px-3 py-3 rounded-lg text-base font-medium transition-all duration-300 ${
-                          pathname === item.href
-                            ? "text-blue-600 bg-blue-50 dark:text-blue-400 dark:bg-blue-950/30"
-                            : "text-gray-700 hover:text-blue-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-blue-400 dark:hover:bg-gray-800/50"
-                        }`}
-                        onClick={() => setIsMobileMenuOpen(false)}
-                      >
-                        <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg flex items-center justify-center text-white">
-                          {item.icon}
-                        </div>
-                        <div>
-                          <div>{item.name}</div>
-                          <div className="text-sm text-gray-500 dark:text-gray-400">
-                            {item.description}
-                          </div>
-                        </div>
-                      </Link>
+                  <Link
+                    href="/who-we-are"
+                    onClick={closeAllDropdowns}
+                    className="flex items-center gap-3 p-3 rounded-lg transition-all duration-300 hover:bg-gray-50 dark:hover:bg-gray-800/50"
+                  >
+                    <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-blue-700 rounded-lg flex items-center justify-center text-white">
+                      <Users className="w-4 h-4" />
                     </div>
-                  ))}
+                    <span className="text-sm font-medium">About Us</span>
+                  </Link>
+                  <Link
+                    href="/what-we-do"
+                    onClick={closeAllDropdowns}
+                    className="flex items-center gap-3 p-3 rounded-lg transition-all duration-300 hover:bg-gray-50 dark:hover:bg-gray-800/50"
+                  >
+                    <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-blue-700 rounded-lg flex items-center justify-center text-white">
+                      <FileText className="w-4 h-4" />
+                    </div>
+                    <span className="text-sm font-medium">What We Do</span>
+                  </Link>
                 </div>
 
                 {/* Services Section */}
@@ -577,7 +570,7 @@ export default function Navbar() {
                         }`}
                         onClick={() => setIsMobileMenuOpen(false)}
                       >
-                        <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg flex items-center justify-center text-white">
+                        <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-blue-700 rounded-lg flex items-center justify-center text-white">
                           {item.icon}
                         </div>
                         <div>
@@ -611,7 +604,7 @@ export default function Navbar() {
                         }`}
                         onClick={() => setIsMobileMenuOpen(false)}
                       >
-                        <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg flex items-center justify-center text-white">
+                        <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-blue-700 rounded-lg flex items-center justify-center text-white">
                           {item.icon}
                         </div>
                         <div>

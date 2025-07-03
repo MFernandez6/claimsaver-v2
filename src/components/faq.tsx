@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ChevronDown, ChevronUp, HelpCircle } from "lucide-react";
+import { ChevronDown, ChevronUp, HelpCircle, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 interface FAQItem {
@@ -36,14 +36,14 @@ export default function FAQ({
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header with Contact Info */}
-        <div className="text-center mb-8 sm:mb-12">
-          <div className="inline-flex items-center justify-center w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full mb-4 sm:mb-6 shadow-lg">
-            <HelpCircle className="h-6 w-6 sm:h-8 sm:w-8 text-white" />
+        <div className="text-center mb-12">
+          <div className="inline-flex items-center justify-center w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-r from-blue-500 to-blue-700 rounded-full mb-4 sm:mb-6 shadow-lg">
+            <span className="text-white text-lg sm:text-2xl">❓</span>
           </div>
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-3 sm:mb-4">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent mb-3 sm:mb-4">
             {title}
           </h2>
-          <p className="text-gray-600 dark:text-gray-300 text-base sm:text-lg lg:text-xl max-w-2xl mx-auto px-2">
+          <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
             {subtitle}
           </p>
         </div>
@@ -51,7 +51,7 @@ export default function FAQ({
         {/* FAQ Content - Responsive Layout */}
         <div className="grid grid-cols-1 gap-6 lg:gap-8">
           {/* Enhanced Help Box - Full width, prominent placement */}
-          <div className="bg-gradient-to-r from-blue-50/90 to-purple-50/90 dark:from-blue-950/90 dark:to-purple-950/90 rounded-2xl p-8 border border-blue-200 dark:border-blue-800 backdrop-blur-[1px] shadow-xl">
+          <div className="bg-gradient-to-r from-blue-50/90 to-blue-100/90 dark:from-blue-950/90 dark:to-blue-900/90 rounded-2xl p-8 border border-blue-200 dark:border-blue-800 backdrop-blur-[1px] shadow-xl">
             <div className="flex flex-col lg:flex-row items-center justify-between gap-6">
               <div className="text-center lg:text-left">
                 <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">
@@ -66,7 +66,7 @@ export default function FAQ({
                   <Button
                     asChild
                     size="lg"
-                    className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-6 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+                    className="bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-700 hover:to-blue-900 text-white px-6 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
                   >
                     <a href="mailto:ClaimSaverPlus@gmail.com">Email Our Team</a>
                   </Button>
@@ -80,7 +80,7 @@ export default function FAQ({
                 </div>
               </div>
               <div className="flex-shrink-0">
-                <div className="w-24 h-24 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center shadow-lg">
+                <div className="w-24 h-24 bg-gradient-to-r from-blue-500 to-blue-700 rounded-full flex items-center justify-center shadow-lg">
                   <HelpCircle className="h-12 w-12 text-white" />
                 </div>
               </div>
@@ -131,6 +131,19 @@ export default function FAQ({
               ))}
             </div>
           </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// Loading component for FAQ
+export function FAQLoading() {
+  return (
+    <section className="py-24 bg-white dark:bg-gray-950">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-12">
+          <div className="w-24 h-24 bg-gradient-to-r from-blue-500 to-blue-700 rounded-full flex items-center justify-center shadow-lg"></div>
         </div>
       </div>
     </section>

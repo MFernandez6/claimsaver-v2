@@ -114,7 +114,7 @@ export default function Home() {
     <div className="min-h-screen bg-white dark:bg-gray-950">
       {/* Welcome Banner for Authenticated Users */}
       {isLoaded && user && showWelcomeBanner && (
-        <div className="fixed top-16 left-0 right-0 z-50 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-3 shadow-lg">
+        <div className="fixed top-16 left-0 right-0 z-50 bg-gradient-to-r from-blue-400 to-blue-800 text-white px-4 py-3 shadow-lg">
           <div className="max-w-7xl mx-auto flex items-center justify-between">
             <div className="flex items-center gap-3">
               <HomeIcon className="w-5 h-5" />
@@ -147,7 +147,7 @@ export default function Home() {
       )}
 
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-blue-50 via-white to-indigo-50 dark:from-gray-950 dark:via-gray-900 dark:to-blue-950">
+      <section className="relative overflow-hidden bg-gradient-to-br from-blue-50 via-white to-blue-100 dark:from-gray-950 dark:via-gray-900 dark:to-blue-950">
         {/* Background Image */}
         <div className="fixed inset-0 z-0">
           <Image
@@ -156,14 +156,14 @@ export default function Home() {
             className="w-full h-full object-cover opacity-25"
             fill
           />
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-50/70 via-white/80 to-indigo-50/70 dark:from-gray-950/70 dark:via-gray-900/80 dark:to-blue-950/70"></div>
+          <div className="absolute inset-0 bg-gradient-to-br from-blue-50/70 via-white/80 to-blue-100/70 dark:from-gray-950/70 dark:via-gray-900/80 dark:to-blue-950/70"></div>
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-24">
           <div className="text-center max-w-4xl mx-auto">
             <div className="flex justify-center mb-12">
               <div className="flex items-center gap-6">
-                <div className="w-16 h-16 bg-gradient-to-br from-blue-600 to-blue-700 rounded-2xl flex items-center justify-center shadow-lg">
+                <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-700 rounded-2xl flex items-center justify-center shadow-lg">
                   <span className="text-white font-black text-2xl">C+</span>
                 </div>
                 <span className="text-4xl sm:text-5xl lg:text-6xl font-black bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent tracking-tight">
@@ -176,14 +176,14 @@ export default function Home() {
             <div className="flex justify-center items-center mb-12">
               <div className="flex items-center gap-4 w-full max-w-md">
                 <div className="flex-1 h-px bg-gradient-to-r from-transparent via-blue-400 to-blue-600"></div>
-                <div className="w-3 h-3 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full shadow-lg"></div>
-                <div className="flex-1 h-px bg-gradient-to-l from-transparent via-purple-400 to-purple-600"></div>
+                <div className="w-3 h-3 bg-gradient-to-r from-blue-500 to-blue-700 rounded-full shadow-lg"></div>
+                <div className="flex-1 h-px bg-gradient-to-l from-transparent via-blue-400 to-blue-600"></div>
               </div>
             </div>
 
             <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
               {t("home.hero.title")}
-              <span className="block bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              <span className="block bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
                 {t("home.hero.subtitle")}
               </span>
             </h1>
@@ -198,7 +198,7 @@ export default function Home() {
                   <Button
                     size="lg"
                     onClick={handleGetStarted}
-                    className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-4 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+                    className="bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 text-white px-8 py-4 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
                   >
                     {t("home.hero.cta")}
                     <ArrowRight className="ml-2 w-5 h-5" />
@@ -216,7 +216,7 @@ export default function Home() {
                 <Button
                   size="lg"
                   onClick={handleGoToDashboard}
-                  className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-4 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+                  className="bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 text-white px-8 py-4 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
                 >
                   Go to Dashboard
                   <ArrowRight className="ml-2 w-5 h-5" />
@@ -276,7 +276,7 @@ export default function Home() {
                   key={index}
                   className="group relative overflow-hidden border-0 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 bg-gradient-to-br from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 backdrop-blur-sm"
                 >
-                  <div className="absolute inset-0 bg-gradient-to-r from-blue-600/5 to-purple-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-blue-700/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                   <CardHeader className="pb-4">
                     <div
                       className={`w-12 h-12 bg-gradient-to-r from-${feature.color}-500 to-${feature.color}-600 rounded-xl flex items-center justify-center text-white mb-4 group-hover:scale-110 transition-transform duration-300`}
@@ -303,7 +303,7 @@ export default function Home() {
                       key={index + 3}
                       className="group relative overflow-hidden border-0 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 bg-gradient-to-br from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 backdrop-blur-sm"
                     >
-                      <div className="absolute inset-0 bg-gradient-to-r from-blue-600/5 to-purple-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                      <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-blue-700/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                       <CardHeader className="pb-4">
                         <div
                           className={`w-12 h-12 bg-gradient-to-r from-${feature.color}-500 to-${feature.color}-600 rounded-xl flex items-center justify-center text-white mb-4 group-hover:scale-110 transition-transform duration-300`}
@@ -346,7 +346,7 @@ export default function Home() {
             <div>
               <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-6">
                 {t("home.whyChoose.title")}{" "}
-                <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
                   {t("home.whyChoose.brand")}?
                 </span>
               </h2>
@@ -357,7 +357,7 @@ export default function Home() {
               <div className="space-y-6">
                 {benefits.map((benefit, index) => (
                   <div key={index} className="flex items-start gap-4">
-                    <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg flex items-center justify-center text-white flex-shrink-0">
+                    <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-blue-700 rounded-lg flex items-center justify-center text-white flex-shrink-0">
                       {benefit.icon}
                     </div>
                     <div>
@@ -376,7 +376,7 @@ export default function Home() {
                 <Button
                   size="lg"
                   onClick={handleGetStarted}
-                  className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+                  className="bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 text-white px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
                 >
                   {t("home.whyChoose.getStarted")}
                   <ArrowRight className="ml-2 w-5 h-5" />
@@ -395,7 +395,7 @@ export default function Home() {
             </div>
 
             <div className="relative">
-              <div className="bg-gradient-to-br from-blue-600 to-purple-600 rounded-3xl p-8 text-white shadow-2xl">
+              <div className="bg-gradient-to-br from-blue-500 to-blue-800 rounded-3xl p-8 text-white shadow-2xl">
                 <div className="flex items-center gap-3 mb-6">
                   <Award className="w-8 h-8" />
                   <h3 className="text-2xl font-bold">
