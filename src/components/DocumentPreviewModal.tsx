@@ -71,6 +71,11 @@ export default function DocumentPreviewModal({
   const isPDF =
     document.mimeType === "application/pdf" ||
     document.fileName.toLowerCase().endsWith(".pdf");
+  const isImage =
+    document.mimeType.startsWith("image/") &&
+    ["jpg", "jpeg", "png", "gif", "bmp", "webp"].some((ext) =>
+      document.fileName.toLowerCase().endsWith(ext)
+    );
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} title="Document Details">
@@ -121,6 +126,37 @@ export default function DocumentPreviewModal({
               fileUrl={`/api/documents/${document._id}/view`}
               fileName={document.fileName}
             />
+          </div>
+        )}
+
+        {/* Image Preview for image files */}
+        {isImage && (
+          <div className="space-y-4">
+            <div className="bg-green-50 dark:bg-green-950/30 border border-green-200 dark:border-green-800 rounded-lg p-4">
+              <div className="flex items-start gap-2">
+                <div className="w-5 h-5 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <span className="text-xs text-green-600 dark:text-green-400">
+                    🖼️
+                  </span>
+                </div>
+                <div>
+                  <p className="text-sm font-medium text-green-800 dark:text-green-200 mb-1">
+                    Image Preview
+                  </p>
+                  <p className="text-xs text-green-700 dark:text-green-300">
+                    This is a preview of your uploaded image file.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="flex justify-center">
+              <img
+                src={`/api/documents/${document._id}/view`}
+                alt={document.fileName}
+                className="max-h-[500px] rounded-lg border border-gray-200 dark:border-gray-700 shadow"
+                style={{ maxWidth: "100%", objectFit: "contain" }}
+              />
+            </div>
           </div>
         )}
 
@@ -208,7 +244,9 @@ export default function DocumentPreviewModal({
               <p className="text-xs text-green-700 dark:text-green-300">
                 {isPDF
                   ? "PDF files can now be viewed directly in the browser with zoom and rotation controls."
-                  : "Files are now stored locally and can be downloaded. The actual file will be attached when sharing via email."}
+                  : isImage
+                    ? "Image files can now be previewed directly in the browser."
+                    : "Files are now stored locally and can be downloaded. The actual file will be attached when sharing via email."}
               </p>
             </div>
           </div>
