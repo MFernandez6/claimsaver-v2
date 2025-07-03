@@ -31,7 +31,15 @@ interface Document {
   updatedAt: string;
 }
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+// Initialize Resend client lazily to avoid build-time errors
+function getResendClient() {
+  const apiKey = process.env.RESEND_API_KEY;
+  if (!apiKey) {
+    throw new Error("RESEND_API_KEY environment variable is not set");
+  }
+  return new Resend(apiKey);
+}
+
 const SENDER_EMAIL = process.env.RESEND_SENDER_EMAIL || "onboarding@resend.dev"; // Use your verified sender or Resend sandbox
 
 export async function sendEmail(emailData: EmailData): Promise<boolean> {
@@ -44,6 +52,8 @@ export async function sendEmail(emailData: EmailData): Promise<boolean> {
       hasAttachments: attachments && attachments.length > 0,
       attachmentCount: attachments?.length || 0,
     });
+
+    const resend = getResendClient();
 
     const emailOptions: {
       from: string;
