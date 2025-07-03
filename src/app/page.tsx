@@ -1,5 +1,8 @@
 "use client";
 
+import { useState } from "react";
+import { useUser } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -17,14 +20,27 @@ import {
   Zap,
   Globe,
   Award,
+  X,
+  Home as HomeIcon,
 } from "lucide-react";
 
 export default function Home() {
+  const { user, isLoaded } = useUser();
+  const router = useRouter();
   const { openSignIn } = useClerk();
   const { t } = useTranslation();
+  const [showWelcomeBanner, setShowWelcomeBanner] = useState(true);
 
   const handleGetStarted = () => {
     openSignIn();
+  };
+
+  const handleGoToDashboard = () => {
+    router.push("/dashboard");
+  };
+
+  const handleDismissBanner = () => {
+    setShowWelcomeBanner(false);
   };
 
   const faqItems = [
@@ -96,6 +112,40 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-950">
+      {/* Welcome Banner for Authenticated Users */}
+      {isLoaded && user && showWelcomeBanner && (
+        <div className="fixed top-16 left-0 right-0 z-50 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-3 shadow-lg">
+          <div className="max-w-7xl mx-auto flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <HomeIcon className="w-5 h-5" />
+              <span className="font-medium">
+                Welcome back,{" "}
+                {user.firstName || user.emailAddresses[0]?.emailAddress}! Ready
+                to manage your claims?
+              </span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Button
+                size="sm"
+                variant="secondary"
+                onClick={handleGoToDashboard}
+                className="bg-white/20 hover:bg-white/30 text-white border-white/30"
+              >
+                Go to Dashboard
+              </Button>
+              <Button
+                size="sm"
+                variant="ghost"
+                onClick={handleDismissBanner}
+                className="text-white hover:bg-white/10"
+              >
+                <X className="w-4 h-4" />
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Hero Section */}
       <section className="relative overflow-hidden bg-gradient-to-br from-blue-50 via-white to-indigo-50 dark:from-gray-950 dark:via-gray-900 dark:to-blue-950">
         {/* Background Image */}
@@ -143,22 +193,35 @@ export default function Home() {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-              <Button
-                size="lg"
-                onClick={handleGetStarted}
-                className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-4 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
-              >
-                {t("home.hero.cta")}
-                <ArrowRight className="ml-2 w-5 h-5" />
-              </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                className="border-2 border-gray-300 hover:border-gray-400 text-gray-700 dark:text-gray-300 px-8 py-4 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
-              >
-                {t("home.hero.watchDemo")}
-                <Play className="ml-2 w-5 h-5" />
-              </Button>
+              {!isLoaded || !user ? (
+                <>
+                  <Button
+                    size="lg"
+                    onClick={handleGetStarted}
+                    className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-4 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+                  >
+                    {t("home.hero.cta")}
+                    <ArrowRight className="ml-2 w-5 h-5" />
+                  </Button>
+                  <Button
+                    size="lg"
+                    variant="outline"
+                    className="border-2 border-gray-300 hover:border-gray-400 text-gray-700 dark:text-gray-300 px-8 py-4 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+                  >
+                    {t("home.hero.watchDemo")}
+                    <Play className="ml-2 w-5 h-5" />
+                  </Button>
+                </>
+              ) : (
+                <Button
+                  size="lg"
+                  onClick={handleGoToDashboard}
+                  className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-4 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+                >
+                  Go to Dashboard
+                  <ArrowRight className="ml-2 w-5 h-5" />
+                </Button>
+              )}
             </div>
 
             {/* Video Section */}
