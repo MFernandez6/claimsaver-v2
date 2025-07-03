@@ -90,77 +90,95 @@ export default function Footer() {
         </div>
 
         {/* Main Footer Content */}
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-16">
           {/* Top Section - Brand & Stats */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 mb-16">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12 mb-12 lg:mb-16">
             {/* Brand Section */}
             <div className="lg:col-span-1">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-700 rounded-xl flex items-center justify-center shadow-lg">
-                  <span className="text-white font-black text-lg">C+</span>
+              <div className="flex items-center gap-3 mb-4 lg:mb-6">
+                <div className="w-10 h-10 lg:w-12 lg:h-12 bg-gradient-to-br from-blue-500 to-blue-700 rounded-xl flex items-center justify-center shadow-lg">
+                  <span className="text-white font-black text-base lg:text-lg">
+                    C+
+                  </span>
                 </div>
-                <span className="text-2xl font-black bg-gradient-to-r from-blue-400 to-blue-200 bg-clip-text text-transparent">
+                <span className="text-xl lg:text-2xl font-black bg-gradient-to-r from-blue-400 to-blue-200 bg-clip-text text-transparent">
                   ClaimSaver+
                 </span>
               </div>
-              <p className="text-blue-100 text-lg leading-relaxed mb-6">
+              <p className="text-blue-100 text-base lg:text-lg leading-relaxed mb-4 lg:mb-6">
                 Revolutionizing accident claims with transparent pricing and
                 professional service. Keep 95% of your settlement with our
                 flat-rate structure.
               </p>
-              <div className="flex items-center gap-4">
-                <div className="flex items-center gap-2 bg-blue-800/50 rounded-lg px-3 py-2">
-                  <Award className="w-4 h-4 text-yellow-400" />
-                  <span className="text-sm font-medium">Award Winning</span>
+              <div className="flex flex-wrap items-center gap-2 lg:gap-4">
+                <div className="flex items-center gap-2 bg-blue-800/50 rounded-lg px-2 lg:px-3 py-1 lg:py-2">
+                  <Award className="w-3 h-3 lg:w-4 lg:h-4 text-yellow-400" />
+                  <span className="text-xs lg:text-sm font-medium">
+                    Award Winning
+                  </span>
                 </div>
-                <div className="flex items-center gap-2 bg-blue-800/50 rounded-lg px-3 py-2">
-                  <Shield className="w-4 h-4 text-green-400" />
-                  <span className="text-sm font-medium">Trusted</span>
+                <div className="flex items-center gap-2 bg-blue-800/50 rounded-lg px-2 lg:px-3 py-1 lg:py-2">
+                  <Shield className="w-3 h-3 lg:w-4 lg:h-4 text-green-400" />
+                  <span className="text-xs lg:text-sm font-medium">
+                    Trusted
+                  </span>
                 </div>
               </div>
             </div>
 
             {/* Stats Section */}
             <div className="lg:col-span-2">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div className="grid grid-cols-3 gap-4 lg:gap-8">
                 <div className="text-center">
-                  <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-700 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
-                    <Clock className="w-8 h-8 text-white" />
+                  <div className="w-12 h-12 lg:w-16 lg:h-16 bg-gradient-to-br from-blue-500 to-blue-700 rounded-xl lg:rounded-2xl flex items-center justify-center mx-auto mb-2 lg:mb-4 shadow-lg">
+                    <Clock className="w-5 h-5 lg:w-8 lg:h-8 text-white" />
                   </div>
-                  <div className="text-3xl font-bold text-white mb-2">24/7</div>
-                  <div className="text-blue-200 text-sm">Support Available</div>
+                  <div className="text-xl lg:text-3xl font-bold text-white mb-1 lg:mb-2">
+                    24/7
+                  </div>
+                  <div className="text-blue-200 text-xs lg:text-sm">
+                    Support Available
+                  </div>
                 </div>
                 <div className="text-center">
-                  <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-green-700 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
-                    <CheckCircle className="w-8 h-8 text-white" />
+                  <div className="w-12 h-12 lg:w-16 lg:h-16 bg-gradient-to-br from-green-500 to-green-700 rounded-xl lg:rounded-2xl flex items-center justify-center mx-auto mb-2 lg:mb-4 shadow-lg">
+                    <CheckCircle className="w-5 h-5 lg:w-8 lg:h-8 text-white" />
                   </div>
-                  <div className="text-3xl font-bold text-white mb-2">95%</div>
-                  <div className="text-blue-200 text-sm">Settlement Kept</div>
+                  <div className="text-xl lg:text-3xl font-bold text-white mb-1 lg:mb-2">
+                    95%
+                  </div>
+                  <div className="text-blue-200 text-xs lg:text-sm">
+                    Settlement Kept
+                  </div>
                 </div>
                 <div className="text-center">
-                  <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-700 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
-                    <Users className="w-8 h-8 text-white" />
+                  <div className="w-12 h-12 lg:w-16 lg:h-16 bg-gradient-to-br from-purple-500 to-purple-700 rounded-xl lg:rounded-2xl flex items-center justify-center mx-auto mb-2 lg:mb-4 shadow-lg">
+                    <Users className="w-5 h-5 lg:w-8 lg:h-8 text-white" />
                   </div>
-                  <div className="text-3xl font-bold text-white mb-2">500+</div>
-                  <div className="text-blue-200 text-sm">Happy Clients</div>
+                  <div className="text-xl lg:text-3xl font-bold text-white mb-1 lg:mb-2">
+                    500+
+                  </div>
+                  <div className="text-blue-200 text-xs lg:text-sm">
+                    Happy Clients
+                  </div>
                 </div>
               </div>
             </div>
           </div>
 
           {/* Middle Section - Links & Contact */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+          <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 mb-8 lg:mb-12">
             {/* Services */}
-            <div className="space-y-4">
-              <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
-                <FileText className="w-5 h-5 text-blue-400" />
+            <div className="space-y-3 lg:space-y-4">
+              <h3 className="text-base lg:text-lg font-bold text-white mb-3 lg:mb-4 flex items-center gap-2">
+                <FileText className="w-4 h-4 lg:w-5 lg:h-5 text-blue-400" />
                 Services
               </h3>
-              <ul className="space-y-3">
+              <ul className="space-y-2 lg:space-y-3">
                 <li>
                   <a
                     href="/claim-form"
-                    className="text-blue-200 hover:text-white transition-colors duration-300 flex items-center gap-2 group"
+                    className="text-blue-200 hover:text-white transition-colors duration-300 flex items-center gap-2 group text-sm lg:text-base"
                   >
                     <div className="w-1 h-1 bg-blue-400 rounded-full group-hover:bg-white transition-colors"></div>
                     Claim Form
@@ -169,7 +187,7 @@ export default function Footer() {
                 <li>
                   <a
                     href="/attorney-matching"
-                    className="text-blue-200 hover:text-white transition-colors duration-300 flex items-center gap-2 group"
+                    className="text-blue-200 hover:text-white transition-colors duration-300 flex items-center gap-2 group text-sm lg:text-base"
                   >
                     <div className="w-1 h-1 bg-blue-400 rounded-full group-hover:bg-white transition-colors"></div>
                     Attorney Matching
@@ -178,7 +196,7 @@ export default function Footer() {
                 <li>
                   <a
                     href="/notarization"
-                    className="text-blue-200 hover:text-white transition-colors duration-300 flex items-center gap-2 group"
+                    className="text-blue-200 hover:text-white transition-colors duration-300 flex items-center gap-2 group text-sm lg:text-base"
                   >
                     <div className="w-1 h-1 bg-blue-400 rounded-full group-hover:bg-white transition-colors"></div>
                     Notarization
@@ -187,7 +205,7 @@ export default function Footer() {
                 <li>
                   <a
                     href="/pricing"
-                    className="text-blue-200 hover:text-white transition-colors duration-300 flex items-center gap-2 group"
+                    className="text-blue-200 hover:text-white transition-colors duration-300 flex items-center gap-2 group text-sm lg:text-base"
                   >
                     <div className="w-1 h-1 bg-blue-400 rounded-full group-hover:bg-white transition-colors"></div>
                     Pricing
@@ -197,16 +215,16 @@ export default function Footer() {
             </div>
 
             {/* Company */}
-            <div className="space-y-4">
-              <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
-                <Users className="w-5 h-5 text-blue-400" />
+            <div className="space-y-3 lg:space-y-4">
+              <h3 className="text-base lg:text-lg font-bold text-white mb-3 lg:mb-4 flex items-center gap-2">
+                <Users className="w-4 h-4 lg:w-5 lg:h-5 text-blue-400" />
                 Company
               </h3>
-              <ul className="space-y-3">
+              <ul className="space-y-2 lg:space-y-3">
                 <li>
                   <a
                     href="/who-we-are"
-                    className="text-blue-200 hover:text-white transition-colors duration-300 flex items-center gap-2 group"
+                    className="text-blue-200 hover:text-white transition-colors duration-300 flex items-center gap-2 group text-sm lg:text-base"
                   >
                     <div className="w-1 h-1 bg-blue-400 rounded-full group-hover:bg-white transition-colors"></div>
                     About Us
@@ -215,7 +233,7 @@ export default function Footer() {
                 <li>
                   <a
                     href="/what-we-do"
-                    className="text-blue-200 hover:text-white transition-colors duration-300 flex items-center gap-2 group"
+                    className="text-blue-200 hover:text-white transition-colors duration-300 flex items-center gap-2 group text-sm lg:text-base"
                   >
                     <div className="w-1 h-1 bg-blue-400 rounded-full group-hover:bg-white transition-colors"></div>
                     What We Do
@@ -224,7 +242,7 @@ export default function Footer() {
                 <li>
                   <a
                     href="/pricing"
-                    className="text-blue-200 hover:text-white transition-colors duration-300 flex items-center gap-2 group"
+                    className="text-blue-200 hover:text-white transition-colors duration-300 flex items-center gap-2 group text-sm lg:text-base"
                   >
                     <div className="w-1 h-1 bg-blue-400 rounded-full group-hover:bg-white transition-colors"></div>
                     Pricing
@@ -233,7 +251,7 @@ export default function Footer() {
                 <li>
                   <a
                     href="/contact"
-                    className="text-blue-200 hover:text-white transition-colors duration-300 flex items-center gap-2 group"
+                    className="text-blue-200 hover:text-white transition-colors duration-300 flex items-center gap-2 group text-sm lg:text-base"
                   >
                     <div className="w-1 h-1 bg-blue-400 rounded-full group-hover:bg-white transition-colors"></div>
                     Contact
@@ -243,16 +261,16 @@ export default function Footer() {
             </div>
 
             {/* Support */}
-            <div className="space-y-4">
-              <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
-                <Shield className="w-5 h-5 text-blue-400" />
+            <div className="space-y-3 lg:space-y-4">
+              <h3 className="text-base lg:text-lg font-bold text-white mb-3 lg:mb-4 flex items-center gap-2">
+                <Shield className="w-4 h-4 lg:w-5 lg:h-5 text-blue-400" />
                 Support
               </h3>
-              <ul className="space-y-3">
+              <ul className="space-y-2 lg:space-y-3">
                 <li>
                   <a
                     href="/faq"
-                    className="text-blue-200 hover:text-white transition-colors duration-300 flex items-center gap-2 group"
+                    className="text-blue-200 hover:text-white transition-colors duration-300 flex items-center gap-2 group text-sm lg:text-base"
                   >
                     <div className="w-1 h-1 bg-blue-400 rounded-full group-hover:bg-white transition-colors"></div>
                     FAQ
@@ -261,7 +279,7 @@ export default function Footer() {
                 <li>
                   <a
                     href="/help"
-                    className="text-blue-200 hover:text-white transition-colors duration-300 flex items-center gap-2 group"
+                    className="text-blue-200 hover:text-white transition-colors duration-300 flex items-center gap-2 group text-sm lg:text-base"
                   >
                     <div className="w-1 h-1 bg-blue-400 rounded-full group-hover:bg-white transition-colors"></div>
                     Help Center
@@ -270,7 +288,7 @@ export default function Footer() {
                 <li>
                   <a
                     href="/contact"
-                    className="text-blue-200 hover:text-white transition-colors duration-300 flex items-center gap-2 group"
+                    className="text-blue-200 hover:text-white transition-colors duration-300 flex items-center gap-2 group text-sm lg:text-base"
                   >
                     <div className="w-1 h-1 bg-blue-400 rounded-full group-hover:bg-white transition-colors"></div>
                     Contact Us
@@ -280,47 +298,49 @@ export default function Footer() {
             </div>
 
             {/* Contact Info */}
-            <div className="space-y-4">
-              <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
-                <Mail className="w-5 h-5 text-blue-400" />
+            <div className="space-y-3 lg:space-y-4">
+              <h3 className="text-base lg:text-lg font-bold text-white mb-3 lg:mb-4 flex items-center gap-2">
+                <Mail className="w-4 h-4 lg:w-5 lg:h-5 text-blue-400" />
                 Contact Info
               </h3>
-              <div className="space-y-3">
-                <div className="flex items-center gap-3">
-                  <Phone className="w-4 h-4 text-blue-400" />
+              <div className="space-y-2 lg:space-y-3">
+                <div className="flex items-center gap-2 lg:gap-3">
+                  <Phone className="w-3 h-3 lg:w-4 lg:h-4 text-blue-400 flex-shrink-0" />
                   <a
                     href="tel:+17864173869"
-                    className="text-blue-200 hover:text-white transition-colors duration-300"
+                    className="text-blue-200 hover:text-white transition-colors duration-300 text-sm lg:text-base"
                   >
                     (786) 417-3869
                   </a>
                 </div>
-                <div className="flex items-center gap-3">
-                  <Mail className="w-4 h-4 text-blue-400" />
+                <div className="flex items-center gap-2 lg:gap-3">
+                  <Mail className="w-3 h-3 lg:w-4 lg:h-4 text-blue-400 flex-shrink-0" />
                   <a
                     href="mailto:ClaimSaverPlus@gmail.com"
-                    className="text-blue-200 hover:text-white transition-colors duration-300"
+                    className="text-blue-200 hover:text-white transition-colors duration-300 text-sm lg:text-base"
                   >
                     ClaimSaverPlus@gmail.com
                   </a>
                 </div>
-                <div className="flex items-center gap-3">
-                  <MapPin className="w-4 h-4 text-blue-400" />
-                  <span className="text-blue-200">Miami, FL</span>
+                <div className="flex items-center gap-2 lg:gap-3">
+                  <MapPin className="w-3 h-3 lg:w-4 lg:h-4 text-blue-400 flex-shrink-0" />
+                  <span className="text-blue-200 text-sm lg:text-base">
+                    Miami, FL
+                  </span>
                 </div>
               </div>
             </div>
           </div>
 
           {/* Bottom Section */}
-          <div className="border-t border-blue-800 pt-8">
+          <div className="border-t border-blue-800 pt-6 lg:pt-8">
             <div className="flex flex-col md:flex-row justify-between items-center gap-4">
               <div className="text-center md:text-left">
-                <p className="text-blue-200 text-sm">
+                <p className="text-blue-200 text-xs lg:text-sm">
                   © 2024 ClaimSaver+. All rights reserved.
                 </p>
               </div>
-              <div className="flex flex-wrap justify-center gap-6 text-sm">
+              <div className="flex flex-wrap justify-center gap-4 lg:gap-6 text-xs lg:text-sm">
                 <button
                   onClick={() => setActiveModal("privacy")}
                   className="text-blue-200 hover:text-white transition-colors duration-300"
@@ -343,8 +363,8 @@ export default function Footer() {
             </div>
 
             {/* Legal Disclaimer */}
-            <div className="mt-6 pt-6 border-t border-blue-800/50">
-              <div className="bg-blue-950/50 rounded-lg p-4 border border-blue-800/50">
+            <div className="mt-4 lg:mt-6 pt-4 lg:pt-6 border-t border-blue-800/50">
+              <div className="bg-blue-950/50 rounded-lg p-3 lg:p-4 border border-blue-800/50">
                 <p className="text-xs text-blue-200 leading-relaxed text-center">
                   <strong className="text-red-400">LEGAL DISCLAIMER:</strong>{" "}
                   ClaimSaver+ is a technology platform providing administrative

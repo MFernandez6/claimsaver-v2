@@ -351,6 +351,7 @@ export default function Navbar() {
   const [isClerkAvailable, setIsClerkAvailable] = useState(true);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const pathname = usePathname();
+  const mobileMenuRef = useRef<HTMLDivElement>(null);
 
   // Dropdown menu items
   const aboutItems = [
@@ -402,6 +403,26 @@ export default function Navbar() {
     setIsMounted(true);
     setIsClerkAvailable(true);
   }, []);
+
+  // Handle click outside mobile menu
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        mobileMenuRef.current &&
+        !mobileMenuRef.current.contains(event.target as Node)
+      ) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+
+    if (isMobileMenuOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isMobileMenuOpen]);
 
   const handleDropdownToggle = (dropdownName: string) => {
     setActiveDropdown(activeDropdown === dropdownName ? null : dropdownName);
@@ -521,7 +542,10 @@ export default function Navbar() {
 
           {/* Mobile Navigation */}
           {isMobileMenuOpen && (
-            <div className="lg:hidden border-t border-gray-200 dark:border-gray-700 animate-in slide-in-from-top-2 duration-300 bg-white/95 backdrop-blur-xl dark:bg-gray-950/95 shadow-xl max-h-[calc(100vh-4rem)] overflow-y-auto">
+            <div
+              ref={mobileMenuRef}
+              className="lg:hidden border-t border-gray-200 dark:border-gray-700 animate-in slide-in-from-top-2 duration-300 bg-white/95 backdrop-blur-xl dark:bg-gray-950/95 shadow-xl max-h-[calc(100vh-4rem)] overflow-y-auto"
+            >
               <div className="px-4 py-6 space-y-4">
                 {/* About Section */}
                 <div className="space-y-2">
@@ -536,7 +560,7 @@ export default function Navbar() {
                     <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-blue-700 rounded-lg flex items-center justify-center text-white">
                       <Users className="w-4 h-4" />
                     </div>
-                    <span className="text-sm font-medium">About Us</span>
+                    <span className="text-sm font-medium">Who We Are</span>
                   </Link>
                   <Link
                     href="/what-we-do"
