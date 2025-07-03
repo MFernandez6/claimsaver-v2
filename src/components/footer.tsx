@@ -1,12 +1,21 @@
 "use client";
 
 import { useState } from "react";
-import { useTranslation } from "react-i18next";
-import { Phone, Mail, MapPin, X } from "lucide-react";
+import {
+  Phone,
+  Mail,
+  MapPin,
+  X,
+  Shield,
+  FileText,
+  Users,
+  Award,
+  Clock,
+  CheckCircle,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export default function Footer() {
-  const { t } = useTranslation();
   const [activeModal, setActiveModal] = useState<string | null>(null);
 
   const closeModal = () => {
@@ -36,7 +45,7 @@ export default function Footer() {
           onClick={(e) => e.stopPropagation()}
         >
           {/* Header with gradient */}
-          <div className="bg-gradient-to-r from-blue-600 to-purple-600 p-6 text-white relative">
+          <div className="bg-gradient-to-r from-blue-600 to-blue-800 p-6 text-white relative">
             <div className="flex items-center justify-between">
               <h2 className="text-2xl font-black tracking-tight">{title}</h2>
               <Button
@@ -66,205 +75,290 @@ export default function Footer() {
 
   return (
     <>
-      <footer className="w-full bg-gradient-to-r from-blue-500 to-blue-800 text-white relative z-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-          {/* Main Footer Content */}
-          <div className="bg-gradient-to-r from-blue-500 to-blue-800 p-6 text-white relative">
-            <div className="absolute inset-0 bg-black/10"></div>
-            <div className="relative z-10 max-w-7xl mx-auto">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                {/* Services */}
-                <div className="space-y-4">
-                  <h3 className="text-lg font-semibold text-white mb-4">
-                    {t("footer.services")}
-                  </h3>
-                  <ul className="space-y-2">
-                    <li>
-                      <a
-                        href="/claim-form"
-                        className="text-blue-100 hover:text-white transition-colors duration-300"
-                      >
-                        {t("footer.claimForm")}
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="/attorney-matching"
-                        className="text-blue-100 hover:text-white transition-colors duration-300"
-                      >
-                        {t("footer.attorneyMatching")}
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="/notarization"
-                        className="text-blue-100 hover:text-white transition-colors duration-300"
-                      >
-                        {t("footer.notarization")}
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="/pricing"
-                        className="text-blue-100 hover:text-white transition-colors duration-300"
-                      >
-                        {t("footer.pricing")}
-                      </a>
-                    </li>
-                  </ul>
-                </div>
+      <footer className="relative bg-gradient-to-br from-gray-900 via-blue-900 to-gray-900 text-white overflow-hidden">
+        {/* Background Pattern */}
+        <div className="absolute inset-0 opacity-30">
+          <div
+            className="absolute inset-0"
+            style={{
+              backgroundImage: `url('/images/logo-blue-black.png')`,
+              backgroundSize: "200px 200px",
+              backgroundRepeat: "repeat",
+              backgroundPosition: "center",
+            }}
+          ></div>
+        </div>
 
-                {/* Company */}
-                <div className="space-y-4">
-                  <h3 className="text-lg font-semibold text-white mb-4">
-                    {t("footer.company")}
-                  </h3>
-                  <ul className="space-y-2">
-                    <li>
-                      <a
-                        href="/who-we-are"
-                        className="text-blue-100 hover:text-white transition-colors duration-300"
-                      >
-                        {t("footer.aboutUs")}
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="/what-we-do"
-                        className="text-blue-100 hover:text-white transition-colors duration-300"
-                      >
-                        {t("footer.whatWeDo")}
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="/pricing"
-                        className="text-blue-100 hover:text-white transition-colors duration-300"
-                      >
-                        {t("footer.pricing")}
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="/contact"
-                        className="text-blue-100 hover:text-white transition-colors duration-300"
-                      >
-                        {t("footer.contact")}
-                      </a>
-                    </li>
-                  </ul>
+        {/* Main Footer Content */}
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+          {/* Top Section - Brand & Stats */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 mb-16">
+            {/* Brand Section */}
+            <div className="lg:col-span-1">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-700 rounded-xl flex items-center justify-center shadow-lg">
+                  <span className="text-white font-black text-lg">C+</span>
                 </div>
+                <span className="text-2xl font-black bg-gradient-to-r from-blue-400 to-blue-200 bg-clip-text text-transparent">
+                  ClaimSaver+
+                </span>
+              </div>
+              <p className="text-blue-100 text-lg leading-relaxed mb-6">
+                Revolutionizing accident claims with transparent pricing and
+                professional service. Keep 95% of your settlement with our
+                flat-rate structure.
+              </p>
+              <div className="flex items-center gap-4">
+                <div className="flex items-center gap-2 bg-blue-800/50 rounded-lg px-3 py-2">
+                  <Award className="w-4 h-4 text-yellow-400" />
+                  <span className="text-sm font-medium">Award Winning</span>
+                </div>
+                <div className="flex items-center gap-2 bg-blue-800/50 rounded-lg px-3 py-2">
+                  <Shield className="w-4 h-4 text-green-400" />
+                  <span className="text-sm font-medium">Trusted</span>
+                </div>
+              </div>
+            </div>
 
-                {/* Support */}
-                <div className="space-y-4">
-                  <h3 className="text-lg font-semibold text-white mb-4">
-                    {t("footer.support")}
-                  </h3>
-                  <ul className="space-y-2">
-                    <li>
-                      <a
-                        href="/faq"
-                        className="text-blue-100 hover:text-white transition-colors duration-300"
-                      >
-                        {t("footer.faq")}
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="/help"
-                        className="text-blue-100 hover:text-white transition-colors duration-300"
-                      >
-                        {t("footer.help")}
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="/contact"
-                        className="text-blue-100 hover:text-white transition-colors duration-300"
-                      >
-                        {t("footer.contact")}
-                      </a>
-                    </li>
-                  </ul>
+            {/* Stats Section */}
+            <div className="lg:col-span-2">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div className="text-center">
+                  <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-700 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+                    <Clock className="w-8 h-8 text-white" />
+                  </div>
+                  <div className="text-3xl font-bold text-white mb-2">24/7</div>
+                  <div className="text-blue-200 text-sm">Support Available</div>
+                </div>
+                <div className="text-center">
+                  <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-green-700 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+                    <CheckCircle className="w-8 h-8 text-white" />
+                  </div>
+                  <div className="text-3xl font-bold text-white mb-2">95%</div>
+                  <div className="text-blue-200 text-sm">Settlement Kept</div>
+                </div>
+                <div className="text-center">
+                  <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-700 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+                    <Users className="w-8 h-8 text-white" />
+                  </div>
+                  <div className="text-3xl font-bold text-white mb-2">500+</div>
+                  <div className="text-blue-200 text-sm">Happy Clients</div>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Contact Info Section */}
-          <div className="bg-gradient-to-r from-blue-50 to-blue-100 dark:from-blue-950/50 dark:to-blue-900/50 rounded-xl p-6 border border-blue-200 dark:border-blue-800">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <div className="text-center md:text-left">
-                <div className="flex items-center justify-center md:justify-start gap-3 mb-3">
-                  <Phone className="w-5 h-5 text-blue-600 dark:text-blue-400" />
-                  <h4 className="text-lg font-semibold text-gray-900 dark:text-white">
-                    {t("footer.phone")}
-                  </h4>
-                </div>
-                <a
-                  href="tel:+17864173869"
-                  className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors duration-300 text-lg font-medium"
-                >
-                  (786) 417-3869
-                </a>
-              </div>
+          {/* Middle Section - Links & Contact */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+            {/* Services */}
+            <div className="space-y-4">
+              <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
+                <FileText className="w-5 h-5 text-blue-400" />
+                Services
+              </h3>
+              <ul className="space-y-3">
+                <li>
+                  <a
+                    href="/claim-form"
+                    className="text-blue-200 hover:text-white transition-colors duration-300 flex items-center gap-2 group"
+                  >
+                    <div className="w-1 h-1 bg-blue-400 rounded-full group-hover:bg-white transition-colors"></div>
+                    Claim Form
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="/attorney-matching"
+                    className="text-blue-200 hover:text-white transition-colors duration-300 flex items-center gap-2 group"
+                  >
+                    <div className="w-1 h-1 bg-blue-400 rounded-full group-hover:bg-white transition-colors"></div>
+                    Attorney Matching
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="/notarization"
+                    className="text-blue-200 hover:text-white transition-colors duration-300 flex items-center gap-2 group"
+                  >
+                    <div className="w-1 h-1 bg-blue-400 rounded-full group-hover:bg-white transition-colors"></div>
+                    Notarization
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="/pricing"
+                    className="text-blue-200 hover:text-white transition-colors duration-300 flex items-center gap-2 group"
+                  >
+                    <div className="w-1 h-1 bg-blue-400 rounded-full group-hover:bg-white transition-colors"></div>
+                    Pricing
+                  </a>
+                </li>
+              </ul>
+            </div>
 
-              <div className="text-center md:text-left">
-                <div className="flex items-center justify-center md:justify-start gap-3 mb-3">
-                  <Mail className="w-5 h-5 text-blue-600 dark:text-blue-400" />
-                  <h4 className="text-lg font-semibold text-gray-900 dark:text-white">
-                    {t("footer.email")}
-                  </h4>
-                </div>
-                <a
-                  href="mailto:ClaimSaverPlus@gmail.com"
-                  className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors duration-300 text-lg font-medium"
-                >
-                  ClaimSaverPlus@gmail.com
-                </a>
-              </div>
+            {/* Company */}
+            <div className="space-y-4">
+              <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
+                <Users className="w-5 h-5 text-blue-400" />
+                Company
+              </h3>
+              <ul className="space-y-3">
+                <li>
+                  <a
+                    href="/who-we-are"
+                    className="text-blue-200 hover:text-white transition-colors duration-300 flex items-center gap-2 group"
+                  >
+                    <div className="w-1 h-1 bg-blue-400 rounded-full group-hover:bg-white transition-colors"></div>
+                    About Us
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="/what-we-do"
+                    className="text-blue-200 hover:text-white transition-colors duration-300 flex items-center gap-2 group"
+                  >
+                    <div className="w-1 h-1 bg-blue-400 rounded-full group-hover:bg-white transition-colors"></div>
+                    What We Do
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="/pricing"
+                    className="text-blue-200 hover:text-white transition-colors duration-300 flex items-center gap-2 group"
+                  >
+                    <div className="w-1 h-1 bg-blue-400 rounded-full group-hover:bg-white transition-colors"></div>
+                    Pricing
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="/contact"
+                    className="text-blue-200 hover:text-white transition-colors duration-300 flex items-center gap-2 group"
+                  >
+                    <div className="w-1 h-1 bg-blue-400 rounded-full group-hover:bg-white transition-colors"></div>
+                    Contact
+                  </a>
+                </li>
+              </ul>
+            </div>
 
-              <div className="text-center md:text-left">
-                <div className="flex items-center justify-center md:justify-start gap-3 mb-3">
-                  <MapPin className="w-5 h-5 text-blue-600 dark:text-blue-400" />
-                  <h4 className="text-lg font-semibold text-gray-900 dark:text-white">
-                    {t("footer.location")}
-                  </h4>
+            {/* Support */}
+            <div className="space-y-4">
+              <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
+                <Shield className="w-5 h-5 text-blue-400" />
+                Support
+              </h3>
+              <ul className="space-y-3">
+                <li>
+                  <a
+                    href="/faq"
+                    className="text-blue-200 hover:text-white transition-colors duration-300 flex items-center gap-2 group"
+                  >
+                    <div className="w-1 h-1 bg-blue-400 rounded-full group-hover:bg-white transition-colors"></div>
+                    FAQ
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="/help"
+                    className="text-blue-200 hover:text-white transition-colors duration-300 flex items-center gap-2 group"
+                  >
+                    <div className="w-1 h-1 bg-blue-400 rounded-full group-hover:bg-white transition-colors"></div>
+                    Help Center
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="/contact"
+                    className="text-blue-200 hover:text-white transition-colors duration-300 flex items-center gap-2 group"
+                  >
+                    <div className="w-1 h-1 bg-blue-400 rounded-full group-hover:bg-white transition-colors"></div>
+                    Contact Us
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            {/* Contact Info */}
+            <div className="space-y-4">
+              <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
+                <Mail className="w-5 h-5 text-blue-400" />
+                Contact Info
+              </h3>
+              <div className="space-y-3">
+                <div className="flex items-center gap-3">
+                  <Phone className="w-4 h-4 text-blue-400" />
+                  <a
+                    href="tel:+17864173869"
+                    className="text-blue-200 hover:text-white transition-colors duration-300"
+                  >
+                    (786) 417-3869
+                  </a>
                 </div>
-                <p className="text-blue-600 dark:text-blue-400 text-lg font-medium">
-                  {t("footer.headquarters")}
-                </p>
+                <div className="flex items-center gap-3">
+                  <Mail className="w-4 h-4 text-blue-400" />
+                  <a
+                    href="mailto:ClaimSaverPlus@gmail.com"
+                    className="text-blue-200 hover:text-white transition-colors duration-300"
+                  >
+                    ClaimSaverPlus@gmail.com
+                  </a>
+                </div>
+                <div className="flex items-center gap-3">
+                  <MapPin className="w-4 h-4 text-blue-400" />
+                  <span className="text-blue-200">Miami, FL</span>
+                </div>
               </div>
             </div>
           </div>
 
           {/* Bottom Section */}
-          <div className="border-t border-blue-200 dark:border-blue-800 pt-8 mt-12">
+          <div className="border-t border-blue-800 pt-8">
             <div className="flex flex-col md:flex-row justify-between items-center gap-4">
               <div className="text-center md:text-left">
-                <p className="text-blue-100 text-sm">
-                  © 2024 ClaimSaver+. {t("footer.allRightsReserved")}
+                <p className="text-blue-200 text-sm">
+                  © 2024 ClaimSaver+. All rights reserved.
                 </p>
               </div>
               <div className="flex flex-wrap justify-center gap-6 text-sm">
-                <a
-                  href="/privacy"
-                  className="text-blue-100 hover:text-white transition-colors duration-300"
+                <button
+                  onClick={() => setActiveModal("privacy")}
+                  className="text-blue-200 hover:text-white transition-colors duration-300"
                 >
-                  {t("footer.privacyPolicy")}
-                </a>
-                <a
-                  href="/terms"
-                  className="text-blue-100 hover:text-white transition-colors duration-300"
+                  Privacy Policy
+                </button>
+                <button
+                  onClick={() => setActiveModal("terms")}
+                  className="text-blue-200 hover:text-white transition-colors duration-300"
                 >
-                  {t("footer.termsOfService")}
-                </a>
-                <a
-                  href="/cookies"
-                  className="text-blue-100 hover:text-white transition-colors duration-300"
+                  Terms of Service
+                </button>
+                <button
+                  onClick={() => setActiveModal("cookies")}
+                  className="text-blue-200 hover:text-white transition-colors duration-300"
                 >
-                  {t("footer.cookiePolicy")}
-                </a>
+                  Cookie Policy
+                </button>
+              </div>
+            </div>
+
+            {/* Legal Disclaimer */}
+            <div className="mt-6 pt-6 border-t border-blue-800/50">
+              <div className="bg-blue-950/50 rounded-lg p-4 border border-blue-800/50">
+                <p className="text-xs text-blue-200 leading-relaxed text-center">
+                  <strong className="text-red-400">LEGAL DISCLAIMER:</strong>{" "}
+                  ClaimSaver+ is a technology platform providing administrative
+                  support and attorney matching services. We are NOT a law firm
+                  and do NOT provide legal advice, case evaluation, or legal
+                  representation. Our services include administrative support
+                  for no-fault accident form filing, attorney matching, document
+                  management, and case tracking. For legal services, you must
+                  consult with attorneys in our network or other qualified legal
+                  professionals. Our flat-rate fee of $500 covers platform
+                  services and attorney matching only. Additional fees may apply
+                  for legal services provided by attorneys. Results may vary.
+                  Past performance does not guarantee future outcomes.
+                </p>
               </div>
             </div>
           </div>
@@ -357,75 +451,10 @@ export default function Footer() {
             </ul>
           </div>
 
-          <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-100 dark:border-gray-700">
-            <h3 className="text-xl font-bold mb-4 text-gray-900 dark:text-white flex items-center gap-3">
-              <div className="w-8 h-8 bg-purple-100 dark:bg-purple-900 rounded-full flex items-center justify-center">
-                <span className="text-purple-600 dark:text-purple-400 font-semibold text-sm">
-                  3
-                </span>
-              </div>
-              Information Sharing
-            </h3>
-            <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-              We may share your information with attorneys in our network who
-              are handling your case, as well as with service providers who
-              assist us in operating our platform. We do not sell your personal
-              information to third parties.
-            </p>
-          </div>
-
-          <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-100 dark:border-gray-700">
-            <h3 className="text-xl font-bold mb-4 text-gray-900 dark:text-white flex items-center gap-3">
-              <div className="w-8 h-8 bg-orange-100 dark:bg-orange-900 rounded-full flex items-center justify-center">
-                <span className="text-orange-600 dark:text-orange-400 font-semibold text-sm">
-                  4
-                </span>
-              </div>
-              Data Security
-            </h3>
-            <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-              We implement appropriate security measures to protect your
-              personal information against unauthorized access, alteration,
-              disclosure, or destruction.
-            </p>
-          </div>
-
-          <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-100 dark:border-gray-700">
-            <h3 className="text-xl font-bold mb-4 text-gray-900 dark:text-white flex items-center gap-3">
-              <div className="w-8 h-8 bg-red-100 dark:bg-red-900 rounded-full flex items-center justify-center">
-                <span className="text-red-600 dark:text-red-400 font-semibold text-sm">
-                  5
-                </span>
-              </div>
-              Your Rights
-            </h3>
-            <p className="mb-4 text-gray-600 dark:text-gray-300 leading-relaxed">
-              You have the right to:
-            </p>
-            <ul className="space-y-2 text-gray-600 dark:text-gray-300">
-              <li className="flex items-start gap-3">
-                <div className="w-2 h-2 bg-red-500 rounded-full mt-2 flex-shrink-0"></div>
-                <span>Access and review your personal information</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <div className="w-2 h-2 bg-red-500 rounded-full mt-2 flex-shrink-0"></div>
-                <span>Request corrections to your information</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <div className="w-2 h-2 bg-red-500 rounded-full mt-2 flex-shrink-0"></div>
-                <span>Request deletion of your information</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <div className="w-2 h-2 bg-red-500 rounded-full mt-2 flex-shrink-0"></div>
-                <span>Opt out of certain communications</span>
-              </li>
-            </ul>
-          </div>
-
-          <div className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-950/50 dark:to-purple-950/50 rounded-xl p-6 border border-blue-200 dark:border-blue-800">
+          <div className="bg-gradient-to-r from-blue-50 to-blue-100 dark:from-blue-950/50 dark:to-blue-900/50 rounded-xl p-6 border border-blue-200 dark:border-blue-800">
             <h3 className="text-xl font-bold mb-4 text-gray-900 dark:text-white flex items-center gap-3">
               <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
-                <span className="text-white font-semibold text-sm">6</span>
+                <span className="text-white font-semibold text-sm">3</span>
               </div>
               Contact Us
             </h3>
@@ -520,46 +549,10 @@ export default function Footer() {
             </div>
           </div>
 
-          <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-100 dark:border-gray-700">
-            <h3 className="text-xl font-bold mb-4 text-gray-900 dark:text-white flex items-center gap-3">
-              <div className="w-8 h-8 bg-purple-100 dark:bg-purple-900 rounded-full flex items-center justify-center">
-                <span className="text-purple-600 dark:text-purple-400 font-semibold text-sm">
-                  3
-                </span>
-              </div>
-              User Responsibilities
-            </h3>
-            <p className="mb-4 text-gray-600 dark:text-gray-300 leading-relaxed">
-              As a user of ClaimSaver+, you agree to:
-            </p>
-            <ul className="space-y-2 text-gray-600 dark:text-gray-300">
-              <li className="flex items-start gap-3">
-                <div className="w-2 h-2 bg-purple-500 rounded-full mt-2 flex-shrink-0"></div>
-                <span>Provide accurate and complete information</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <div className="w-2 h-2 bg-purple-500 rounded-full mt-2 flex-shrink-0"></div>
-                <span>Maintain the security of your account</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <div className="w-2 h-2 bg-purple-500 rounded-full mt-2 flex-shrink-0"></div>
-                <span>Use the service only for lawful purposes</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <div className="w-2 h-2 bg-purple-500 rounded-full mt-2 flex-shrink-0"></div>
-                <span>Not interfere with the operation of the platform</span>
-              </li>
-              <li className="flex items-start gap-3">
-                <div className="w-2 h-2 bg-purple-500 rounded-full mt-2 flex-shrink-0"></div>
-                <span>Comply with all applicable laws and regulations</span>
-              </li>
-            </ul>
-          </div>
-
           <div className="bg-gradient-to-r from-green-50 to-blue-50 dark:from-green-950/50 dark:to-blue-950/50 rounded-xl p-6 border border-green-200 dark:border-green-800">
             <h3 className="text-xl font-bold mb-4 text-gray-900 dark:text-white flex items-center gap-3">
               <div className="w-8 h-8 bg-green-600 rounded-full flex items-center justify-center">
-                <span className="text-white font-semibold text-sm">4</span>
+                <span className="text-white font-semibold text-sm">3</span>
               </div>
               Fees and Payment
             </h3>
@@ -574,76 +567,10 @@ export default function Footer() {
             </p>
           </div>
 
-          <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-100 dark:border-gray-700">
-            <h3 className="text-xl font-bold mb-4 text-gray-900 dark:text-white flex items-center gap-3">
-              <div className="w-8 h-8 bg-orange-100 dark:bg-orange-900 rounded-full flex items-center justify-center">
-                <span className="text-orange-600 dark:text-orange-400 font-semibold text-sm">
-                  5
-                </span>
-              </div>
-              Limitation of Liability
-            </h3>
-            <p className="text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
-              <strong className="text-red-600 dark:text-red-400">
-                ClaimSaver+ is NOT a law firm and does NOT provide legal advice,
-                legal representation, or legal services.
-              </strong>
-            </p>
-            <p className="text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
-              We connect you with attorneys but are not responsible for the
-              legal services they provide. We do not evaluate cases, provide
-              legal opinions, or represent clients in legal matters.
-            </p>
-            <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-              Our liability is limited to the amount of fees paid for our
-              administrative services. We do not guarantee case outcomes,
-              compensation amounts, or attorney performance.
-            </p>
-            <div className="mt-4 p-4 bg-orange-50 dark:bg-orange-950/30 rounded-lg border border-orange-200 dark:border-orange-800">
-              <p className="text-sm text-orange-800 dark:text-orange-200">
-                <strong>Important:</strong> For legal advice and representation,
-                you must consult with qualified attorneys. We provide
-                administrative support only.
-              </p>
-            </div>
-          </div>
-
-          <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-100 dark:border-gray-700">
-            <h3 className="text-xl font-bold mb-4 text-gray-900 dark:text-white flex items-center gap-3">
-              <div className="w-8 h-8 bg-red-100 dark:bg-red-900 rounded-full flex items-center justify-center">
-                <span className="text-red-600 dark:text-red-400 font-semibold text-sm">
-                  6
-                </span>
-              </div>
-              Termination
-            </h3>
-            <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-              We may terminate or suspend your account and access to our
-              services at any time, with or without cause, with or without
-              notice.
-            </p>
-          </div>
-
-          <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-100 dark:border-gray-700">
-            <h3 className="text-xl font-bold mb-4 text-gray-900 dark:text-white flex items-center gap-3">
-              <div className="w-8 h-8 bg-indigo-100 dark:bg-indigo-900 rounded-full flex items-center justify-center">
-                <span className="text-indigo-600 dark:text-indigo-400 font-semibold text-sm">
-                  7
-                </span>
-              </div>
-              Governing Law
-            </h3>
-            <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-              These terms shall be governed by and construed in accordance with
-              the laws of the State of Florida, without regard to its conflict
-              of law provisions.
-            </p>
-          </div>
-
-          <div className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-950/50 dark:to-purple-950/50 rounded-xl p-6 border border-blue-200 dark:border-blue-800">
+          <div className="bg-gradient-to-r from-blue-50 to-blue-100 dark:from-blue-950/50 dark:to-blue-900/50 rounded-xl p-6 border border-blue-200 dark:border-blue-800">
             <h3 className="text-xl font-bold mb-4 text-gray-900 dark:text-white flex items-center gap-3">
               <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
-                <span className="text-white font-semibold text-sm">8</span>
+                <span className="text-white font-semibold text-sm">4</span>
               </div>
               Contact Information
             </h3>
@@ -730,121 +657,13 @@ export default function Footer() {
                   use our website
                 </span>
               </li>
-              <li className="flex items-start gap-3">
-                <div className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0"></div>
-                <span>
-                  <strong>Functional Cookies:</strong> To provide enhanced
-                  functionality
-                </span>
-              </li>
             </ul>
           </div>
 
-          <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-100 dark:border-gray-700">
-            <h3 className="text-xl font-bold mb-4 text-gray-900 dark:text-white flex items-center gap-3">
-              <div className="w-8 h-8 bg-purple-100 dark:bg-purple-900 rounded-full flex items-center justify-center">
-                <span className="text-purple-600 dark:text-purple-400 font-semibold text-sm">
-                  3
-                </span>
-              </div>
-              Types of Cookies We Use
-            </h3>
-            <div className="space-y-4">
-              <div className="bg-blue-50 dark:bg-blue-950/30 rounded-lg p-4 border border-blue-200 dark:border-blue-800">
-                <h4 className="font-bold text-blue-900 dark:text-blue-300 mb-2">
-                  Session Cookies
-                </h4>
-                <p className="text-sm text-blue-800 dark:text-blue-200">
-                  Temporary cookies that are deleted when you close your
-                  browser. These are essential for the website to function
-                  properly.
-                </p>
-              </div>
-              <div className="bg-green-50 dark:bg-green-950/30 rounded-lg p-4 border border-green-200 dark:border-green-800">
-                <h4 className="font-bold text-green-900 dark:text-green-300 mb-2">
-                  Persistent Cookies
-                </h4>
-                <p className="text-sm text-green-800 dark:text-green-200">
-                  Cookies that remain on your device for a set period or until
-                  you delete them. These help us remember your preferences and
-                  provide a better experience.
-                </p>
-              </div>
-              <div className="bg-purple-50 dark:bg-purple-950/30 rounded-lg p-4 border border-purple-200 dark:border-purple-800">
-                <h4 className="font-bold text-purple-900 dark:text-purple-300 mb-2">
-                  Third-Party Cookies
-                </h4>
-                <p className="text-sm text-purple-800 dark:text-purple-200">
-                  Cookies set by third-party services we use, such as analytics
-                  providers and authentication services.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-100 dark:border-gray-700">
-            <h3 className="text-xl font-bold mb-4 text-gray-900 dark:text-white flex items-center gap-3">
-              <div className="w-8 h-8 bg-orange-100 dark:bg-orange-900 rounded-full flex items-center justify-center">
-                <span className="text-orange-600 dark:text-orange-400 font-semibold text-sm">
-                  4
-                </span>
-              </div>
-              Managing Cookies
-            </h3>
-            <p className="mb-4 text-gray-600 dark:text-gray-300 leading-relaxed">
-              You can control and manage cookies in several ways:
-            </p>
-            <ul className="space-y-2 text-gray-600 dark:text-gray-300 mb-4">
-              <li className="flex items-start gap-3">
-                <div className="w-2 h-2 bg-orange-500 rounded-full mt-2 flex-shrink-0"></div>
-                <span>
-                  Browser settings: Most browsers allow you to refuse or delete
-                  cookies
-                </span>
-              </li>
-              <li className="flex items-start gap-3">
-                <div className="w-2 h-2 bg-orange-500 rounded-full mt-2 flex-shrink-0"></div>
-                <span>
-                  Device settings: You can manage cookies through your device
-                  settings
-                </span>
-              </li>
-              <li className="flex items-start gap-3">
-                <div className="w-2 h-2 bg-orange-500 rounded-full mt-2 flex-shrink-0"></div>
-                <span>
-                  Third-party opt-outs: Some third-party services provide
-                  opt-out mechanisms
-                </span>
-              </li>
-            </ul>
-            <div className="bg-orange-50 dark:bg-orange-950/30 rounded-lg p-4 border border-orange-200 dark:border-orange-800">
-              <p className="text-sm text-orange-800 dark:text-orange-200">
-                <strong>Note:</strong> Please note that disabling certain
-                cookies may affect the functionality of our website.
-              </p>
-            </div>
-          </div>
-
-          <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-100 dark:border-gray-700">
-            <h3 className="text-xl font-bold mb-4 text-gray-900 dark:text-white flex items-center gap-3">
-              <div className="w-8 h-8 bg-red-100 dark:bg-red-900 rounded-full flex items-center justify-center">
-                <span className="text-red-600 dark:text-red-400 font-semibold text-sm">
-                  5
-                </span>
-              </div>
-              Updates to This Policy
-            </h3>
-            <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-              We may update this Cookie Policy from time to time. We will notify
-              you of any changes by posting the new policy on this page and
-              updating the &ldquo;Last updated&rdquo; date.
-            </p>
-          </div>
-
-          <div className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-950/50 dark:to-purple-950/50 rounded-xl p-6 border border-blue-200 dark:border-blue-800">
+          <div className="bg-gradient-to-r from-blue-50 to-blue-100 dark:from-blue-950/50 dark:to-blue-900/50 rounded-xl p-6 border border-blue-200 dark:border-blue-800">
             <h3 className="text-xl font-bold mb-4 text-gray-900 dark:text-white flex items-center gap-3">
               <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
-                <span className="text-white font-semibold text-sm">6</span>
+                <span className="text-white font-semibold text-sm">3</span>
               </div>
               Contact Us
             </h3>
