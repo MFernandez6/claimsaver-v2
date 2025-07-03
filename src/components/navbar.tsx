@@ -554,7 +554,7 @@ export default function Navbar() {
                   </h3>
                   <Link
                     href="/who-we-are"
-                    onClick={closeAllDropdowns}
+                    onClick={() => setIsMobileMenuOpen(false)}
                     className="flex items-center gap-3 p-3 rounded-lg transition-all duration-300 hover:bg-gray-50 dark:hover:bg-gray-800/50"
                   >
                     <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-blue-700 rounded-lg flex items-center justify-center text-white">
@@ -564,7 +564,7 @@ export default function Navbar() {
                   </Link>
                   <Link
                     href="/what-we-do"
-                    onClick={closeAllDropdowns}
+                    onClick={() => setIsMobileMenuOpen(false)}
                     className="flex items-center gap-3 p-3 rounded-lg transition-all duration-300 hover:bg-gray-50 dark:hover:bg-gray-800/50"
                   >
                     <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-blue-700 rounded-lg flex items-center justify-center text-white">
