@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@clerk/nextjs/server";
 import dbConnect from "@/lib/db";
 import Document from "@/models/Document";
+import { storeFile } from "@/lib/fileStorage";
 
 export async function GET() {
   try {
@@ -71,20 +72,20 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // For now, we'll store file info without actual file upload
-    // In production, you'd want to upload to a service like AWS S3
+    // Store the actual file
+    const filePath = await storeFile(file, file.name);
     const fileSize = (file.size / (1024 * 1024)).toFixed(1);
     const uploadDate = new Date().toISOString().split("T")[0];
 
     const fileType = file.type.includes("pdf")
       ? "pdf"
       : file.type.includes("image")
-      ? "image"
-      : file.type.includes("video")
-      ? "video"
-      : file.type.includes("audio")
-      ? "audio"
-      : "document";
+        ? "image"
+        : file.type.includes("video")
+          ? "video"
+          : file.type.includes("audio")
+            ? "audio"
+            : "document";
 
     console.log("Connecting to MongoDB...");
     await dbConnect();
@@ -98,7 +99,7 @@ export async function POST(request: NextRequest) {
       size: `${fileSize} MB`,
       uploadDate,
       description: description || "",
-      url: "#", // In production, this would be the actual file URL
+      url: filePath, // Store the actual file path
       fileName: file.name,
       mimeType: file.type,
     });

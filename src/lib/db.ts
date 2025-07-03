@@ -15,12 +15,14 @@ async function dbConnect() {
     );
   }
 
-  const opts = {
-    bufferCommands: false,
-  };
-
-  cached = await mongoose.connect(MONGODB_URI, opts);
-  return cached;
+  try {
+    cached = await mongoose.connect(MONGODB_URI);
+    console.log("✅ MongoDB connected successfully");
+    return cached;
+  } catch (error) {
+    console.error("❌ MongoDB connection error:", error);
+    throw error;
+  }
 }
 
 export default dbConnect;

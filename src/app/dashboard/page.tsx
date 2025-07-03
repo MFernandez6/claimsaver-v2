@@ -17,7 +17,6 @@ import {
   User,
   Calendar,
   MapPin,
-  Car,
   Loader2,
   RefreshCw,
   Upload,
@@ -25,10 +24,15 @@ import {
   Eye,
   Folder,
   FileImage,
+  Trash2,
+  Share2,
 } from "lucide-react";
 import ClaimDetail from "@/components/ClaimDetail";
 import { Modal } from "@/components/ui/modal";
 import { generateClaimPDF } from "@/utils/pdfGenerator";
+import DocumentUploadModal from "@/components/DocumentUploadModal";
+import DocumentPreviewModal from "@/components/DocumentPreviewModal";
+import DocumentShareModal from "@/components/DocumentShareModal";
 
 interface UserClaim {
   _id: string;
@@ -49,14 +53,16 @@ interface UserClaim {
 interface Document {
   _id: string;
   name: string;
-  category: string;
-  subcategory: string;
+  type: string;
   fileType: string;
-  fileSize: number;
-  uploadedAt: string;
-  claimId?: string;
+  size: string;
+  uploadDate: string;
+  description: string;
   url: string;
-  status: "pending" | "approved" | "rejected";
+  fileName: string;
+  mimeType: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 interface ClaimData {
@@ -176,8 +182,8 @@ const documentCategories = {
       claims: "Claims Forms",
     },
   },
-  accident: {
-    label: "Accident Details",
+  evidence: {
+    label: "Evidence",
     color: "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300",
     icon: FileImage,
     subcategories: {
@@ -186,36 +192,25 @@ const documentCategories = {
       witness: "Witness Statements",
     },
   },
-  vehicle: {
-    label: "Vehicle",
-    color:
-      "bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-300",
-    icon: Car,
-    subcategories: {
-      damage: "Damage Photos",
-      repair: "Repair Estimates",
-      registration: "Registration",
-    },
-  },
-  employment: {
-    label: "Employment",
-    color:
-      "bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-300",
-    icon: FileText,
-    subcategories: {
-      wages: "Wage Loss",
-      employment: "Employment Records",
-      benefits: "Benefits Information",
-    },
-  },
   legal: {
     label: "Legal Documents",
-    color: "bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-300",
+    color:
+      "bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-300",
     icon: FileText,
     subcategories: {
       contracts: "Contracts",
       agreements: "Agreements",
       correspondence: "Legal Correspondence",
+    },
+  },
+  other: {
+    label: "Other",
+    color: "bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-300",
+    icon: FileText,
+    subcategories: {
+      misc: "Miscellaneous",
+      notes: "Notes",
+      other: "Other Documents",
     },
   },
 };
@@ -239,75 +234,16 @@ export default function DashboardPage() {
   const [modalLoading, setModalLoading] = useState(false);
   const [modalError, setModalError] = useState<string | null>(null);
   const [downloadingId, setDownloadingId] = useState<string | null>(null);
-
-  // Mock documents data for demonstration
-  const mockDocuments: Document[] = [
-    {
-      _id: "1",
-      name: "Medical Bill - Emergency Room",
-      category: "medical",
-      subcategory: "bills",
-      fileType: "pdf",
-      fileSize: 245760,
-      uploadedAt: "2024-01-15T10:30:00Z",
-      claimId: "claim-001",
-      url: "#",
-      status: "approved",
-    },
-    {
-      _id: "2",
-      name: "Police Report",
-      category: "accident",
-      subcategory: "police",
-      fileType: "pdf",
-      fileSize: 512000,
-      uploadedAt: "2024-01-14T15:45:00Z",
-      claimId: "claim-001",
-      url: "#",
-      status: "approved",
-    },
-    {
-      _id: "3",
-      name: "Vehicle Damage Photos",
-      category: "vehicle",
-      subcategory: "damage",
-      fileType: "jpg",
-      fileSize: 1024000,
-      uploadedAt: "2024-01-13T09:20:00Z",
-      claimId: "claim-001",
-      url: "#",
-      status: "pending",
-    },
-    {
-      _id: "4",
-      name: "Insurance Policy",
-      category: "insurance",
-      subcategory: "policy",
-      fileType: "pdf",
-      fileSize: 1536000,
-      uploadedAt: "2024-01-12T14:15:00Z",
-      claimId: "claim-001",
-      url: "#",
-      status: "approved",
-    },
-    {
-      _id: "5",
-      name: "Wage Loss Statement",
-      category: "employment",
-      subcategory: "wages",
-      fileType: "pdf",
-      fileSize: 307200,
-      uploadedAt: "2024-01-11T11:30:00Z",
-      claimId: "claim-001",
-      url: "#",
-      status: "pending",
-    },
-  ];
-
-  // Load mock documents on component mount
-  useEffect(() => {
-    setDocuments(mockDocuments);
-  }, []);
+  const [uploadModalOpen, setUploadModalOpen] = useState(false);
+  const [deletingDocumentId, setDeletingDocumentId] = useState<string | null>(
+    null
+  );
+  const [previewModalOpen, setPreviewModalOpen] = useState(false);
+  const [selectedDocument, setSelectedDocument] = useState<Document | null>(
+    null
+  );
+  const [shareModalOpen, setShareModalOpen] = useState(false);
+  const [documentToShare, setDocumentToShare] = useState<Document | null>(null);
 
   // Check if user is admin
   useEffect(() => {
@@ -367,6 +303,22 @@ export default function DashboardPage() {
     }
   };
 
+  const loadDocuments = async () => {
+    try {
+      const response = await fetch("/api/documents");
+      const data = await response.json();
+
+      if (!response.ok) {
+        console.error("Error loading documents:", data.error);
+        return;
+      }
+
+      setDocuments(data || []);
+    } catch (err) {
+      console.error("Error loading documents:", err);
+    }
+  };
+
   useEffect(() => {
     if (isLoaded && !user) {
       router.push("/");
@@ -375,6 +327,7 @@ export default function DashboardPage() {
 
     if (isLoaded && user && !isAdmin && !checkingRole) {
       loadClaims();
+      loadDocuments();
     }
   }, [isLoaded, user, router, isAdmin, checkingRole]);
 
@@ -400,12 +353,8 @@ export default function DashboardPage() {
     }
   };
 
-  const formatFileSize = (bytes: number) => {
-    if (bytes === 0) return "0 Bytes";
-    const k = 1024;
-    const sizes = ["Bytes", "KB", "MB", "GB"];
-    const i = Math.floor(Math.log(bytes) / Math.log(k));
-    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + " " + sizes[i];
+  const formatFileSize = (size: string) => {
+    return size; // Size is already formatted from the API
   };
 
   const getStatusColor = (status: string) => {
@@ -545,6 +494,50 @@ export default function DashboardPage() {
     }
   };
 
+  // Document management functions
+  const handleViewDocument = (doc: Document) => {
+    setSelectedDocument(doc);
+    setPreviewModalOpen(true);
+  };
+
+  const handleShareDocument = (doc: Document) => {
+    setDocumentToShare(doc);
+    setShareModalOpen(true);
+  };
+
+  const handleDeleteDocument = async (documentId: string) => {
+    if (!confirm("Are you sure you want to delete this document?")) {
+      return;
+    }
+
+    setDeletingDocumentId(documentId);
+    try {
+      const response = await fetch(`/api/documents/${documentId}`, {
+        method: "DELETE",
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || "Failed to delete document");
+      }
+
+      // Remove document from state
+      setDocuments((prev) => prev.filter((doc) => doc._id !== documentId));
+    } catch (error) {
+      console.error("Error deleting document:", error);
+      alert(
+        error instanceof Error ? error.message : "Failed to delete document"
+      );
+    } finally {
+      setDeletingDocumentId(null);
+    }
+  };
+
+  const handleUploadSuccess = () => {
+    // Reload documents after successful upload
+    loadDocuments();
+  };
+
   // Show loading while checking admin role or loading data
   if (!isLoaded || checkingRole || (isAdmin && loading)) {
     return (
@@ -590,6 +583,34 @@ export default function DashboardPage() {
           <ClaimDetail claim={selectedClaimFull} />
         ) : null}
       </Modal>
+
+      {/* Document Upload Modal */}
+      <DocumentUploadModal
+        isOpen={uploadModalOpen}
+        onClose={() => setUploadModalOpen(false)}
+        onUploadSuccess={handleUploadSuccess}
+      />
+
+      {/* Document Preview Modal */}
+      <DocumentPreviewModal
+        isOpen={previewModalOpen}
+        onClose={() => {
+          setPreviewModalOpen(false);
+          setSelectedDocument(null);
+        }}
+        document={selectedDocument}
+      />
+
+      {/* Document Share Modal */}
+      <DocumentShareModal
+        isOpen={shareModalOpen}
+        onClose={() => {
+          setShareModalOpen(false);
+          setDocumentToShare(null);
+        }}
+        document={documentToShare}
+      />
+
       {/* Compact Header */}
       <section className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
@@ -868,6 +889,7 @@ export default function DashboardPage() {
                   variant="outline"
                   size="sm"
                   className="border-gray-300 hover:border-gray-400"
+                  onClick={() => setUploadModalOpen(true)}
                 >
                   <Upload className="mr-2 w-4 h-4" />
                   Upload Document
@@ -911,16 +933,12 @@ export default function DashboardPage() {
                   .filter(
                     (doc) =>
                       selectedCategory === "all" ||
-                      doc.category === selectedCategory
+                      doc.type === selectedCategory
                   )
                   .map((document) => {
                     const category =
                       documentCategories[
-                        document.category as keyof typeof documentCategories
-                      ];
-                    const subcategory =
-                      category?.subcategories[
-                        document.subcategory as keyof typeof category.subcategories
+                        document.type as keyof typeof documentCategories
                       ];
 
                     return (
@@ -947,28 +965,27 @@ export default function DashboardPage() {
                                   >
                                     {category?.label}
                                   </Badge>
-                                  {subcategory && (
-                                    <span className="text-xs text-gray-500 dark:text-gray-400">
-                                      {subcategory}
-                                    </span>
-                                  )}
                                 </div>
                                 <div className="flex items-center gap-3 mt-0.5 text-xs text-gray-500 dark:text-gray-400">
-                                  <span>
-                                    {formatFileSize(document.fileSize)}
-                                  </span>
+                                  <span>{formatFileSize(document.size)}</span>
                                   <span>
                                     {new Date(
-                                      document.uploadedAt
+                                      document.uploadDate
                                     ).toLocaleDateString()}
                                   </span>
                                 </div>
+                                {document.description && (
+                                  <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5 truncate">
+                                    {document.description}
+                                  </p>
+                                )}
                               </div>
                             </div>
                             <div className="flex items-center gap-1 flex-shrink-0">
                               <Button
                                 variant="ghost"
                                 size="sm"
+                                onClick={() => handleViewDocument(document)}
                                 className="h-7 w-7 p-0"
                                 title="View Document"
                               >
@@ -977,10 +994,27 @@ export default function DashboardPage() {
                               <Button
                                 variant="ghost"
                                 size="sm"
+                                onClick={() => handleShareDocument(document)}
                                 className="h-7 w-7 p-0"
-                                title="Download Document"
+                                title="Share Document"
                               >
-                                <Download className="w-3.5 h-3.5" />
+                                <Share2 className="w-3.5 h-3.5" />
+                              </Button>
+                              <Button
+                                variant="ghost"
+                                size="sm"
+                                onClick={() =>
+                                  handleDeleteDocument(document._id)
+                                }
+                                className="h-7 w-7 p-0 text-red-600 hover:text-red-700"
+                                title="Delete Document"
+                                disabled={deletingDocumentId === document._id}
+                              >
+                                {deletingDocumentId === document._id ? (
+                                  <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                                ) : (
+                                  <Trash2 className="w-3.5 h-3.5" />
+                                )}
                               </Button>
                             </div>
                           </div>
@@ -992,8 +1026,7 @@ export default function DashboardPage() {
 
               {documents.filter(
                 (doc) =>
-                  selectedCategory === "all" ||
-                  doc.category === selectedCategory
+                  selectedCategory === "all" || doc.type === selectedCategory
               ).length === 0 && (
                 <div className="text-center py-12">
                   <div className="w-16 h-16 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -1008,6 +1041,7 @@ export default function DashboardPage() {
                   <Button
                     variant="outline"
                     className="border-gray-300 hover:border-gray-400"
+                    onClick={() => setUploadModalOpen(true)}
                   >
                     <Upload className="mr-2 w-4 h-4" />
                     Upload Document
