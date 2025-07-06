@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
-import { useTranslation } from "react-i18next";
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -16,41 +16,22 @@ import {
   CheckCircle,
   AlertTriangle,
   DollarSign,
-  User,
   Calendar,
   MapPin,
   Loader2,
-  RefreshCw,
   Upload,
   Download,
   Eye,
   Folder,
-  FileImage,
   Trash2,
-  Share2,
-  Car,
-  Stethoscope,
-  Building2,
-  Receipt,
-  ClipboardList,
-  Bell,
   PlusCircle,
-  Edit3,
-  Save,
-  X,
-  ChevronRight,
-  ChevronDown,
-  AlertCircle,
-  Info,
   Shield,
-  TrendingUp,
-  CalendarDays,
-  Clock3,
-  FileCheck,
-  Phone,
-  Mail,
   MapPinIcon,
   Zap,
+  Share2,
+  Stethoscope,
+  TrendingUp,
+  ClipboardList,
 } from "lucide-react";
 import ClaimDetail from "@/components/ClaimDetail";
 import { Modal } from "@/components/ui/modal";
@@ -282,7 +263,6 @@ const claimsJourneySteps = [
 ];
 
 export default function DashboardPage() {
-  const { t } = useTranslation();
   const { user, isLoaded } = useUser();
   const router = useRouter();
   const [claims, setClaims] = useState<UserClaim[]>([]);
@@ -296,7 +276,6 @@ export default function DashboardPage() {
   const [selectedDocument, setSelectedDocument] = useState<Document | null>(
     null
   );
-  const [isAdmin, setIsAdmin] = useState(false);
   const [checkingRole, setCheckingRole] = useState(true);
   const [upcomingEvents, setUpcomingEvents] = useState<UpcomingEvent[]>([
     {
@@ -370,25 +349,11 @@ export default function DashboardPage() {
   };
 
   useEffect(() => {
-    async function checkAdminRole() {
-      if (isLoaded && user) {
-        try {
-          const adminEmails = ["claimsaverplus@gmail.com"];
-          const userEmail = user.primaryEmailAddress?.emailAddress;
-          const adminStatus = adminEmails.includes(userEmail || "");
-          setIsAdmin(adminStatus);
-        } catch (error) {
-          console.error("Error checking admin role:", error);
-          setIsAdmin(false);
-        } finally {
-          setCheckingRole(false);
-        }
-      } else {
-        setCheckingRole(false);
-      }
+    if (isLoaded && user) {
+      setCheckingRole(false);
+    } else {
+      setCheckingRole(false);
     }
-
-    checkAdminRole();
   }, [isLoaded, user]);
 
   useEffect(() => {
