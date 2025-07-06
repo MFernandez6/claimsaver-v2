@@ -199,12 +199,12 @@ export default function ClaimDetail({ claim }: { claim: ClaimData }) {
             <User className="w-5 h-5" />
             Personal Information
           </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
             <div>
               <label className="text-sm font-medium text-gray-600 dark:text-gray-400">
                 Full Name
               </label>
-              <p className="text-gray-900 dark:text-white">
+              <p className="text-gray-900 dark:text-white break-words">
                 {claim.claimantName || "N/A"}
               </p>
             </div>
@@ -212,7 +212,7 @@ export default function ClaimDetail({ claim }: { claim: ClaimData }) {
               <label className="text-sm font-medium text-gray-600 dark:text-gray-400">
                 Email
               </label>
-              <p className="text-gray-900 dark:text-white">
+              <p className="text-gray-900 dark:text-white break-words">
                 {claim.claimantEmail || "N/A"}
               </p>
             </div>
@@ -220,7 +220,7 @@ export default function ClaimDetail({ claim }: { claim: ClaimData }) {
               <label className="text-sm font-medium text-gray-600 dark:text-gray-400">
                 Phone
               </label>
-              <p className="text-gray-900 dark:text-white">
+              <p className="text-gray-900 dark:text-white break-words">
                 {claim.claimantPhone || "N/A"}
               </p>
             </div>
@@ -228,7 +228,7 @@ export default function ClaimDetail({ claim }: { claim: ClaimData }) {
               <label className="text-sm font-medium text-gray-600 dark:text-gray-400">
                 Date of Birth
               </label>
-              <p className="text-gray-900 dark:text-white">
+              <p className="text-gray-900 dark:text-white break-words">
                 {claim.claimantDOB || "N/A"}
               </p>
             </div>
@@ -236,7 +236,7 @@ export default function ClaimDetail({ claim }: { claim: ClaimData }) {
               <label className="text-sm font-medium text-gray-600 dark:text-gray-400">
                 Address
               </label>
-              <p className="text-gray-900 dark:text-white">
+              <p className="text-gray-900 dark:text-white break-words">
                 {claim.claimantAddress || "N/A"}
               </p>
             </div>
@@ -250,12 +250,12 @@ export default function ClaimDetail({ claim }: { claim: ClaimData }) {
             <Calendar className="w-5 h-5" />
             Accident Details
           </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
             <div>
               <label className="text-sm font-medium text-gray-600 dark:text-gray-400">
                 Date
               </label>
-              <p className="text-gray-900 dark:text-white">
+              <p className="text-gray-900 dark:text-white break-words">
                 {claim.accidentDate
                   ? new Date(claim.accidentDate).toLocaleDateString()
                   : "N/A"}
@@ -265,7 +265,7 @@ export default function ClaimDetail({ claim }: { claim: ClaimData }) {
               <label className="text-sm font-medium text-gray-600 dark:text-gray-400">
                 Location
               </label>
-              <p className="text-gray-900 dark:text-white">
+              <p className="text-gray-900 dark:text-white break-words">
                 {claim.accidentLocation || "N/A"}
               </p>
             </div>
@@ -273,7 +273,7 @@ export default function ClaimDetail({ claim }: { claim: ClaimData }) {
               <label className="text-sm font-medium text-gray-600 dark:text-gray-400">
                 Description
               </label>
-              <p className="text-gray-900 dark:text-white">
+              <p className="text-gray-900 dark:text-white break-words">
                 {claim.accidentDescription || "N/A"}
               </p>
             </div>
@@ -281,7 +281,7 @@ export default function ClaimDetail({ claim }: { claim: ClaimData }) {
               <label className="text-sm font-medium text-gray-600 dark:text-gray-400">
                 Injured
               </label>
-              <p className="text-gray-900 dark:text-white">
+              <p className="text-gray-900 dark:text-white break-words">
                 {claim.injured ? "Yes" : "No"}
               </p>
             </div>
@@ -290,7 +290,7 @@ export default function ClaimDetail({ claim }: { claim: ClaimData }) {
                 <label className="text-sm font-medium text-gray-600 dark:text-gray-400">
                   Injury Description
                 </label>
-                <p className="text-gray-900 dark:text-white">
+                <p className="text-gray-900 dark:text-white break-words">
                   {claim.injuryDescription || "N/A"}
                 </p>
               </div>
@@ -305,12 +305,12 @@ export default function ClaimDetail({ claim }: { claim: ClaimData }) {
             <Car className="w-5 h-5" />
             Vehicle Information
           </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
             <div>
               <label className="text-sm font-medium text-gray-600 dark:text-gray-400">
                 Year
               </label>
-              <p className="text-gray-900 dark:text-white">
+              <p className="text-gray-900 dark:text-white break-words">
                 {claim.vehicleYear || "N/A"}
               </p>
             </div>
@@ -318,7 +318,7 @@ export default function ClaimDetail({ claim }: { claim: ClaimData }) {
               <label className="text-sm font-medium text-gray-600 dark:text-gray-400">
                 Make
               </label>
-              <p className="text-gray-900 dark:text-white">
+              <p className="text-gray-900 dark:text-white break-words">
                 {claim.vehicleMake || "N/A"}
               </p>
             </div>
@@ -326,7 +326,7 @@ export default function ClaimDetail({ claim }: { claim: ClaimData }) {
               <label className="text-sm font-medium text-gray-600 dark:text-gray-400">
                 Model
               </label>
-              <p className="text-gray-900 dark:text-white">
+              <p className="text-gray-900 dark:text-white break-words">
                 {claim.vehicleModel || "N/A"}
               </p>
             </div>
@@ -334,7 +334,7 @@ export default function ClaimDetail({ claim }: { claim: ClaimData }) {
               <label className="text-sm font-medium text-gray-600 dark:text-gray-400">
                 License Plate
               </label>
-              <p className="text-gray-900 dark:text-white">
+              <p className="text-gray-900 dark:text-white break-words">
                 {claim.licensePlate || "N/A"}
               </p>
             </div>
@@ -348,12 +348,12 @@ export default function ClaimDetail({ claim }: { claim: ClaimData }) {
             <Shield className="w-5 h-5" />
             Insurance Information
           </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
             <div>
               <label className="text-sm font-medium text-gray-600 dark:text-gray-400">
                 Company
               </label>
-              <p className="text-gray-900 dark:text-white">
+              <p className="text-gray-900 dark:text-white break-words">
                 {claim.insuranceCompany || "N/A"}
               </p>
             </div>
@@ -361,7 +361,7 @@ export default function ClaimDetail({ claim }: { claim: ClaimData }) {
               <label className="text-sm font-medium text-gray-600 dark:text-gray-400">
                 Policy Number
               </label>
-              <p className="text-gray-900 dark:text-white">
+              <p className="text-gray-900 dark:text-white break-words">
                 {claim.policyNumber || "N/A"}
               </p>
             </div>
@@ -369,7 +369,7 @@ export default function ClaimDetail({ claim }: { claim: ClaimData }) {
               <label className="text-sm font-medium text-gray-600 dark:text-gray-400">
                 Policy Holder
               </label>
-              <p className="text-gray-900 dark:text-white">
+              <p className="text-gray-900 dark:text-white break-words">
                 {claim.policyHolder || "N/A"}
               </p>
             </div>
@@ -377,7 +377,7 @@ export default function ClaimDetail({ claim }: { claim: ClaimData }) {
               <label className="text-sm font-medium text-gray-600 dark:text-gray-400">
                 File Number
               </label>
-              <p className="text-gray-900 dark:text-white">
+              <p className="text-gray-900 dark:text-white break-words">
                 {claim.fileNumber || "N/A"}
               </p>
             </div>
@@ -386,7 +386,7 @@ export default function ClaimDetail({ claim }: { claim: ClaimData }) {
                 <label className="text-sm font-medium text-gray-600 dark:text-gray-400">
                   Adjuster Name
                 </label>
-                <p className="text-gray-900 dark:text-white">
+                <p className="text-gray-900 dark:text-white break-words">
                   {claim.adjusterName}
                 </p>
               </div>
@@ -396,7 +396,7 @@ export default function ClaimDetail({ claim }: { claim: ClaimData }) {
                 <label className="text-sm font-medium text-gray-600 dark:text-gray-400">
                   Adjuster Phone
                 </label>
-                <p className="text-gray-900 dark:text-white">
+                <p className="text-gray-900 dark:text-white break-words">
                   {claim.adjusterPhone}
                 </p>
               </div>
@@ -411,7 +411,7 @@ export default function ClaimDetail({ claim }: { claim: ClaimData }) {
             <DollarSign className="w-5 h-5" />
             Financial Information
           </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
             <div>
               <label className="text-sm font-medium text-gray-600 dark:text-gray-400">
                 Estimated Value
@@ -425,7 +425,7 @@ export default function ClaimDetail({ claim }: { claim: ClaimData }) {
                 <label className="text-sm font-medium text-gray-600 dark:text-gray-400">
                   Medical Bills to Date
                 </label>
-                <p className="text-gray-900 dark:text-white">
+                <p className="text-gray-900 dark:text-white break-words">
                   {claim.medicalBillsToDate}
                 </p>
               </div>
@@ -435,7 +435,7 @@ export default function ClaimDetail({ claim }: { claim: ClaimData }) {
                 <label className="text-sm font-medium text-gray-600 dark:text-gray-400">
                   Wage Loss to Date
                 </label>
-                <p className="text-gray-900 dark:text-white">
+                <p className="text-gray-900 dark:text-white break-words">
                   {claim.wageLossToDate}
                 </p>
               </div>
@@ -445,7 +445,7 @@ export default function ClaimDetail({ claim }: { claim: ClaimData }) {
                 <label className="text-sm font-medium text-gray-600 dark:text-gray-400">
                   Other Expenses
                 </label>
-                <p className="text-gray-900 dark:text-white">
+                <p className="text-gray-900 dark:text-white break-words">
                   {claim.otherExpenses}
                 </p>
               </div>
@@ -459,7 +459,7 @@ export default function ClaimDetail({ claim }: { claim: ClaimData }) {
           <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
             Authorization Status
           </h3>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
             <div className="text-center p-4 bg-blue-50 dark:bg-blue-950/30 rounded-lg">
               <h4 className="font-semibold text-blue-900 dark:text-blue-100 mb-2">
                 Insurance Authorization

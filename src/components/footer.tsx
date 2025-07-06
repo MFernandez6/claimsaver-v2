@@ -567,6 +567,16 @@ export default function Footer() {
                 legal professionals.
               </p>
             </div>
+            <div className="mt-4 p-4 bg-blue-50 dark:bg-blue-950/30 rounded-lg border border-blue-200 dark:border-blue-800">
+              <p className="text-sm text-blue-800 dark:text-blue-200">
+                <strong>Regulatory Update:</strong> We are currently in the
+                process of obtaining our Public Adjuster license to provide
+                enhanced claim adjustment services. This will allow us to offer
+                more comprehensive support for insurance claims while
+                maintaining full compliance with state regulations. Expected
+                completion: Q1 2024.
+              </p>
+            </div>
           </div>
 
           <div className="bg-gradient-to-r from-green-50 to-blue-50 dark:from-green-950/50 dark:to-blue-950/50 rounded-xl p-6 border border-green-200 dark:border-green-800">

@@ -49,7 +49,7 @@ export default function DebugClerk() {
       console.log("Attempting to open sign in...");
       await openSignIn({
         redirectUrl: "/",
-        afterSignInUrl: "/",
+        fallbackRedirectUrl: "/",
       });
     } catch (err) {
       console.error("Sign in error:", err);

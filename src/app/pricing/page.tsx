@@ -17,9 +17,10 @@ import {
   ArrowRight,
   Calculator,
   Award,
-  Users,
   CreditCard,
   FileText,
+  Zap,
+  Bell,
 } from "lucide-react";
 
 export default function Pricing() {
@@ -72,27 +73,6 @@ export default function Pricing() {
       icon: <Clock className="w-6 h-6 text-orange-600" />,
       title: t("pricing.features.fasterProcessing.title"),
       description: t("pricing.features.fasterProcessing.description"),
-    },
-  ];
-
-  const testimonials = [
-    {
-      name: "Sarah M.",
-      location: "Miami, FL",
-      text: "ClaimSaver+ saved me thousands compared to traditional attorney fees. The flat rate was exactly what I needed.",
-      rating: 5,
-    },
-    {
-      name: "Michael R.",
-      location: "Orlando, FL",
-      text: "Transparent pricing and professional service. I kept 95% of my settlement instead of just 67%.",
-      rating: 5,
-    },
-    {
-      name: "Jennifer L.",
-      location: "Tampa, FL",
-      text: "The process was so much simpler and more affordable than I expected. Highly recommend!",
-      rating: 5,
     },
   ];
 
@@ -329,7 +309,7 @@ export default function Pricing() {
             </div>
 
             {/* Payment Services & Summary Card */}
-            <div className="max-w-4xl mx-auto">
+            <div className="max-w-4xl mx-auto relative">
               <Card className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm border-0 shadow-xl">
                 <CardHeader className="pb-6">
                   <CardTitle className="text-2xl font-bold text-gray-900 dark:text-white text-center flex items-center justify-center gap-2">
@@ -481,6 +461,82 @@ export default function Pricing() {
                   </div>
                 </CardContent>
               </Card>
+
+              {/* Public Adjuster License Overlay */}
+              <div className="absolute inset-0 flex items-center justify-center z-20">
+                <div className="bg-white/98 dark:bg-gray-900/98 backdrop-blur-2xl rounded-2xl p-6 shadow-2xl border border-white/20 dark:border-gray-700/20 max-w-sm w-full mx-4 transform scale-105">
+                  {/* Animated Background Elements */}
+                  <div className="absolute inset-0 overflow-hidden rounded-2xl">
+                    <div className="absolute -top-8 -right-8 w-16 h-16 bg-gradient-to-br from-blue-400/20 to-purple-400/20 rounded-full blur-xl animate-pulse"></div>
+                    <div className="absolute -bottom-8 -left-8 w-12 h-12 bg-gradient-to-br from-purple-400/20 to-pink-400/20 rounded-full blur-xl animate-pulse delay-1000"></div>
+                    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-24 h-24 bg-gradient-to-br from-blue-500/10 to-purple-500/10 rounded-full blur-2xl animate-pulse delay-500"></div>
+                  </div>
+
+                  {/* Content */}
+                  <div className="relative z-10 text-center">
+                    {/* Icon with Animation */}
+                    <div className="relative mb-4">
+                      <div className="w-16 h-16 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 rounded-full flex items-center justify-center mx-auto shadow-2xl animate-pulse">
+                        <Shield className="w-8 h-8 text-white animate-bounce" />
+                      </div>
+                      <div className="absolute -top-1 -right-1 w-4 h-4 bg-yellow-400 rounded-full flex items-center justify-center animate-ping">
+                        <Star className="w-2 h-2 text-white" />
+                      </div>
+                      <div className="absolute -bottom-1 -left-1 w-4 h-4 bg-pink-400 rounded-full flex items-center justify-center animate-ping delay-300">
+                        <Award className="w-2 h-2 text-white" />
+                      </div>
+                    </div>
+
+                    {/* Title */}
+                    <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+                      Awaiting{" "}
+                      <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent animate-pulse">
+                        License
+                      </span>
+                    </h3>
+
+                    {/* Subtitle */}
+                    <p className="text-base text-gray-600 dark:text-gray-300 mb-4 leading-relaxed">
+                      Our services are temporarily limited while we obtain our
+                      Public Adjuster license for enhanced claim processing
+                    </p>
+
+                    {/* Features Preview */}
+                    <div className="space-y-2 mb-4">
+                      <div className="flex items-center justify-center gap-2 text-xs text-gray-600 dark:text-gray-400">
+                        <Shield className="w-3 h-3 text-green-500" />
+                        <span>Enhanced claim processing</span>
+                      </div>
+                      <div className="flex items-center justify-center gap-2 text-xs text-gray-600 dark:text-gray-400">
+                        <Clock className="w-3 h-3 text-blue-500" />
+                        <span>Professional adjustment services</span>
+                      </div>
+                      <div className="flex items-center justify-center gap-2 text-xs text-gray-600 dark:text-gray-400">
+                        <Zap className="w-3 h-3 text-yellow-500" />
+                        <span>Full regulatory compliance</span>
+                      </div>
+                    </div>
+
+                    {/* Notification Button */}
+                    <Button className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white py-2 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 group text-sm">
+                      <Bell className="w-3 h-3 mr-2 group-hover:animate-bounce" />
+                      Get Notified When Available
+                    </Button>
+
+                    {/* Progress Indicator */}
+                    <div className="mt-4">
+                      <div className="flex items-center justify-center gap-1 mb-1">
+                        <div className="w-1.5 h-1.5 bg-blue-500 rounded-full animate-pulse"></div>
+                        <div className="w-1.5 h-1.5 bg-purple-500 rounded-full animate-pulse delay-150"></div>
+                        <div className="w-1.5 h-1.5 bg-pink-500 rounded-full animate-pulse delay-300"></div>
+                      </div>
+                      <p className="text-xs text-gray-500 dark:text-gray-400">
+                        License application in progress
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -684,75 +740,6 @@ export default function Pricing() {
                 ))}
               </div>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Testimonials Section */}
-      <section className="py-24 bg-white dark:bg-gray-950 relative overflow-hidden">
-        {/* Background Pattern */}
-        <div className="fixed inset-0 z-0 opacity-15">
-          <div
-            className="absolute inset-0"
-            style={{
-              backgroundImage: `url('/images/logo-blue-black.png')`,
-              backgroundSize: "300px 300px",
-              backgroundRepeat: "repeat",
-              backgroundPosition: "center",
-              opacity: 0.15,
-            }}
-          ></div>
-        </div>
-
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-6">
-              {t("pricing.testimonials.title")}
-            </h2>
-            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-              {t("pricing.testimonials.subtitle")}
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {testimonials.map((testimonial, index) => (
-              <Card
-                key={index}
-                className="group relative overflow-hidden border-0 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 bg-gradient-to-br from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 backdrop-blur-sm"
-              >
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-600/5 to-purple-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                <CardContent className="p-6">
-                  <div className="flex items-center gap-1 mb-4">
-                    {[...Array(5)].map((_, i) => (
-                      <Star
-                        key={i}
-                        className={`w-5 h-5 ${
-                          i < testimonial.rating
-                            ? "text-yellow-400 fill-current"
-                            : "text-gray-300"
-                        }`}
-                      />
-                    ))}
-                  </div>
-                  <p className="text-gray-700 dark:text-gray-300 mb-4 leading-relaxed">
-                    &ldquo;{testimonial.text}&rdquo;
-                  </p>
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="font-semibold text-gray-900 dark:text-white">
-                        {testimonial.name}
-                      </p>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">
-                        {testimonial.location}
-                      </p>
-                    </div>
-                    <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center text-white">
-                      <Users className="w-5 h-5" />
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
           </div>
         </div>
       </section>

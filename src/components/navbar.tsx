@@ -23,7 +23,7 @@ import { useTranslation } from "react-i18next";
 // Wrapper component to handle Clerk authentication
 function AuthSection() {
   const { t } = useTranslation();
-  const { isSignedIn, isLoaded } = useUser();
+  const { isSignedIn, isLoaded, signOut } = useUser();
 
   if (!isLoaded) {
     return (
@@ -32,17 +32,27 @@ function AuthSection() {
   }
 
   return (
-    <div className="hover:scale-105 transition-all duration-300">
+    <div className="flex items-center gap-2">
       {isSignedIn ? (
-        <UserButton
-          appearance={{
-            elements: {
-              avatarBox: "w-9 h-9",
-              userButtonPopoverCard:
-                "shadow-xl border border-gray-200 dark:border-gray-700 rounded-xl",
-            },
-          }}
-        />
+        <>
+          <UserButton
+            appearance={{
+              elements: {
+                avatarBox: "w-9 h-9",
+                userButtonPopoverCard:
+                  "shadow-xl border border-gray-200 dark:border-gray-700 rounded-xl",
+              },
+            }}
+          />
+          <Button
+            size="sm"
+            variant="outline"
+            onClick={() => signOut()}
+            className="border-red-300 text-red-600 hover:bg-red-50 hover:border-red-400 dark:border-red-600 dark:text-red-400 dark:hover:bg-red-950/30 px-3 py-1.5 rounded-lg transition-all duration-300 text-xs"
+          >
+            Sign Out
+          </Button>
+        </>
       ) : (
         <SignInButton mode="modal">
           <Button
@@ -165,7 +175,7 @@ function DropdownMenu({
       </button>
 
       {isOpen && (
-        <div className="absolute top-full left-0 mt-2 w-80 bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl border border-gray-200/50 dark:border-gray-700/50 rounded-xl shadow-2xl z-50 animate-in slide-in-from-top-2 duration-300">
+        <div className="absolute top-full left-0 mt-2 w-80 bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl border border-gray-200/50 dark:border-gray-700/50 rounded-xl shadow-2xl z-[70] animate-in slide-in-from-top-2 duration-300">
           <div className="p-2">
             {items.map((item, index) => (
               <Link
@@ -204,7 +214,7 @@ function DropdownMenu({
 // Mobile auth section
 function MobileAuthSection() {
   const { t } = useTranslation();
-  const { isSignedIn, isLoaded } = useUser();
+  const { isSignedIn, isLoaded, signOut } = useUser();
 
   if (!isLoaded) {
     return (
@@ -215,16 +225,26 @@ function MobileAuthSection() {
   return (
     <>
       {isSignedIn ? (
-        <div className="flex justify-center">
-          <UserButton
-            appearance={{
-              elements: {
-                avatarBox: "w-10 h-10",
-                userButtonPopoverCard:
-                  "shadow-xl border border-gray-200 dark:border-gray-700 rounded-xl",
-              },
-            }}
-          />
+        <div className="space-y-3">
+          <div className="flex justify-center">
+            <UserButton
+              appearance={{
+                elements: {
+                  avatarBox: "w-10 h-10",
+                  userButtonPopoverCard:
+                    "shadow-xl border border-gray-200 dark:border-gray-700 rounded-xl",
+                },
+              }}
+            />
+          </div>
+          <Button
+            size="sm"
+            variant="outline"
+            onClick={() => signOut()}
+            className="w-full border-red-300 text-red-600 hover:bg-red-50 hover:border-red-400 dark:border-red-600 dark:text-red-400 dark:hover:bg-red-950/30 px-4 py-2 rounded-lg transition-all duration-300"
+          >
+            Sign Out
+          </Button>
         </div>
       ) : (
         <SignInButton mode="modal">
@@ -435,7 +455,7 @@ export default function Navbar() {
   // Don't render until mounted to prevent hydration issues
   if (!isMounted) {
     return (
-      <nav className="fixed top-0 left-0 right-0 z-50 transition-all duration-500">
+      <nav className="fixed top-0 left-0 right-0 z-[60] transition-all duration-500">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             {/* Logo placeholder */}
@@ -461,7 +481,7 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className="bg-white dark:bg-gray-900 shadow-lg border-b border-gray-200 dark:border-gray-800 fixed top-0 left-0 right-0 z-50">
+      <nav className="bg-white dark:bg-gray-900 shadow-lg border-b border-gray-200 dark:border-gray-800 fixed top-0 left-0 right-0 z-[60]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             {/* Logo/Brand */}
