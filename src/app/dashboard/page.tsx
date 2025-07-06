@@ -12,9 +12,7 @@ import { Textarea } from "@/components/ui/textarea";
 import {
   FileText,
   Plus,
-  Clock,
   CheckCircle,
-  AlertTriangle,
   DollarSign,
   Calendar,
   MapPin,
@@ -39,6 +37,8 @@ import { generateClaimPDF } from "@/utils/pdfGenerator";
 import DocumentUploadModal from "@/components/DocumentUploadModal";
 import DocumentPreviewModal from "@/components/DocumentPreviewModal";
 import DocumentShareModal from "@/components/DocumentShareModal";
+import type { LucideProps } from "lucide-react";
+import type { ForwardRefExoticComponent, RefAttributes } from "react";
 
 interface UserClaim {
   _id: string;
@@ -192,71 +192,70 @@ interface PolicyLimits {
   comprehensive: number;
 }
 
-const claimsJourneySteps = [
+interface JourneyStep {
+  id: number;
+  title: string;
+  description: string;
+  icon: ForwardRefExoticComponent<
+    Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>
+  >;
+  status: "pending" | "completed";
+  estimatedDays: number;
+  required: boolean;
+}
+
+const claimsJourneySteps: JourneyStep[] = [
   {
     id: 1,
-    title: "Get Your Police Report",
-    description:
-      "We'll help you obtain the official police report from your accident",
+    title: "Initial Consultation",
+    description: "Schedule your first consultation with our team",
     icon: FileText,
-    status: "pending" as const,
-    estimatedDays: 7,
-    required: true,
-  },
-  {
-    id: 2,
-    title: "Start Your Claim",
-    description: "Let's file your initial claim with the insurance company",
-    icon: Upload,
-    status: "pending" as const,
+    status: "pending",
     estimatedDays: 1,
     required: true,
   },
   {
+    id: 2,
+    title: "Document Collection",
+    description: "Gather all necessary medical and accident documents",
+    icon: ClipboardList,
+    status: "pending",
+    estimatedDays: 7,
+    required: true,
+  },
+  {
     id: 3,
-    title: "See Your Doctor",
-    description: "Get your medical evaluation and treatment plan in place",
+    title: "Claim Filing",
+    description: "Submit your claim with all required documentation",
     icon: Stethoscope,
-    status: "pending" as const,
-    estimatedDays: 3,
+    status: "pending",
+    estimatedDays: 14,
     required: true,
   },
   {
     id: 4,
+    title: "Insurance Review",
+    description: "Insurance company reviews your claim",
+    icon: Shield,
+    status: "pending",
+    estimatedDays: 30,
+    required: true,
+  },
+  {
+    id: 5,
     title: "Begin Your Recovery",
     description: "Start your physical therapy and recovery journey",
     icon: TrendingUp,
-    status: "pending" as const,
+    status: "pending",
     estimatedDays: 30,
     required: false,
   },
   {
-    id: 5,
-    title: "Follow Your Treatment Plan",
-    description:
-      "Stay on track with your doctor's recommendations and medications",
-    icon: CheckCircle,
-    status: "pending" as const,
-    estimatedDays: 60,
-    required: true,
-  },
-  {
     id: 6,
-    title: "Gather Your Documents",
-    description:
-      "We'll help you compile all your medical records and claims paperwork",
-    icon: ClipboardList,
-    status: "pending" as const,
-    estimatedDays: 5,
-    required: true,
-  },
-  {
-    id: 7,
-    title: "Get Your Settlement",
-    description:
-      "We'll work with the insurance company to get you the best possible outcome",
+    title: "Settlement Negotiation",
+    description: "Negotiate fair compensation for your injuries",
     icon: DollarSign,
-    status: "pending" as const,
+    status: "pending",
     estimatedDays: 45,
     required: true,
   },
@@ -267,7 +266,6 @@ export default function DashboardPage() {
   const router = useRouter();
   const [claims, setClaims] = useState<UserClaim[]>([]);
   const [documents, setDocuments] = useState<Document[]>([]);
-  const [loading, setLoading] = useState(true);
   const [selectedClaim, setSelectedClaim] = useState<ClaimData | null>(null);
   const [showClaimDetail, setShowClaimDetail] = useState(false);
   const [showUploadModal, setShowUploadModal] = useState(false);
@@ -310,15 +308,22 @@ export default function DashboardPage() {
     },
   ]);
   const [showAddEvent, setShowAddEvent] = useState(false);
-  const [newEvent, setNewEvent] = useState({
+  const [newEvent, setNewEvent] = useState<{
+    title: string;
+    date: string;
+    time: string;
+    type: string;
+    description: string;
+    priority: string;
+  }>({
     title: "",
     date: "",
     time: "",
-    type: "appointment" as const,
+    type: "appointment",
     description: "",
-    priority: "medium" as const,
+    priority: "medium",
   });
-  const [policyLimits, setPolicyLimits] = useState<PolicyLimits>({
+  const [policyLimits] = useState<PolicyLimits>({
     bodilyInjury: {
       perPerson: 25000,
       perAccident: 50000,
@@ -333,7 +338,8 @@ export default function DashboardPage() {
     comprehensive: 500,
   });
 
-  const [journeySteps, setJourneySteps] = useState(claimsJourneySteps);
+  const [journeySteps, setJourneySteps] =
+    useState<JourneyStep[]>(claimsJourneySteps);
 
   const toggleStepCompletion = (stepId: number) => {
     setJourneySteps((prevSteps) =>
@@ -341,7 +347,9 @@ export default function DashboardPage() {
         step.id === stepId
           ? {
               ...step,
-              status: step.status === "completed" ? "pending" : "completed",
+              status: (step.status === "completed"
+                ? "pending"
+                : "completed") as "pending" | "completed",
             }
           : step
       )
@@ -377,8 +385,6 @@ export default function DashboardPage() {
       }
     } catch (error) {
       console.error("Error loading claims:", error);
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -419,21 +425,6 @@ export default function DashboardPage() {
         return "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300";
       default:
         return "bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-300";
-    }
-  };
-
-  const getStatusIcon = (status: string) => {
-    switch (status.toLowerCase()) {
-      case "completed":
-        return <CheckCircle className="w-5 h-5 text-green-600" />;
-      case "in progress":
-        return <Loader2 className="w-5 h-5 text-blue-600 animate-spin" />;
-      case "pending":
-        return <Clock className="w-5 h-5 text-yellow-600" />;
-      case "overdue":
-        return <AlertTriangle className="w-5 h-5 text-red-600" />;
-      default:
-        return <Clock className="w-5 h-5 text-gray-600" />;
     }
   };
 
@@ -517,9 +508,14 @@ export default function DashboardPage() {
       title: newEvent.title,
       date: newEvent.date,
       time: newEvent.time,
-      type: newEvent.type,
+      type: newEvent.type as
+        | "appointment"
+        | "deadline"
+        | "follow-up"
+        | "payment"
+        | "custom",
       description: newEvent.description,
-      priority: newEvent.priority,
+      priority: newEvent.priority as "low" | "medium" | "high",
       completed: false,
     };
 
@@ -598,7 +594,7 @@ export default function DashboardPage() {
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                  {journeySteps.map((step, index) => (
+                  {journeySteps.map((step) => (
                     <div
                       key={step.id}
                       className="flex items-center gap-3 p-3 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-sm hover:shadow-md transition-all duration-300"
@@ -700,9 +696,10 @@ export default function DashboardPage() {
                             onClick={() =>
                               handleDownloadClaim(claim._id, claim.claimNumber)
                             }
-                            className="border-blue-300 text-blue-600 hover:bg-blue-50 dark:border-blue-600 dark:text-blue-400 dark:hover:bg-blue-950/30"
+                            className="flex-1"
                           >
-                            <Download className="w-4 h-4" />
+                            <Download className="w-4 h-4 mr-1" />
+                            Download
                           </Button>
                         </div>
                       </div>
@@ -713,56 +710,64 @@ export default function DashboardPage() {
             )}
 
             {/* Document Repository */}
-            <Card className="shadow-lg border-0 bg-gradient-to-br from-white to-orange-50 dark:from-gray-900 dark:to-orange-950 mt-6">
+            <Card className="shadow-lg border-0 bg-gradient-to-br from-white to-indigo-50 dark:from-gray-900 dark:to-indigo-950 mt-6">
               <CardHeader>
-                <CardTitle className="flex items-center justify-between text-lg font-bold text-gray-900 dark:text-white">
-                  <div className="flex items-center gap-2">
-                    <FileText className="w-5 h-5 text-orange-600" />
-                    Document Repository ({documents.length})
-                  </div>
-                  <Button
-                    size="sm"
-                    onClick={() => setShowUploadModal(true)}
-                    className="bg-orange-600 hover:bg-orange-700 text-white"
-                  >
-                    <Upload className="w-4 h-4 mr-1" />
-                    Upload
-                  </Button>
+                <CardTitle className="flex items-center gap-2 text-lg font-bold text-gray-900 dark:text-white">
+                  <FileText className="w-5 h-5 text-indigo-600" />
+                  Document Repository ({documents.length})
                 </CardTitle>
+                <p className="text-gray-600 dark:text-gray-400">
+                  Upload, view, and manage your important documents
+                </p>
               </CardHeader>
               <CardContent>
-                {documents.length === 0 ? (
-                  <div className="text-center py-8">
-                    <FileText className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                    <p className="text-gray-500 dark:text-gray-400 mb-4">
-                      No documents uploaded yet
-                    </p>
-                    <Button
-                      onClick={() => setShowUploadModal(true)}
-                      className="bg-orange-600 hover:bg-orange-700 text-white"
-                    >
-                      <Upload className="w-4 h-4 mr-2" />
-                      Upload Your First Document
-                    </Button>
-                  </div>
-                ) : (
-                  <div className="space-y-3">
-                    {documents.slice(0, 5).map((doc) => (
+                <div className="space-y-3">
+                  <Button
+                    onClick={() => setShowUploadModal(true)}
+                    className="w-full bg-indigo-600 hover:bg-indigo-700 text-white"
+                  >
+                    <Upload className="w-4 h-4 mr-2" />
+                    Upload Document
+                  </Button>
+                  <Button
+                    onClick={handleViewMostRecentClaim}
+                    variant="outline"
+                    className="w-full border-indigo-300 text-indigo-600 hover:bg-indigo-50 dark:border-indigo-600 dark:text-indigo-400 dark:hover:bg-indigo-950/30"
+                    disabled={claims.length === 0}
+                  >
+                    <Eye className="w-4 h-4 mr-2" />
+                    View Claim
+                  </Button>
+                  <Button
+                    onClick={() => router.push("/claim-form")}
+                    variant="outline"
+                    className="w-full border-indigo-300 text-indigo-600 hover:bg-indigo-50 dark:border-indigo-600 dark:text-indigo-400 dark:hover:bg-indigo-950/30"
+                  >
+                    <Plus className="w-4 h-4 mr-2" />
+                    New Claim
+                  </Button>
+                </div>
+
+                {documents.length > 0 && (
+                  <div className="mt-6 space-y-3">
+                    <h4 className="font-semibold text-gray-900 dark:text-white">
+                      Recent Documents
+                    </h4>
+                    {documents.slice(0, 3).map((doc) => (
                       <div
                         key={doc._id}
-                        className="flex items-center justify-between p-3 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:shadow-md transition-all duration-300"
+                        className="flex items-center justify-between p-3 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800"
                       >
-                        <div className="flex items-center gap-3 flex-1 min-w-0">
-                          <div className="w-8 h-8 bg-gradient-to-r from-orange-500 to-orange-700 rounded-lg flex items-center justify-center text-white">
-                            <FileText className="w-4 h-4" />
+                        <div className="flex items-center gap-3">
+                          <div className="w-10 h-10 bg-indigo-100 dark:bg-indigo-900/30 rounded-lg flex items-center justify-center">
+                            <FileText className="w-5 h-5 text-indigo-600" />
                           </div>
-                          <div className="flex-1 min-w-0">
-                            <h4 className="font-medium text-gray-900 dark:text-white text-sm truncate">
+                          <div>
+                            <h5 className="font-medium text-gray-900 dark:text-white text-sm">
                               {doc.name}
-                            </h4>
+                            </h5>
                             <p className="text-xs text-gray-500 dark:text-gray-400">
-                              {doc.fileType} • {doc.size} •{" "}
-                              {new Date(doc.uploadDate).toLocaleDateString()}
+                              {doc.type} • {doc.size} • {doc.uploadDate}
                             </p>
                           </div>
                         </div>
@@ -771,8 +776,7 @@ export default function DashboardPage() {
                             size="sm"
                             variant="ghost"
                             onClick={() => handleViewDocument(doc)}
-                            className="text-blue-600 hover:text-blue-700"
-                            title="View document"
+                            className="text-indigo-600 hover:text-indigo-700"
                           >
                             <Eye className="w-4 h-4" />
                           </Button>
@@ -781,7 +785,6 @@ export default function DashboardPage() {
                             variant="ghost"
                             onClick={() => handleShareDocument(doc)}
                             className="text-green-600 hover:text-green-700"
-                            title="Share document"
                           >
                             <Share2 className="w-4 h-4" />
                           </Button>
@@ -790,23 +793,12 @@ export default function DashboardPage() {
                             variant="ghost"
                             onClick={() => handleDeleteDocument(doc._id)}
                             className="text-red-600 hover:text-red-700"
-                            title="Delete document"
                           >
                             <Trash2 className="w-4 h-4" />
                           </Button>
                         </div>
                       </div>
                     ))}
-                    {documents.length > 5 && (
-                      <div className="text-center pt-2">
-                        <Button
-                          variant="outline"
-                          className="text-orange-600 border-orange-300 hover:bg-orange-50 dark:border-orange-600 dark:text-orange-400 dark:hover:bg-orange-950/30"
-                        >
-                          View All {documents.length} Documents
-                        </Button>
-                      </div>
-                    )}
                   </div>
                 )}
               </CardContent>
@@ -1049,8 +1041,6 @@ export default function DashboardPage() {
             isOpen={showPreviewModal}
             onClose={() => setShowPreviewModal(false)}
             document={selectedDocument}
-            onDelete={() => handleDeleteDocument(selectedDocument._id)}
-            onShare={() => handleShareDocument(selectedDocument)}
           />
         )}
 
@@ -1115,7 +1105,15 @@ export default function DashboardPage() {
                 <select
                   value={newEvent.type}
                   onChange={(e) =>
-                    setNewEvent({ ...newEvent, type: e.target.value as any })
+                    setNewEvent({
+                      ...newEvent,
+                      type: e.target.value as
+                        | "appointment"
+                        | "deadline"
+                        | "follow-up"
+                        | "payment"
+                        | "custom",
+                    })
                   }
                   className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
                 >
@@ -1135,7 +1133,7 @@ export default function DashboardPage() {
                   onChange={(e) =>
                     setNewEvent({
                       ...newEvent,
-                      priority: e.target.value as any,
+                      priority: e.target.value as "low" | "medium" | "high",
                     })
                   }
                   className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white"

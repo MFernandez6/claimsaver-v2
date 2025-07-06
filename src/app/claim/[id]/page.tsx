@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useUser } from "@clerk/nextjs";
 import { useRouter, useParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
@@ -120,13 +120,9 @@ export default function ClaimDetailPage() {
 
   const claimId = params.id as string;
 
-  useEffect(() => {
-    if (isLoaded && user && claimId) {
-      fetchClaim();
-    }
-  }, [isLoaded, user, claimId]);
+  const fetchClaim = useCallback(async () => {
+    if (!claimId) return;
 
-  const fetchClaim = async () => {
     try {
       setLoading(true);
       const response = await fetch(`/api/claims/${claimId}`);
@@ -142,15 +138,21 @@ export default function ClaimDetailPage() {
         return;
       }
 
-      const claimData = await response.json();
-      setClaim(claimData);
-    } catch (err) {
-      console.error("Error fetching claim:", err);
+      const data = await response.json();
+      setClaim(data);
+    } catch (error) {
+      console.error("Error fetching claim:", error);
       setError("Failed to load claim");
     } finally {
       setLoading(false);
     }
-  };
+  }, [claimId]);
+
+  useEffect(() => {
+    if (isLoaded && user && claimId) {
+      fetchClaim();
+    }
+  }, [isLoaded, user, claimId, fetchClaim]);
 
   const downloadClaim = async () => {
     if (!claim) return;

@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { SignInButton, UserButton, useUser } from "@clerk/nextjs";
+import { SignInButton, UserButton, useUser, useClerk } from "@clerk/nextjs";
 import {
   Sun,
   Moon,
@@ -23,7 +23,8 @@ import { useTranslation } from "react-i18next";
 // Wrapper component to handle Clerk authentication
 function AuthSection() {
   const { t } = useTranslation();
-  const { isSignedIn, isLoaded, signOut } = useUser();
+  const { isSignedIn, isLoaded } = useUser();
+  const { signOut } = useClerk();
 
   if (!isLoaded) {
     return (
@@ -214,7 +215,8 @@ function DropdownMenu({
 // Mobile auth section
 function MobileAuthSection() {
   const { t } = useTranslation();
-  const { isSignedIn, isLoaded, signOut } = useUser();
+  const { isSignedIn, isLoaded } = useUser();
+  const { signOut } = useClerk();
 
   if (!isLoaded) {
     return (
