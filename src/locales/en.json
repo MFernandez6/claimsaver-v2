@@ -23,7 +23,7 @@
     "home": "Home",
     "whoWeAre": "Who We Are",
     "whatWeDo": "What We Do",
-    "attorneyMatching": "Attorney Matching",
+    "attorneyMatching": "Legal Recommendations",
     "pricing": "Pricing",
     "notarization": "Notarization",
     "dashboard": "Dashboard",
@@ -56,8 +56,8 @@
         "description": "Streamlined form submission with real-time validation and instant confirmation."
       },
       "feature2": {
-        "title": "Regional Network",
-        "description": "Access to qualified attorneys in Florida and New York"
+        "title": "Legal Recommendations",
+        "description": "Get recommendations for qualified attorneys based on your specific legal needs"
       },
       "feature3": {
         "title": "Secure Document Management",
@@ -69,7 +69,7 @@
       },
       "feature5": {
         "title": "Recovery Assistance",
-        "description": "Our network of attorneys works to negotiate fair compensation for your damages."
+        "description": "Expert claim adjustment services to maximize your settlement recovery."
       }
     },
     "benefits": {
@@ -78,8 +78,8 @@
         "description": "Real-time form validation and immediate submission confirmation"
       },
       "benefit2": {
-        "title": "Regional Network",
-        "description": "Access to qualified attorneys in Florida and New York"
+        "title": "Legal Recommendations",
+        "description": "Get recommendations for qualified attorneys based on your specific legal needs"
       },
       "benefit3": {
         "title": "Proven Results",
@@ -106,7 +106,7 @@
       "successRate": "Success Rate",
       "successRateValue": "95%",
       "attorneyNetwork": "Attorney Network",
-      "attorneyNetworkValue": "FL & NY",
+      "attorneyNetworkValue": "Currently Servicing Florida",
       "satisfaction": "Customer Satisfaction",
       "satisfactionValue": "4.9/5",
       "flatFeeLabel": "Flat Fee",
@@ -120,8 +120,8 @@
         "answer": "ClaimSaver+ is a technology platform that provides administrative support and attorney referral services. We are NOT a law firm and do NOT provide legal advice or representation. Our platform connects you with licensed attorneys who are independent legal professionals authorized to practice law in your state. We provide administrative support for document organization and attorney referral services that comply with applicable laws and regulations. The attorneys in our network are independent and will provide you with proper legal representation. We do not evaluate cases, provide legal opinions, or represent clients. For legal advice, you should consult with qualified attorneys who can provide you with the legal advice and representation you need."
       },
       "matching": {
-        "question": "How long does it take to get matched with an attorney?",
-        "answer": "We provide instant matching with attorneys in our network. Once you submit your claim information, we'll connect you with qualified attorneys in your area who specialize in accident cases. You can expect to hear from an attorney within 24-48 hours."
+        "question": "How long does it take to get attorney recommendations?",
+        "answer": "We provide instant recommendations for qualified attorneys based on your specific legal needs. Once you submit your claim information, we'll recommend attorneys in your area who specialize in accident cases. You can expect to hear from recommended attorneys within 24-48 hours."
       },
       "accidents": {
         "question": "What types of accidents does ClaimSaver+ handle?",
@@ -133,11 +133,11 @@
       },
       "states": {
         "question": "Is ClaimSaver+ available in all states?",
-        "answer": "ClaimSaver+ currently services Florida and New York, with additional states to be added in the future. We have attorneys licensed in these states and can help you with claims in these service areas."
+        "answer": "ClaimSaver+ currently services Florida, with additional states to be added in the future. We partner with law firms licensed in these states and can help you with claims in these service areas."
       },
       "satisfaction": {
-        "question": "What if I'm not satisfied with the attorney I'm matched with?",
-        "answer": "If you're not satisfied with your initial attorney match, we can help you connect with another attorney in our network. We want to ensure you have the best possible representation for your case."
+        "question": "What if I'm not satisfied with the attorney I'm recommended?",
+        "answer": "If you're not satisfied with your initial attorney recommendation, we can help you connect with another qualified attorney. We want to ensure you have the best possible representation for your case."
       }
     }
   },
@@ -387,11 +387,11 @@
     "hero": {
       "title": "Your Trusted Partner in",
       "subtitle": "Accident Recovery",
-      "description": "We understand that dealing with the aftermath of an accident can be overwhelming. That's why we've created a revolutionary platform that connects you with experienced attorneys in Florida and New York."
+      "description": "We understand that dealing with the aftermath of an accident can be overwhelming. That's why we've created a revolutionary platform that connects you with experienced attorneys in Florida."
     },
     "about": {
       "title": "About ClaimSaver+",
-      "paragraph1": "ClaimSaver+ is a revolutionary platform designed to simplify the process of filing no-fault accident forms and recovering compensation for accident victims. We understand that dealing with the aftermath of an accident can be overwhelming, which is why we've created a user-friendly solution that connects you with experienced attorneys in Florida and New York.",
+      "paragraph1": "ClaimSaver+ is a revolutionary platform designed to simplify the process of filing no-fault accident forms and recovering compensation for accident victims. We understand that dealing with the aftermath of an accident can be overwhelming, which is why we've created a user-friendly solution that connects you with experienced attorneys in Florida.",
       "paragraph2": "Our platform combines cutting-edge technology with expert administrative knowledge to ensure that you receive the support and compensation you deserve. We believe that everyone should have access to quality administrative support, regardless of their circumstances.",
       "paragraph3": "At ClaimSaver+, we're committed to making the administrative process as smooth and stress-free as possible. Our team of professionals works tirelessly to ensure that your case receives the attention it deserves, and we're here to guide you every step of the way.",
       "imageAlt": "ClaimSaver+ Family",
@@ -446,7 +446,7 @@
     "hero": {
       "title": "Comprehensive",
       "subtitle": "Accident Recovery Support",
-      "description": "We provide administrative support and technology solutions to help accident victims navigate the claims process. Our platform connects you with qualified attorneys and streamlines document management for your recovery journey.",
+      "description": "We provide administrative support and technology solutions to help accident victims navigate the claims process. Our platform recommends qualified attorneys and streamlines document management for your recovery journey.",
       "startRecovery": "Start Your Recovery",
       "fileClaim": "File a Claim",
       "imageAlt": "ClaimSaver+ Background"
@@ -467,13 +467,13 @@
         }
       },
       "attorney": {
-        "title": "Attorney Connection Service",
-        "description": "Connect with qualified attorneys in Florida and New York through our referral system.",
+        "title": "Legal Recommendations",
+        "description": "Get recommendations for qualified attorneys in Florida based on your specific legal needs.",
         "features": {
-          "network": "Regional network of qualified attorneys in Florida and New York",
+          "network": "Recommendations for qualified attorneys in Florida",
           "specialized": "Specialized in accident cases",
           "profiles": "Attorney profiles and ratings",
-          "consultation": "Free initial consultation",
+          "consultation": "Initial case evaluation",
           "contact": "Direct attorney contact"
         }
       },
@@ -507,19 +507,19 @@
       "imageAlt": "ClaimSaver+ Background",
       "step1": {
         "title": "Submit Your Information",
-        "description": "Fill out our user-friendly forms and upload supporting documents securely."
+        "description": "Complete our comprehensive intake forms with detailed accident information, upload all supporting documentation including police reports, medical records, and insurance information for secure processing and analysis."
       },
       "step2": {
         "title": "Begin Recovery Process",
-        "description": "Focus on physical therapy, pain relief methodologies, and following your medical treatment plan."
+        "description": "Focus on your physical therapy sessions, pain management protocols, and diligently follow your prescribed medical treatment plan while uploading all medical records and expenses to ClaimSaver's secure document repository."
       },
       "step3": {
         "title": "Follow Medical Guidance",
-        "description": "Continue following your doctors' and medical professionals' treatment plans and recommendations."
+        "description": "Continue adhering to your healthcare providers' treatment recommendations, attend all follow-up appointments, and stay organized by creating calendar entries in ClaimSaver to track your medical appointments and progress."
       },
       "step4": {
-        "title": "Submit Claim & Receive Compensation",
-        "description": "Submit your completed claim and receive compensation for your injuries and damages."
+        "title": "Submit to Insurance",
+        "description": "Once your medical treatment is complete, ClaimSaver will compile your comprehensive claim package and submit it to the insurance adjuster, then advocate and negotiate on your behalf to secure optimal financial recovery."
       }
     },
     "faq": {
@@ -527,11 +527,11 @@
       "subtitle": "Get answers to the most common questions about our services",
       "whatDoWeDo": {
         "question": "What exactly does ClaimSaver+ do for me?",
-        "answer": "ClaimSaver+ provides comprehensive administrative support for accident victims. We help you file no-fault accident forms, connect you with qualified attorneys, manage your documents securely, and guide you through the recovery process. We handle the paperwork while you focus on your recovery."
+        "answer": "ClaimSaver+ provides comprehensive administrative support for accident victims. We help you file no-fault accident forms, recommend qualified attorneys, manage your documents securely, and guide you through the recovery process. We handle the paperwork while you focus on your recovery."
       },
       "attorneyMatching": {
-        "question": "How does the attorney matching process work?",
-        "answer": "Our intelligent matching system analyzes your case details, location, and specific needs to connect you with attorneys who specialize in accident cases in your area. We consider factors like attorney experience, case success rates, and availability to ensure the best possible match for your situation."
+        "question": "How does the attorney recommendation process work?",
+        "answer": "Our intelligent recommendation system analyzes your case details, location, and specific needs to recommend attorneys who specialize in accident cases in your area. We consider factors like attorney experience, case success rates, and availability to ensure the best possible recommendations for your situation."
       },
       "documents": {
         "question": "What documents do I need to provide?",
@@ -561,40 +561,40 @@
   },
   "attorneyMatching": {
     "hero": {
-      "title": "Find Your",
-      "subtitle": "Perfect Attorney Match",
-      "description": "Connect with experienced attorneys who specialize in your specific legal needs. Our intelligent matching system ensures you find the right representation for your case.",
-      "findAttorney": "Find Your Attorney",
+      "title": "Get Professional",
+      "subtitle": "Legal Recommendations",
+      "description": "Receive recommendations for experienced attorneys who specialize in your specific legal needs. Our intelligent recommendation system ensures you find qualified representation for your case.",
+      "findAttorney": "Get Recommendations",
       "learnMore": "Learn More",
       "imageAlt": "ClaimSaver+ Background"
     },
     "features": {
       "title": "Why Choose Our",
-      "subtitle": "Attorney Network?",
-      "description": "Access to qualified attorneys in Florida and New York with proven track records",
+      "subtitle": "Legal Recommendations?",
+      "description": "Get recommendations for qualified attorneys in Florida with proven track records",
       "network": {
-        "title": "Regional Network",
-        "description": "Access to qualified attorneys in Florida and New York"
+        "title": "Qualified Recommendations",
+        "description": "Get recommendations for qualified attorneys in Florida based on your specific needs"
       },
       "trackRecord": {
         "title": "Proven Track Record",
-        "description": "All attorneys in our network have verified credentials and successful case histories."
+        "description": "All recommended attorneys have verified credentials and successful case histories."
       },
       "secure": {
         "title": "Secure & Confidential",
         "description": "Your information is protected with bank-level security and attorney-client privilege."
       },
       "instant": {
-        "title": "Instant Matching",
-        "description": "Get matched with qualified attorneys within minutes, not days or weeks."
+        "title": "Quick Recommendations",
+        "description": "Receive attorney recommendations within minutes, not days or weeks of searching."
       },
       "successRates": {
         "title": "Success Rates",
-        "description": "Our network attorneys have consistently high success rates and client satisfaction scores."
+        "description": "Our recommended attorneys have consistently high success rates and client satisfaction scores."
       },
       "personalized": {
         "title": "Personalized Care",
-        "description": "Each attorney provides personalized attention and dedicated support throughout your case."
+        "description": "Each recommended attorney provides personalized attention and dedicated support throughout your case."
       }
     },
     "practiceAreas": {
@@ -643,7 +643,7 @@
         "detailedDescription": "Criminal defense law involves representing individuals accused of committing crimes. This includes misdemeanors, felonies, DUI cases, drug offenses, and white-collar crimes. Criminal defense attorneys protect constitutional rights, investigate cases, negotiate plea deals, and represent clients in court. They ensure fair treatment throughout the criminal justice process and work to achieve the best possible outcome."
       }
     },
-    "connectionSuccess": "Connection request sent! The attorney will contact you within 24 hours."
+    "connectionSuccess": "Recommendation request sent! The attorney will contact you within 24 hours."
   },
   "success": {
     "loading": {

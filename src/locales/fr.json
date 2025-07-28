@@ -23,7 +23,7 @@
     "home": "Accueil",
     "whoWeAre": "Qui Nous Sommes",
     "whatWeDo": "Ce Que Nous Faisons",
-    "attorneyMatching": "Recherche d'Avocats",
+    "attorneyMatching": "Recommandations Juridiques",
     "pricing": "Tarifs",
     "notarization": "Notarisation",
     "dashboard": "Tableau de Bord",
@@ -56,8 +56,8 @@
         "description": "Soumission de formulaires rationalisée avec validation en temps réel et confirmation instantanée."
       },
       "feature2": {
-        "title": "Réseau Régional",
-        "description": "Accès à des avocats qualifiés en Floride et à New York"
+        "title": "Recommandations Juridiques",
+        "description": "Obtenez des recommandations pour des avocats qualifiés basées sur vos besoins juridiques spécifiques"
       },
       "feature3": {
         "title": "Gestion Sécurisée des Documents",
@@ -69,7 +69,7 @@
       },
       "feature5": {
         "title": "Assistance à la Récupération",
-        "description": "Notre réseau travaille à négocier une compensation équitable pour vos dommages."
+        "description": "Services d'expertise en sinistres pour maximiser votre récupération d'indemnisation."
       }
     },
     "benefits": {
@@ -78,8 +78,8 @@
         "description": "Validation de formulaires en temps réel et confirmation immédiate de soumission"
       },
       "benefit2": {
-        "title": "Réseau Régional",
-        "description": "Accès à des avocats qualifiés en Floride et à New York"
+        "title": "Recommandations Juridiques",
+        "description": "Obtenez des recommandations pour des avocats qualifiés basées sur vos besoins juridiques spécifiques"
       },
       "benefit3": {
         "title": "Résultats Prouvés",
@@ -106,7 +106,7 @@
       "successRate": "Taux de Réussite",
       "successRateValue": "95%",
       "attorneyNetwork": "Réseau d'Avocats",
-      "attorneyNetworkValue": "FL & NY",
+      "attorneyNetworkValue": "Dessert Actuellement la Floride",
       "satisfaction": "Satisfaction Client",
       "satisfactionValue": "4.9/5",
       "flatFeeLabel": "Tarif Fixe",
@@ -120,8 +120,8 @@
         "answer": "ClaimSaver+ a été créé par des professionnels juridiques expérimentés qui voulaient rationaliser le processus de dépôt et de récupération de réclamations d'accident. Notre plateforme vous connecte avec des avocats agréés qui se spécialisent dans les cas d'accident et sont autorisés à exercer le droit dans votre état. Nous fournissons une assistance pour le dépôt de formulaires, la gestion de documents et des services de jumelage d'avocats qui respectent toutes les lois et réglementations applicables. Les avocats de notre réseau sont des professionnels juridiques indépendants qui vous fourniront une représentation juridique appropriée. Comme pour toute affaire juridique, il est important de travailler avec des avocats qualifiés qui peuvent vous fournir les conseils et la représentation juridiques dont vous avez besoin."
       },
       "matching": {
-        "question": "Combien de temps faut-il pour être jumelé avec un avocat?",
-        "answer": "Nous fournissons un jumelage instantané avec des avocats de notre réseau. Une fois que vous soumettez les informations de votre réclamation, nous vous connecterons avec des avocats qualifiés de votre région qui se spécialisent dans les cas d'accident. Vous pouvez vous attendre à entendre d'un avocat dans les 24-48 heures."
+        "question": "Combien de temps faut-il pour obtenir des recommandations d'avocats?",
+        "answer": "Nous fournissons des recommandations instantanées pour des avocats qualifiés basées sur vos besoins juridiques spécifiques. Une fois que vous soumettez les informations de votre réclamation, nous vous recommanderons des avocats de votre région qui se spécialisent dans les cas d'accident. Vous pouvez vous attendre à entendre des avocats recommandés dans les 24-48 heures."
       },
       "accidents": {
         "question": "Quels types d'accidents ClaimSaver+ gère-t-il?",
@@ -133,11 +133,11 @@
       },
       "states": {
         "question": "ClaimSaver+ est-il disponible dans tous les états?",
-        "answer": "ClaimSaver+ dessert actuellement la Floride et New York, avec des états supplémentaires à ajouter à l'avenir. Nous avons des avocats agréés dans ces états et pouvons vous aider avec des réclamations dans ces zones de service."
+        "answer": "ClaimSaver+ dessert actuellement la Floride, avec des états supplémentaires à ajouter à l'avenir. Nous nous associons avec des cabinets d'avocats agréés dans ces états et pouvons vous aider avec des réclamations dans ces zones de service."
       },
       "satisfaction": {
-        "question": "Et si je ne suis pas satisfait de l'avocat avec lequel je suis jumelé?",
-        "answer": "Si vous n'êtes pas satisfait de votre jumelage d'avocat initial, nous pouvons vous aider à vous connecter avec un autre avocat de notre réseau. Nous voulons nous assurer que vous avez la meilleure représentation possible pour votre cas."
+        "question": "Et si je ne suis pas satisfait de l'avocat qui m'a été recommandé?",
+        "answer": "Si vous n'êtes pas satisfait de votre recommandation d'avocat initiale, nous pouvons vous aider à vous connecter avec un autre avocat qualifié. Nous voulons nous assurer que vous avez la meilleure représentation possible pour votre cas."
       }
     }
   },
@@ -388,11 +388,11 @@
     "hero": {
       "title": "Votre Partenaire de Confiance en",
       "subtitle": "Récupération d'Accident",
-      "description": "Nous comprenons que faire face aux conséquences d'un accident peut être accablant. C'est pourquoi nous avons créé une plateforme révolutionnaire qui vous connecte avec des avocats expérimentés en Floride et à New York."
+      "description": "Nous comprenons que faire face aux conséquences d'un accident peut être accablant. C'est pourquoi nous avons créé une plateforme révolutionnaire qui vous connecte avec des avocats expérimentés en Floride."
     },
     "about": {
       "title": "À Propos de ClaimSaver+",
-      "paragraph1": "ClaimSaver+ est une plateforme révolutionnaire conçue pour simplifier le processus de dépôt de formulaires d'accident sans faute et récupérer une compensation pour les victimes d'accident. Nous comprenons que faire face aux conséquences d'un accident peut être accablant, c'est pourquoi nous avons créé une solution conviviale qui vous connecte avec des avocats expérimentés en Floride et à New York.",
+      "paragraph1": "ClaimSaver+ est une plateforme révolutionnaire conçue pour simplifier le processus de dépôt de formulaires d'accident sans faute et récupérer une compensation pour les victimes d'accident. Nous comprenons que faire face aux conséquences d'un accident peut être accablant, c'est pourquoi nous avons créé une solution conviviale qui vous connecte avec des avocats expérimentés en Floride.",
       "paragraph2": "Notre plateforme combine une technologie de pointe avec une expertise juridique pour s'assurer que vous recevez le soutien et la compensation que vous méritez. Nous croyons que tout le monde devrait avoir accès à une représentation juridique de qualité, quelles que soient leurs circonstances.",
       "paragraph3": "Chez ClaimSaver+, nous nous engageons à rendre le processus juridique aussi fluide et sans stress que possible. Notre équipe de professionnels travaille sans relâche pour s'assurer que votre cas reçoit l'attention qu'il mérite, et nous sommes là pour vous guider à chaque étape du chemin.",
       "imageAlt": "Famille ClaimSaver+",
@@ -468,13 +468,13 @@
         }
       },
       "attorney": {
-        "title": "Service de Connexion d'Avocat",
-        "description": "Connectez-vous avec des avocats qualifiés en Floride et à New York grâce à notre système de référence.",
+        "title": "Recommandations Juridiques",
+        "description": "Obtenez des recommandations pour des avocats qualifiés en Floride basées sur vos besoins juridiques spécifiques.",
         "features": {
-          "network": "Réseau régional d'avocats qualifiés en Floride et à New York",
+          "network": "Recommandations pour des avocats qualifiés en Floride",
           "specialized": "Spécialisés dans les cas d'accident",
           "profiles": "Profils et évaluations d'avocats",
-          "consultation": "Consultation initiale gratuite",
+          "consultation": "Évaluation initiale du cas",
           "contact": "Contact direct avec l'avocat"
         }
       },
@@ -508,19 +508,19 @@
       "imageAlt": "Arrière-plan ClaimSaver+",
       "step1": {
         "title": "Soumettre Vos Informations",
-        "description": "Remplissez nos formulaires conviviaux et téléchargez des documents de soutien en toute sécurité."
+        "description": "Complétez nos formulaires d'admission complets avec des informations détaillées sur l'accident, téléchargez toute la documentation de soutien incluant les rapports de police, dossiers médicaux et informations d'assurance pour traitement et analyse sécurisés."
       },
       "step2": {
         "title": "Commencer le Processus de Récupération",
-        "description": "Concentrez-vous sur la physiothérapie, les méthodologies de soulagement de la douleur et suivez votre plan de traitement médical."
+        "description": "Concentrez-vous sur vos séances de physiothérapie, protocoles de gestion de la douleur et suivez diligemment votre plan de traitement médical prescrit tout en téléchargeant tous vos dossiers médicaux et dépenses dans le dépôt de documents sécurisé de ClaimSaver."
       },
       "step3": {
         "title": "Suivre l'Orientation Médicale",
-        "description": "Continuez à suivre les plans de traitement et les recommandations de vos médecins et professionnels de la santé."
+        "description": "Continuez à adhérer aux recommandations de traitement de vos fournisseurs de soins de santé, assistez à tous les rendez-vous de suivi et restez organisé en créant des entrées de calendrier dans ClaimSaver pour suivre vos rendez-vous médicaux et progrès."
       },
       "step4": {
-        "title": "Soumettre Réclamation et Recevoir Compensation",
-        "description": "Soumettez votre réclamation complétée et recevez une compensation pour vos blessures et dommages."
+        "title": "Soumettre à l'Assurance",
+        "description": "Une fois votre traitement médical terminé, ClaimSaver compilera votre dossier de réclamation complet et le soumettra à l'ajusteur d'assurance, puis défendra et négociera en votre nom pour assurer une récupération financière optimale."
       }
     },
     "faq": {
@@ -562,40 +562,40 @@
   },
   "attorneyMatching": {
     "hero": {
-      "title": "Trouvez Votre",
-      "subtitle": "Avocat Parfait",
-      "description": "Connectez-vous avec des avocats expérimentés qui se spécialisent dans vos besoins juridiques spécifiques. Notre système de jumelage intelligent vous assure de trouver la bonne représentation pour votre cas.",
-      "findAttorney": "Trouvez Votre Avocat",
+      "title": "Obtenez des Recommandations",
+      "subtitle": "Juridiques Professionnelles",
+      "description": "Recevez des recommandations pour des avocats expérimentés qui se spécialisent dans vos besoins juridiques spécifiques. Notre système de recommandation intelligent vous assure de trouver une représentation qualifiée pour votre cas.",
+      "findAttorney": "Obtenir des Recommandations",
       "learnMore": "En Savoir Plus",
       "imageAlt": "Arrière-plan ClaimSaver+"
     },
     "features": {
-      "title": "Pourquoi Choisir Notre",
-      "subtitle": "Réseau d'Avocats?",
-      "description": "Accès à des avocats qualifiés en Floride et à New York avec des antécédents prouvés",
+      "title": "Pourquoi Choisir Nos",
+      "subtitle": "Recommandations Juridiques?",
+      "description": "Obtenez des recommandations pour des avocats qualifiés en Floride avec des antécédents prouvés",
       "network": {
-        "title": "Réseau Régional",
-        "description": "Accès à des avocats qualifiés en Floride et à New York"
+        "title": "Recommandations Qualifiées",
+        "description": "Obtenez des recommandations pour des avocats qualifiés en Floride basées sur vos besoins spécifiques"
       },
       "trackRecord": {
         "title": "Antécédents Prouvés",
-        "description": "Tous les avocats de notre réseau ont des références vérifiées et des antécédents de cas réussis."
+        "description": "Tous les avocats recommandés ont des références vérifiées et des antécédents de cas réussis."
       },
       "secure": {
         "title": "Sécurisé et Confidentiel",
         "description": "Vos informations sont protégées avec une sécurité de niveau bancaire et le privilège avocat-client."
       },
       "instant": {
-        "title": "Jumelage Instantané",
-        "description": "Soyez jumelé avec des avocats qualifiés en minutes, pas en jours ou semaines."
+        "title": "Recommandations Rapides",
+        "description": "Recevez des recommandations d'avocats en minutes, pas en jours ou semaines de recherche."
       },
       "successRates": {
         "title": "Taux de Réussite",
-        "description": "Nos avocats de réseau ont des taux de réussite constamment élevés et des scores de satisfaction client."
+        "description": "Nos avocats recommandés ont des taux de réussite constamment élevés et des scores de satisfaction client."
       },
       "personalized": {
         "title": "Soins Personnalisés",
-        "description": "Chaque avocat fournit une attention personnalisée et un soutien dédié tout au long de votre cas."
+        "description": "Chaque avocat recommandé fournit une attention personnalisée et un soutien dédié tout au long de votre cas."
       }
     },
     "practiceAreas": {

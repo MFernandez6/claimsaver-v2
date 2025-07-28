@@ -628,8 +628,8 @@ export default function AttorneyMatching() {
               {currentStep === "details" && (
                 <form onSubmit={handleFormSubmit} className="space-y-4">
                   <p className="text-gray-600 dark:text-gray-300 mb-6">
-                    Please provide your information so we can match you with the
-                    best attorneys:
+                    Please provide your information so we can recommend the best
+                    attorneys for your case:
                   </p>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
@@ -753,7 +753,7 @@ export default function AttorneyMatching() {
                       disabled={isLoading}
                       className="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
                     >
-                      {isLoading ? "Searching..." : "Find Attorneys"}
+                      {isLoading ? "Searching..." : "Get Recommendations"}
                     </Button>
                   </div>
                 </form>
@@ -762,7 +762,8 @@ export default function AttorneyMatching() {
               {currentStep === "results" && (
                 <div className="space-y-4">
                   <p className="text-gray-600 dark:text-gray-300 mb-6">
-                    Here are your attorney matches based on your criteria:
+                    Here are your attorney recommendations based on your
+                    criteria:
                   </p>
                   <div className="space-y-4">
                     {attorneys.map((attorney) => (
@@ -807,7 +808,7 @@ export default function AttorneyMatching() {
                                 }
                                 className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
                               >
-                                Connect
+                                Contact
                               </Button>
                             </div>
                           </div>
@@ -1013,7 +1014,7 @@ export default function AttorneyMatching() {
                 <div className="bg-gradient-to-r from-red-50 to-orange-50 dark:from-red-950/30 dark:to-orange-950/30 rounded-xl p-6">
                   <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
                     <AlertTriangle className="w-5 h-5 text-red-600" />
-                    Why Legal Representation is Critical
+                    When Legal Representation is Critical
                   </h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-3">
@@ -1047,7 +1048,7 @@ export default function AttorneyMatching() {
                           <p className="text-sm text-gray-600 dark:text-gray-300">
                             Insurance companies often use aggressive tactics to
                             minimize payouts. Attorneys know how to counter
-                            these strategies.
+                            these strategies effectively.
                           </p>
                         </div>
                       </div>
@@ -1090,25 +1091,56 @@ export default function AttorneyMatching() {
                   </div>
                 </div>
 
-                {/* How ClaimSaver+ Helps Section */}
+                {/* When You Need an Attorney Section */}
                 <div className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-950/30 dark:to-purple-950/30 rounded-xl p-6">
                   <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
                     <Shield className="w-5 h-5 text-blue-600" />
-                    How ClaimSaver+ Revolutionizes Legal Help
+                    Situations Requiring Legal Counsel
                   </h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-4">
                       <div className="flex items-start gap-3">
                         <div className="w-8 h-8 bg-blue-100 dark:bg-blue-900/50 rounded-lg flex items-center justify-center flex-shrink-0">
-                          <Users className="w-4 h-4 text-blue-600" />
+                          <Car className="w-4 h-4 text-blue-600" />
                         </div>
                         <div>
                           <h4 className="font-semibold text-gray-900 dark:text-white">
-                            Verified Attorney Network
+                            Serious Injuries
                           </h4>
                           <p className="text-sm text-gray-600 dark:text-gray-300">
-                            Access to pre-screened, qualified attorneys with
-                            proven track records in your specific legal needs.
+                            When you&apos;ve sustained significant injuries that
+                            require ongoing medical treatment or result in
+                            permanent disability.
+                          </p>
+                        </div>
+                      </div>
+                      <div className="flex items-start gap-3">
+                        <div className="w-8 h-8 bg-blue-100 dark:bg-blue-900/50 rounded-lg flex items-center justify-center flex-shrink-0">
+                          <DollarSign className="w-4 h-4 text-blue-600" />
+                        </div>
+                        <div>
+                          <h4 className="font-semibold text-gray-900 dark:text-white">
+                            Disputed Claims
+                          </h4>
+                          <p className="text-sm text-gray-600 dark:text-gray-300">
+                            When insurance companies deny your claim or offer
+                            insufficient compensation for your damages.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="space-y-4">
+                      <div className="flex items-start gap-3">
+                        <div className="w-8 h-8 bg-blue-100 dark:bg-blue-900/50 rounded-lg flex items-center justify-center flex-shrink-0">
+                          <Scale className="w-4 h-4 text-blue-600" />
+                        </div>
+                        <div>
+                          <h4 className="font-semibold text-gray-900 dark:text-white">
+                            Complex Cases
+                          </h4>
+                          <p className="text-sm text-gray-600 dark:text-gray-300">
+                            When multiple parties are involved or when liability
+                            is unclear and requires legal expertise to resolve.
                           </p>
                         </div>
                       </div>
@@ -1118,42 +1150,11 @@ export default function AttorneyMatching() {
                         </div>
                         <div>
                           <h4 className="font-semibold text-gray-900 dark:text-white">
-                            Instant Matching
+                            Statute of Limitations
                           </h4>
                           <p className="text-sm text-gray-600 dark:text-gray-300">
-                            Get connected with qualified attorneys within
-                            minutes, not days or weeks of searching.
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="space-y-4">
-                      <div className="flex items-start gap-3">
-                        <div className="w-8 h-8 bg-blue-100 dark:bg-blue-900/50 rounded-lg flex items-center justify-center flex-shrink-0">
-                          <DollarSign className="w-4 h-4 text-blue-600" />
-                        </div>
-                        <div>
-                          <h4 className="font-semibold text-gray-900 dark:text-white">
-                            Transparent Pricing
-                          </h4>
-                          <p className="text-sm text-gray-600 dark:text-gray-300">
-                            No hidden fees or surprise costs. Our flat-rate
-                            structure ensures you know exactly what you&apos;ll
-                            pay.
-                          </p>
-                        </div>
-                      </div>
-                      <div className="flex items-start gap-3">
-                        <div className="w-8 h-8 bg-blue-100 dark:bg-blue-900/50 rounded-lg flex items-center justify-center flex-shrink-0">
-                          <TrendingUp className="w-4 h-4 text-blue-600" />
-                        </div>
-                        <div>
-                          <h4 className="font-semibold text-gray-900 dark:text-white">
-                            Maximum Recovery
-                          </h4>
-                          <p className="text-sm text-gray-600 dark:text-gray-300">
-                            Keep more of your settlement with our cost-effective
-                            approach compared to traditional attorney fees.
+                            When approaching legal deadlines that could affect
+                            your ability to file a claim or lawsuit.
                           </p>
                         </div>
                       </div>
@@ -1161,35 +1162,35 @@ export default function AttorneyMatching() {
                   </div>
                 </div>
 
-                {/* Success Statistics */}
+                {/* Benefits of Legal Representation */}
                 <div className="bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-950/30 dark:to-emerald-950/30 rounded-xl p-6">
                   <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
                     <Award className="w-5 h-5 text-green-600" />
-                    Proven Results
+                    Benefits of Professional Legal Help
                   </h3>
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
                     <div>
                       <div className="text-3xl font-bold text-green-600 mb-2">
-                        95%
+                        Expert
                       </div>
                       <p className="text-sm text-gray-600 dark:text-gray-300">
-                        Client Satisfaction Rate
+                        Legal Knowledge & Experience
                       </p>
                     </div>
                     <div>
                       <div className="text-3xl font-bold text-green-600 mb-2">
-                        $2,800
+                        Protection
                       </div>
                       <p className="text-sm text-gray-600 dark:text-gray-300">
-                        Average Savings vs Traditional Fees
+                        Your Rights & Interests
                       </p>
                     </div>
                     <div>
                       <div className="text-3xl font-bold text-green-600 mb-2">
-                        24hrs
+                        Results
                       </div>
                       <p className="text-sm text-gray-600 dark:text-gray-300">
-                        Average Attorney Response Time
+                        Maximum Compensation
                       </p>
                     </div>
                   </div>
@@ -1198,11 +1199,11 @@ export default function AttorneyMatching() {
                 {/* Call to Action */}
                 <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl p-6 text-center">
                   <h3 className="text-xl font-semibold text-white mb-3">
-                    Ready to Get Started?
+                    Ready to Get Professional Legal Help?
                   </h3>
                   <p className="text-blue-100 mb-6">
                     Connect with qualified attorneys who can help you navigate
-                    your legal challenges and maximize your recovery.
+                    your legal challenges and protect your rights.
                   </p>
                   <div className="flex flex-col sm:flex-row gap-4 justify-center">
                     <Button
@@ -1212,7 +1213,7 @@ export default function AttorneyMatching() {
                       }}
                       className="bg-white text-blue-600 hover:bg-gray-100 px-6 py-3 font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
                     >
-                      Find Your Attorney
+                      Get Legal Recommendations
                       <ArrowRight className="ml-2 w-4 h-4" />
                     </Button>
                     <Button
@@ -1220,7 +1221,7 @@ export default function AttorneyMatching() {
                       onClick={handleCloseLearnMoreModal}
                       className="border-white text-white bg-transparent hover:bg-white hover:text-blue-600 px-6 py-3 font-semibold rounded-xl"
                     >
-                      Learn More About Our Services
+                      Learn More About Legal Services
                     </Button>
                   </div>
                 </div>

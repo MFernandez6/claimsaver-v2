@@ -190,7 +190,7 @@ export default function Footer() {
                     className="text-blue-200 hover:text-white transition-colors duration-300 flex items-center gap-2 group text-sm lg:text-base"
                   >
                     <div className="w-1 h-1 bg-blue-400 rounded-full group-hover:bg-white transition-colors"></div>
-                    Attorney Matching
+                    Legal Recommendations
                   </a>
                 </li>
                 <li>
@@ -337,7 +337,10 @@ export default function Footer() {
             <div className="flex flex-col md:flex-row justify-between items-center gap-4">
               <div className="text-center md:text-left">
                 <p className="text-blue-200 text-xs lg:text-sm">
-                  © 2024 ClaimSaver+. All rights reserved.
+                  © 2023 ClaimSaver+
+                </p>
+                <p className="text-blue-200 text-xs opacity-75">
+                  All rights reserved.
                 </p>
               </div>
               <div className="flex flex-wrap justify-center gap-4 lg:gap-6 text-xs lg:text-sm">
@@ -368,16 +371,17 @@ export default function Footer() {
                 <p className="text-xs text-blue-200 leading-relaxed text-center">
                   <strong className="text-red-400">LEGAL DISCLAIMER:</strong>{" "}
                   ClaimSaver+ is a technology platform providing administrative
-                  support and attorney matching services. We are NOT a law firm
-                  and do NOT provide legal advice, case evaluation, or legal
-                  representation. Our services include administrative support
-                  for no-fault accident form filing, attorney matching, document
-                  management, and case tracking. For legal services, you must
-                  consult with attorneys in our network or other qualified legal
-                  professionals. Our flat-rate fee of $500 covers platform
-                  services and attorney matching only. Additional fees may apply
-                  for legal services provided by attorneys. Results may vary.
-                  Past performance does not guarantee future outcomes.
+                  support and legal recommendation services. We are NOT a law
+                  firm and do NOT provide legal advice, case evaluation, or
+                  legal representation. Our services include administrative
+                  support for no-fault accident form filing, legal
+                  recommendations, document management, and case tracking. For
+                  legal services, you must consult with qualified attorneys or
+                  other qualified legal professionals. Our flat-rate fee of $500
+                  covers platform services and administrative support only.
+                  Additional fees may apply for legal services provided by
+                  attorneys. Results may vary. Past performance does not
+                  guarantee future outcomes.
                 </p>
               </div>
             </div>
@@ -548,7 +552,7 @@ export default function Footer() {
               </li>
               <li className="flex items-start gap-3">
                 <div className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0"></div>
-                <span>Attorney matching and referral services</span>
+                <span>Legal recommendation services</span>
               </li>
               <li className="flex items-start gap-3">
                 <div className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0"></div>
@@ -563,8 +567,8 @@ export default function Footer() {
               <p className="text-sm text-red-800 dark:text-red-200">
                 <strong>Important:</strong> We do not provide legal advice, case
                 evaluation, or legal representation. For legal services, you
-                must consult with attorneys in our network or other qualified
-                legal professionals.
+                must consult with qualified attorneys or other qualified legal
+                professionals.
               </p>
             </div>
             <div className="mt-4 p-4 bg-blue-50 dark:bg-blue-950/30 rounded-lg border border-blue-200 dark:border-blue-800">
@@ -591,9 +595,9 @@ export default function Footer() {
               <span className="font-bold text-green-600 dark:text-green-400">
                 $500
               </span>
-              . This fee covers our platform services and attorney matching.
-              Additional fees may apply for legal services provided by attorneys
-              in our network.
+              . This fee covers our platform services and administrative
+              support. Additional fees may apply for legal services provided by
+              attorneys.
             </p>
           </div>
 

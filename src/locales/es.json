@@ -23,7 +23,7 @@
     "home": "Inicio",
     "whoWeAre": "Quiénes Somos",
     "whatWeDo": "Qué Hacemos",
-    "attorneyMatching": "Búsqueda de Abogados",
+    "attorneyMatching": "Recomendaciones Legales",
     "pricing": "Precios",
     "notarization": "Notarización",
     "dashboard": "Panel",
@@ -56,8 +56,8 @@
         "description": "Presentación de formularios optimizada con validación en tiempo real y confirmación instantánea."
       },
       "feature2": {
-        "title": "Red Regional",
-        "description": "Acceso a abogados calificados en Florida y Nueva York"
+        "title": "Recomendaciones Legales",
+        "description": "Obtén recomendaciones para abogados calificados basadas en tus necesidades legales específicas"
       },
       "feature3": {
         "title": "Gestión Segura de Documentos",
@@ -69,7 +69,7 @@
       },
       "feature5": {
         "title": "Asistencia de Recuperación",
-        "description": "Nuestra red trabaja para negociar una compensación justa por tus daños."
+        "description": "Servicios expertos de ajuste de reclamos para maximizar tu recuperación de compensación."
       }
     },
     "benefits": {
@@ -78,8 +78,8 @@
         "description": "Validación de formularios en tiempo real y confirmación inmediata de presentación"
       },
       "benefit2": {
-        "title": "Red Regional",
-        "description": "Acceso a abogados calificados en Florida y Nueva York"
+        "title": "Recomendaciones Legales",
+        "description": "Obtén recomendaciones para abogados calificados basadas en tus necesidades legales específicas"
       },
       "benefit3": {
         "title": "Resultados Comprobados",
@@ -106,7 +106,7 @@
       "successRate": "Tasa de Éxito",
       "successRateValue": "95%",
       "attorneyNetwork": "Red de Abogados",
-      "attorneyNetworkValue": "FL & NY",
+      "attorneyNetworkValue": "Actualmente Atendiendo Florida",
       "satisfaction": "Satisfacción del Cliente",
       "satisfactionValue": "4.9/5",
       "flatFeeLabel": "Tarifa Plana",
@@ -120,8 +120,8 @@
         "answer": "ClaimSaver+ fue creado por profesionales legales experimentados que querían optimizar el proceso de presentación y recuperación de reclamos de accidentes. Nuestra plataforma te conecta con abogados autorizados que se especializan en casos de accidentes y están autorizados para ejercer la abogacía en tu estado. Proporcionamos asistencia para la presentación de formularios, gestión de documentos y servicios de búsqueda de abogados que cumplen con todas las leyes y regulaciones aplicables. Los abogados en nuestra red son profesionales legales independientes que te proporcionarán representación legal adecuada. Como con cualquier asunto legal, es importante trabajar con abogados calificados que puedan proporcionarte el asesoramiento y representación legal que necesitas."
       },
       "matching": {
-        "question": "¿Cuánto tiempo toma ser emparejado con un abogado?",
-        "answer": "Proporcionamos emparejamiento instantáneo con abogados en nuestra red. Una vez que envíes la información de tu reclamo, te conectaremos con abogados calificados en tu área que se especializan en casos de accidentes. Puedes esperar escuchar de un abogado dentro de 24-48 horas."
+        "question": "¿Cuánto tiempo toma obtener recomendaciones de abogados?",
+        "answer": "Proporcionamos recomendaciones instantáneas para abogados calificados basadas en tus necesidades legales específicas. Una vez que envíes la información de tu reclamo, te recomendaremos abogados en tu área que se especializan en casos de accidentes. Puedes esperar escuchar de abogados recomendados dentro de 24-48 horas."
       },
       "accidents": {
         "question": "¿Qué tipos de accidentes maneja ClaimSaver+?",
@@ -133,11 +133,11 @@
       },
       "states": {
         "question": "¿Está ClaimSaver+ disponible en todos los estados?",
-        "answer": "ClaimSaver+ actualmente atiende Florida y Nueva York, con estados adicionales que se agregarán en el futuro. Tenemos abogados autorizados en estos estados y podemos ayudarte con reclamos en estas áreas de servicio."
+        "answer": "ClaimSaver+ actualmente atiende Florida, con estados adicionales que se agregarán en el futuro. Nos asociamos con firmas de abogados autorizadas en estos estados y podemos ayudarte con reclamos en estas áreas de servicio."
       },
       "satisfaction": {
-        "question": "¿Qué pasa si no estoy satisfecho con el abogado con el que fui emparejado?",
-        "answer": "Si no estás satisfecho con tu emparejamiento inicial de abogado, podemos ayudarte a conectarte con otro abogado en nuestra red. Queremos asegurar que tengas la mejor representación posible para tu caso."
+        "question": "¿Qué pasa si no estoy satisfecho con el abogado que me recomendaron?",
+        "answer": "Si no estás satisfecho con tu recomendación inicial de abogado, podemos ayudarte a conectarte con otro abogado calificado. Queremos asegurar que tengas la mejor representación posible para tu caso."
       }
     }
   },
@@ -361,11 +361,11 @@
     "hero": {
       "title": "Tu Socio de Confianza en",
       "subtitle": "Recuperación de Accidentes",
-      "description": "Entendemos que lidiar con las consecuencias de un accidente puede ser abrumador. Por eso hemos creado una plataforma revolucionaria que te conecta con abogados experimentados en Florida y Nueva York."
+      "description": "Entendemos que lidiar con las consecuencias de un accidente puede ser abrumador. Por eso hemos creado una plataforma revolucionaria que te conecta con abogados experimentados en Florida."
     },
     "about": {
       "title": "Acerca de ClaimSaver+",
-      "paragraph1": "ClaimSaver+ es una plataforma revolucionaria diseñada para simplificar el proceso de presentación de formularios de accidentes sin culpa y recuperar compensación para las víctimas de accidentes. Entendemos que lidiar con las consecuencias de un accidente puede ser abrumador, por eso hemos creado una solución fácil de usar que te conecta con abogados experimentados en Florida y Nueva York.",
+      "paragraph1": "ClaimSaver+ es una plataforma revolucionaria diseñada para simplificar el proceso de presentación de formularios de accidentes sin culpa y recuperar compensación para las víctimas de accidentes. Entendemos que lidiar con las consecuencias de un accidente puede ser abrumador, por eso hemos creado una solución fácil de usar que te conecta con abogados experimentados en Florida.",
       "paragraph2": "Nuestra plataforma combina tecnología de vanguardia con conocimiento legal experto para asegurar que recibas el apoyo y la compensación que mereces. Creemos que todos deberían tener acceso a representación legal de calidad, independientemente de sus circunstancias.",
       "paragraph3": "En ClaimSaver+, estamos comprometidos a hacer el proceso legal lo más fluido y libre de estrés posible. Nuestro equipo de profesionales trabaja incansablemente para asegurar que tu caso reciba la atención que merece, y estamos aquí para guiarte en cada paso del camino.",
       "imageAlt": "Familia ClaimSaver+",
@@ -441,13 +441,13 @@
         }
       },
       "attorney": {
-        "title": "Servicio de Conexión con Abogados",
-        "description": "Conéctate con abogados calificados en Florida y Nueva York a través de nuestro sistema de referencias.",
+        "title": "Recomendaciones Legales",
+        "description": "Obtén recomendaciones para abogados calificados en Florida basadas en tus necesidades legales específicas.",
         "features": {
-          "network": "Red regional de abogados calificados en Florida y Nueva York",
+          "network": "Recomendaciones para abogados calificados en Florida",
           "specialized": "Especializados en casos de accidentes",
           "profiles": "Perfiles y calificaciones de abogados",
-          "consultation": "Consulta inicial gratuita",
+          "consultation": "Evaluación inicial del caso",
           "contact": "Contacto directo con abogados"
         }
       },
@@ -481,19 +481,19 @@
       "imageAlt": "Fondo ClaimSaver+",
       "step1": {
         "title": "Envía Tu Información",
-        "description": "Completa nuestros formularios fáciles de usar y sube documentos de respaldo de forma segura."
+        "description": "Completa nuestros formularios integrales de admisión con información detallada del accidente, sube toda la documentación de respaldo incluyendo reportes policiales, registros médicos e información de seguro para procesamiento y análisis seguro."
       },
       "step2": {
         "title": "Inicia el Proceso de Recuperación",
-        "description": "Enfócate en fisioterapia, metodologías de alivio del dolor y seguir tu plan de tratamiento médico."
+        "description": "Enfócate en tus sesiones de fisioterapia, protocolos de manejo del dolor y sigue diligentemente tu plan de tratamiento médico prescrito mientras subes todos los registros médicos y gastos al repositorio seguro de documentos de ClaimSaver."
       },
       "step3": {
         "title": "Sigue la Orientación Médica",
-        "description": "Continúa siguiendo los planes de tratamiento y recomendaciones de tus médicos y profesionales médicos."
+        "description": "Continúa adhiriéndote a las recomendaciones de tratamiento de tus proveedores de salud, asiste a todas las citas de seguimiento y mantente organizado creando entradas de calendario en ClaimSaver para rastrear tus citas médicas y progreso."
       },
       "step4": {
-        "title": "Presenta Reclamo y Recibe Compensación",
-        "description": "Presenta tu reclamo completado y recibe compensación por tus lesiones y daños."
+        "title": "Presentar al Seguro",
+        "description": "Una vez que tu tratamiento médico esté completo, ClaimSaver compilará tu paquete de reclamo integral y lo presentará al ajustador de seguros, luego abogará y negociará en tu nombre para asegurar la recuperación financiera óptima."
       }
     },
     "faq": {
@@ -501,7 +501,7 @@
       "subtitle": "Obtén respuestas a las preguntas más comunes sobre nuestros servicios",
       "whatDoWeDo": {
         "question": "¿Qué hace exactamente ClaimSaver+ por mí?",
-        "answer": "ClaimSaver+ proporciona apoyo administrativo integral para las víctimas de accidentes. Te ayudamos a presentar formularios de accidentes sin culpa, te conectamos con abogados calificados, gestionamos tus documentos de forma segura y te guiamos a través del proceso de recuperación. Nos encargamos del papeleo mientras te enfocas en tu recuperación."
+        "answer": "ClaimSaver+ proporciona apoyo administrativo integral para las víctimas de accidentes. Te ayudamos a presentar formularios de accidentes sin culpa, te recomendamos abogados calificados, gestionamos tus documentos de forma segura y te guiamos a través del proceso de recuperación. Nos encargamos del papeleo mientras te enfocas en tu recuperación."
       },
       "attorneyMatching": {
         "question": "¿Cómo funciona el proceso de búsqueda de abogados?",
@@ -535,40 +535,40 @@
   },
   "attorneyMatching": {
     "hero": {
-      "title": "Encuentra Tu",
-      "subtitle": "Abogado Perfecto",
-      "description": "Conéctate con abogados experimentados que se especializan en tus necesidades legales específicas. Nuestro sistema inteligente de búsqueda asegura que encuentres la representación correcta para tu caso.",
-      "findAttorney": "Encuentra Tu Abogado",
+      "title": "Obtén Recomendaciones",
+      "subtitle": "Legales Profesionales",
+      "description": "Recibe recomendaciones para abogados experimentados que se especializan en tus necesidades legales específicas. Nuestro sistema inteligente de recomendaciones asegura que encuentres representación calificada para tu caso.",
+      "findAttorney": "Obtener Recomendaciones",
       "learnMore": "Más Información",
       "imageAlt": "Fondo ClaimSaver+"
     },
     "features": {
-      "title": "¿Por Qué Elegir Nuestra",
-      "subtitle": "Red de Abogados?",
-      "description": "Acceso a abogados calificados en Florida y Nueva York con historiales comprobados",
+      "title": "¿Por Qué Elegir Nuestras",
+      "subtitle": "Recomendaciones Legales?",
+      "description": "Obtén recomendaciones para abogados calificados en Florida con historiales comprobados",
       "network": {
-        "title": "Red Regional",
-        "description": "Acceso a abogados calificados en Florida y Nueva York"
+        "title": "Recomendaciones Calificadas",
+        "description": "Obtén recomendaciones para abogados calificados en Florida basadas en tus necesidades específicas"
       },
       "trackRecord": {
         "title": "Historial Comprobado",
-        "description": "Todos los abogados en nuestra red tienen credenciales verificadas e historiales de casos exitosos."
+        "description": "Todos los abogados recomendados tienen credenciales verificadas e historiales de casos exitosos."
       },
       "secure": {
         "title": "Seguro y Confidencial",
         "description": "Tu información está protegida con seguridad de nivel bancario y privilegio abogado-cliente."
       },
       "instant": {
-        "title": "Búsqueda Instantánea",
-        "description": "Conéctate con abogados calificados en minutos, no días o semanas."
+        "title": "Recomendaciones Rápidas",
+        "description": "Recibe recomendaciones de abogados en minutos, no días o semanas de búsqueda."
       },
       "successRates": {
         "title": "Tasas de Éxito",
-        "description": "Nuestros abogados de red tienen tasas de éxito consistentemente altas y puntuaciones de satisfacción del cliente."
+        "description": "Nuestros abogados recomendados tienen tasas de éxito consistentemente altas y puntuaciones de satisfacción del cliente."
       },
       "personalized": {
         "title": "Atención Personalizada",
-        "description": "Cada abogado proporciona atención personalizada y apoyo dedicado durante todo tu caso."
+        "description": "Cada abogado recomendado proporciona atención personalizada y apoyo dedicado durante todo tu caso."
       }
     },
     "practiceAreas": {
@@ -617,7 +617,7 @@
         "detailedDescription": "La ley de defensa criminal involucra representar individuos acusados de cometer crímenes. Esto incluye delitos menores, felonías, casos de DUI, ofensas de drogas y crímenes de cuello blanco. Los abogados de defensa criminal protegen derechos constitucionales, investigan casos, negocian acuerdos de culpabilidad y representan clientes en corte. Aseguran tratamiento justo durante todo el proceso de justicia criminal y trabajan para lograr el mejor resultado posible."
       }
     },
-    "connectionSuccess": "¡Solicitud de conexión enviada! El abogado te contactará dentro de 24 horas."
+    "connectionSuccess": "¡Solicitud de recomendación enviada! El abogado te contactará dentro de 24 horas."
   },
   "claimForm": {
     "header": {

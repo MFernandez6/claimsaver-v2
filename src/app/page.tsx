@@ -22,6 +22,7 @@ import {
   Award,
   X,
   Home as HomeIcon,
+  Users,
 } from "lucide-react";
 
 export default function Home() {
@@ -76,6 +77,12 @@ export default function Home() {
       title: t("home.features.feature1.title"),
       description: t("home.features.feature1.description"),
       color: "blue",
+    },
+    {
+      icon: <Users className="w-6 h-6" />,
+      title: t("home.features.feature2.title"),
+      description: t("home.features.feature2.description"),
+      color: "green",
     },
     {
       icon: <Shield className="w-6 h-6" />,

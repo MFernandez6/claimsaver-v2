@@ -730,13 +730,12 @@ export default function DashboardPage() {
                     Upload Document
                   </Button>
                   <Button
-                    onClick={handleViewMostRecentClaim}
+                    onClick={() => router.push("/pricing")}
                     variant="outline"
                     className="w-full border-indigo-300 text-indigo-600 hover:bg-indigo-50 dark:border-indigo-600 dark:text-indigo-400 dark:hover:bg-indigo-950/30"
-                    disabled={claims.length === 0}
                   >
-                    <Eye className="w-4 h-4 mr-2" />
-                    View Claim
+                    <DollarSign className="w-4 h-4 mr-2" />
+                    View Pricing
                   </Button>
                   <Button
                     onClick={() => router.push("/claim-form")}
@@ -832,6 +831,14 @@ export default function DashboardPage() {
                   >
                     <Eye className="w-4 h-4 mr-2" />
                     View Claim
+                  </Button>
+                  <Button
+                    onClick={() => router.push("/pricing")}
+                    variant="outline"
+                    className="w-full border-indigo-300 text-indigo-600 hover:bg-indigo-50 dark:border-indigo-600 dark:text-indigo-400 dark:hover:bg-indigo-950/30"
+                  >
+                    <DollarSign className="w-4 h-4 mr-2" />
+                    View Pricing
                   </Button>
                   <Button
                     onClick={() => router.push("/claim-form")}

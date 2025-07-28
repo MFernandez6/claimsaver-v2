@@ -316,8 +316,5 @@ export default function WhatWeDo() {
         items={faqItems}
       />
     </div>
-    <p>
-      testing
-    </p>
   );
 }

@@ -14,7 +14,6 @@ import {
   FileText,
   Users,
   Award,
-  Globe,
   Zap,
   Upload,
   Rocket,
@@ -34,45 +33,6 @@ export default function Notarization() {
   const handleCloseModal = () => {
     setIsLearnMoreModalOpen(false);
   };
-
-  const features = [
-    {
-      icon: <Shield className="w-6 h-6" />,
-      title: t("notarization.features.secure.title"),
-      description: t("notarization.features.secure.description"),
-      color: "blue",
-    },
-    {
-      icon: <Clock className="w-6 h-6" />,
-      title: t("notarization.features.availability.title"),
-      description: t("notarization.features.availability.description"),
-      color: "green",
-    },
-    {
-      icon: <Globe className="w-6 h-6" />,
-      title: t("notarization.features.remote.title"),
-      description: t("notarization.features.remote.description"),
-      color: "purple",
-    },
-    {
-      icon: <Zap className="w-6 h-6" />,
-      title: t("notarization.features.instant.title"),
-      description: t("notarization.features.instant.description"),
-      color: "orange",
-    },
-    {
-      icon: <Shield className="w-6 h-6" />,
-      title: t("notarization.features.security.title"),
-      description: t("notarization.features.security.description"),
-      color: "red",
-    },
-    {
-      icon: <Award className="w-6 h-6" />,
-      title: t("notarization.features.certified.title"),
-      description: t("notarization.features.certified.description"),
-      color: "yellow",
-    },
-  ];
 
   const benefits = [
     {
@@ -185,63 +145,6 @@ export default function Notarization() {
                 <ArrowRight className="ml-2 w-5 h-5" />
               </Button>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Features Section */}
-      <section className="py-8 bg-white dark:bg-gray-950 relative overflow-hidden">
-        {/* Background Pattern */}
-        <div className="fixed inset-0 z-0 opacity-15">
-          <div
-            className="absolute inset-0"
-            style={{
-              backgroundImage: `url('/images/logo-blue-black.png')`,
-              backgroundSize: "300px 300px",
-              backgroundRepeat: "repeat",
-              backgroundPosition: "center",
-              opacity: 0.15,
-            }}
-          ></div>
-        </div>
-
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-8">
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-              {t("notarization.features.title")}{" "}
-              <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                {t("notarization.features.subtitle")}
-              </span>
-            </h2>
-            <p className="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-              {t("notarization.features.description")}
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {features.map((feature, index) => (
-              <Card
-                key={index}
-                className="group relative overflow-hidden border-0 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 bg-gradient-to-br from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 backdrop-blur-sm"
-              >
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-600/5 to-purple-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                <CardHeader className="pb-3">
-                  <div
-                    className={`w-10 h-10 bg-gradient-to-r from-${feature.color}-500 to-${feature.color}-600 rounded-xl flex items-center justify-center text-white mb-3 group-hover:scale-110 transition-transform duration-300`}
-                  >
-                    {feature.icon}
-                  </div>
-                  <CardTitle className="text-lg font-semibold text-gray-900 dark:text-white">
-                    {feature.title}
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="pt-0">
-                  <p className="text-gray-600 dark:text-gray-300 leading-relaxed text-sm">
-                    {feature.description}
-                  </p>
-                </CardContent>
-              </Card>
-            ))}
           </div>
         </div>
       </section>
