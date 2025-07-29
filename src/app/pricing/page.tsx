@@ -282,7 +282,20 @@ export default function Pricing() {
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-24">
           <div className="text-center max-w-4xl mx-auto">
             <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
-              {t("pricing.title")}
+              {t("pricing.title")
+                .split(", ")
+                .map((part, index, array) => (
+                  <span key={index}>
+                    {index > 0 && ", "}
+                    {index === 1 ? (
+                      <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                        {part}
+                      </span>
+                    ) : (
+                      part
+                    )}
+                  </span>
+                ))}
             </h1>
             <p className="text-xl sm:text-2xl text-gray-600 dark:text-gray-300 mb-8 leading-relaxed max-w-3xl mx-auto">
               {t("pricing.subtitle")}
@@ -310,7 +323,7 @@ export default function Pricing() {
 
             {/* Payment Services & Summary Card */}
             <div className="max-w-4xl mx-auto relative">
-              <Card className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm border-0 shadow-xl">
+              <Card className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-md border-0 shadow-xl">
                 <CardHeader className="pb-6">
                   <CardTitle className="text-2xl font-bold text-gray-900 dark:text-white text-center flex items-center justify-center gap-2">
                     <CreditCard className="w-6 h-6" />
@@ -463,7 +476,7 @@ export default function Pricing() {
               </Card>
 
               {/* Public Adjuster License Overlay */}
-              <div className="absolute inset-0 flex items-center justify-center z-20">
+              <div className="absolute inset-0 backdrop-blur-sm flex items-center justify-center z-20">
                 <div className="bg-white/98 dark:bg-gray-900/98 backdrop-blur-2xl rounded-2xl p-6 shadow-2xl border border-white/20 dark:border-gray-700/20 max-w-sm w-full mx-4 transform scale-105">
                   {/* Animated Background Elements */}
                   <div className="absolute inset-0 overflow-hidden rounded-2xl">
@@ -543,20 +556,15 @@ export default function Pricing() {
       </section>
 
       {/* Pricing Comparison */}
-      <section className="py-24 bg-white dark:bg-gray-950 relative overflow-hidden">
-        {/* Background Pattern */}
-        <div className="fixed inset-0 z-0 opacity-15">
-          <div
-            className="absolute inset-0"
-            style={{
-              backgroundImage: `url('/images/logo-blue-black.png')`,
-              backgroundSize: "300px 300px",
-              backgroundRepeat: "repeat",
-              backgroundPosition: "center",
-              opacity: 0.15,
-            }}
-          ></div>
-        </div>
+      <section className="py-24 relative overflow-hidden">
+        {/* Background Image */}
+        <div
+          className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat opacity-25"
+          style={{
+            backgroundImage: "url('/images/long-logo-ClaimSaver.jpg')",
+          }}
+        ></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-50/60 via-white/70 to-indigo-50/60 dark:from-gray-950/60 dark:via-gray-900/70 dark:to-blue-950/60"></div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
