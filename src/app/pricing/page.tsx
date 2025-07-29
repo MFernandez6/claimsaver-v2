@@ -284,7 +284,7 @@ export default function Pricing() {
             <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
               {t("pricing.title")
                 .split(", ")
-                .map((part, index, array) => (
+                .map((part, index) => (
                   <span key={index}>
                     {index > 0 && ", "}
                     {index === 1 ? (
