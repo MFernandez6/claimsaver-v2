@@ -605,7 +605,7 @@ export default function ClaimFormPage() {
                 <div className="space-y-8">
                   <div className="text-center mb-8">
                     <div className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-r from-blue-100 to-purple-100 dark:from-blue-900/50 dark:to-purple-900/50 rounded-xl mb-4">
-                      <User className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+                      <User className="w-6 h-6 text-blue-400" />
                     </div>
                     <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
                       Personal Information
@@ -692,7 +692,7 @@ export default function ClaimFormPage() {
                 <div className="space-y-8">
                   <div className="text-center mb-8">
                     <div className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-r from-green-100 to-emerald-100 dark:from-green-900/50 dark:to-emerald-900/50 rounded-xl mb-4">
-                      <Car className="w-6 h-6 text-green-600 dark:text-green-400" />
+                      <Car className="w-6 h-6 text-green-400" />
                     </div>
                     <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
                       Vehicle Information
@@ -763,7 +763,7 @@ export default function ClaimFormPage() {
                 <div className="space-y-8">
                   <div className="text-center mb-8">
                     <div className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-r from-orange-100 to-red-100 dark:from-orange-900/50 dark:to-red-900/50 rounded-xl mb-4">
-                      <Calendar className="w-6 h-6 text-orange-600 dark:text-orange-400" />
+                      <Calendar className="w-6 h-6 text-orange-400" />
                     </div>
                     <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
                       Accident Details
@@ -1235,7 +1235,7 @@ export default function ClaimFormPage() {
                 <div className="space-y-8">
                   <div className="text-center mb-8">
                     <div className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-r from-green-100 to-emerald-100 dark:from-green-900/50 dark:to-emerald-900/50 rounded-xl mb-4">
-                      <Shield className="w-6 h-6 text-green-600 dark:text-green-400" />
+                      <Shield className="w-6 h-6 text-green-400" />
                     </div>
                     <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
                       Insurance Information Disclosure Authorization
@@ -2015,7 +2015,7 @@ export default function ClaimFormPage() {
                 <div className="space-y-8">
                   <div className="text-center mb-8">
                     <div className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-r from-blue-100 to-purple-100 dark:from-blue-900/50 dark:to-purple-900/50 rounded-xl mb-4">
-                      <Shield className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+                      <Shield className="w-6 h-6 text-blue-400" />
                     </div>
                     <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
                       HIPAA Authorization Form
@@ -2840,15 +2840,15 @@ export default function ClaimFormPage() {
                 {/* Features Preview */}
                 <div className="space-y-2 mb-4">
                   <div className="flex items-center justify-center gap-2 text-xs text-gray-600 dark:text-gray-400">
-                    <Shield className="w-3 h-3 text-green-500" />
+                    <Shield className="w-3 h-3 text-green-400" />
                     <span>Enhanced claim processing</span>
                   </div>
                   <div className="flex items-center justify-center gap-2 text-xs text-gray-600 dark:text-gray-400">
-                    <Clock className="w-3 h-3 text-blue-500" />
+                    <Clock className="w-3 h-3 text-blue-400" />
                     <span>Professional adjustment services</span>
                   </div>
                   <div className="flex items-center justify-center gap-2 text-xs text-gray-600 dark:text-gray-400">
-                    <Zap className="w-3 h-3 text-yellow-500" />
+                    <Zap className="w-3 h-3 text-yellow-400" />
                     <span>Full regulatory compliance</span>
                   </div>
                 </div>
