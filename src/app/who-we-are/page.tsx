@@ -213,12 +213,24 @@ export default function WhoWeAre() {
                   {/* Founder Image */}
                   <div className="lg:col-span-1">
                     <div className="relative rounded-xl overflow-hidden shadow-lg">
-                      <div className="w-full h-64 bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center">
-                        <div className="text-center text-white">
-                          <div className="w-24 h-24 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                            <Users className="w-12 h-12" />
-                          </div>
-                          <h3 className="text-xl font-semibold">
+                      <div className="w-full h-[500px] bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center">
+                        <div className="relative w-full h-full">
+                          <Image
+                            src="/images/founder1.jpg"
+                            alt="Miguel A. Fernandez - Founder & CEO"
+                            width={320}
+                            height={500}
+                            className="w-full h-full object-cover"
+                            style={{
+                              filter:
+                                "grayscale(100%) contrast(1.2) brightness(1.1)",
+                              objectPosition: "center 15%",
+                            }}
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+                        </div>
+                        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
+                          <h3 className="text-xl font-semibold text-white">
                             Miguel A. Fernandez
                           </h3>
                           <p className="text-blue-100 text-sm">Founder & CEO</p>

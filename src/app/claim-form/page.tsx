@@ -513,8 +513,17 @@ export default function ClaimFormPage() {
               <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl shadow-lg mb-4">
                 <FileText className="w-8 h-8 text-white" />
               </div>
-              <h1 className="text-5xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent mb-4">
-                {t("claimForm.header.title")}
+              <h1 className="text-5xl font-bold mb-4">
+                <span className="font-bold text-gray-900 dark:text-white">
+                  Florida{" "}
+                </span>
+                <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                  No-Fault
+                </span>
+                <span className="font-bold text-gray-900 dark:text-white">
+                  {" "}
+                  Form
+                </span>
               </h1>
               <p className="text-xl text-gray-600 dark:text-gray-300 mb-8">
                 {t("claimForm.header.description")}
@@ -552,7 +561,7 @@ export default function ClaimFormPage() {
             </div>
 
             <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl px-6 py-4 shadow-lg">
-              <h2 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              <h2 className="text-2xl font-bold text-black dark:text-white">
                 {t("claimForm.header.step")} {currentStep}:{" "}
                 {getStepTitle(currentStep)}
               </h2>
