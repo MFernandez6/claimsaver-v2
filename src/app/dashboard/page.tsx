@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useUser } from "@clerk/nextjs";
+import { useUser, useClerk } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -263,6 +263,7 @@ const claimsJourneySteps: JourneyStep[] = [
 
 export default function DashboardPage() {
   const { user, isLoaded } = useUser();
+  const { signOut } = useClerk();
   const router = useRouter();
   const [claims, setClaims] = useState<UserClaim[]>([]);
   const [documents, setDocuments] = useState<Document[]>([]);
@@ -338,12 +339,60 @@ export default function DashboardPage() {
     comprehensive: 500,
   });
 
-  const [journeySteps, setJourneySteps] =
-    useState<JourneyStep[]>(claimsJourneySteps);
+  const [journeySteps, setJourneySteps] = useState<JourneyStep[]>(() => {
+    // Load saved journey steps from localStorage on component mount
+    if (typeof window !== "undefined") {
+      const saved = localStorage.getItem("claimsaver-journey-steps");
+      if (saved) {
+        try {
+          const parsed = JSON.parse(saved);
+          // Merge saved data with default structure to ensure all properties exist
+          return claimsJourneySteps.map((step) => {
+            const savedStep = parsed.find(
+              (s: { id: number; status: string }) => s.id === step.id
+            );
+            return savedStep ? { ...step, status: savedStep.status } : step;
+          });
+        } catch (error) {
+          console.error("Error parsing saved journey steps:", error);
+        }
+      }
+    }
+    return claimsJourneySteps;
+  });
+
+  // Handle session management
+  useEffect(() => {
+    if (isLoaded && user) {
+      // Set session flag when user accesses dashboard
+      sessionStorage.setItem("claimsaver-active-session", "true");
+    } else if (isLoaded && !user) {
+      // User is not signed in, redirect to home
+      router.push("/");
+    }
+  }, [isLoaded, user, router]);
+
+  // Check for valid session after a delay to avoid race conditions
+  useEffect(() => {
+    if (isLoaded && user) {
+      const timer = setTimeout(() => {
+        const activeSession = sessionStorage.getItem(
+          "claimsaver-active-session"
+        );
+        if (!activeSession) {
+          // No active session after delay, force logout and redirect
+          signOut();
+          router.push("/");
+        }
+      }, 2000); // 2 second delay
+
+      return () => clearTimeout(timer);
+    }
+  }, [isLoaded, user, signOut, router]);
 
   const toggleStepCompletion = (stepId: number) => {
-    setJourneySteps((prevSteps) =>
-      prevSteps.map((step) =>
+    setJourneySteps((prevSteps) => {
+      const updatedSteps = prevSteps.map((step) =>
         step.id === stepId
           ? {
               ...step,
@@ -352,8 +401,18 @@ export default function DashboardPage() {
                 : "completed") as "pending" | "completed",
             }
           : step
-      )
-    );
+      );
+
+      // Save to localStorage
+      if (typeof window !== "undefined") {
+        localStorage.setItem(
+          "claimsaver-journey-steps",
+          JSON.stringify(updatedSteps)
+        );
+      }
+
+      return updatedSteps;
+    });
   };
 
   useEffect(() => {

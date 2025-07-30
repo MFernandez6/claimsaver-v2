@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
@@ -27,10 +27,28 @@ import {
 
 export default function Home() {
   const { user, isLoaded } = useUser();
+  const { signOut } = useClerk();
   const router = useRouter();
   const { openSignIn } = useClerk();
   const { t } = useTranslation();
   const [showWelcomeBanner, setShowWelcomeBanner] = useState(true);
+
+  // Check if user has an active session
+  const hasActiveSession =
+    typeof window !== "undefined" &&
+    sessionStorage.getItem("claimsaver-active-session") === "true";
+
+  // Clear Clerk state if user is signed in but no active session
+  useEffect(() => {
+    if (isLoaded && user && !hasActiveSession) {
+      // Add a delay to avoid interfering with sign-in process
+      const timer = setTimeout(() => {
+        signOut();
+      }, 3000); // 3 second delay
+
+      return () => clearTimeout(timer);
+    }
+  }, [isLoaded, user, hasActiveSession, signOut]);
 
   const handleGetStarted = () => {
     openSignIn();
@@ -120,7 +138,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-white dark:bg-gray-950">
       {/* Welcome Banner for Authenticated Users */}
-      {isLoaded && user && showWelcomeBanner && (
+      {isLoaded && user && showWelcomeBanner && hasActiveSession && (
         <div className="fixed top-16 left-0 right-0 z-50 bg-gradient-to-r from-blue-400 to-blue-800 text-white px-4 py-3 shadow-lg">
           <div className="max-w-7xl mx-auto flex items-center justify-between">
             <div className="flex items-center gap-3">

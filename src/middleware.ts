@@ -1,4 +1,5 @@
-import { clerkMiddleware } from "@clerk/nextjs/server";
+import { clerkMiddleware, redirectToSignIn } from "@clerk/nextjs/server";
+import { NextResponse } from "next/server";
 
 // Check if Clerk is properly configured
 const isClerkConfigured =
@@ -6,7 +7,21 @@ const isClerkConfigured =
 
 // Only use Clerk middleware if it's properly configured
 const middleware = isClerkConfigured
-  ? clerkMiddleware()
+  ? clerkMiddleware((auth, req) => {
+      // Check if user is accessing a protected page
+      const protectedPages = ["/dashboard", "/claim", "/claim-form"];
+      const isProtectedPage = protectedPages.some((page) =>
+        req.url.includes(page)
+      );
+
+      if (isProtectedPage && auth.userId) {
+        // For protected pages, check if user has an active session
+        // This will be handled by the client-side components
+        return NextResponse.next();
+      }
+
+      return NextResponse.next();
+    })
   : () => new Response("OK", { status: 200 });
 
 export default middleware;
