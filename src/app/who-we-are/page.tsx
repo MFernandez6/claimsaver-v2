@@ -269,6 +269,37 @@ export default function WhoWeAre() {
 
               <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-xl animate-in fade-in slide-in-from-bottom-4 duration-600 delay-200">
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                  {/* COO Image */}
+                  <div className="lg:col-span-1">
+                    <div className="relative rounded-xl overflow-hidden shadow-lg">
+                      <div className="w-full h-[500px] bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center">
+                        <div className="relative w-full h-full">
+                          <Image
+                            src="/images/COO.JPEG"
+                            alt="Liliana M. Fernandez - Chief Operating Officer"
+                            width={320}
+                            height={500}
+                            className="w-full h-full object-cover"
+                            style={{
+                              filter:
+                                "grayscale(100%) contrast(1.2) brightness(1.1)",
+                              objectPosition: "center 15%",
+                            }}
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+                        </div>
+                        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
+                          <h3 className="text-xl font-semibold text-white">
+                            Liliana M. Fernandez
+                          </h3>
+                          <p className="text-purple-100 text-sm">
+                            Chief Operating Officer
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
                   {/* COO Bio */}
                   <div className="lg:col-span-2 space-y-6">
                     <div>
@@ -345,37 +376,6 @@ export default function WhoWeAre() {
                         practices and optimizing processes to deliver
                         exceptional service to our clients.
                       </p>
-                    </div>
-                  </div>
-
-                  {/* COO Image */}
-                  <div className="lg:col-span-1">
-                    <div className="relative rounded-xl overflow-hidden shadow-lg">
-                      <div className="w-full h-[500px] bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center">
-                        <div className="relative w-full h-full">
-                          <Image
-                            src="/images/COO.JPEG"
-                            alt="Liliana M. Fernandez - Chief Operating Officer"
-                            width={320}
-                            height={500}
-                            className="w-full h-full object-cover"
-                            style={{
-                              filter:
-                                "grayscale(100%) contrast(1.2) brightness(1.1)",
-                              objectPosition: "center 15%",
-                            }}
-                          />
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-                        </div>
-                        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
-                          <h3 className="text-xl font-semibold text-white">
-                            Liliana M. Fernandez
-                          </h3>
-                          <p className="text-purple-100 text-sm">
-                            Chief Operating Officer
-                          </p>
-                        </div>
-                      </div>
                     </div>
                   </div>
                 </div>
