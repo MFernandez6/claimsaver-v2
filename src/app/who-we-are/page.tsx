@@ -123,74 +123,6 @@ export default function WhoWeAre() {
             </div>
           </section>
 
-          {/* Family Story Section */}
-          <section className="py-20 bg-gradient-to-r from-blue-50/80 to-purple-50/80 dark:from-blue-950/40 dark:to-purple-950/40 animate-in fade-in duration-800">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="text-center mb-16 animate-in fade-in slide-in-from-bottom-4 duration-600">
-                <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-6">
-                  <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                    {t("whoWeAre.familyStory.title")}
-                  </span>
-                </h2>
-                <p className="text-xl text-gray-600 dark:text-gray-300 max-w-4xl mx-auto">
-                  <span className="font-bold text-gray-800 dark:text-gray-200">
-                    {t("whoWeAre.familyStory.subtitle")}
-                  </span>
-                </p>
-              </div>
-
-              <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-xl animate-in fade-in slide-in-from-bottom-4 duration-600 delay-200">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-                  <div className="space-y-6">
-                    <div className="flex items-start gap-4">
-                      <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center flex-shrink-0">
-                        <Heart className="w-6 h-6 text-blue-600" />
-                      </div>
-                      <div>
-                        <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
-                          {t("whoWeAre.familyStory.personalJourney.title")}
-                        </h3>
-                        <p className="text-gray-600 dark:text-gray-300">
-                          {t(
-                            "whoWeAre.familyStory.personalJourney.description"
-                          )}
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-start gap-4">
-                      <div className="w-12 h-12 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center flex-shrink-0">
-                        <Target className="w-6 h-6 text-green-600" />
-                      </div>
-                      <div>
-                        <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
-                          {t("whoWeAre.familyStory.mission.title")}
-                        </h3>
-                        <p className="text-gray-600 dark:text-gray-300">
-                          {t("whoWeAre.familyStory.mission.description")}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="relative">
-                    <div className="bg-gradient-to-br from-blue-600 to-purple-600 rounded-2xl p-8 text-white">
-                      <div className="flex items-center gap-3 mb-4">
-                        <Star className="w-6 h-6" />
-                        <h3 className="text-xl font-semibold">
-                          {t("whoWeAre.familyStory.whyWeCare.title")}
-                        </h3>
-                      </div>
-                      <p className="text-blue-100 leading-relaxed">
-                        {t("whoWeAre.familyStory.whyWeCare.quote")}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
-
           {/* Founder Section */}
           <section className="py-20 bg-gradient-to-r from-gray-50/80 to-blue-50/80 dark:from-gray-900/40 dark:to-blue-950/40 animate-in fade-in duration-800">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -311,6 +243,206 @@ export default function WhoWeAre() {
                         Public Adjuster Number license, which will allow him to
                         represent policyholders in insurance claims and ensure
                         they receive fair compensation for their losses.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* COO Section */}
+          <section className="py-20 bg-gradient-to-r from-gray-50/80 to-purple-50/80 dark:from-gray-900/40 dark:to-purple-950/40 animate-in fade-in duration-800">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="text-center mb-16 animate-in fade-in slide-in-from-bottom-4 duration-600">
+                <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-6">
+                  <span className="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+                    Meet Our Chief Operating Officer
+                  </span>
+                </h2>
+                <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+                  <span className="font-semibold text-gray-800 dark:text-gray-200">
+                    Liliana M. Fernandez - Operations & Strategy Specialist
+                  </span>
+                </p>
+              </div>
+
+              <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-xl animate-in fade-in slide-in-from-bottom-4 duration-600 delay-200">
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                  {/* COO Bio */}
+                  <div className="lg:col-span-2 space-y-6">
+                    <div>
+                      <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+                        Operations & Strategy Specialist
+                      </h3>
+                      <p className="text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
+                        Liliana brings extensive experience in operations
+                        management and strategic planning, specializing in
+                        optimizing business processes and driving organizational
+                        growth. Her expertise in operational excellence and
+                        strategic thinking has been instrumental in scaling
+                        ClaimSaver+ operations.
+                      </p>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div className="space-y-6">
+                        <div className="space-y-4">
+                          <h4 className="text-lg font-semibold text-gray-900 dark:text-white">
+                            Education
+                          </h4>
+                          <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-300">
+                            <li>
+                              • Bachelor of Science in Business Administration -
+                              Florida International University
+                            </li>
+                          </ul>
+                        </div>
+
+                        <div className="space-y-4">
+                          <h4 className="text-lg font-semibold text-gray-900 dark:text-white">
+                            Key Skills
+                          </h4>
+                          <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-300">
+                            <li>• Strategic Planning & Implementation</li>
+                            <li>• Process Optimization & Quality Management</li>
+                            <li>• Team Leadership & Development</li>
+                            <li>• Healthcare Operations Management</li>
+                          </ul>
+                        </div>
+                      </div>
+
+                      <div className="space-y-4">
+                        <h4 className="text-lg font-semibold text-gray-900 dark:text-white">
+                          Professional Experience
+                        </h4>
+                        <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-300">
+                          <li>
+                            • Operations Manager - Healthcare Solutions Inc.
+                          </li>
+                          <li>
+                            • Strategic Planning Consultant - Business Growth
+                            Partners
+                          </li>
+                          <li>
+                            • Process Improvement Specialist - Efficiency Corp
+                          </li>
+                          <li>• Business Analyst - Data-Driven Solutions</li>
+                        </ul>
+                      </div>
+                    </div>
+
+                    <div className="bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-950/50 dark:to-pink-950/50 rounded-xl p-6">
+                      <div className="flex items-center gap-3 mb-3">
+                        <Shield className="w-5 h-5 text-purple-600" />
+                        <h4 className="text-lg font-semibold text-gray-900 dark:text-white">
+                          Operational Excellence
+                        </h4>
+                      </div>
+                      <p className="text-gray-600 dark:text-gray-300 text-sm">
+                        Liliana is focused on ensuring operational excellence
+                        and strategic growth for ClaimSaver+, implementing best
+                        practices and optimizing processes to deliver
+                        exceptional service to our clients.
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* COO Image */}
+                  <div className="lg:col-span-1">
+                    <div className="relative rounded-xl overflow-hidden shadow-lg">
+                      <div className="w-full h-[500px] bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center">
+                        <div className="relative w-full h-full">
+                          <Image
+                            src="/images/COO.JPEG"
+                            alt="Liliana M. Fernandez - Chief Operating Officer"
+                            width={320}
+                            height={500}
+                            className="w-full h-full object-cover"
+                            style={{
+                              filter:
+                                "grayscale(100%) contrast(1.2) brightness(1.1)",
+                              objectPosition: "center 15%",
+                            }}
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+                        </div>
+                        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
+                          <h3 className="text-xl font-semibold text-white">
+                            Liliana M. Fernandez
+                          </h3>
+                          <p className="text-purple-100 text-sm">
+                            Chief Operating Officer
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Family Story Section */}
+          <section className="py-20 bg-gradient-to-r from-blue-50/80 to-purple-50/80 dark:from-blue-950/40 dark:to-purple-950/40 animate-in fade-in duration-800">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="text-center mb-16 animate-in fade-in slide-in-from-bottom-4 duration-600">
+                <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-6">
+                  <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                    {t("whoWeAre.familyStory.title")}
+                  </span>
+                </h2>
+                <p className="text-xl text-gray-600 dark:text-gray-300 max-w-4xl mx-auto">
+                  <span className="font-bold text-gray-800 dark:text-gray-200">
+                    {t("whoWeAre.familyStory.subtitle")}
+                  </span>
+                </p>
+              </div>
+
+              <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-xl animate-in fade-in slide-in-from-bottom-4 duration-600 delay-200">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                  <div className="space-y-6">
+                    <div className="flex items-start gap-4">
+                      <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center flex-shrink-0">
+                        <Heart className="w-6 h-6 text-blue-600" />
+                      </div>
+                      <div>
+                        <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+                          {t("whoWeAre.familyStory.personalJourney.title")}
+                        </h3>
+                        <p className="text-gray-600 dark:text-gray-300">
+                          {t(
+                            "whoWeAre.familyStory.personalJourney.description"
+                          )}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="flex items-start gap-4">
+                      <div className="w-12 h-12 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center flex-shrink-0">
+                        <Target className="w-6 h-6 text-green-600" />
+                      </div>
+                      <div>
+                        <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+                          {t("whoWeAre.familyStory.mission.title")}
+                        </h3>
+                        <p className="text-gray-600 dark:text-gray-300">
+                          {t("whoWeAre.familyStory.mission.description")}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="relative">
+                    <div className="bg-gradient-to-br from-blue-600 to-purple-600 rounded-2xl p-8 text-white">
+                      <div className="flex items-center gap-3 mb-4">
+                        <Star className="w-6 h-6" />
+                        <h3 className="text-xl font-semibold">
+                          {t("whoWeAre.familyStory.whyWeCare.title")}
+                        </h3>
+                      </div>
+                      <p className="text-blue-100 leading-relaxed">
+                        {t("whoWeAre.familyStory.whyWeCare.quote")}
                       </p>
                     </div>
                   </div>
