@@ -175,7 +175,7 @@ export default function WhoWeAre() {
                   <div className="lg:col-span-2 space-y-6">
                     <div>
                       <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-                        Bilingual Legal Tech Specialist & Software Engineer
+                        Legal Tech Specialist & Software Engineer
                       </h3>
                       <p className="text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
                         Miguel brings extensive experience in both law and
