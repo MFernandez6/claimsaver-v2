@@ -407,10 +407,17 @@ export default function DashboardPage() {
 
   const loadClaims = async () => {
     try {
+      console.log("Loading claims...");
       const response = await fetch("/api/claims");
+      console.log(`Claims API response status: ${response.status}`);
+
       if (response.ok) {
         const data = await response.json();
+        console.log("Claims data received:", data);
         setClaims(data.claims || []);
+      } else {
+        const errorText = await response.text();
+        console.error(`Claims API error: ${response.status} - ${errorText}`);
       }
     } catch (error) {
       console.error("Error loading claims:", error);
@@ -573,10 +580,21 @@ export default function DashboardPage() {
 
   const handleDownloadClaim = async (claimId: string, claimNumber: string) => {
     try {
+      console.log(
+        `Attempting to download claim: ${claimId}, claimNumber: ${claimNumber}`
+      );
+
       const response = await fetch(`/api/claims/${claimId}`);
+      console.log(`API response status: ${response.status}`);
+
       if (response.ok) {
         const data = await response.json();
+        console.log("Claim data received:", data);
+
+        console.log("Generating PDF...");
         const pdfBlob = await generateClaimPDF(data);
+        console.log("PDF generated successfully");
+
         const url = window.URL.createObjectURL(pdfBlob);
         const link = document.createElement("a");
         link.href = url;
@@ -585,9 +603,18 @@ export default function DashboardPage() {
         link.click();
         document.body.removeChild(link);
         window.URL.revokeObjectURL(url);
+
+        console.log("PDF download initiated");
+      } else {
+        const errorText = await response.text();
+        console.error(`API error: ${response.status} - ${errorText}`);
+        alert(`Failed to download claim: ${response.status} - ${errorText}`);
       }
     } catch (error) {
       console.error("Error downloading claim:", error);
+      alert(
+        `Error downloading claim: ${error instanceof Error ? error.message : "Unknown error"}`
+      );
     }
   };
 
@@ -652,6 +679,15 @@ export default function DashboardPage() {
   if (!user) {
     return null;
   }
+
+  // Debug information
+  console.log("Dashboard state:", {
+    user: user?.id,
+    claimsCount: claims.length,
+    claims: claims,
+    isLoaded,
+    checkingRole,
+  });
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950 pt-16">
