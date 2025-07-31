@@ -28,6 +28,23 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
       );
     }
 
+    // Check if we're in a serverless environment
+    const isServerless =
+      process.env.VERCEL || process.env.NODE_ENV === "production";
+
+    if (isServerless) {
+      // In serverless environments, we can't read files from local filesystem
+      return NextResponse.json(
+        {
+          error: "File download not available",
+          details:
+            "File downloads are not supported in serverless environments. Please implement cloud storage.",
+          code: "SERVERLESS_DOWNLOAD_ERROR",
+        },
+        { status: 500 }
+      );
+    }
+
     // Get the file buffer
     const fileBuffer = await getFileBuffer(document.url);
 
@@ -42,6 +59,22 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
     return response;
   } catch (error) {
     console.error("Error downloading document:", error);
+
+    if (
+      error instanceof Error &&
+      error.message.includes("serverless environment")
+    ) {
+      return NextResponse.json(
+        {
+          error: "File download not available",
+          details:
+            "File downloads are not supported in serverless environments. Please implement cloud storage.",
+          code: "SERVERLESS_DOWNLOAD_ERROR",
+        },
+        { status: 500 }
+      );
+    }
+
     return NextResponse.json(
       { error: "Failed to download document" },
       { status: 500 }

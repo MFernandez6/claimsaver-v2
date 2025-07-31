@@ -72,7 +72,57 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Store the actual file
+    // Check if we're in a serverless environment
+    const isServerless =
+      process.env.VERCEL || process.env.NODE_ENV === "production";
+
+    if (isServerless) {
+      console.warn(
+        "File uploads are not fully supported in serverless environments. Consider implementing cloud storage."
+      );
+
+      // For now, create a document record without actual file storage
+      const fileSize = (file.size / (1024 * 1024)).toFixed(1);
+      const uploadDate = new Date().toISOString().split("T")[0];
+      const fileType = file.type.includes("pdf")
+        ? "pdf"
+        : file.type.includes("image")
+          ? "image"
+          : file.type.includes("video")
+            ? "video"
+            : file.type.includes("audio")
+              ? "audio"
+              : "document";
+
+      console.log("Connecting to MongoDB...");
+      await dbConnect();
+      console.log("Connected to MongoDB successfully");
+
+      const document = new Document({
+        userId,
+        name,
+        type,
+        fileType,
+        size: `${fileSize} MB`,
+        uploadDate,
+        description: description || "",
+        url: `https://placeholder.com/files/${Date.now()}-${file.name}`,
+        fileName: file.name,
+        mimeType: file.type,
+      });
+
+      console.log("Saving document to MongoDB...");
+      await document.save();
+      console.log("Document saved successfully");
+
+      return NextResponse.json({
+        ...document.toObject(),
+        message:
+          "Document metadata saved. File storage not available in serverless environment.",
+      });
+    }
+
+    // Store the actual file (only in development)
     const filePath = await storeFile(file, file.name);
     const fileSize = (file.size / (1024 * 1024)).toFixed(1);
     const uploadDate = new Date().toISOString().split("T")[0];
@@ -145,6 +195,18 @@ export async function POST(request: NextRequest) {
             details:
               "MongoDB host not found. Please check your connection string.",
             code: "HOST_NOT_FOUND",
+          },
+          { status: 500 }
+        );
+      }
+
+      if (error.message.includes("serverless environment")) {
+        return NextResponse.json(
+          {
+            error: "File storage not available",
+            details:
+              "File uploads are not supported in serverless environments. Please implement cloud storage.",
+            code: "SERVERLESS_STORAGE_ERROR",
           },
           { status: 500 }
         );
