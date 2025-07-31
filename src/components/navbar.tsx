@@ -16,6 +16,7 @@ import {
   DollarSign,
   UserCheck,
   Settings,
+  LayoutDashboard,
 } from "lucide-react";
 import LanguageSwitcher from "./language-switcher";
 import { useTranslation } from "react-i18next";
@@ -310,14 +311,22 @@ function MobileDashboardLink({
     >
       <Link
         href={isAdmin ? "/admin" : "/dashboard"}
-        className={`block px-4 py-3 rounded-lg text-base font-medium transition-all duration-300 ${
+        className={`flex items-center gap-3 px-3 py-3 rounded-lg text-base font-medium transition-all duration-300 ${
           pathname === "/admin" || pathname === "/dashboard"
             ? "text-blue-600 bg-blue-50 dark:text-blue-400 dark:bg-blue-950/30"
             : "text-gray-700 hover:text-blue-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-blue-400 dark:hover:bg-gray-800/50"
         }`}
         onClick={onClick}
       >
-        {isAdmin ? "Admin" : t("navigation.dashboard")}
+        <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-blue-700 rounded-lg flex items-center justify-center text-white">
+          <LayoutDashboard className="w-4 h-4" />
+        </div>
+        <div>
+          <div>{isAdmin ? "Admin" : t("navigation.dashboard")}</div>
+          <div className="text-sm text-gray-500 dark:text-gray-400">
+            {isAdmin ? "Admin Panel" : "Your Dashboard"}
+          </div>
+        </div>
       </Link>
     </div>
   );
@@ -566,9 +575,9 @@ export default function Navbar() {
           {isMobileMenuOpen && (
             <div
               ref={mobileMenuRef}
-              className="lg:hidden border-t border-gray-200 dark:border-gray-700 animate-in slide-in-from-top-2 duration-300 bg-white/95 backdrop-blur-xl dark:bg-gray-950/95 shadow-xl max-h-[calc(100vh-4rem)] overflow-y-auto"
+              className="lg:hidden border-t border-gray-200 dark:border-gray-700 animate-in slide-in-from-top-2 duration-300 bg-white/95 backdrop-blur-xl dark:bg-gray-950/95 shadow-xl max-h-[calc(100vh-4rem)] overflow-y-auto overscroll-contain"
             >
-              <div className="px-4 py-6 space-y-4">
+              <div className="px-4 py-6 space-y-4 pb-8">
                 {/* About Section */}
                 <div className="space-y-2">
                   <h3 className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider px-3">
