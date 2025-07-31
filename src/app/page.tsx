@@ -33,10 +33,6 @@ export default function Home() {
   const { t } = useTranslation();
   const [showWelcomeBanner, setShowWelcomeBanner] = useState(true);
   const [videoRef, setVideoRef] = useState<HTMLVideoElement | null>(null);
-  const [hasPlayedOnce, setHasPlayedOnce] = useState(false);
-  const [volumeInterval, setVolumeInterval] = useState<NodeJS.Timeout | null>(
-    null
-  );
 
   // Check if user has an active session
   const hasActiveSession =
@@ -55,60 +51,13 @@ export default function Home() {
     }
   }, [isLoaded, user, hasActiveSession, signOut]);
 
-  // Video volume control effect
+  // Initialize video as muted
   useEffect(() => {
-    if (videoRef && !hasPlayedOnce) {
-      // Start with volume at 0
-      videoRef.volume = 0;
-
-      // Gradually increase volume to 20% over 3 seconds
-      let currentVolume = 0;
-      const targetVolume = 0.2;
-      const duration = 3000; // 3 seconds
-      const steps = 30; // 30 steps for smooth transition
-      const volumeStep = targetVolume / steps;
-      const stepDuration = duration / steps;
-
-      const interval = setInterval(() => {
-        currentVolume += volumeStep;
-        if (currentVolume >= targetVolume) {
-          currentVolume = targetVolume;
-          clearInterval(interval);
-        }
-        videoRef.volume = currentVolume;
-      }, stepDuration);
-
-      setVolumeInterval(interval);
-
-      // Cleanup function
-      return () => {
-        if (interval) clearInterval(interval);
-      };
-    }
-  }, [videoRef, hasPlayedOnce]);
-
-  // Handle video play event
-  const handleVideoPlay = () => {
-    if (!hasPlayedOnce) {
-      setHasPlayedOnce(true);
-      // Mute the video after first play
-      if (videoRef) {
-        videoRef.muted = true;
-      }
-      // Clear any existing volume interval
-      if (volumeInterval) {
-        clearInterval(volumeInterval);
-        setVolumeInterval(null);
-      }
-    }
-  };
-
-  // Handle video ended event to reset for next loop
-  const handleVideoEnded = () => {
-    if (hasPlayedOnce && videoRef) {
+    if (videoRef) {
       videoRef.muted = true;
+      videoRef.volume = 0.2; // Set volume to 20% but keep muted
     }
-  };
+  }, [videoRef]);
 
   const handleGetStarted = () => {
     openSignIn();
@@ -313,8 +262,6 @@ export default function Home() {
             <div className="relative max-w-5xl mx-auto">
               <video
                 ref={setVideoRef}
-                onPlay={handleVideoPlay}
-                onEnded={handleVideoEnded}
                 autoPlay
                 loop
                 playsInline
