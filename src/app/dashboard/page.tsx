@@ -167,7 +167,7 @@ interface ClaimData {
 }
 
 interface UpcomingEvent {
-  id: string;
+  _id: string;
   title: string;
   date: string;
   time: string;
@@ -276,38 +276,7 @@ export default function DashboardPage() {
     null
   );
   const [checkingRole, setCheckingRole] = useState(true);
-  const [upcomingEvents, setUpcomingEvents] = useState<UpcomingEvent[]>([
-    {
-      id: "1",
-      title: "Doctor's Follow-up Appointment",
-      date: "2024-01-15",
-      time: "10:00 AM",
-      type: "appointment",
-      description: "Follow-up with Dr. Smith regarding treatment progress",
-      priority: "high",
-      completed: false,
-    },
-    {
-      id: "2",
-      title: "Submit Medical Records Deadline",
-      date: "2024-01-20",
-      time: "5:00 PM",
-      type: "deadline",
-      description: "Deadline to submit all medical records to insurance",
-      priority: "high",
-      completed: false,
-    },
-    {
-      id: "3",
-      title: "Physical Therapy Session",
-      date: "2024-01-12",
-      time: "2:00 PM",
-      type: "appointment",
-      description: "Weekly physical therapy session",
-      priority: "medium",
-      completed: false,
-    },
-  ]);
+  const [upcomingEvents, setUpcomingEvents] = useState<UpcomingEvent[]>([]);
   const [showAddEvent, setShowAddEvent] = useState(false);
   const [newEvent, setNewEvent] = useState<{
     title: string;
@@ -433,6 +402,7 @@ export default function DashboardPage() {
 
     loadClaims();
     loadDocuments();
+    loadCalendarEvents(); // Load calendar events on mount
   }, [isLoaded, user, router]);
 
   const loadClaims = async () => {
@@ -456,6 +426,107 @@ export default function DashboardPage() {
       }
     } catch (error) {
       console.error("Error loading documents:", error);
+    }
+  };
+
+  // Load calendar events from database
+  const loadCalendarEvents = async () => {
+    try {
+      const response = await fetch("/api/calendar");
+      if (response.ok) {
+        const data = await response.json();
+        setUpcomingEvents(data || []);
+      }
+    } catch (error) {
+      console.error("Error loading calendar events:", error);
+    }
+  };
+
+  const addEvent = async () => {
+    if (!newEvent.title || !newEvent.date) return;
+
+    try {
+      const response = await fetch("/api/calendar", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          title: newEvent.title,
+          date: newEvent.date,
+          time: newEvent.time,
+          type: newEvent.type,
+          description: newEvent.description,
+          priority: newEvent.priority,
+        }),
+      });
+
+      if (response.ok) {
+        const savedEvent = await response.json();
+        setUpcomingEvents([...upcomingEvents, savedEvent]);
+        setNewEvent({
+          title: "",
+          date: "",
+          time: "",
+          type: "appointment",
+          description: "",
+          priority: "medium",
+        });
+        setShowAddEvent(false);
+      } else {
+        console.error("Failed to save calendar event");
+      }
+    } catch (error) {
+      console.error("Error saving calendar event:", error);
+    }
+  };
+
+  const toggleEventComplete = async (eventId: string) => {
+    const event = upcomingEvents.find((e) => e._id === eventId);
+    if (!event) return;
+
+    try {
+      const response = await fetch(`/api/calendar/${eventId}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ...event,
+          completed: !event.completed,
+        }),
+      });
+
+      if (response.ok) {
+        const updatedEvent = await response.json();
+        setUpcomingEvents(
+          upcomingEvents.map((event) =>
+            event._id === eventId ? updatedEvent : event
+          )
+        );
+      } else {
+        console.error("Failed to update calendar event");
+      }
+    } catch (error) {
+      console.error("Error updating calendar event:", error);
+    }
+  };
+
+  const deleteEvent = async (eventId: string) => {
+    try {
+      const response = await fetch(`/api/calendar/${eventId}`, {
+        method: "DELETE",
+      });
+
+      if (response.ok) {
+        setUpcomingEvents(
+          upcomingEvents.filter((event) => event._id !== eventId)
+        );
+      } else {
+        console.error("Failed to delete calendar event");
+      }
+    } catch (error) {
+      console.error("Error deleting calendar event:", error);
     }
   };
 
@@ -557,49 +628,6 @@ export default function DashboardPage() {
       const mostRecentClaim = claims[0];
       await handleViewClaim(mostRecentClaim._id);
     }
-  };
-
-  const addEvent = () => {
-    if (!newEvent.title || !newEvent.date) return;
-
-    const event: UpcomingEvent = {
-      id: Date.now().toString(),
-      title: newEvent.title,
-      date: newEvent.date,
-      time: newEvent.time,
-      type: newEvent.type as
-        | "appointment"
-        | "deadline"
-        | "follow-up"
-        | "payment"
-        | "custom",
-      description: newEvent.description,
-      priority: newEvent.priority as "low" | "medium" | "high",
-      completed: false,
-    };
-
-    setUpcomingEvents([...upcomingEvents, event]);
-    setNewEvent({
-      title: "",
-      date: "",
-      time: "",
-      type: "appointment",
-      description: "",
-      priority: "medium",
-    });
-    setShowAddEvent(false);
-  };
-
-  const toggleEventComplete = (eventId: string) => {
-    setUpcomingEvents(
-      upcomingEvents.map((event) =>
-        event.id === eventId ? { ...event, completed: !event.completed } : event
-      )
-    );
-  };
-
-  const deleteEvent = (eventId: string) => {
-    setUpcomingEvents(upcomingEvents.filter((event) => event.id !== eventId));
   };
 
   const formatCurrency = (amount: number) => {
@@ -935,7 +963,7 @@ export default function DashboardPage() {
                     .slice(0, 5)
                     .map((event) => (
                       <div
-                        key={event.id}
+                        key={event._id}
                         className="p-3 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800"
                       >
                         <div className="flex items-start justify-between gap-2">
@@ -962,7 +990,7 @@ export default function DashboardPage() {
                             <Button
                               size="sm"
                               variant="ghost"
-                              onClick={() => toggleEventComplete(event.id)}
+                              onClick={() => toggleEventComplete(event._id)}
                               className="text-green-600 hover:text-green-700"
                             >
                               <CheckCircle className="w-4 h-4" />
@@ -970,7 +998,7 @@ export default function DashboardPage() {
                             <Button
                               size="sm"
                               variant="ghost"
-                              onClick={() => deleteEvent(event.id)}
+                              onClick={() => deleteEvent(event._id)}
                               className="text-red-600 hover:text-red-700"
                             >
                               <Trash2 className="w-4 h-4" />
