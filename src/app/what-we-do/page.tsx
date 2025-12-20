@@ -10,7 +10,6 @@ import { useTranslation } from "react-i18next";
 import {
   CheckCircle,
   FileText,
-  Users,
   Shield,
   TrendingUp,
   DollarSign,

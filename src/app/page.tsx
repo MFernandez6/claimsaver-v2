@@ -18,11 +18,9 @@ import {
   CheckCircle,
   ArrowRight,
   Zap,
-  Globe,
   Award,
   X,
   Home as HomeIcon,
-  Users,
 } from "lucide-react";
 
 export default function Home() {
