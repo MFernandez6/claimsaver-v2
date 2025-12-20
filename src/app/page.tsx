@@ -97,26 +97,26 @@ export default function Home() {
       icon: <FileText className="w-6 h-6" />,
       title: t("home.features.feature1.title"),
       description: t("home.features.feature1.description"),
-      color: "blue",
+      gradientClass: "from-blue-500 to-blue-600",
     },
 
     {
       icon: <Shield className="w-6 h-6" />,
       title: t("home.features.feature3.title"),
       description: t("home.features.feature3.description"),
-      color: "purple",
+      gradientClass: "from-purple-500 to-purple-600",
     },
     {
       icon: <Smartphone className="w-6 h-6" />,
       title: t("home.features.feature4.title"),
       description: t("home.features.feature4.description"),
-      color: "orange",
+      gradientClass: "from-orange-500 to-orange-600",
     },
     {
       icon: <TrendingUp className="w-6 h-6" />,
       title: t("home.features.feature5.title"),
       description: t("home.features.feature5.description"),
-      color: "red",
+      gradientClass: "from-red-500 to-red-600",
     },
   ];
 
@@ -289,9 +289,8 @@ export default function Home() {
           </div>
 
           <div className="flex justify-center">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl">
-              {/* First 3 cards */}
-              {features.slice(0, 3).map((feature, index) => (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl">
+              {features.map((feature, index) => (
                 <Card
                   key={index}
                   className="group relative overflow-hidden border-0 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 bg-gradient-to-br from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 backdrop-blur-sm"
@@ -299,9 +298,14 @@ export default function Home() {
                   <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-blue-700/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                   <CardHeader className="pb-4">
                     <div
-                      className={`w-12 h-12 bg-gradient-to-r from-${feature.color}-500 to-${feature.color}-600 rounded-xl flex items-center justify-center text-white mb-4 group-hover:scale-110 transition-transform duration-300`}
+                      className={`w-12 h-12 bg-gradient-to-r ${feature.gradientClass} rounded-xl flex items-center justify-center text-white mb-4 group-hover:scale-110 transition-transform duration-300 relative overflow-hidden`}
                     >
-                      {feature.icon}
+                      {/* Icon */}
+                      <div className="relative z-10">
+                        {feature.icon}
+                      </div>
+                      {/* White fade overlay on the right */}
+                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-white/60 pointer-events-none"></div>
                     </div>
                     <CardTitle className="text-xl font-semibold text-gray-900 dark:text-white">
                       {feature.title}
@@ -314,35 +318,6 @@ export default function Home() {
                   </CardContent>
                 </Card>
               ))}
-
-              {/* Last 2 cards centered */}
-              <div className="lg:col-span-3 flex justify-center">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl">
-                  {features.slice(3, 5).map((feature, index) => (
-                    <Card
-                      key={index + 3}
-                      className="group relative overflow-hidden border-0 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 bg-gradient-to-br from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 backdrop-blur-sm"
-                    >
-                      <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-blue-700/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                      <CardHeader className="pb-4">
-                        <div
-                          className={`w-12 h-12 bg-gradient-to-r from-${feature.color}-500 to-${feature.color}-600 rounded-xl flex items-center justify-center text-white mb-4 group-hover:scale-110 transition-transform duration-300`}
-                        >
-                          {feature.icon}
-                        </div>
-                        <CardTitle className="text-xl font-semibold text-gray-900 dark:text-white">
-                          {feature.title}
-                        </CardTitle>
-                      </CardHeader>
-                      <CardContent>
-                        <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-                          {feature.description}
-                        </p>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </div>
-              </div>
             </div>
           </div>
         </div>
