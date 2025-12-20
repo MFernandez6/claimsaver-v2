@@ -145,7 +145,7 @@ export default function Pricing() {
       if (!response.ok) {
         throw new Error(
           responseData.error ||
-            `HTTP ${response.status}: ${response.statusText}`
+          `HTTP ${response.status}: ${response.statusText}`
         );
       }
 
@@ -339,11 +339,10 @@ export default function Pricing() {
                     {services.map((service) => (
                       <Card
                         key={service.id}
-                        className={`cursor-pointer transition-all duration-300 hover:shadow-lg ${
-                          selectedServices.includes(service.id)
-                            ? "ring-2 ring-blue-500 bg-blue-50 dark:bg-blue-950/30"
-                            : "hover:bg-gray-50 dark:hover:bg-gray-800/50"
-                        }`}
+                        className={`cursor-pointer transition-all duration-300 hover:shadow-lg ${selectedServices.includes(service.id)
+                          ? "ring-2 ring-blue-500 bg-blue-50 dark:bg-blue-950/30"
+                          : "hover:bg-gray-50 dark:hover:bg-gray-800/50"
+                          }`}
                         onClick={() => toggleService(service.id)}
                       >
                         <CardContent className="p-4">
@@ -371,11 +370,10 @@ export default function Pricing() {
                                 </div>
                               </div>
                               <div
-                                className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
-                                  selectedServices.includes(service.id)
-                                    ? "bg-blue-500 border-blue-500"
-                                    : "border-gray-300 dark:border-gray-600"
-                                }`}
+                                className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${selectedServices.includes(service.id)
+                                  ? "bg-blue-500 border-blue-500"
+                                  : "border-gray-300 dark:border-gray-600"
+                                  }`}
                               >
                                 {selectedServices.includes(service.id) && (
                                   <CheckCircle className="w-3 h-3 text-white" />
@@ -686,7 +684,7 @@ export default function Pricing() {
               <div className="space-y-6 text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
                 <p>
                   In Florida, the average auto policy payout is $10,000.00. With
-                  traditional methods, after a 33% attorney contingency fee,
+                  traditional methods, after a 33% service contingency fee,
                   victims are left with less than $7,000.00 before additional
                   processing costs.
                 </p>
@@ -703,7 +701,7 @@ export default function Pricing() {
                   </div>
                   <div className="space-y-2">
                     <div className="flex justify-between">
-                      <span>Traditional Attorney Fee (33%)</span>
+                      <span>Traditional Service Fee (33%)</span>
                       <span className="font-semibold text-red-600">
                         -$3,300.00
                       </span>
@@ -815,7 +813,7 @@ export default function Pricing() {
                 <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
                   ClaimSaver+ is a revolutionary platform that helps accident
                   victims maximize their settlements while minimizing costs.
-                  Unlike traditional attorneys who take 33% of your settlement,
+                  Unlike traditional options that take 33% of your settlement,
                   we charge a flat $500.00 fee, allowing you to keep 95% of your
                   money.
                 </p>
@@ -827,7 +825,7 @@ export default function Pricing() {
                     Traditional Method
                   </h4>
                   <ul className="text-sm text-blue-800 dark:text-blue-200 space-y-1">
-                    <li>• 33% attorney contingency fee</li>
+                    <li>• 33% service contingency fee</li>
                     <li>• Hidden processing costs</li>
                     <li>• Complex legal procedures</li>
                     <li>• Long waiting periods</li>
@@ -909,7 +907,7 @@ export default function Pricing() {
                   </li>
                   <li>
                     • <strong>Professional Service:</strong> Expert support
-                    without attorney fees
+                    without high traditional fees
                   </li>
                   <li>
                     • <strong>Faster Processing:</strong> Streamlined process
@@ -1028,7 +1026,7 @@ export default function Pricing() {
                 </h3>
                 <div className="space-y-2 text-sm">
                   <div className="flex justify-between">
-                    <span>Traditional Attorney Fee (33%)</span>
+                    <span>Traditional Service Fee (33%)</span>
                     <span className="font-semibold text-red-600">
                       -$3,300.00
                     </span>
@@ -1089,7 +1087,7 @@ export default function Pricing() {
                 </h3>
                 <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
                   ClaimSaver+ offers a revolutionary flat-rate pricing model
-                  that saves you thousands compared to traditional attorney
+                  that saves you thousands compared to traditional methods
                   contingency fees. Our transparent pricing ensures you know
                   exactly what you&apos;ll pay upfront.
                 </p>
@@ -1098,7 +1096,7 @@ export default function Pricing() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="bg-red-50 dark:bg-red-950/30 p-4 rounded-lg">
                   <h4 className="font-semibold text-red-900 dark:text-red-100 mb-2">
-                    Traditional Attorney Costs
+                    Traditional Service Costs
                   </h4>
                   <ul className="text-sm text-red-800 dark:text-red-200 space-y-1">
                     <li>• 33% contingency fee</li>
@@ -1129,7 +1127,7 @@ export default function Pricing() {
                 <div className="space-y-3">
                   <div className="flex justify-between items-center">
                     <span className="text-gray-700 dark:text-gray-300">
-                      Traditional Attorney Fee (33% of $10,000.00)
+                      Traditional Service Fee (33% of $10,000.00)
                     </span>
                     <span className="font-semibold text-red-600">
                       -$3,300.00

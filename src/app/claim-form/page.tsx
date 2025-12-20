@@ -543,13 +543,12 @@ export default function ClaimFormPage() {
               {Array.from({ length: totalSteps }, (_, i) => (
                 <div
                   key={i + 1}
-                  className={`flex items-center justify-center w-12 h-12 rounded-full transition-all duration-500 ${
-                    i + 1 === currentStep
-                      ? "bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg scale-110"
-                      : i + 1 < currentStep
-                        ? "bg-gradient-to-r from-green-500 to-emerald-600 text-white shadow-md"
-                        : "bg-white/70 dark:bg-gray-700/70 text-gray-500 dark:text-gray-400 shadow-sm"
-                  }`}
+                  className={`flex items-center justify-center w-12 h-12 rounded-full transition-all duration-500 ${i + 1 === currentStep
+                    ? "bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg scale-110"
+                    : i + 1 < currentStep
+                      ? "bg-gradient-to-r from-green-500 to-emerald-600 text-white shadow-md"
+                      : "bg-white/70 dark:bg-gray-700/70 text-gray-500 dark:text-gray-400 shadow-sm"
+                    }`}
                 >
                   {i + 1 < currentStep ? (
                     <CheckCircle className="w-6 h-6" />
@@ -1026,38 +1025,38 @@ export default function ClaimFormPage() {
                     </div>
                     {(formData.hospitalInpatient ||
                       formData.hospitalOutpatient) && (
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                          <label className="block text-sm font-medium mb-2">
-                            Hospital Name
-                          </label>
-                          <Input
-                            value={formData.hospitalName}
-                            onChange={(e) =>
-                              handleInputChange("hospitalName", e.target.value)
-                            }
-                            placeholder="Enter hospital name"
-                            className="w-full"
-                          />
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                          <div>
+                            <label className="block text-sm font-medium mb-2">
+                              Hospital Name
+                            </label>
+                            <Input
+                              value={formData.hospitalName}
+                              onChange={(e) =>
+                                handleInputChange("hospitalName", e.target.value)
+                              }
+                              placeholder="Enter hospital name"
+                              className="w-full"
+                            />
+                          </div>
+                          <div>
+                            <label className="block text-sm font-medium mb-2">
+                              Hospital Address
+                            </label>
+                            <Input
+                              value={formData.hospitalAddress}
+                              onChange={(e) =>
+                                handleInputChange(
+                                  "hospitalAddress",
+                                  e.target.value
+                                )
+                              }
+                              placeholder="Enter hospital address"
+                              className="w-full"
+                            />
+                          </div>
                         </div>
-                        <div>
-                          <label className="block text-sm font-medium mb-2">
-                            Hospital Address
-                          </label>
-                          <Input
-                            value={formData.hospitalAddress}
-                            onChange={(e) =>
-                              handleInputChange(
-                                "hospitalAddress",
-                                e.target.value
-                              )
-                            }
-                            placeholder="Enter hospital address"
-                            className="w-full"
-                          />
-                        </div>
-                      </div>
-                    )}
+                      )}
                     <div>
                       <label className="block text-sm font-medium mb-2">
                         Medical Bills to Date
@@ -1267,7 +1266,7 @@ export default function ClaimFormPage() {
                         </h4>
                         <p className="text-sm text-red-700 dark:text-red-300">
                           This insurance information disclosure authorization
-                          allows ClaimSaver+ and our attorney network to receive
+                          allows ClaimSaver+ to receive
                           claim updates and information from your insurance
                           company. By signing this form, you are giving explicit
                           permission for your insurance company to share claim
@@ -1426,12 +1425,12 @@ export default function ClaimFormPage() {
                               onChange={(e) => {
                                 const newExcluded = e.target.checked
                                   ? [
-                                      ...formData.insuranceAuthExcludedInfo,
-                                      "settlementOffers",
-                                    ]
+                                    ...formData.insuranceAuthExcludedInfo,
+                                    "settlementOffers",
+                                  ]
                                   : formData.insuranceAuthExcludedInfo.filter(
-                                      (item) => item !== "settlementOffers"
-                                    );
+                                    (item) => item !== "settlementOffers"
+                                  );
                                 handleInputChange(
                                   "insuranceAuthExcludedInfo",
                                   newExcluded
@@ -1457,12 +1456,12 @@ export default function ClaimFormPage() {
                               onChange={(e) => {
                                 const newExcluded = e.target.checked
                                   ? [
-                                      ...formData.insuranceAuthExcludedInfo,
-                                      "internalNotes",
-                                    ]
+                                    ...formData.insuranceAuthExcludedInfo,
+                                    "internalNotes",
+                                  ]
                                   : formData.insuranceAuthExcludedInfo.filter(
-                                      (item) => item !== "internalNotes"
-                                    );
+                                    (item) => item !== "internalNotes"
+                                  );
                                 handleInputChange(
                                   "insuranceAuthExcludedInfo",
                                   newExcluded
@@ -1488,12 +1487,12 @@ export default function ClaimFormPage() {
                               onChange={(e) => {
                                 const newExcluded = e.target.checked
                                   ? [
-                                      ...formData.insuranceAuthExcludedInfo,
-                                      "financialInfo",
-                                    ]
+                                    ...formData.insuranceAuthExcludedInfo,
+                                    "financialInfo",
+                                  ]
                                   : formData.insuranceAuthExcludedInfo.filter(
-                                      (item) => item !== "financialInfo"
-                                    );
+                                    (item) => item !== "financialInfo"
+                                  );
                                 handleInputChange(
                                   "insuranceAuthExcludedInfo",
                                   newExcluded
@@ -1616,7 +1615,7 @@ export default function ClaimFormPage() {
 
                     <div className="bg-green-50 dark:bg-green-950/30 rounded-lg p-4 mb-4">
                       <p className="text-sm text-green-800 dark:text-green-200">
-                        <strong>Recipient:</strong> ClaimSaver+ and our attorney
+                        <strong>Recipient:</strong> ClaimSaver+
                         network will receive this information to provide
                         comprehensive claim support and keep you informed of all
                         claim developments.
@@ -2047,7 +2046,7 @@ export default function ClaimFormPage() {
                         </h4>
                         <p className="text-sm text-red-700 dark:text-red-300">
                           This HIPAA authorization form allows ClaimSaver+ and
-                          our attorney network to access your health information
+                          ClaimSaver+ to access your health information
                           for the purpose of processing your accident claim. By
                           signing this form, you are giving explicit permission
                           for healthcare providers to release your medical
@@ -2183,12 +2182,12 @@ export default function ClaimFormPage() {
                               onChange={(e) => {
                                 const newExcluded = e.target.checked
                                   ? [
-                                      ...formData.hipaaExcludedInfo,
-                                      "mentalHealth",
-                                    ]
+                                    ...formData.hipaaExcludedInfo,
+                                    "mentalHealth",
+                                  ]
                                   : formData.hipaaExcludedInfo.filter(
-                                      (item) => item !== "mentalHealth"
-                                    );
+                                    (item) => item !== "mentalHealth"
+                                  );
                                 handleInputChange(
                                   "hipaaExcludedInfo",
                                   newExcluded
@@ -2213,12 +2212,12 @@ export default function ClaimFormPage() {
                               onChange={(e) => {
                                 const newExcluded = e.target.checked
                                   ? [
-                                      ...formData.hipaaExcludedInfo,
-                                      "communicable",
-                                    ]
+                                    ...formData.hipaaExcludedInfo,
+                                    "communicable",
+                                  ]
                                   : formData.hipaaExcludedInfo.filter(
-                                      (item) => item !== "communicable"
-                                    );
+                                    (item) => item !== "communicable"
+                                  );
                                 handleInputChange(
                                   "hipaaExcludedInfo",
                                   newExcluded
@@ -2244,12 +2243,12 @@ export default function ClaimFormPage() {
                               onChange={(e) => {
                                 const newExcluded = e.target.checked
                                   ? [
-                                      ...formData.hipaaExcludedInfo,
-                                      "substanceAbuse",
-                                    ]
+                                    ...formData.hipaaExcludedInfo,
+                                    "substanceAbuse",
+                                  ]
                                   : formData.hipaaExcludedInfo.filter(
-                                      (item) => item !== "substanceAbuse"
-                                    );
+                                    (item) => item !== "substanceAbuse"
+                                  );
                                 handleInputChange(
                                   "hipaaExcludedInfo",
                                   newExcluded
@@ -2275,8 +2274,8 @@ export default function ClaimFormPage() {
                                 const newExcluded = e.target.checked
                                   ? [...formData.hipaaExcludedInfo, "genetic"]
                                   : formData.hipaaExcludedInfo.filter(
-                                      (item) => item !== "genetic"
-                                    );
+                                    (item) => item !== "genetic"
+                                  );
                                 handleInputChange(
                                   "hipaaExcludedInfo",
                                   newExcluded
@@ -2396,7 +2395,7 @@ export default function ClaimFormPage() {
                     <div className="bg-blue-50 dark:bg-blue-950/30 rounded-lg p-4 mb-4">
                       <p className="text-sm text-blue-800 dark:text-blue-200">
                         <strong>Recipients:</strong> ClaimSaver+ and our
-                        attorney network will receive your health information
+                        ClaimSaver+ will receive your health information
                         for the purpose of processing your claim. We maintain
                         strict confidentiality and security protocols to protect
                         your information.

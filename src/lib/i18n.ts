@@ -8,6 +8,7 @@ import enTranslations from "../locales/en.json";
 import esTranslations from "../locales/es.json";
 import frTranslations from "../locales/fr.json";
 
+
 const resources = {
   en: {
     translation: enTranslations,
@@ -21,12 +22,14 @@ const resources = {
 };
 
 i18n
-  .use(Backend)
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
     resources,
+    lng: "en", // Force default language to 'en' initially to prevent hydration mismatch
     fallbackLng: "en",
+    supportedLngs: ["en", "es", "fr"],
+    load: "languageOnly", // This ensures en-US becomes en
     debug: process.env.NODE_ENV === "development",
 
     interpolation: {
@@ -36,10 +39,6 @@ i18n
     detection: {
       order: ["localStorage", "navigator", "htmlTag"],
       caches: ["localStorage"],
-    },
-
-    backend: {
-      loadPath: "/locales/{{lng}}/{{ns}}.json",
     },
   });
 

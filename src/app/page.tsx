@@ -76,10 +76,7 @@ export default function Home() {
       question: t("home.faq.legal.question"),
       answer: t("home.faq.legal.answer"),
     },
-    {
-      question: t("home.faq.matching.question"),
-      answer: t("home.faq.matching.answer"),
-    },
+
     {
       question: t("home.faq.accidents.question"),
       answer: t("home.faq.accidents.answer"),
@@ -92,10 +89,7 @@ export default function Home() {
       question: t("home.faq.states.question"),
       answer: t("home.faq.states.answer"),
     },
-    {
-      question: t("home.faq.satisfaction.question"),
-      answer: t("home.faq.satisfaction.answer"),
-    },
+
   ];
 
   const features = [
@@ -105,12 +99,7 @@ export default function Home() {
       description: t("home.features.feature1.description"),
       color: "blue",
     },
-    {
-      icon: <Users className="w-6 h-6" />,
-      title: t("home.features.feature2.title"),
-      description: t("home.features.feature2.description"),
-      color: "green",
-    },
+
     {
       icon: <Shield className="w-6 h-6" />,
       title: t("home.features.feature3.title"),
@@ -137,11 +126,7 @@ export default function Home() {
       title: t("home.benefits.benefit1.title"),
       description: t("home.benefits.benefit1.description"),
     },
-    {
-      icon: <Globe className="w-5 h-5" />,
-      title: t("home.benefits.benefit2.title"),
-      description: t("home.benefits.benefit2.description"),
-    },
+
   ];
 
   return (
@@ -454,14 +439,7 @@ export default function Home() {
                       {t("home.stats.successRateValue")}
                     </span>
                   </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-lg">
-                      {t("home.stats.attorneyNetwork")}
-                    </span>
-                    <span className="text-2xl font-bold">
-                      {t("home.stats.attorneyNetworkValue")}
-                    </span>
-                  </div>
+
                   {/* Empty space to maintain layout */}
                   <div className="h-6"></div>
                 </div>

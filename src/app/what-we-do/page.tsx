@@ -31,10 +31,7 @@ export default function WhatWeDo() {
       question: t("whatWeDo.faq.whatDoWeDo.question"),
       answer: t("whatWeDo.faq.whatDoWeDo.answer"),
     },
-    {
-      question: t("whatWeDo.faq.attorneyMatching.question"),
-      answer: t("whatWeDo.faq.attorneyMatching.answer"),
-    },
+
     {
       question: t("whatWeDo.faq.documents.question"),
       answer: t("whatWeDo.faq.documents.answer"),
@@ -75,19 +72,7 @@ export default function WhatWeDo() {
       ],
       color: "blue",
     },
-    {
-      icon: <Users className="w-8 h-8 text-green-600" />,
-      title: t("whatWeDo.services.attorney.title"),
-      description: t("whatWeDo.services.attorney.description"),
-      features: [
-        t("whatWeDo.services.attorney.features.network"),
-        t("whatWeDo.services.attorney.features.specialized"),
-        t("whatWeDo.services.attorney.features.profiles"),
-        t("whatWeDo.services.attorney.features.consultation"),
-        t("whatWeDo.services.attorney.features.contact"),
-      ],
-      color: "green",
-    },
+
     {
       icon: <Shield className="w-8 h-8 text-purple-600" />,
       title: t("whatWeDo.services.documents.title"),

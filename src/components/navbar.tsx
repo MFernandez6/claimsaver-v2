@@ -106,11 +106,10 @@ function DashboardLink({ pathname }: { pathname: string }) {
     <div className="hover:-translate-y-0.5 transition-all duration-300">
       <Link
         href={isAdmin ? "/admin" : "/dashboard"}
-        className={`relative px-4 py-2 text-sm font-medium rounded-lg transition-all duration-300 ${
-          pathname === "/admin" || pathname === "/dashboard"
+        className={`relative px-4 py-2 text-sm font-medium rounded-lg transition-all duration-300 ${pathname === "/admin" || pathname === "/dashboard"
             ? "text-blue-600 bg-blue-50 dark:text-blue-400 dark:bg-blue-950/30"
             : "text-gray-700 hover:text-blue-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-blue-400 dark:hover:bg-gray-800/50"
-        }`}
+          }`}
       >
         {isAdmin ? "Admin" : t("navigation.dashboard")}
         {(pathname === "/admin" || pathname === "/dashboard") && (
@@ -170,9 +169,8 @@ function DropdownMenu({
       >
         {trigger}
         <ChevronDown
-          className={`w-4 h-4 transition-transform duration-300 ${
-            isOpen ? "rotate-180" : ""
-          }`}
+          className={`w-4 h-4 transition-transform duration-300 ${isOpen ? "rotate-180" : ""
+            }`}
         />
       </button>
 
@@ -184,11 +182,10 @@ function DropdownMenu({
                 key={item.name}
                 href={item.href}
                 onClick={onClose}
-                className={`group flex items-start gap-3 p-3 rounded-lg transition-all duration-300 hover:bg-gradient-to-r hover:from-blue-50 hover:to-blue-100 dark:hover:from-blue-950/30 dark:hover:to-blue-900/30 ${
-                  pathname === item.href
+                className={`group flex items-start gap-3 p-3 rounded-lg transition-all duration-300 hover:bg-gradient-to-r hover:from-blue-50 hover:to-blue-100 dark:hover:from-blue-950/30 dark:hover:to-blue-900/30 ${pathname === item.href
                     ? "bg-gradient-to-r from-blue-50 to-blue-100 dark:from-blue-950/30 dark:to-blue-900/30 text-blue-600 dark:text-blue-400"
                     : "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
-                }`}
+                  }`}
                 style={{ animationDelay: `${index * 50}ms` }}
               >
                 {item.icon && (
@@ -311,11 +308,10 @@ function MobileDashboardLink({
     >
       <Link
         href={isAdmin ? "/admin" : "/dashboard"}
-        className={`flex items-center gap-3 px-3 py-3 rounded-lg text-base font-medium transition-all duration-300 ${
-          pathname === "/admin" || pathname === "/dashboard"
+        className={`flex items-center gap-3 px-3 py-3 rounded-lg text-base font-medium transition-all duration-300 ${pathname === "/admin" || pathname === "/dashboard"
             ? "text-blue-600 bg-blue-50 dark:text-blue-400 dark:bg-blue-950/30"
             : "text-gray-700 hover:text-blue-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-blue-400 dark:hover:bg-gray-800/50"
-        }`}
+          }`}
         onClick={onClick}
       >
         <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-blue-700 rounded-lg flex items-center justify-center text-white">
@@ -401,12 +397,7 @@ export default function Navbar() {
   ];
 
   const servicesItems = [
-    {
-      name: t("navigation.attorneyMatching"),
-      href: "/attorney-matching",
-      icon: <UserCheck className="w-4 h-4" />,
-      description: "Find the perfect attorney for your case",
-    },
+
     {
       name: t("navigation.notarization"),
       href: "/notarization",
@@ -618,11 +609,10 @@ export default function Navbar() {
                     >
                       <Link
                         href={item.href}
-                        className={`flex items-center gap-3 px-3 py-3 rounded-lg text-base font-medium transition-all duration-300 ${
-                          pathname === item.href
+                        className={`flex items-center gap-3 px-3 py-3 rounded-lg text-base font-medium transition-all duration-300 ${pathname === item.href
                             ? "text-blue-600 bg-blue-50 dark:text-blue-400 dark:bg-blue-950/30"
                             : "text-gray-700 hover:text-blue-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-blue-400 dark:hover:bg-gray-800/50"
-                        }`}
+                          }`}
                         onClick={() => setIsMobileMenuOpen(false)}
                       >
                         <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-blue-700 rounded-lg flex items-center justify-center text-white">
@@ -652,11 +642,10 @@ export default function Navbar() {
                     >
                       <Link
                         href={item.href}
-                        className={`flex items-center gap-3 px-3 py-3 rounded-lg text-base font-medium transition-all duration-300 ${
-                          pathname === item.href
+                        className={`flex items-center gap-3 px-3 py-3 rounded-lg text-base font-medium transition-all duration-300 ${pathname === item.href
                             ? "text-blue-600 bg-blue-50 dark:text-blue-400 dark:bg-blue-950/30"
                             : "text-gray-700 hover:text-blue-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-blue-400 dark:hover:bg-gray-800/50"
-                        }`}
+                          }`}
                         onClick={() => setIsMobileMenuOpen(false)}
                       >
                         <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-blue-700 rounded-lg flex items-center justify-center text-white">

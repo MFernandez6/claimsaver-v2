@@ -184,15 +184,7 @@ export default function Footer() {
                     Claim Form
                   </a>
                 </li>
-                <li>
-                  <a
-                    href="/attorney-matching"
-                    className="text-blue-200 hover:text-white transition-colors duration-300 flex items-center gap-2 group text-sm lg:text-base"
-                  >
-                    <div className="w-1 h-1 bg-blue-400 rounded-full group-hover:bg-white transition-colors"></div>
-                    Legal Recommendations
-                  </a>
-                </li>
+
                 <li>
                   <a
                     href="/notarization"
@@ -371,16 +363,14 @@ export default function Footer() {
                 <p className="text-xs text-blue-200 leading-relaxed text-center">
                   <strong className="text-red-400">LEGAL DISCLAIMER:</strong>{" "}
                   ClaimSaver+ is a technology platform providing administrative
-                  support and legal recommendation services. We are NOT a law
+                  support services. We are NOT a law
                   firm and do NOT provide legal advice, case evaluation, or
                   legal representation. Our services include administrative
-                  support for no-fault accident form filing, legal
-                  recommendations, document management, and case tracking. For
+                  support for no-fault accident form filing, document management, and case tracking. For
                   legal services, you must consult with qualified attorneys or
                   other qualified legal professionals. Our flat-rate fee of $500
                   covers platform services and administrative support only.
-                  Additional fees may apply for legal services provided by
-                  attorneys. Results may vary. Past performance does not
+                  Results may vary. Past performance does not
                   guarantee future outcomes.
                 </p>
               </div>
@@ -429,7 +419,7 @@ export default function Footer() {
               <li className="flex items-start gap-3">
                 <div className="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0"></div>
                 <span>
-                  Communication history with our platform and attorneys
+                  Communication history with our platform
                 </span>
               </li>
             </ul>
@@ -452,10 +442,7 @@ export default function Footer() {
                 <div className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0"></div>
                 <span>Provide and maintain our services</span>
               </li>
-              <li className="flex items-start gap-3">
-                <div className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0"></div>
-                <span>Connect you with appropriate attorneys</span>
-              </li>
+
               <li className="flex items-start gap-3">
                 <div className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0"></div>
                 <span>Process and manage your claims</span>
@@ -536,7 +523,7 @@ export default function Footer() {
             </h3>
             <p className="mb-4 text-gray-600 dark:text-gray-300 leading-relaxed">
               ClaimSaver+ is a technology platform that provides administrative
-              support and connects accident victims with attorneys.
+              support for accident victims.
               <strong className="text-red-600 dark:text-red-400">
                 We are NOT a law firm and do NOT provide legal advice or
                 representation.
@@ -550,10 +537,7 @@ export default function Footer() {
                   Administrative support for no-fault accident form filing
                 </span>
               </li>
-              <li className="flex items-start gap-3">
-                <div className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0"></div>
-                <span>Legal recommendation services</span>
-              </li>
+
               <li className="flex items-start gap-3">
                 <div className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0"></div>
                 <span>Document management and storage</span>
@@ -596,8 +580,7 @@ export default function Footer() {
                 $500
               </span>
               . This fee covers our platform services and administrative
-              support. Additional fees may apply for legal services provided by
-              attorneys.
+              support.
             </p>
           </div>
 
