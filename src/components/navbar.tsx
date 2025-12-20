@@ -10,11 +10,6 @@ import {
   Moon,
   X,
   Menu,
-  ChevronDown,
-  Users,
-  FileText,
-  DollarSign,
-  Settings,
   LayoutDashboard,
 } from "lucide-react";
 import LanguageSwitcher from "./language-switcher";
@@ -120,94 +115,6 @@ function DashboardLink({ pathname }: { pathname: string }) {
 }
 
 // Dropdown Menu Component
-function DropdownMenu({
-  trigger,
-  items,
-  isOpen,
-  onToggle,
-  onClose,
-}: {
-  trigger: React.ReactNode;
-  items: Array<{
-    name: string;
-    href: string;
-    icon?: React.ReactNode;
-    description?: string;
-  }>;
-  isOpen: boolean;
-  onToggle: () => void;
-  onClose: () => void;
-}) {
-  const dropdownRef = useRef<HTMLDivElement>(null);
-  const pathname = usePathname();
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target as Node)
-      ) {
-        onClose();
-      }
-    };
-
-    if (isOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [isOpen, onClose]);
-
-  return (
-    <div className="relative" ref={dropdownRef}>
-      <button
-        onClick={onToggle}
-        className="flex items-center gap-1 px-4 py-2 text-sm font-medium rounded-lg transition-all duration-300 text-gray-700 hover:text-blue-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-blue-400 dark:hover:bg-gray-800/50 group"
-      >
-        {trigger}
-        <ChevronDown
-          className={`w-4 h-4 transition-transform duration-300 ${isOpen ? "rotate-180" : ""
-            }`}
-        />
-      </button>
-
-      {isOpen && (
-        <div className="absolute top-full left-0 mt-2 w-80 bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl border border-gray-200/50 dark:border-gray-700/50 rounded-xl shadow-2xl z-[70] animate-in slide-in-from-top-2 duration-300">
-          <div className="p-2">
-            {items.map((item, index) => (
-              <Link
-                key={item.name}
-                href={item.href}
-                onClick={onClose}
-                className={`group flex items-start gap-3 p-3 rounded-lg transition-all duration-300 hover:bg-gradient-to-r hover:from-blue-50 hover:to-blue-100 dark:hover:from-blue-950/30 dark:hover:to-blue-900/30 ${pathname === item.href
-                  ? "bg-gradient-to-r from-blue-50 to-blue-100 dark:from-blue-950/30 dark:to-blue-900/30 text-blue-600 dark:text-blue-400"
-                  : "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
-                  }`}
-                style={{ animationDelay: `${index * 50}ms` }}
-              >
-                {item.icon && (
-                  <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-blue-700 rounded-lg flex items-center justify-center text-white group-hover:scale-110 transition-transform duration-300 flex-shrink-0">
-                    {item.icon}
-                  </div>
-                )}
-                <div className="flex-1 min-w-0">
-                  <div className="font-medium">{item.name}</div>
-                  {item.description && (
-                    <div className="text-sm text-gray-500 dark:text-gray-400 mt-1">
-                      {item.description}
-                    </div>
-                  )}
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      )}
-    </div>
-  );
-}
 
 // Mobile auth section
 function MobileAuthSection() {
@@ -375,50 +282,8 @@ export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
   const [isClerkAvailable, setIsClerkAvailable] = useState(true);
-  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const pathname = usePathname();
   const mobileMenuRef = useRef<HTMLDivElement>(null);
-
-  // Dropdown menu items
-  const aboutItems = [
-    {
-      name: t("navigation.whoWeAre"),
-      href: "/who-we-are",
-      icon: <Users className="w-4 h-4" />,
-      description: "Learn about our mission and values",
-    },
-    {
-      name: t("navigation.whatWeDo"),
-      href: "/what-we-do",
-      icon: <Settings className="w-4 h-4" />,
-      description: "Discover our comprehensive services",
-    },
-  ];
-
-  const servicesItems = [
-
-    {
-      name: t("navigation.notarization"),
-      href: "/notarization",
-      icon: <FileText className="w-4 h-4" />,
-      description: "Professional notarization services",
-    },
-  ];
-
-  const actionItems = [
-    {
-      name: t("navigation.pricing"),
-      href: "/pricing",
-      icon: <DollarSign className="w-4 h-4" />,
-      description: "Transparent pricing and packages",
-    },
-    {
-      name: t("navigation.submitClaim"),
-      href: "/claim-form",
-      icon: <FileText className="w-4 h-4" />,
-      description: "Start your claim process today",
-    },
-  ];
 
   useEffect(() => {
     setIsMounted(true);
@@ -444,14 +309,6 @@ export default function Navbar() {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [isMobileMenuOpen]);
-
-  const handleDropdownToggle = (dropdownName: string) => {
-    setActiveDropdown(activeDropdown === dropdownName ? null : dropdownName);
-  };
-
-  const closeAllDropdowns = () => {
-    setActiveDropdown(null);
-  };
 
   // Don't render until mounted to prevent hydration issues
   if (!isMounted) {
@@ -498,33 +355,45 @@ export default function Navbar() {
             </div>
 
             {/* Desktop Navigation */}
-            <div className="hidden lg:flex items-center space-x-2">
-              {/* About Dropdown */}
-              <DropdownMenu
-                trigger={<span>{t("navigation.ourStory")}</span>}
-                items={aboutItems}
-                isOpen={activeDropdown === "about"}
-                onToggle={() => handleDropdownToggle("about")}
-                onClose={closeAllDropdowns}
-              />
+            <div className="hidden lg:flex items-center space-x-1">
+              {/* Direct Navigation Links */}
+              <Link
+                href="/who-we-are"
+                className={`px-4 py-2 text-sm font-medium rounded-lg transition-all duration-300 ${pathname === "/who-we-are"
+                  ? "text-blue-600 bg-blue-50 dark:text-blue-400 dark:bg-blue-950/30"
+                  : "text-gray-700 hover:text-blue-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-blue-400 dark:hover:bg-gray-800/50"
+                  }`}
+              >
+                {t("navigation.whoWeAre")}
+              </Link>
 
-              {/* Services Dropdown */}
-              <DropdownMenu
-                trigger={<span>{t("navigation.howWeHelp")}</span>}
-                items={servicesItems}
-                isOpen={activeDropdown === "services"}
-                onToggle={() => handleDropdownToggle("services")}
-                onClose={closeAllDropdowns}
-              />
+              <Link
+                href="/what-we-do"
+                className={`px-4 py-2 text-sm font-medium rounded-lg transition-all duration-300 ${pathname === "/what-we-do"
+                  ? "text-blue-600 bg-blue-50 dark:text-blue-400 dark:bg-blue-950/30"
+                  : "text-gray-700 hover:text-blue-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-blue-400 dark:hover:bg-gray-800/50"
+                  }`}
+              >
+                {t("navigation.whatWeDo")}
+              </Link>
 
-              {/* Actions Dropdown */}
-              <DropdownMenu
-                trigger={<span>{t("navigation.getStarted")}</span>}
-                items={actionItems}
-                isOpen={activeDropdown === "actions"}
-                onToggle={() => handleDropdownToggle("actions")}
-                onClose={closeAllDropdowns}
-              />
+              <Link
+                href="/pricing"
+                className={`px-4 py-2 text-sm font-medium rounded-lg transition-all duration-300 ${pathname === "/pricing"
+                  ? "text-blue-600 bg-blue-50 dark:text-blue-400 dark:bg-blue-950/30"
+                  : "text-gray-700 hover:text-blue-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-blue-400 dark:hover:bg-gray-800/50"
+                  }`}
+              >
+                {t("navigation.pricing")}
+              </Link>
+
+              {/* File Claim CTA Button */}
+              <Link
+                href="/claim-form"
+                className="ml-2 px-5 py-2 text-sm font-semibold rounded-lg bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-0.5"
+              >
+                {t("navigation.submitClaim")}
+              </Link>
 
               {/* Dashboard Link */}
               {isClerkAvailable && <DashboardLink pathname={pathname} />}
@@ -567,110 +436,56 @@ export default function Navbar() {
               ref={mobileMenuRef}
               className="lg:hidden border-t border-gray-200 dark:border-gray-700 animate-in slide-in-from-top-2 duration-300 bg-white/95 backdrop-blur-xl dark:bg-gray-950/95 shadow-xl max-h-[calc(100vh-4rem)] overflow-y-auto overscroll-contain"
             >
-              <div className="px-4 py-6 space-y-4 pb-8">
-                {/* About Section */}
-                <div className="space-y-2">
-                  <h3 className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider px-3">
-                    {t("navigation.ourStory")}
-                  </h3>
-                  <Link
-                    href="/who-we-are"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="flex items-center gap-3 p-3 rounded-lg transition-all duration-300 hover:bg-gray-50 dark:hover:bg-gray-800/50"
-                  >
-                    <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-blue-700 rounded-lg flex items-center justify-center text-white">
-                      <Users className="w-4 h-4" />
-                    </div>
-                    <span className="text-sm font-medium">Who We Are</span>
-                  </Link>
-                  <Link
-                    href="/what-we-do"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="flex items-center gap-3 p-3 rounded-lg transition-all duration-300 hover:bg-gray-50 dark:hover:bg-gray-800/50"
-                  >
-                    <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-blue-700 rounded-lg flex items-center justify-center text-white">
-                      <FileText className="w-4 h-4" />
-                    </div>
-                    <span className="text-sm font-medium">What We Do</span>
-                  </Link>
-                </div>
+              <div className="px-4 py-6 space-y-2 pb-8">
+                {/* Direct Navigation Links */}
+                <Link
+                  href="/who-we-are"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className={`flex items-center gap-3 px-3 py-3 rounded-lg text-base font-medium transition-all duration-300 ${pathname === "/who-we-are"
+                      ? "text-blue-600 bg-blue-50 dark:text-blue-400 dark:bg-blue-950/30"
+                      : "text-gray-700 hover:text-blue-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-blue-400 dark:hover:bg-gray-800/50"
+                    }`}
+                >
+                  {t("navigation.whoWeAre")}
+                </Link>
 
-                {/* Services Section */}
-                <div className="space-y-2">
-                  <h3 className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider px-3">
-                    {t("navigation.howWeHelp")}
-                  </h3>
-                  {servicesItems.map((item, index) => (
-                    <div
-                      key={item.name}
-                      className="animate-in slide-in-from-left-2 duration-300"
-                      style={{ animationDelay: `${(index + 2) * 100}ms` }}
-                    >
-                      <Link
-                        href={item.href}
-                        className={`flex items-center gap-3 px-3 py-3 rounded-lg text-base font-medium transition-all duration-300 ${pathname === item.href
-                          ? "text-blue-600 bg-blue-50 dark:text-blue-400 dark:bg-blue-950/30"
-                          : "text-gray-700 hover:text-blue-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-blue-400 dark:hover:bg-gray-800/50"
-                          }`}
-                        onClick={() => setIsMobileMenuOpen(false)}
-                      >
-                        <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-blue-700 rounded-lg flex items-center justify-center text-white">
-                          {item.icon}
-                        </div>
-                        <div>
-                          <div>{item.name}</div>
-                          <div className="text-sm text-gray-500 dark:text-gray-400">
-                            {item.description}
-                          </div>
-                        </div>
-                      </Link>
-                    </div>
-                  ))}
-                </div>
+                <Link
+                  href="/what-we-do"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className={`flex items-center gap-3 px-3 py-3 rounded-lg text-base font-medium transition-all duration-300 ${pathname === "/what-we-do"
+                      ? "text-blue-600 bg-blue-50 dark:text-blue-400 dark:bg-blue-950/30"
+                      : "text-gray-700 hover:text-blue-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-blue-400 dark:hover:bg-gray-800/50"
+                    }`}
+                >
+                  {t("navigation.whatWeDo")}
+                </Link>
 
-                {/* Actions Section */}
-                <div className="space-y-2">
-                  <h3 className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider px-3">
-                    {t("navigation.getStarted")}
-                  </h3>
-                  {actionItems.map((item, index) => (
-                    <div
-                      key={item.name}
-                      className="animate-in slide-in-from-left-2 duration-300"
-                      style={{ animationDelay: `${(index + 4) * 100}ms` }}
-                    >
-                      <Link
-                        href={item.href}
-                        className={`flex items-center gap-3 px-3 py-3 rounded-lg text-base font-medium transition-all duration-300 ${pathname === item.href
-                          ? "text-blue-600 bg-blue-50 dark:text-blue-400 dark:bg-blue-950/30"
-                          : "text-gray-700 hover:text-blue-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-blue-400 dark:hover:bg-gray-800/50"
-                          }`}
-                        onClick={() => setIsMobileMenuOpen(false)}
-                      >
-                        <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-blue-700 rounded-lg flex items-center justify-center text-white">
-                          {item.icon}
-                        </div>
-                        <div>
-                          <div>{item.name}</div>
-                          <div className="text-sm text-gray-500 dark:text-gray-400">
-                            {item.description}
-                          </div>
-                        </div>
-                      </Link>
-                    </div>
-                  ))}
-                </div>
+                <Link
+                  href="/pricing"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className={`flex items-center gap-3 px-3 py-3 rounded-lg text-base font-medium transition-all duration-300 ${pathname === "/pricing"
+                      ? "text-blue-600 bg-blue-50 dark:text-blue-400 dark:bg-blue-950/30"
+                      : "text-gray-700 hover:text-blue-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-blue-400 dark:hover:bg-gray-800/50"
+                    }`}
+                >
+                  {t("navigation.pricing")}
+                </Link>
+
+                {/* File Claim CTA Button */}
+                <Link
+                  href="/claim-form"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="flex items-center justify-center gap-3 px-3 py-3 rounded-lg text-base font-semibold bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white shadow-md transition-all duration-300"
+                >
+                  {t("navigation.submitClaim")}
+                </Link>
 
                 {/* Dashboard Link */}
                 {isClerkAvailable && (
                   <MobileDashboardLink
                     pathname={pathname}
                     onClick={() => setIsMobileMenuOpen(false)}
-                    navItemsLength={
-                      aboutItems.length +
-                      servicesItems.length +
-                      actionItems.length
-                    }
+                    navItemsLength={4}
                   />
                 )}
 
