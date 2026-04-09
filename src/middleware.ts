@@ -22,7 +22,7 @@ const middleware = isClerkConfigured
 
       return NextResponse.next();
     })
-  : () => new Response("OK", { status: 200 });
+  : () => NextResponse.next();
 
 export default middleware;
 

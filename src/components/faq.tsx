@@ -18,7 +18,7 @@ interface FAQProps {
 
 export default function FAQ({
   title = "Common Questions",
-  subtitle = "Everything you need to know about ClaimSaver+",
+  subtitle = "How the self-help platform works—general information, not legal advice",
   items,
   className = "",
 }: FAQProps) {
@@ -32,15 +32,15 @@ export default function FAQ({
 
   return (
     <section
-      className={`py-12 sm:py-16 bg-gradient-to-br from-gray-50/65 to-blue-50/65 dark:from-gray-950/65 dark:to-gray-900/65 relative z-10 backdrop-blur-[1px] ${className}`}
+      className={`py-12 sm:py-16 bg-gradient-to-br from-gray-50/65 to-teal-50/65 dark:from-gray-950/65 dark:to-gray-900/65 relative z-10 backdrop-blur-[1px] ${className}`}
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header with Contact Info */}
         <div className="text-center mb-12">
-          <div className="inline-flex items-center justify-center w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-r from-blue-500 to-blue-700 rounded-full mb-4 sm:mb-6 shadow-lg">
+          <div className="inline-flex items-center justify-center w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-r from-teal-500 to-teal-700 rounded-full mb-4 sm:mb-6 shadow-lg">
             <span className="text-white text-lg sm:text-2xl">❓</span>
           </div>
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent mb-3 sm:mb-4">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-teal-600 to-teal-800 bg-clip-text text-transparent mb-3 sm:mb-4">
             {title}
           </h2>
           <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
@@ -51,36 +51,37 @@ export default function FAQ({
         {/* FAQ Content - Responsive Layout */}
         <div className="grid grid-cols-1 gap-6 lg:gap-8">
           {/* Enhanced Help Box - Full width, prominent placement */}
-          <div className="bg-gradient-to-r from-blue-50/90 to-blue-100/90 dark:from-blue-950/90 dark:to-blue-900/90 rounded-2xl p-8 border border-blue-200 dark:border-blue-800 backdrop-blur-[1px] shadow-xl">
+          <div className="bg-gradient-to-r from-teal-50/90 to-teal-100/90 dark:from-teal-950/90 dark:to-teal-900/90 rounded-2xl p-8 border border-teal-200 dark:border-teal-800 backdrop-blur-[1px] shadow-xl">
             <div className="flex flex-col lg:flex-row items-center justify-between gap-6">
               <div className="text-center lg:text-left">
                 <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">
-                  Need Help?
+                  Platform support
                 </h3>
                 <p className="text-gray-600 dark:text-gray-300 text-lg mb-4 max-w-2xl">
-                  Our expert team is here to help you get the compensation you
-                  deserve. We&apos;re available 24/7 to answer your questions
-                  and guide you through the process.
+                  Email us for login, billing, or how to use the site. We cannot
+                  provide legal advice or tell you what to do in your specific
+                  case.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
                   <Button
                     asChild
                     size="lg"
-                    className="bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-700 hover:to-blue-900 text-white px-6 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+                    className="bg-gradient-to-r from-teal-600 to-teal-800 hover:from-teal-700 hover:to-teal-900 text-white px-6 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
                   >
-                    <a href="mailto:ClaimSaverPlus@gmail.com">Email Our Team</a>
+                    <a href="mailto:support@claimsaverplus.com">Email support</a>
                   </Button>
                   <Button
                     variant="outline"
                     size="lg"
-                    className="border-2 border-blue-300 hover:border-blue-400 text-blue-700 dark:text-blue-300 px-6 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+                    asChild
+                    className="border-2 border-teal-300 hover:border-teal-400 text-teal-700 dark:text-teal-300 px-6 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
                   >
-                    Live Chat
+                    <a href="/need-professional-help">Complex claim?</a>
                   </Button>
                 </div>
               </div>
               <div className="flex-shrink-0">
-                <div className="w-24 h-24 bg-gradient-to-r from-blue-500 to-blue-700 rounded-full flex items-center justify-center shadow-lg">
+                <div className="w-24 h-24 bg-gradient-to-r from-teal-500 to-teal-700 rounded-full flex items-center justify-center shadow-lg">
                   <HelpCircle className="h-12 w-12 text-white" />
                 </div>
               </div>
@@ -105,7 +106,7 @@ export default function FAQ({
                     </h3>
                     <div className="flex-shrink-0 mt-1 sm:mt-0">
                       {openItems.includes(index) ? (
-                        <ChevronUp className="h-4 w-4 sm:h-5 sm:w-5 text-blue-600 dark:text-blue-400 transition-transform duration-300" />
+                        <ChevronUp className="h-4 w-4 sm:h-5 sm:w-5 text-teal-600 dark:text-teal-400 transition-transform duration-300" />
                       ) : (
                         <ChevronDown className="h-4 w-4 sm:h-5 sm:w-5 text-gray-500 dark:text-gray-400 transition-transform duration-300" />
                       )}
@@ -143,7 +144,7 @@ export function FAQLoading() {
     <section className="py-24 bg-white dark:bg-gray-950">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <div className="w-24 h-24 bg-gradient-to-r from-blue-500 to-blue-700 rounded-full flex items-center justify-center shadow-lg"></div>
+          <div className="w-24 h-24 bg-gradient-to-r from-teal-500 to-teal-700 rounded-full flex items-center justify-center shadow-lg"></div>
         </div>
       </div>
     </section>

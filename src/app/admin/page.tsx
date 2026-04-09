@@ -459,13 +459,13 @@ export default function AdminPage() {
       case "pending":
         return "bg-gradient-to-r from-yellow-100 to-orange-100 text-yellow-800 dark:from-yellow-900/30 dark:to-orange-900/30 dark:text-yellow-300 border border-yellow-200 dark:border-yellow-800";
       case "reviewing":
-        return "bg-gradient-to-r from-blue-100 to-indigo-100 text-blue-800 dark:from-blue-900/30 dark:to-indigo-900/30 dark:text-blue-300 border border-blue-200 dark:border-blue-800";
+        return "bg-gradient-to-r from-teal-100 to-emerald-100 text-teal-800 dark:from-teal-900/30 dark:to-emerald-900/30 dark:text-teal-300 border border-teal-200 dark:border-teal-800";
       case "approved":
         return "bg-gradient-to-r from-green-100 to-emerald-100 text-green-800 dark:from-green-900/30 dark:to-emerald-900/30 dark:text-green-300 border border-green-200 dark:border-green-800";
       case "rejected":
         return "bg-gradient-to-r from-red-100 to-pink-100 text-red-800 dark:from-red-900/30 dark:to-pink-900/30 dark:text-red-300 border border-red-200 dark:border-red-800";
       case "in_progress":
-        return "bg-gradient-to-r from-purple-100 to-violet-100 text-purple-800 dark:from-purple-900/30 dark:to-violet-900/30 dark:text-purple-300 border border-purple-200 dark:border-purple-800";
+        return "bg-gradient-to-r from-emerald-100 to-violet-100 text-emerald-800 dark:from-emerald-900/30 dark:to-violet-900/30 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800";
       case "completed":
         return "bg-gradient-to-r from-gray-100 to-slate-100 text-gray-800 dark:from-gray-900/30 dark:to-slate-900/30 dark:text-gray-300 border border-gray-200 dark:border-gray-800";
       default:
@@ -499,7 +499,7 @@ export default function AdminPage() {
   // Show loading while checking authentication
   if (!isLoaded || loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-950 dark:to-gray-900">
+      <div className="min-h-screen bg-gradient-to-br from-teal-50 to-emerald-100 dark:from-gray-950 dark:to-gray-900">
         <div className="container mx-auto px-4 py-8 pt-24">
           <div className="flex items-center justify-center min-h-[400px]">
             <RefreshCw className="h-8 w-8 animate-spin" />
@@ -512,7 +512,7 @@ export default function AdminPage() {
   return (
     <div className="min-h-screen bg-white dark:bg-gray-950">
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-blue-50 via-white to-indigo-50 dark:from-gray-950 dark:via-gray-900 dark:to-blue-950">
+      <section className="relative overflow-hidden bg-gradient-to-br from-teal-50 via-white to-emerald-50 dark:from-gray-950 dark:via-gray-900 dark:to-teal-950">
         {/* Background Image */}
         <div className="fixed inset-0 z-0">
           <Image
@@ -521,14 +521,14 @@ export default function AdminPage() {
             className="w-full h-full object-cover opacity-25"
             fill
           />
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-50/70 via-white/80 to-indigo-50/70 dark:from-gray-950/70 dark:via-gray-900/80 dark:to-blue-950/70"></div>
+          <div className="absolute inset-0 bg-gradient-to-br from-teal-50/70 via-white/80 to-emerald-50/70 dark:from-gray-950/70 dark:via-gray-900/80 dark:to-teal-950/70"></div>
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-24">
           <div className="text-center max-w-4xl mx-auto">
             <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
               Admin{" "}
-              <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-teal-600 to-emerald-600 bg-clip-text text-transparent">
                 Dashboard
               </span>
             </h1>
@@ -541,7 +541,7 @@ export default function AdminPage() {
                 size="lg"
                 onClick={loadData}
                 disabled={refreshing}
-                className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-4 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+                className="bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-700 hover:to-emerald-700 text-white px-8 py-4 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
               >
                 <RefreshCw
                   className={`mr-2 w-5 h-5 ${refreshing ? "animate-spin" : ""}`}
@@ -590,7 +590,7 @@ export default function AdminPage() {
           <div
             className="absolute inset-0"
             style={{
-              backgroundImage: `url('/images/logo-blue-black.png')`,
+              backgroundImage: `url('/images/logo-teal-black.png')`,
               backgroundSize: "300px 300px",
               backgroundRepeat: "repeat",
               backgroundPosition: "center",
@@ -603,7 +603,7 @@ export default function AdminPage() {
           <div className="text-center mb-16">
             <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-6">
               Platform{" "}
-              <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-teal-600 to-emerald-600 bg-clip-text text-transparent">
                 Overview
               </span>
             </h2>
@@ -614,9 +614,9 @@ export default function AdminPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 mb-16">
             <Card className="group relative overflow-hidden border-0 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 bg-gradient-to-br from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 backdrop-blur-sm">
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-600/5 to-purple-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-teal-600/5 to-emerald-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
               <CardContent className="p-6 text-center">
-                <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-500 rounded-xl flex items-center justify-center text-white mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+                <div className="w-12 h-12 bg-gradient-to-r from-teal-500 to-emerald-500 rounded-xl flex items-center justify-center text-white mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
                   <FileText className="w-6 h-6" />
                 </div>
                 <div className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
@@ -627,7 +627,7 @@ export default function AdminPage() {
             </Card>
 
             <Card className="group relative overflow-hidden border-0 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 bg-gradient-to-br from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 backdrop-blur-sm">
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-600/5 to-purple-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-teal-600/5 to-emerald-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
               <CardContent className="p-6 text-center">
                 <div className="w-12 h-12 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-xl flex items-center justify-center text-white mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
                   <Clock className="w-6 h-6" />
@@ -642,7 +642,7 @@ export default function AdminPage() {
             </Card>
 
             <Card className="group relative overflow-hidden border-0 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 bg-gradient-to-br from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 backdrop-blur-sm">
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-600/5 to-purple-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-teal-600/5 to-emerald-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
               <CardContent className="p-6 text-center">
                 <div className="w-12 h-12 bg-gradient-to-r from-green-500 to-emerald-500 rounded-xl flex items-center justify-center text-white mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
                   <TrendingUp className="w-6 h-6" />
@@ -657,9 +657,9 @@ export default function AdminPage() {
             </Card>
 
             <Card className="group relative overflow-hidden border-0 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 bg-gradient-to-br from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 backdrop-blur-sm">
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-600/5 to-purple-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-teal-600/5 to-emerald-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
               <CardContent className="p-6 text-center">
-                <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-violet-500 rounded-xl flex items-center justify-center text-white mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+                <div className="w-12 h-12 bg-gradient-to-r from-emerald-500 to-violet-500 rounded-xl flex items-center justify-center text-white mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
                   <Users className="w-6 h-6" />
                 </div>
                 <div className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
@@ -670,9 +670,9 @@ export default function AdminPage() {
             </Card>
 
             <Card className="group relative overflow-hidden border-0 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 bg-gradient-to-br from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 backdrop-blur-sm">
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-600/5 to-purple-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-teal-600/5 to-emerald-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
               <CardContent className="p-6 text-center">
-                <div className="w-12 h-12 bg-gradient-to-r from-teal-500 to-cyan-500 rounded-xl flex items-center justify-center text-white mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+                <div className="w-12 h-12 bg-gradient-to-r from-teal-500 to-emerald-500 rounded-xl flex items-center justify-center text-white mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
                   <DollarSign className="w-6 h-6" />
                 </div>
                 <div className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
@@ -711,7 +711,7 @@ export default function AdminPage() {
             <TabsContent value="overview" className="space-y-6">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 <Card className="group relative overflow-hidden border-0 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 backdrop-blur-sm">
-                  <div className="absolute inset-0 bg-gradient-to-r from-blue-600/5 to-purple-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  <div className="absolute inset-0 bg-gradient-to-r from-teal-600/5 to-emerald-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2 text-gray-900 dark:text-white">
                       <Activity className="w-5 h-5" />
@@ -747,7 +747,7 @@ export default function AdminPage() {
                             variant="outline"
                             size="sm"
                             onClick={() => setActiveTab("claims")}
-                            className="text-blue-600 hover:text-blue-700 border-blue-200 hover:border-blue-300"
+                            className="text-teal-600 hover:text-teal-700 border-teal-200 hover:border-teal-300"
                           >
                             View All Claims ({claims.length})
                           </Button>
@@ -758,7 +758,7 @@ export default function AdminPage() {
                 </Card>
 
                 <Card className="group relative overflow-hidden border-0 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 backdrop-blur-sm">
-                  <div className="absolute inset-0 bg-gradient-to-r from-blue-600/5 to-purple-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  <div className="absolute inset-0 bg-gradient-to-r from-teal-600/5 to-emerald-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2 text-gray-900 dark:text-white">
                       <BarChart3 className="w-5 h-5" />
@@ -799,11 +799,11 @@ export default function AdminPage() {
 
             <TabsContent value="claims" className="space-y-6">
               {/* Claims Info */}
-              <Card className="group relative overflow-hidden border-0 shadow-lg bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-950/30 dark:to-indigo-950/30 backdrop-blur-sm">
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-600/5 to-purple-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              <Card className="group relative overflow-hidden border-0 shadow-lg bg-gradient-to-br from-teal-50 to-emerald-50 dark:from-teal-950/30 dark:to-emerald-950/30 backdrop-blur-sm">
+                <div className="absolute inset-0 bg-gradient-to-r from-teal-600/5 to-emerald-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 <CardContent className="p-6">
                   <div className="flex items-start gap-4">
-                    <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <div className="w-10 h-10 bg-gradient-to-r from-teal-500 to-emerald-500 rounded-lg flex items-center justify-center flex-shrink-0">
                       <FileText className="w-5 h-5 text-white" />
                     </div>
                     <div className="flex-1">
@@ -820,7 +820,7 @@ export default function AdminPage() {
                           size="sm"
                           variant="outline"
                           onClick={() => handleQuickAction("view")}
-                          className="text-blue-600 border-blue-200 hover:bg-blue-50 dark:hover:bg-blue-950/50 hover:border-blue-300 dark:hover:border-blue-700"
+                          className="text-teal-600 border-teal-200 hover:bg-teal-50 dark:hover:bg-teal-950/50 hover:border-teal-300 dark:hover:border-teal-700"
                         >
                           View Details
                         </Button>
@@ -836,7 +836,7 @@ export default function AdminPage() {
                           size="sm"
                           variant="outline"
                           onClick={() => handleQuickAction("notes")}
-                          className="text-purple-600 border-purple-200 hover:bg-purple-50 dark:hover:bg-purple-950/50 hover:border-purple-300 dark:hover:border-purple-700"
+                          className="text-emerald-600 border-emerald-200 hover:bg-emerald-50 dark:hover:bg-emerald-950/50 hover:border-emerald-300 dark:hover:border-emerald-700"
                         >
                           Add Notes
                         </Button>
@@ -856,7 +856,7 @@ export default function AdminPage() {
 
               {/* Claims Filters */}
               <Card className="group relative overflow-hidden border-0 shadow-lg bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 backdrop-blur-sm">
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-600/5 to-purple-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-teal-600/5 to-emerald-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2 text-gray-900 dark:text-white">
                     <Filter className="w-5 h-5" />
@@ -899,7 +899,7 @@ export default function AdminPage() {
                 {claims.length === 0 ? (
                   <div className="col-span-full">
                     <Card className="group relative overflow-hidden border-0 shadow-lg bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 backdrop-blur-sm">
-                      <div className="absolute inset-0 bg-gradient-to-r from-blue-600/5 to-purple-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                      <div className="absolute inset-0 bg-gradient-to-r from-teal-600/5 to-emerald-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                       <CardContent className="p-12 text-center">
                         <div className="w-16 h-16 bg-gradient-to-r from-gray-400 to-gray-500 rounded-full flex items-center justify-center mx-auto mb-4">
                           <FileText className="w-8 h-8 text-white" />
@@ -918,7 +918,7 @@ export default function AdminPage() {
                               setSearchTerm("");
                               setStatusFilter("all");
                             }}
-                            className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white"
+                            className="bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-700 hover:to-emerald-700 text-white"
                           >
                             Clear Filters
                           </Button>
@@ -932,7 +932,7 @@ export default function AdminPage() {
                       key={claim._id}
                       className="group relative overflow-hidden border-0 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 backdrop-blur-sm"
                     >
-                      <div className="absolute inset-0 bg-gradient-to-r from-blue-600/5 to-purple-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                      <div className="absolute inset-0 bg-gradient-to-r from-teal-600/5 to-emerald-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                       <CardHeader className="pb-4">
                         <div className="flex items-center justify-between mb-2">
                           <CardTitle className="text-lg font-semibold text-gray-900 dark:text-white">
@@ -979,7 +979,7 @@ export default function AdminPage() {
                                 size="sm"
                                 variant="outline"
                                 onClick={() => handleViewClaim(claim._id)}
-                                className="hover:bg-blue-50 dark:hover:bg-blue-950/50 hover:border-blue-300 dark:hover:border-blue-700 cursor-pointer z-10 relative"
+                                className="hover:bg-teal-50 dark:hover:bg-teal-950/50 hover:border-teal-300 dark:hover:border-teal-700 cursor-pointer z-10 relative"
                                 aria-label={`View claim ${claim.claimNumber}`}
                               >
                                 <Eye className="w-4 h-4" />
@@ -1052,7 +1052,7 @@ export default function AdminPage() {
                     key={user._id}
                     className="group relative overflow-hidden border-0 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 backdrop-blur-sm"
                   >
-                    <div className="absolute inset-0 bg-gradient-to-r from-blue-600/5 to-purple-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div className="absolute inset-0 bg-gradient-to-r from-teal-600/5 to-emerald-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                     <CardHeader className="pb-4">
                       <div className="flex items-center justify-between mb-2">
                         <CardTitle className="text-lg font-semibold text-gray-900 dark:text-white">
@@ -1061,8 +1061,8 @@ export default function AdminPage() {
                         <Badge
                           className={
                             user.role === "admin"
-                              ? "bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-300"
-                              : "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300"
+                              ? "bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-300"
+                              : "bg-teal-100 text-teal-800 dark:bg-teal-900 dark:text-teal-300"
                           }
                         >
                           {user.role}
@@ -1087,7 +1087,7 @@ export default function AdminPage() {
                               size="sm"
                               variant="outline"
                               onClick={() => handleViewUser(user._id)}
-                              className="hover:bg-blue-50 dark:hover:bg-blue-950/50 hover:border-blue-300 dark:hover:border-blue-700"
+                              className="hover:bg-teal-50 dark:hover:bg-teal-950/50 hover:border-teal-300 dark:hover:border-teal-700"
                             >
                               <Eye className="w-4 h-4" />
                             </Button>

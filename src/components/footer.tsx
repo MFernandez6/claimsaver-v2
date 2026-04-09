@@ -2,18 +2,11 @@
 
 import { useState } from "react";
 import {
-  Phone,
-  Mail,
-  MapPin,
   X,
-  Shield,
-  FileText,
-  Users,
-  Award,
-  Clock,
-  CheckCircle,
+  Mail,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { BrandLogo } from "@/components/brand-logo";
 
 export default function Footer() {
   const [activeModal, setActiveModal] = useState<string | null>(null);
@@ -45,7 +38,7 @@ export default function Footer() {
           onClick={(e) => e.stopPropagation()}
         >
           {/* Header with gradient */}
-          <div className="bg-gradient-to-r from-blue-600 to-blue-800 p-6 text-white relative">
+          <div className="bg-gradient-to-r from-teal-600 to-teal-800 p-6 text-white relative">
             <div className="flex items-center justify-between">
               <h2 className="text-2xl font-black tracking-tight">{title}</h2>
               <Button
@@ -75,14 +68,14 @@ export default function Footer() {
 
   return (
     <>
-      <footer className="relative bg-gradient-to-br from-gray-900 via-blue-900 to-gray-900 text-white overflow-hidden">
+      <footer className="relative bg-gradient-to-br from-gray-900 via-teal-900 to-gray-900 text-white overflow-hidden">
         {/* Background Pattern */}
-        <div className="absolute inset-0 opacity-30">
+        <div className="absolute inset-0 opacity-[0.03] pointer-events-none">
           <div
-            className="absolute inset-0"
+            className="absolute inset-0 saturate-0 brightness-200"
             style={{
-              backgroundImage: `url('/images/logo-blue-black.png')`,
-              backgroundSize: "200px 200px",
+              backgroundImage: `url('/images/logo-teal-black.png')`,
+              backgroundSize: "400px 400px",
               backgroundRepeat: "repeat",
               backgroundPosition: "center",
             }}
@@ -90,97 +83,29 @@ export default function Footer() {
         </div>
 
         {/* Main Footer Content */}
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 lg:py-16">
-          {/* Top Section - Brand & Stats */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12 mb-12 lg:mb-16">
-            {/* Brand Section */}
-            <div className="lg:col-span-1">
-              <div className="flex items-center gap-3 mb-4 lg:mb-6">
-                <div className="w-10 h-10 lg:w-12 lg:h-12 bg-gradient-to-br from-blue-500 to-blue-700 rounded-xl flex items-center justify-center shadow-lg">
-                  <span className="text-white font-black text-base lg:text-lg">
-                    C+
-                  </span>
-                </div>
-                <span className="text-xl lg:text-2xl font-black bg-gradient-to-r from-blue-400 to-blue-200 bg-clip-text text-transparent">
-                  ClaimSaver+
-                </span>
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-16">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-12 mb-12">
+            {/* Branded Section */}
+            <div className="lg:col-span-1 space-y-4">
+              <div className="flex items-center">
+                <BrandLogo variant="footer" />
               </div>
-              <p className="text-blue-100 text-base lg:text-lg leading-relaxed mb-4 lg:mb-6">
-                Revolutionizing accident claims with transparent pricing and
-                professional service. Keep 95% of your settlement with our
-                flat-rate structure.
+              <p className="text-teal-100/60 text-sm leading-relaxed max-w-[220px]">
+                Self-help tools for Florida no-fault (PIP) claims. Secure document storage and guided workflows.
               </p>
-              <div className="flex flex-wrap items-center gap-2 lg:gap-4">
-                <div className="flex items-center gap-2 bg-blue-800/50 rounded-lg px-2 lg:px-3 py-1 lg:py-2">
-                  <Award className="w-3 h-3 lg:w-4 lg:h-4 text-yellow-400" />
-                  <span className="text-xs lg:text-sm font-medium">
-                    Award Winning
-                  </span>
-                </div>
-                <div className="flex items-center gap-2 bg-blue-800/50 rounded-lg px-2 lg:px-3 py-1 lg:py-2">
-                  <Shield className="w-3 h-3 lg:w-4 lg:h-4 text-green-400" />
-                  <span className="text-xs lg:text-sm font-medium">
-                    Trusted
-                  </span>
-                </div>
-              </div>
             </div>
-
-            {/* Stats Section */}
-            <div className="lg:col-span-2">
-              <div className="grid grid-cols-3 gap-4 lg:gap-8">
-                <div className="text-center">
-                  <div className="w-12 h-12 lg:w-16 lg:h-16 bg-gradient-to-br from-blue-500 to-blue-700 rounded-xl lg:rounded-2xl flex items-center justify-center mx-auto mb-2 lg:mb-4 shadow-lg">
-                    <Clock className="w-5 h-5 lg:w-8 lg:h-8 text-white" />
-                  </div>
-                  <div className="text-xl lg:text-3xl font-bold text-white mb-1 lg:mb-2">
-                    24/7
-                  </div>
-                  <div className="text-blue-200 text-xs lg:text-sm">
-                    Support Available
-                  </div>
-                </div>
-                <div className="text-center">
-                  <div className="w-12 h-12 lg:w-16 lg:h-16 bg-gradient-to-br from-green-500 to-green-700 rounded-xl lg:rounded-2xl flex items-center justify-center mx-auto mb-2 lg:mb-4 shadow-lg">
-                    <CheckCircle className="w-5 h-5 lg:w-8 lg:h-8 text-white" />
-                  </div>
-                  <div className="text-xl lg:text-3xl font-bold text-white mb-1 lg:mb-2">
-                    95%
-                  </div>
-                  <div className="text-blue-200 text-xs lg:text-sm">
-                    Settlement Kept
-                  </div>
-                </div>
-                <div className="text-center">
-                  <div className="w-12 h-12 lg:w-16 lg:h-16 bg-gradient-to-br from-purple-500 to-purple-700 rounded-xl lg:rounded-2xl flex items-center justify-center mx-auto mb-2 lg:mb-4 shadow-lg">
-                    <Users className="w-5 h-5 lg:w-8 lg:h-8 text-white" />
-                  </div>
-                  <div className="text-xl lg:text-3xl font-bold text-white mb-1 lg:mb-2">
-                    500+
-                  </div>
-                  <div className="text-blue-200 text-xs lg:text-sm">
-                    Happy Clients
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Middle Section - Links & Contact */}
-          <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 mb-8 lg:mb-12">
             {/* Services */}
-            <div className="space-y-3 lg:space-y-4">
-              <h3 className="text-base lg:text-lg font-bold text-white mb-3 lg:mb-4 flex items-center gap-2">
-                <FileText className="w-4 h-4 lg:w-5 lg:h-5 text-blue-400" />
+            <div className="space-y-4">
+              <h3 className="text-xs font-black text-white uppercase tracking-[0.2em]">
                 Services
               </h3>
-              <ul className="space-y-2 lg:space-y-3">
+              <ul className="space-y-3">
                 <li>
                   <a
                     href="/claim-form"
-                    className="text-blue-200 hover:text-white transition-colors duration-300 flex items-center gap-2 group text-sm lg:text-base"
+                    className="text-teal-100/60 hover:text-white transition-all duration-300 text-sm flex items-center gap-2 group"
                   >
-                    <div className="w-1 h-1 bg-blue-400 rounded-full group-hover:bg-white transition-colors"></div>
+                    <span className="w-0 group-hover:w-2 h-[1px] bg-teal-400 transition-all duration-300"></span>
                     Claim Form
                   </a>
                 </li>
@@ -188,193 +113,158 @@ export default function Footer() {
                 <li>
                   <a
                     href="/notarization"
-                    className="text-blue-200 hover:text-white transition-colors duration-300 flex items-center gap-2 group text-sm lg:text-base"
+                    className="text-teal-100/60 hover:text-white transition-all duration-300 text-sm flex items-center gap-2 group"
                   >
-                    <div className="w-1 h-1 bg-blue-400 rounded-full group-hover:bg-white transition-colors"></div>
+                    <span className="w-0 group-hover:w-2 h-[1px] bg-teal-400 transition-all duration-300"></span>
                     Notarization
                   </a>
                 </li>
                 <li>
                   <a
                     href="/pricing"
-                    className="text-blue-200 hover:text-white transition-colors duration-300 flex items-center gap-2 group text-sm lg:text-base"
+                    className="text-teal-100/60 hover:text-white transition-all duration-300 text-sm flex items-center gap-2 group"
                   >
-                    <div className="w-1 h-1 bg-blue-400 rounded-full group-hover:bg-white transition-colors"></div>
+                    <span className="w-0 group-hover:w-2 h-[1px] bg-teal-400 transition-all duration-300"></span>
                     Pricing
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="/how-it-works"
+                    className="text-teal-100/60 hover:text-white transition-all duration-300 text-sm flex items-center gap-2 group"
+                  >
+                    <span className="w-0 group-hover:w-2 h-[1px] bg-teal-400 transition-all duration-300"></span>
+                    How It Works
                   </a>
                 </li>
               </ul>
             </div>
 
             {/* Company */}
-            <div className="space-y-3 lg:space-y-4">
-              <h3 className="text-base lg:text-lg font-bold text-white mb-3 lg:mb-4 flex items-center gap-2">
-                <Users className="w-4 h-4 lg:w-5 lg:h-5 text-blue-400" />
+            <div className="space-y-4">
+              <h3 className="text-xs font-black text-white uppercase tracking-[0.2em]">
                 Company
               </h3>
-              <ul className="space-y-2 lg:space-y-3">
+              <ul className="space-y-3">
                 <li>
                   <a
                     href="/who-we-are"
-                    className="text-blue-200 hover:text-white transition-colors duration-300 flex items-center gap-2 group text-sm lg:text-base"
+                    className="text-teal-100/60 hover:text-white transition-all duration-300 text-sm flex items-center gap-2 group"
                   >
-                    <div className="w-1 h-1 bg-blue-400 rounded-full group-hover:bg-white transition-colors"></div>
+                    <span className="w-0 group-hover:w-2 h-[1px] bg-teal-400 transition-all duration-300"></span>
                     About Us
                   </a>
                 </li>
                 <li>
                   <a
                     href="/what-we-do"
-                    className="text-blue-200 hover:text-white transition-colors duration-300 flex items-center gap-2 group text-sm lg:text-base"
+                    className="text-teal-100/60 hover:text-white transition-all duration-300 text-sm flex items-center gap-2 group"
                   >
-                    <div className="w-1 h-1 bg-blue-400 rounded-full group-hover:bg-white transition-colors"></div>
+                    <span className="w-0 group-hover:w-2 h-[1px] bg-teal-400 transition-all duration-300"></span>
                     What We Do
                   </a>
                 </li>
                 <li>
                   <a
-                    href="/pricing"
-                    className="text-blue-200 hover:text-white transition-colors duration-300 flex items-center gap-2 group text-sm lg:text-base"
+                    href="/contact"
+                    className="text-teal-100/60 hover:text-white transition-all duration-300 text-sm flex items-center gap-2 group"
                   >
-                    <div className="w-1 h-1 bg-blue-400 rounded-full group-hover:bg-white transition-colors"></div>
-                    Pricing
+                    <span className="w-0 group-hover:w-2 h-[1px] bg-teal-400 transition-all duration-300"></span>
+                    Contact
                   </a>
                 </li>
                 <li>
                   <a
-                    href="/contact"
-                    className="text-blue-200 hover:text-white transition-colors duration-300 flex items-center gap-2 group text-sm lg:text-base"
+                    href="/learning-center"
+                    className="text-teal-100/60 hover:text-white transition-all duration-300 text-sm flex items-center gap-2 group"
                   >
-                    <div className="w-1 h-1 bg-blue-400 rounded-full group-hover:bg-white transition-colors"></div>
-                    Contact
+                    <span className="w-0 group-hover:w-2 h-[1px] bg-teal-400 transition-all duration-300"></span>
+                    Learning Center
                   </a>
+                </li>
+                <li>
+                  <a
+                    href="/need-professional-help"
+                    className="text-teal-100/60 hover:text-white transition-all duration-300 text-sm flex items-center gap-2 group"
+                  >
+                    <span className="w-0 group-hover:w-2 h-[1px] bg-teal-400 transition-all duration-300"></span>
+                    Need Professional Help?
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="/license-credentials"
+                    className="text-teal-100/60 hover:text-white transition-all duration-300 text-sm flex items-center gap-2 group"
+                  >
+                    <span className="w-0 group-hover:w-2 h-[1px] bg-teal-400 transition-all duration-300"></span>
+                    License &amp; Credentials
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            {/* Legal */}
+            <div className="space-y-4">
+              <h3 className="text-xs font-black text-white uppercase tracking-[0.2em]">
+                Legal
+              </h3>
+              <ul className="space-y-3">
+                <li>
+                  <button
+                    onClick={() => setActiveModal("privacy")}
+                    className="text-teal-100/60 hover:text-white transition-all duration-300 text-sm flex items-center gap-2 group text-left"
+                  >
+                    <span className="w-0 group-hover:w-2 h-[1px] bg-teal-400 transition-all duration-300"></span>
+                    Privacy Policy
+                  </button>
+                </li>
+                <li>
+                  <button
+                    onClick={() => setActiveModal("terms")}
+                    className="text-teal-100/60 hover:text-white transition-all duration-300 text-sm flex items-center gap-2 group text-left"
+                  >
+                    <span className="w-0 group-hover:w-2 h-[1px] bg-teal-400 transition-all duration-300"></span>
+                    Terms of Service
+                  </button>
                 </li>
               </ul>
             </div>
 
             {/* Support */}
-            <div className="space-y-3 lg:space-y-4">
-              <h3 className="text-base lg:text-lg font-bold text-white mb-3 lg:mb-4 flex items-center gap-2">
-                <Shield className="w-4 h-4 lg:w-5 lg:h-5 text-blue-400" />
-                Support
+            <div className="space-y-4">
+              <h3 className="text-xs font-black text-white uppercase tracking-[0.2em]">
+                Contact
               </h3>
-              <ul className="space-y-2 lg:space-y-3">
-                <li>
-                  <a
-                    href="/faq"
-                    className="text-blue-200 hover:text-white transition-colors duration-300 flex items-center gap-2 group text-sm lg:text-base"
-                  >
-                    <div className="w-1 h-1 bg-blue-400 rounded-full group-hover:bg-white transition-colors"></div>
-                    FAQ
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="/help"
-                    className="text-blue-200 hover:text-white transition-colors duration-300 flex items-center gap-2 group text-sm lg:text-base"
-                  >
-                    <div className="w-1 h-1 bg-blue-400 rounded-full group-hover:bg-white transition-colors"></div>
-                    Help Center
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="/contact"
-                    className="text-blue-200 hover:text-white transition-colors duration-300 flex items-center gap-2 group text-sm lg:text-base"
-                  >
-                    <div className="w-1 h-1 bg-blue-400 rounded-full group-hover:bg-white transition-colors"></div>
-                    Contact Us
+              <ul className="space-y-3">
+                <li className="flex items-center gap-3 text-teal-100/60 text-sm group">
+                  <div className="w-8 h-8 rounded-lg bg-teal-500/10 flex items-center justify-center text-teal-400 group-hover:bg-teal-500/20 transition-all duration-300">
+                    <Mail className="w-4 h-4" />
+                  </div>
+                  <a href="mailto:support@claimsaverplus.com" className="hover:text-white transition-colors duration-300">
+                    support@claimsaverplus.com
                   </a>
                 </li>
               </ul>
             </div>
-
-            {/* Contact Info */}
-            <div className="space-y-3 lg:space-y-4">
-              <h3 className="text-base lg:text-lg font-bold text-white mb-3 lg:mb-4 flex items-center gap-2">
-                <Mail className="w-4 h-4 lg:w-5 lg:h-5 text-blue-400" />
-                Contact Info
-              </h3>
-              <div className="space-y-2 lg:space-y-3">
-                <div className="flex items-center gap-2 lg:gap-3">
-                  <Phone className="w-3 h-3 lg:w-4 lg:h-4 text-blue-400 flex-shrink-0" />
-                  <a
-                    href="tel:+17864173869"
-                    className="text-blue-200 hover:text-white transition-colors duration-300 text-sm lg:text-base"
-                  >
-                    (786) 417-3869
-                  </a>
-                </div>
-                <div className="flex items-center gap-2 lg:gap-3">
-                  <Mail className="w-3 h-3 lg:w-4 lg:h-4 text-blue-400 flex-shrink-0" />
-                  <a
-                    href="mailto:ClaimSaverPlus@gmail.com"
-                    className="text-blue-200 hover:text-white transition-colors duration-300 text-sm lg:text-base"
-                  >
-                    ClaimSaverPlus@gmail.com
-                  </a>
-                </div>
-                <div className="flex items-center gap-2 lg:gap-3">
-                  <MapPin className="w-3 h-3 lg:w-4 lg:h-4 text-blue-400 flex-shrink-0" />
-                  <span className="text-blue-200 text-sm lg:text-base">
-                    Miami, FL
-                  </span>
-                </div>
-              </div>
-            </div>
           </div>
 
           {/* Bottom Section */}
-          <div className="border-t border-blue-800 pt-6 lg:pt-8">
-            <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-              <div className="text-center md:text-left">
-                <p className="text-blue-200 text-xs lg:text-sm">
-                  © 2023 ClaimSaver+
-                </p>
-                <p className="text-blue-200 text-xs opacity-75">
-                  All rights reserved.
-                </p>
-              </div>
-              <div className="flex flex-wrap justify-center gap-4 lg:gap-6 text-xs lg:text-sm">
-                <button
-                  onClick={() => setActiveModal("privacy")}
-                  className="text-blue-200 hover:text-white transition-colors duration-300"
-                >
-                  Privacy Policy
-                </button>
-                <button
-                  onClick={() => setActiveModal("terms")}
-                  className="text-blue-200 hover:text-white transition-colors duration-300"
-                >
-                  Terms of Service
-                </button>
-                <button
-                  onClick={() => setActiveModal("cookies")}
-                  className="text-blue-200 hover:text-white transition-colors duration-300"
-                >
-                  Cookie Policy
-                </button>
-              </div>
+          <div className="border-t border-gray-800 pt-6">
+            <div className="text-center">
+              <p className="text-teal-100/20 text-[10px] tracking-widest uppercase">
+                © {new Date().getFullYear()} ClaimSaver+ • Self-help claim technology • Serving Florida drivers
+              </p>
             </div>
+          </div>
+        </div>
 
-            {/* Legal Disclaimer */}
-            <div className="mt-4 lg:mt-6 pt-4 lg:pt-6 border-t border-blue-800/50">
-              <div className="bg-blue-950/50 rounded-lg p-3 lg:p-4 border border-blue-800/50">
-                <p className="text-xs text-blue-200 leading-relaxed text-center">
-                  <strong className="text-red-400">LEGAL DISCLAIMER:</strong>{" "}
-                  ClaimSaver+ is a technology platform providing administrative
-                  support services. We are NOT a law
-                  firm and do NOT provide legal advice, case evaluation, or
-                  legal representation. Our services include administrative
-                  support for no-fault accident form filing, document management, and case tracking. For
-                  legal services, you must consult with qualified attorneys or
-                  other qualified legal professionals. Our flat-rate fee of $500
-                  covers platform services and administrative support only.
-                  Results may vary. Past performance does not
-                  guarantee future outcomes.
-                </p>
-              </div>
-            </div>
+        {/* Legal Disclaimer */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
+          <div className="mt-4 pt-4 border-t border-gray-800">
+            <p className="text-[10px] text-gray-500 leading-relaxed text-center opacity-70 max-w-4xl mx-auto">
+              <strong className="text-gray-400 uppercase tracking-widest text-[9px]">Legal Disclaimer:</strong>{" "}
+              ClaimSaver+ is a self-help technology platform. We are not a law firm, not your representative with an insurance company, and we do not provide legal advice, claim evaluation, or negotiation on your behalf. You file your own no-fault (PIP) claim using our tools. The $500 fee is for platform access (guided forms, storage, tracking, reminders, and educational content). We do not guarantee any outcome. For legal advice about your specific situation, consult a licensed Florida attorney.
+            </p>
           </div>
         </div>
       </footer>
@@ -388,8 +278,8 @@ export default function Footer() {
         <div className="space-y-8">
           <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-100 dark:border-gray-700">
             <h3 className="text-xl font-bold mb-4 text-gray-900 dark:text-white flex items-center gap-3">
-              <div className="w-8 h-8 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center">
-                <span className="text-blue-600 dark:text-blue-400 font-semibold text-sm">
+              <div className="w-8 h-8 bg-teal-100 dark:bg-teal-900 rounded-full flex items-center justify-center">
+                <span className="text-teal-600 dark:text-teal-400 font-semibold text-sm">
                   1
                 </span>
               </div>
@@ -402,22 +292,22 @@ export default function Footer() {
             </p>
             <ul className="space-y-2 text-gray-600 dark:text-gray-300">
               <li className="flex items-start gap-3">
-                <div className="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0"></div>
+                <div className="w-2 h-2 bg-teal-500 rounded-full mt-2 flex-shrink-0"></div>
                 <span>
                   Personal identification information (name, email address,
                   phone number)
                 </span>
               </li>
               <li className="flex items-start gap-3">
-                <div className="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0"></div>
+                <div className="w-2 h-2 bg-teal-500 rounded-full mt-2 flex-shrink-0"></div>
                 <span>Accident details and claim information</span>
               </li>
               <li className="flex items-start gap-3">
-                <div className="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0"></div>
+                <div className="w-2 h-2 bg-teal-500 rounded-full mt-2 flex-shrink-0"></div>
                 <span>Documentation and evidence related to your case</span>
               </li>
               <li className="flex items-start gap-3">
-                <div className="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0"></div>
+                <div className="w-2 h-2 bg-teal-500 rounded-full mt-2 flex-shrink-0"></div>
                 <span>
                   Communication history with our platform
                 </span>
@@ -445,11 +335,18 @@ export default function Footer() {
 
               <li className="flex items-start gap-3">
                 <div className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0"></div>
-                <span>Process and manage your claims</span>
+                <span>
+                  Store and display information you enter in your account for
+                  your own claim organization (we do not act as your
+                  representative to insurers)
+                </span>
               </li>
               <li className="flex items-start gap-3">
                 <div className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0"></div>
-                <span>Communicate with you about your case</span>
+                <span>
+                  Send transactional emails about your account and platform use
+                  (not legal advice)
+                </span>
               </li>
               <li className="flex items-start gap-3">
                 <div className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0"></div>
@@ -462,9 +359,9 @@ export default function Footer() {
             </ul>
           </div>
 
-          <div className="bg-gradient-to-r from-blue-50 to-blue-100 dark:from-blue-950/50 dark:to-blue-900/50 rounded-xl p-6 border border-blue-200 dark:border-blue-800">
+          <div className="bg-gradient-to-r from-teal-50 to-teal-100 dark:from-teal-950/50 dark:to-teal-900/50 rounded-xl p-6 border border-teal-200 dark:border-teal-800">
             <h3 className="text-xl font-bold mb-4 text-gray-900 dark:text-white flex items-center gap-3">
-              <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
+              <div className="w-8 h-8 bg-teal-600 rounded-full flex items-center justify-center">
                 <span className="text-white font-semibold text-sm">3</span>
               </div>
               Contact Us
@@ -473,10 +370,10 @@ export default function Footer() {
               If you have questions about this Privacy Policy, please contact us
               at
               <a
-                href="mailto:ClaimSaverPlus@gmail.com"
-                className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 font-semibold ml-1 transition-colors duration-300"
+                href="mailto:support@claimsaverplus.com"
+                className="text-teal-600 hover:text-teal-800 dark:text-teal-400 dark:hover:text-teal-300 font-semibold ml-1 transition-colors duration-300"
               >
-                ClaimSaverPlus@gmail.com
+                support@claimsaverplus.com
               </a>
             </p>
           </div>
@@ -498,8 +395,8 @@ export default function Footer() {
         <div className="space-y-8">
           <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-100 dark:border-gray-700">
             <h3 className="text-xl font-bold mb-4 text-gray-900 dark:text-white flex items-center gap-3">
-              <div className="w-8 h-8 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center">
-                <span className="text-blue-600 dark:text-blue-400 font-semibold text-sm">
+              <div className="w-8 h-8 bg-teal-100 dark:bg-teal-900 rounded-full flex items-center justify-center">
+                <span className="text-teal-600 dark:text-teal-400 font-semibold text-sm">
                   1
                 </span>
               </div>
@@ -522,52 +419,54 @@ export default function Footer() {
               Description of Service
             </h3>
             <p className="mb-4 text-gray-600 dark:text-gray-300 leading-relaxed">
-              ClaimSaver+ is a technology platform that provides administrative
-              support for accident victims.
+              ClaimSaver+ is a self-help technology platform for Florida motor
+              vehicle no-fault (PIP) claims.
               <strong className="text-red-600 dark:text-red-400">
-                We are NOT a law firm and do NOT provide legal advice or
-                representation.
+                {" "}
+                We are NOT a law firm and do NOT provide legal advice,
+                representation, or negotiation with insurers on your behalf.
               </strong>{" "}
-              Our services include:
+              You prepare and submit your own claim. The platform may include:
             </p>
             <ul className="space-y-2 text-gray-600 dark:text-gray-300">
               <li className="flex items-start gap-3">
                 <div className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0"></div>
                 <span>
-                  Administrative support for no-fault accident form filing
+                  Guided digital workflows and field validation for standardized
+                  information you enter yourself
                 </span>
               </li>
 
               <li className="flex items-start gap-3">
                 <div className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0"></div>
-                <span>Document management and storage</span>
+                <span>Secure document storage and organization tools</span>
               </li>
               <li className="flex items-start gap-3">
                 <div className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0"></div>
-                <span>Case tracking and communication tools</span>
+                <span>
+                  Reminders, expense tracking, and general educational content
+                </span>
               </li>
             </ul>
             <div className="mt-4 p-4 bg-red-50 dark:bg-red-950/30 rounded-lg border border-red-200 dark:border-red-800">
               <p className="text-sm text-red-800 dark:text-red-200">
-                <strong>Important:</strong> We do not provide legal advice, case
-                evaluation, or legal representation. For legal services, you
-                must consult with qualified attorneys or other qualified legal
-                professionals.
+                <strong>Important:</strong> We do not evaluate the merits of your
+                claim, tell you whether to accept a settlement, or communicate
+                with insurance companies as your representative. For legal
+                advice, consult a licensed attorney.
               </p>
             </div>
-            <div className="mt-4 p-4 bg-blue-50 dark:bg-blue-950/30 rounded-lg border border-blue-200 dark:border-blue-800">
-              <p className="text-sm text-blue-800 dark:text-blue-200">
-                <strong>Regulatory Update:</strong> We are currently in the
-                process of obtaining our Public Adjuster license to provide
-                enhanced claim adjustment services. This will allow us to offer
-                more comprehensive support for insurance claims while
-                maintaining full compliance with state regulations. Expected
-                completion: Q1 2024.
+            <div className="mt-4 p-4 bg-teal-50 dark:bg-teal-950/30 rounded-lg border border-teal-200 dark:border-teal-800">
+              <p className="text-sm text-teal-800 dark:text-teal-200">
+                <strong>Optional services:</strong> If separately offered in the
+                future, licensed professional services (such as public adjusting)
+                would be a distinct product with its own contract and
+                disclosures—not part of the standard self-help platform fee.
               </p>
             </div>
           </div>
 
-          <div className="bg-gradient-to-r from-green-50 to-blue-50 dark:from-green-950/50 dark:to-blue-950/50 rounded-xl p-6 border border-green-200 dark:border-green-800">
+          <div className="bg-gradient-to-r from-green-50 to-teal-50 dark:from-green-950/50 dark:to-teal-950/50 rounded-xl p-6 border border-green-200 dark:border-green-800">
             <h3 className="text-xl font-bold mb-4 text-gray-900 dark:text-white flex items-center gap-3">
               <div className="w-8 h-8 bg-green-600 rounded-full flex items-center justify-center">
                 <span className="text-white font-semibold text-sm">3</span>
@@ -575,18 +474,19 @@ export default function Footer() {
               Fees and Payment
             </h3>
             <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-              Our services are provided for a flat fee of{" "}
+              Self-help platform access is offered for a flat fee of{" "}
               <span className="font-bold text-green-600 dark:text-green-400">
                 $500
-              </span>
-              . This fee covers our platform services and administrative
-              support.
+              </span>{" "}
+              unless otherwise stated at checkout. This fee covers use of the
+              software and educational materials described at the time of
+              purchase—not representation or legal services.
             </p>
           </div>
 
-          <div className="bg-gradient-to-r from-blue-50 to-blue-100 dark:from-blue-950/50 dark:to-blue-900/50 rounded-xl p-6 border border-blue-200 dark:border-blue-800">
+          <div className="bg-gradient-to-r from-teal-50 to-teal-100 dark:from-teal-950/50 dark:to-teal-900/50 rounded-xl p-6 border border-teal-200 dark:border-teal-800">
             <h3 className="text-xl font-bold mb-4 text-gray-900 dark:text-white flex items-center gap-3">
-              <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
+              <div className="w-8 h-8 bg-teal-600 rounded-full flex items-center justify-center">
                 <span className="text-white font-semibold text-sm">4</span>
               </div>
               Contact Information
@@ -594,10 +494,10 @@ export default function Footer() {
             <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
               For questions about these Terms of Service, please contact us at
               <a
-                href="mailto:ClaimSaverPlus@gmail.com"
-                className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 font-semibold ml-1 transition-colors duration-300"
+                href="mailto:support@claimsaverplus.com"
+                className="text-teal-600 hover:text-teal-800 dark:text-teal-400 dark:hover:text-teal-300 font-semibold ml-1 transition-colors duration-300"
               >
-                ClaimSaverPlus@gmail.com
+                support@claimsaverplus.com
               </a>
             </p>
           </div>
@@ -619,8 +519,8 @@ export default function Footer() {
         <div className="space-y-8">
           <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-gray-100 dark:border-gray-700">
             <h3 className="text-xl font-bold mb-4 text-gray-900 dark:text-white flex items-center gap-3">
-              <div className="w-8 h-8 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center">
-                <span className="text-blue-600 dark:text-blue-400 font-semibold text-sm">
+              <div className="w-8 h-8 bg-teal-100 dark:bg-teal-900 rounded-full flex items-center justify-center">
+                <span className="text-teal-600 dark:text-teal-400 font-semibold text-sm">
                   1
                 </span>
               </div>
@@ -677,9 +577,9 @@ export default function Footer() {
             </ul>
           </div>
 
-          <div className="bg-gradient-to-r from-blue-50 to-blue-100 dark:from-blue-950/50 dark:to-blue-900/50 rounded-xl p-6 border border-blue-200 dark:border-blue-800">
+          <div className="bg-gradient-to-r from-teal-50 to-teal-100 dark:from-teal-950/50 dark:to-teal-900/50 rounded-xl p-6 border border-teal-200 dark:border-teal-800">
             <h3 className="text-xl font-bold mb-4 text-gray-900 dark:text-white flex items-center gap-3">
-              <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
+              <div className="w-8 h-8 bg-teal-600 rounded-full flex items-center justify-center">
                 <span className="text-white font-semibold text-sm">3</span>
               </div>
               Contact Us
@@ -688,10 +588,10 @@ export default function Footer() {
               If you have questions about our use of cookies, please contact us
               at
               <a
-                href="mailto:ClaimSaverPlus@gmail.com"
-                className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 font-semibold ml-1 transition-colors duration-300"
+                href="mailto:support@claimsaverplus.com"
+                className="text-teal-600 hover:text-teal-800 dark:text-teal-400 dark:hover:text-teal-300 font-semibold ml-1 transition-colors duration-300"
               >
-                ClaimSaverPlus@gmail.com
+                support@claimsaverplus.com
               </a>
             </p>
           </div>

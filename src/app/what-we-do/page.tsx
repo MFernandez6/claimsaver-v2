@@ -1,11 +1,10 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
+import { PageHeroBackdrop } from "@/components/page-hero-backdrop";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import FAQ from "@/components/faq";
-import { useClerk } from "@clerk/nextjs";
 import { useTranslation } from "react-i18next";
 import {
   CheckCircle,
@@ -18,12 +17,7 @@ import {
 } from "lucide-react";
 
 export default function WhatWeDo() {
-  const { openSignIn } = useClerk();
   const { t } = useTranslation();
-
-  const handleStartClaim = () => {
-    openSignIn();
-  };
 
   const faqItems = [
     {
@@ -59,7 +53,7 @@ export default function WhatWeDo() {
 
   const services = [
     {
-      icon: <FileText className="w-8 h-8 text-blue-600" />,
+      icon: <FileText className="w-8 h-8 text-teal-600" />,
       title: t("whatWeDo.services.noFault.title"),
       description: t("whatWeDo.services.noFault.description"),
       features: [
@@ -69,11 +63,11 @@ export default function WhatWeDo() {
         t("whatWeDo.services.noFault.features.errorChecking"),
         t("whatWeDo.services.noFault.features.confirmation"),
       ],
-      color: "blue",
+      color: "teal",
     },
 
     {
-      icon: <Shield className="w-8 h-8 text-purple-600" />,
+      icon: <Shield className="w-8 h-8 text-emerald-600" />,
       title: t("whatWeDo.services.documents.title"),
       description: t("whatWeDo.services.documents.description"),
       features: [
@@ -83,7 +77,7 @@ export default function WhatWeDo() {
         t("whatWeDo.services.documents.features.version"),
         t("whatWeDo.services.documents.features.mobile"),
       ],
-      color: "purple",
+      color: "emerald",
     },
     {
       icon: <DollarSign className="w-8 h-8 text-orange-600" />,
@@ -130,23 +124,16 @@ export default function WhatWeDo() {
   return (
     <div className="min-h-screen bg-white dark:bg-gray-950">
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-blue-50 via-white to-indigo-50 dark:from-gray-950 dark:via-gray-900 dark:to-blue-950">
-        {/* Background Image */}
-        <div className="fixed inset-0 z-0">
-          <Image
-            src="/images/long-logo-ClaimSaver.jpg"
-            alt={t("whatWeDo.hero.imageAlt")}
-            className="w-full h-full object-cover opacity-25"
-            fill
-          />
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-50/70 via-white/80 to-indigo-50/70 dark:from-gray-950/70 dark:via-gray-900/80 dark:to-blue-950/70"></div>
+      <section className="relative overflow-hidden bg-gradient-to-br from-slate-50 via-white to-emerald-50 dark:from-slate-950 dark:via-gray-900 dark:to-slate-900">
+        <div className="absolute inset-0 z-0">
+          <PageHeroBackdrop />
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-24">
           <div className="text-center max-w-4xl mx-auto">
             <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
               {t("whatWeDo.hero.title")}{" "}
-              <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-teal-600 to-emerald-600 bg-clip-text text-transparent">
                 {t("whatWeDo.hero.subtitle")}
               </span>
             </h1>
@@ -157,15 +144,18 @@ export default function WhatWeDo() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-4">
               <Button
                 size="lg"
-                onClick={handleStartClaim}
-                className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-4 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+                asChild
+                className="bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-700 hover:to-emerald-700 text-white px-8 py-4 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
               >
-                {t("whatWeDo.hero.startRecovery")}
-                <ArrowRight className="ml-2 w-5 h-5" />
+                <Link href="/how-it-works">
+                  {t("whatWeDo.hero.startRecovery")}
+                  <ArrowRight className="ml-2 w-5 h-5 inline" />
+                </Link>
               </Button>
               <Button
                 size="lg"
                 variant="outline"
+                asChild
                 className="border-2 border-gray-300 hover:border-gray-400 text-gray-700 dark:text-gray-300 px-8 py-4 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
               >
                 <Link href="/claim-form">{t("whatWeDo.hero.fileClaim")}</Link>
@@ -176,26 +166,14 @@ export default function WhatWeDo() {
       </section>
 
       {/* Services Section */}
-      <section className="py-12 bg-white dark:bg-gray-950 relative overflow-hidden">
-        {/* Background Pattern */}
-        <div className="fixed inset-0 z-0 opacity-15">
-          <div
-            className="absolute inset-0"
-            style={{
-              backgroundImage: `url('/images/logo-blue-black.png')`,
-              backgroundSize: "300px 300px",
-              backgroundRepeat: "repeat",
-              backgroundPosition: "center",
-              opacity: 0.15,
-            }}
-          ></div>
-        </div>
+      <section className="py-12 bg-white dark:bg-gray-950 relative overflow-hidden border-y border-slate-100 dark:border-slate-800/80">
+        <div className="absolute inset-0 bg-[linear-gradient(to_bottom,transparent,rgba(13,148,136,0.05),transparent)] pointer-events-none" />
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-6">
               {t("whatWeDo.services.title")}{" "}
-              <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-teal-600 to-emerald-600 bg-clip-text text-transparent">
                 {t("whatWeDo.services.subtitle")}
               </span>
             </h2>
@@ -210,10 +188,10 @@ export default function WhatWeDo() {
                 key={index}
                 className="group relative overflow-hidden border-0 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 bg-gradient-to-br from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 backdrop-blur-sm"
               >
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-600/5 to-purple-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-teal-600/5 to-emerald-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 <CardHeader className="pb-4">
                   <div className="flex items-center gap-4 mb-4">
-                    <div className="w-12 h-12 bg-gradient-to-r from-blue-100 to-purple-100 dark:from-blue-900/30 dark:to-purple-900/30 rounded-xl flex items-center justify-center text-blue-600 dark:text-blue-400 group-hover:scale-110 transition-transform duration-300 border border-blue-200 dark:border-blue-700">
+                    <div className="w-12 h-12 bg-gradient-to-r from-teal-100 to-emerald-100 dark:from-teal-900/30 dark:to-emerald-900/30 rounded-xl flex items-center justify-center text-teal-600 dark:text-teal-400 group-hover:scale-110 transition-transform duration-300 border border-teal-200 dark:border-teal-700">
                       {service.icon}
                     </div>
                     <CardTitle className="text-2xl font-semibold text-gray-900 dark:text-white">
@@ -243,23 +221,16 @@ export default function WhatWeDo() {
       </section>
 
       {/* Process Section */}
-      <section className="py-24 bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-900 dark:to-blue-950/30 relative overflow-hidden">
-        {/* Background Image */}
-        <div className="fixed inset-0 z-0">
-          <Image
-            src="/images/long-logo-ClaimSaver.jpg"
-            alt={t("whatWeDo.process.imageAlt")}
-            className="w-full h-full object-cover opacity-20"
-            fill
-          />
-          <div className="absolute inset-0 bg-gradient-to-br from-gray-50/80 to-blue-50/80 dark:from-gray-900/80 dark:to-blue-950/80"></div>
+      <section className="py-24 bg-gradient-to-br from-slate-50 to-emerald-50/40 dark:from-gray-900 dark:to-slate-900/50 relative overflow-hidden">
+        <div className="absolute inset-0 z-0">
+          <PageHeroBackdrop />
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-6">
               {t("whatWeDo.process.title")}{" "}
-              <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-teal-600 to-emerald-600 bg-clip-text text-transparent">
                 {t("whatWeDo.process.subtitle")}
               </span>
             </h2>
@@ -272,9 +243,9 @@ export default function WhatWeDo() {
             {processSteps.map((step, index) => (
               <div key={index} className="relative group">
                 <Card className="h-full border-0 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 backdrop-blur-sm">
-                  <div className="absolute inset-0 bg-gradient-to-r from-blue-600/5 to-purple-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  <div className="absolute inset-0 bg-gradient-to-r from-teal-600/5 to-emerald-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                   <CardHeader className="text-center pb-4">
-                    <div className="w-16 h-16 bg-gradient-to-r from-blue-100 to-purple-100 dark:from-blue-900/30 dark:to-purple-900/30 rounded-full flex items-center justify-center text-blue-600 dark:text-blue-400 mx-auto mb-4 group-hover:scale-110 transition-transform duration-300 border border-blue-200 dark:border-blue-700">
+                    <div className="w-16 h-16 bg-gradient-to-r from-teal-100 to-emerald-100 dark:from-teal-900/30 dark:to-emerald-900/30 rounded-full flex items-center justify-center text-teal-600 dark:text-teal-400 mx-auto mb-4 group-hover:scale-110 transition-transform duration-300 border border-teal-200 dark:border-teal-700">
                       <span className="text-xl font-bold">{step.step}</span>
                     </div>
                     <CardTitle className="text-xl font-semibold text-gray-900 dark:text-white mb-2">

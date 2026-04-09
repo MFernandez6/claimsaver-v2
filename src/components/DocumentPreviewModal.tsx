@@ -31,7 +31,7 @@ interface DocumentPreviewModalProps {
 const documentCategories = {
   medical: {
     label: "Medical Records",
-    color: "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300",
+    color: "bg-teal-100 text-teal-800 dark:bg-teal-900 dark:text-teal-300",
   },
   insurance: {
     label: "Insurance",
@@ -44,7 +44,7 @@ const documentCategories = {
   legal: {
     label: "Legal Documents",
     color:
-      "bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-300",
+      "bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-300",
   },
   other: {
     label: "Other",
@@ -83,7 +83,7 @@ export default function DocumentPreviewModal({
       <div className="space-y-6">
         {/* Document Header */}
         <div className="flex items-start gap-4">
-          <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center flex-shrink-0">
+          <div className="w-12 h-12 bg-teal-100 dark:bg-teal-900/30 rounded-lg flex items-center justify-center flex-shrink-0">
             {getFileIcon(document.mimeType)}
           </div>
           <div className="flex-1 min-w-0">
@@ -104,18 +104,18 @@ export default function DocumentPreviewModal({
         {/* PDF Viewer for PDF files */}
         {isPDF && (
           <div className="space-y-4">
-            <div className="bg-blue-50 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
+            <div className="bg-teal-50 dark:bg-teal-950/30 border border-teal-200 dark:border-teal-800 rounded-lg p-4">
               <div className="flex items-start gap-2">
-                <div className="w-5 h-5 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <span className="text-xs text-blue-600 dark:text-blue-400">
+                <div className="w-5 h-5 bg-teal-100 dark:bg-teal-900/30 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <span className="text-xs text-teal-600 dark:text-teal-400">
                     📄
                   </span>
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-blue-800 dark:text-blue-200 mb-1">
+                  <p className="text-sm font-medium text-teal-800 dark:text-teal-200 mb-1">
                     PDF Viewer
                   </p>
-                  <p className="text-xs text-blue-700 dark:text-blue-300">
+                  <p className="text-xs text-teal-700 dark:text-teal-300">
                     View and interact with your PDF document below. Use the
                     controls to zoom, rotate, or download the file.
                   </p>

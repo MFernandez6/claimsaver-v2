@@ -110,7 +110,7 @@ export default function DebugClerk() {
               {user && (
                 <div className="flex justify-between">
                   <span>User Email:</span>
-                  <span className="text-blue-600">
+                  <span className="text-teal-600">
                     {user.emailAddresses[0]?.emailAddress}
                   </span>
                 </div>
@@ -127,7 +127,7 @@ export default function DebugClerk() {
             <div className="mt-6 space-y-3">
               <Button
                 onClick={handleSignIn}
-                className="w-full bg-blue-600 hover:bg-blue-700"
+                className="w-full bg-teal-600 hover:bg-teal-700"
               >
                 Test Sign In
               </Button>
@@ -165,7 +165,7 @@ export default function DebugClerk() {
 
               <div className="flex justify-between">
                 <span>Key Type:</span>
-                <span className="text-blue-600">
+                <span className="text-teal-600">
                   {process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY?.startsWith(
                     "pk_test_"
                   )
@@ -176,14 +176,14 @@ export default function DebugClerk() {
 
               <div className="flex justify-between">
                 <span>App URL:</span>
-                <span className="text-blue-600">
+                <span className="text-teal-600">
                   {process.env.NEXT_PUBLIC_APP_URL || "Not set"}
                 </span>
               </div>
 
               <div className="flex justify-between">
                 <span>Node Environment:</span>
-                <span className="text-blue-600">{process.env.NODE_ENV}</span>
+                <span className="text-teal-600">{process.env.NODE_ENV}</span>
               </div>
             </div>
 
@@ -203,12 +203,12 @@ export default function DebugClerk() {
         </div>
 
         {/* Troubleshooting Steps */}
-        <div className="mt-8 bg-blue-50 border border-blue-200 rounded-lg p-6">
-          <h2 className="text-xl font-semibold text-blue-900 mb-4">
+        <div className="mt-8 bg-teal-50 border border-teal-200 rounded-lg p-6">
+          <h2 className="text-xl font-semibold text-teal-900 mb-4">
             Troubleshooting Steps
           </h2>
 
-          <div className="space-y-3 text-sm text-blue-800">
+          <div className="space-y-3 text-sm text-teal-800">
             <div className="flex items-start gap-2">
               <span className="font-semibold">1.</span>
               <span>
@@ -237,7 +237,7 @@ export default function DebugClerk() {
               <span className="font-semibold">3.</span>
               <span>
                 Go to &ldquo;Domains&rdquo; and add{" "}
-                <code className="bg-blue-100 px-1 rounded">localhost:3000</code>{" "}
+                <code className="bg-teal-100 px-1 rounded">localhost:3000</code>{" "}
                 if not present
               </span>
             </div>

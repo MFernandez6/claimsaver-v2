@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@clerk/nextjs/server";
-import dbConnect from "@/lib/db";
-import Calendar from "@/models/Calendar";
+import { getSupabaseAdmin, isSupabaseConfigured } from "@/lib/supabase/admin";
+import { calendarRowToLegacy } from "@/lib/supabase/mappers";
 
 interface RouteParams {
   params: Promise<{ id: string }>;
@@ -15,37 +15,51 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
+    if (!isSupabaseConfigured()) {
+      return NextResponse.json(
+        { error: "Database not configured" },
+        { status: 503 }
+      );
+    }
+
     const { id } = await params;
     const body = await request.json();
     const { title, date, time, type, description, priority, completed } = body;
 
-    console.log("Updating calendar event:", id, body);
+    const supabase = getSupabaseAdmin();
+    const now = new Date().toISOString();
 
-    await dbConnect();
-
-    const event = await Calendar.findOneAndUpdate(
-      { _id: id, userId },
-      {
+    const { data: updated, error } = await supabase
+      .from("calendar_events")
+      .update({
         title,
         date,
         time,
         type,
-        description: description || "",
+        description: description ?? "",
         priority,
         completed,
-      },
-      { new: true }
-    );
+        updated_at: now,
+      })
+      .eq("id", id)
+      .eq("user_id", userId)
+      .select()
+      .single();
 
-    if (!event) {
+    if (error) {
+      return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+
+    if (!updated) {
       return NextResponse.json(
         { error: "Calendar event not found" },
         { status: 404 }
       );
     }
 
-    console.log("Calendar event updated successfully");
-    return NextResponse.json(event);
+    return NextResponse.json(
+      calendarRowToLegacy(updated as Record<string, unknown>)
+    );
   } catch (error) {
     console.error("Error updating calendar event:", error);
     return NextResponse.json(
@@ -66,22 +80,35 @@ export async function DELETE(request: NextRequest, { params }: RouteParams) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
+    if (!isSupabaseConfigured()) {
+      return NextResponse.json(
+        { error: "Database not configured" },
+        { status: 503 }
+      );
+    }
+
     const { id } = await params;
+    const supabase = getSupabaseAdmin();
 
-    console.log("Deleting calendar event:", id);
+    const { data, error } = await supabase
+      .from("calendar_events")
+      .delete()
+      .eq("id", id)
+      .eq("user_id", userId)
+      .select("id")
+      .maybeSingle();
 
-    await dbConnect();
+    if (error) {
+      return NextResponse.json({ error: error.message }, { status: 500 });
+    }
 
-    const event = await Calendar.findOneAndDelete({ _id: id, userId });
-
-    if (!event) {
+    if (!data) {
       return NextResponse.json(
         { error: "Calendar event not found" },
         { status: 404 }
       );
     }
 
-    console.log("Calendar event deleted successfully");
     return NextResponse.json({
       message: "Calendar event deleted successfully",
     });

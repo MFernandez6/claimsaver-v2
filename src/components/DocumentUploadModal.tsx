@@ -275,7 +275,7 @@ export default function DocumentUploadModal({
               <div
                 className={`border-2 border-dashed rounded-lg p-6 text-center transition-colors ${
                   isDragOver
-                    ? "border-blue-500 bg-blue-50 dark:bg-blue-950/30"
+                    ? "border-teal-500 bg-teal-50 dark:bg-teal-950/30"
                     : "border-gray-300 dark:border-gray-600"
                 }`}
                 onDragOver={handleDragOver}
@@ -284,7 +284,7 @@ export default function DocumentUploadModal({
               >
                 {formData.file ? (
                   <div className="space-y-3">
-                    <div className="flex items-center justify-center w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-full mx-auto">
+                    <div className="flex items-center justify-center w-12 h-12 bg-teal-100 dark:bg-teal-900/30 rounded-full mx-auto">
                       {getFileIcon(formData.file.type)}
                     </div>
                     <div>
@@ -458,7 +458,7 @@ export default function DocumentUploadModal({
                   !formData.name ||
                   !formData.category
                 }
-                className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
+                className="bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-700 hover:to-emerald-700"
               >
                 {isUploading ? (
                   <>

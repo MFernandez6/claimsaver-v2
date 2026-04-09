@@ -111,13 +111,13 @@ export function getStatusColor(status: string) {
     case "pending":
       return "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300";
     case "reviewing":
-      return "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300";
+      return "bg-teal-100 text-teal-800 dark:bg-teal-900 dark:text-teal-300";
     case "approved":
       return "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300";
     case "rejected":
       return "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300";
     case "in_progress":
-      return "bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-300";
+      return "bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-300";
     case "completed":
       return "bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-300";
     default:
@@ -460,8 +460,8 @@ export default function ClaimDetail({ claim }: { claim: ClaimData }) {
             Authorization Status
           </h3>
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-            <div className="text-center p-4 bg-blue-50 dark:bg-blue-950/30 rounded-lg">
-              <h4 className="font-semibold text-blue-900 dark:text-blue-100 mb-2">
+            <div className="text-center p-4 bg-teal-50 dark:bg-teal-950/30 rounded-lg">
+              <h4 className="font-semibold text-teal-900 dark:text-teal-100 mb-2">
                 Insurance Authorization
               </h4>
               <Badge
@@ -488,8 +488,8 @@ export default function ClaimDetail({ claim }: { claim: ClaimData }) {
                 {claim.hipaaSignature ? "Signed" : "Not Signed"}
               </Badge>
             </div>
-            <div className="text-center p-4 bg-purple-50 dark:bg-purple-950/30 rounded-lg">
-              <h4 className="font-semibold text-purple-900 dark:text-purple-100 mb-2">
+            <div className="text-center p-4 bg-emerald-50 dark:bg-emerald-950/30 rounded-lg">
+              <h4 className="font-semibold text-emerald-900 dark:text-emerald-100 mb-2">
                 Main Claim
               </h4>
               <Badge

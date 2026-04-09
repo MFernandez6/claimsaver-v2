@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@clerk/nextjs/server";
-import dbConnect from "@/lib/db";
-import Claim from "@/models/Claim";
+import { getSupabaseAdmin, isSupabaseConfigured } from "@/lib/supabase/admin";
+import { claimRowToLegacy } from "@/lib/supabase/mappers";
 import { createOrUpdateUser } from "@/lib/auth";
 
 interface InjuryData {
@@ -12,35 +12,21 @@ interface InjuryData {
 
 export async function POST(request: NextRequest) {
   try {
-    console.log("🔍 Claims API POST called");
-
     const { userId } = await auth();
 
     if (!userId) {
-      console.log("❌ No user ID found");
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    console.log("✅ User authenticated:", userId);
-
-    // Check if MongoDB URI is available
-    if (!process.env.MONGODB_URI) {
-      console.error("❌ MONGODB_URI environment variable is not set");
+    if (!isSupabaseConfigured()) {
       return NextResponse.json(
         { error: "Database configuration error. Please contact support." },
-        { status: 500 }
+        { status: 503 }
       );
     }
 
-    console.log("🔗 Connecting to database...");
-    await dbConnect();
-    console.log("✅ Database connected");
-
     const body = await request.json();
-    console.log("📋 Request body received:", JSON.stringify(body, null, 2));
 
-    // Create or update user in our database
-    console.log("👤 Creating/updating user...");
     await createOrUpdateUser(userId, {
       email: body.claimantEmail,
       firstName: body.claimantName.split(" ")[0] || body.claimantName,
@@ -48,9 +34,7 @@ export async function POST(request: NextRequest) {
       phone: body.claimantPhone,
       address: body.claimantAddress,
     });
-    console.log("✅ User created/updated");
 
-    // Process injuries data to ensure it's in the correct format
     let processedInjuries: InjuryData[] = [];
     if (body.injuries && Array.isArray(body.injuries)) {
       processedInjuries = body.injuries.map((injury: InjuryData) => ({
@@ -59,7 +43,6 @@ export async function POST(request: NextRequest) {
         severity: injury.severity || "minor",
       }));
     } else if (body.injuries && typeof body.injuries === "string") {
-      // Fallback: if injuries is a string, try to parse it
       try {
         const parsedInjuries = JSON.parse(body.injuries);
         if (Array.isArray(parsedInjuries)) {
@@ -69,20 +52,11 @@ export async function POST(request: NextRequest) {
             severity: injury.severity || "minor",
           }));
         }
-      } catch (e) {
-        console.log(
-          "⚠️ Could not parse injuries string:",
-          body.injuries,
-          "Error:",
-          e
-        );
+      } catch {
         processedInjuries = [];
       }
     }
 
-    console.log("🔍 Processed injuries:", processedInjuries);
-
-    // Generate claim number manually if needed
     const date = new Date();
     const year = date.getFullYear().toString().slice(-2);
     const month = (date.getMonth() + 1).toString().padStart(2, "0");
@@ -91,59 +65,63 @@ export async function POST(request: NextRequest) {
       .padStart(4, "0");
     const claimNumber = `CS${year}${month}-${random}`;
 
-    const claimData = {
-      userId,
-      claimNumber, // Add claim number manually
-      // Personal Information
+    const status = "pending";
+    const priority =
+      body.estimatedValue > 10000 ? "high" : ("medium" as const);
+
+    const claim_data = {
       claimantName: body.claimantName,
       claimantEmail: body.claimantEmail,
       claimantPhone: body.claimantPhone,
       claimantAddress: body.claimantAddress,
-
-      // Accident Details
       accidentDate: new Date(body.accidentDate),
       accidentLocation: body.accidentLocation,
       accidentDescription: body.accidentDescription,
-
-      // Insurance Information
       insuranceCompany: body.insuranceCompany,
       policyNumber: body.policyNumber,
-
-      // Vehicle Information - provide defaults for required fields
       vehicleMake: body.vehicleMake || "Not specified",
       vehicleModel: body.vehicleModel || "Not specified",
       vehicleYear: body.vehicleYear || "Not specified",
       licensePlate: body.licensePlate || "Not specified",
-
-      // Additional Information
       estimatedValue: body.estimatedValue || 0,
       injuries: processedInjuries,
       propertyDamage: body.propertyDamage || "",
-
-      // Set initial status and priority
-      status: "pending",
-      priority: body.estimatedValue > 10000 ? "high" : "medium",
-
-      // Add initial note
       notes: [
         {
           content: "Claim submitted by user through online form",
           author: "System",
-          timestamp: new Date(),
+          timestamp: new Date().toISOString(),
         },
       ],
+      submittedAt: new Date().toISOString(),
     };
 
-    console.log("📋 Claim data prepared:", JSON.stringify(claimData, null, 2));
+    const supabase = getSupabaseAdmin();
+    const now = new Date().toISOString();
 
-    const claim = new Claim(claimData);
+    const { data: inserted, error } = await supabase
+      .from("claims")
+      .insert({
+        user_id: userId,
+        claim_number: claimNumber,
+        status,
+        priority,
+        claim_data,
+        created_at: now,
+        updated_at: now,
+      })
+      .select()
+      .single();
 
-    console.log("📋 Claim object created, saving...");
-    await claim.save();
-    console.log(
-      "✅ Claim saved successfully with claimNumber:",
-      claim.claimNumber
-    );
+    if (error || !inserted) {
+      console.error("Claim insert error:", error);
+      return NextResponse.json(
+        { error: error?.message || "Failed to save claim" },
+        { status: 500 }
+      );
+    }
+
+    const claim = claimRowToLegacy(inserted as Record<string, unknown>);
 
     return NextResponse.json(
       {
@@ -153,33 +131,12 @@ export async function POST(request: NextRequest) {
       { status: 201 }
     );
   } catch (error) {
-    console.error("❌ Error submitting claim:", error);
-
-    // Provide more specific error information
-    let errorMessage = "Internal server error. Please try again.";
-    let statusCode = 500;
-
-    if (error instanceof Error) {
-      if (
-        error.message.includes("MongoDB") ||
-        error.message.includes("MONGODB_URI")
-      ) {
-        errorMessage =
-          "Database connection error. Please try again or contact support.";
-      } else if (error.message.includes("authentication")) {
-        errorMessage = "Authentication error. Please sign in again.";
-        statusCode = 401;
-      } else if (error.message.includes("validation")) {
-        errorMessage = "Invalid data provided. Please check your information.";
-        statusCode = 400;
-      } else {
-        errorMessage = error.message;
-      }
-    }
+    console.error("Error submitting claim:", error);
 
     return NextResponse.json(
       {
-        error: errorMessage,
+        error:
+          error instanceof Error ? error.message : "Internal server error",
         details:
           process.env.NODE_ENV === "development"
             ? error instanceof Error
@@ -187,54 +144,49 @@ export async function POST(request: NextRequest) {
               : "Unknown error"
             : undefined,
       },
-      { status: statusCode }
+      { status: 500 }
     );
   }
 }
 
 export async function GET(request: NextRequest) {
   try {
-    console.log("🔍 Claims API GET called");
-
     const { userId } = await auth();
 
     if (!userId) {
-      console.log("❌ No user ID found");
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    console.log("✅ User authenticated:", userId);
-
-    // Check if MongoDB URI is available
-    if (!process.env.MONGODB_URI) {
-      console.error("❌ MONGODB_URI environment variable is not set");
+    if (!isSupabaseConfigured()) {
       return NextResponse.json(
         { error: "Database configuration error. Please contact support." },
-        { status: 500 }
+        { status: 503 }
       );
     }
-
-    console.log("🔗 Connecting to database...");
-    await dbConnect();
-    console.log("✅ Database connected");
 
     const { searchParams } = new URL(request.url);
     const page = parseInt(searchParams.get("page") || "1");
     const limit = parseInt(searchParams.get("limit") || "10");
-    const skip = (page - 1) * limit;
+    const from = (page - 1) * limit;
+    const to = from + limit - 1;
 
-    console.log("📋 Query params:", { page, limit, skip });
+    const supabase = getSupabaseAdmin();
 
-    // Get claims for the current user
-    const claims = await Claim.find({ userId })
-      .sort({ createdAt: -1 })
-      .skip(skip)
-      .limit(limit)
-      .lean();
+    const { data: rows, error, count } = await supabase
+      .from("claims")
+      .select("*", { count: "exact" })
+      .eq("user_id", userId)
+      .order("created_at", { ascending: false })
+      .range(from, to);
 
-    const total = await Claim.countDocuments({ userId });
+    if (error) {
+      return NextResponse.json({ error: error.message }, { status: 500 });
+    }
 
-    console.log(`✅ Found ${claims.length} claims out of ${total} total`);
+    const claims = (rows || []).map((r) =>
+      claimRowToLegacy(r as Record<string, unknown>)
+    );
+    const total = count ?? 0;
 
     return NextResponse.json({
       claims,
@@ -242,34 +194,15 @@ export async function GET(request: NextRequest) {
         page,
         limit,
         total,
-        pages: Math.ceil(total / limit),
+        pages: Math.ceil(total / limit) || 1,
       },
     });
   } catch (error) {
-    console.error("❌ Error fetching claims:", error);
-
-    // Provide more specific error information
-    let errorMessage = "Internal server error. Please try again.";
-    let statusCode = 500;
-
-    if (error instanceof Error) {
-      if (
-        error.message.includes("MongoDB") ||
-        error.message.includes("MONGODB_URI")
-      ) {
-        errorMessage =
-          "Database connection error. Please try again or contact support.";
-      } else if (error.message.includes("authentication")) {
-        errorMessage = "Authentication error. Please sign in again.";
-        statusCode = 401;
-      } else {
-        errorMessage = error.message;
-      }
-    }
+    console.error("Error fetching claims:", error);
 
     return NextResponse.json(
       {
-        error: errorMessage,
+        error: "Internal server error. Please try again.",
         details:
           process.env.NODE_ENV === "development"
             ? error instanceof Error
@@ -277,7 +210,7 @@ export async function GET(request: NextRequest) {
               : "Unknown error"
             : undefined,
       },
-      { status: statusCode }
+      { status: 500 }
     );
   }
 }

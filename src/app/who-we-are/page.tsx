@@ -15,6 +15,7 @@ import {
   Target,
   Eye,
 } from "lucide-react";
+import { PageHeroBackdrop } from "@/components/page-hero-backdrop";
 
 export default function WhoWeAre() {
   const { openSignIn } = useClerk();
@@ -26,7 +27,7 @@ export default function WhoWeAre() {
 
   const values = [
     {
-      icon: <Target className="w-8 h-8 text-blue-600" />,
+      icon: <Target className="w-8 h-8 text-teal-600" />,
       title: t("whoWeAre.values.mission.title"),
       description: t("whoWeAre.values.mission.description"),
     },
@@ -36,7 +37,7 @@ export default function WhoWeAre() {
       description: t("whoWeAre.values.vision.description"),
     },
     {
-      icon: <Shield className="w-8 h-8 text-purple-600" />,
+      icon: <Shield className="w-8 h-8 text-emerald-600" />,
       title: t("whoWeAre.values.values.title"),
       description: t("whoWeAre.values.values.description"),
     },
@@ -48,31 +49,20 @@ export default function WhoWeAre() {
   ];
 
   return (
-    <div
-      className="min-h-screen flex flex-col pt-24"
-      style={{
-        backgroundImage: "url('/images/long-logo-ClaimSaver.jpg')",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundAttachment: "fixed",
-        backgroundRepeat: "no-repeat",
-      }}
-    >
-      {/* Content with background overlay for better readability */}
-      <div className="relative w-full flex-1">
-        {/* Background overlay for better readability - only on content */}
-        <div className="absolute inset-0 bg-white/90 dark:bg-gray-900/90 pointer-events-none"></div>
+    <div className="min-h-screen flex flex-col pt-24 relative bg-gradient-to-br from-slate-50 via-white to-emerald-50 dark:from-slate-950 dark:via-gray-900 dark:to-slate-900">
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <PageHeroBackdrop />
+      </div>
 
-        {/* Content */}
-        <div className="relative z-10 w-full">
+      <div className="relative z-10 w-full flex-1">
           {/* Hero Section */}
           <section className="relative overflow-hidden animate-in fade-in duration-800">
-            <div className="absolute inset-0 bg-gradient-to-r from-blue-600/10 to-purple-600/10"></div>
+            <div className="absolute inset-0 bg-gradient-to-r from-teal-600/10 to-emerald-600/10"></div>
             <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
               <div className="text-center animate-in fade-in slide-in-from-bottom-4 duration-800 delay-200">
                 <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6">
                   {t("whoWeAre.hero.title")}{" "}
-                  <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                  <span className="bg-gradient-to-r from-teal-600 to-emerald-600 bg-clip-text text-transparent">
                     {t("whoWeAre.hero.subtitle")}
                   </span>
                 </h1>
@@ -89,7 +79,7 @@ export default function WhoWeAre() {
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                 <div className="animate-in fade-in slide-in-from-left-4 duration-600">
                   <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-6">
-                    <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                    <span className="bg-gradient-to-r from-teal-600 to-emerald-600 bg-clip-text text-transparent">
                       {t("whoWeAre.about.title")}
                     </span>
                   </h2>
@@ -126,11 +116,11 @@ export default function WhoWeAre() {
 
 
           {/* Family Story Section */}
-          <section className="py-20 bg-gradient-to-r from-blue-50/80 to-purple-50/80 dark:from-blue-950/40 dark:to-purple-950/40 animate-in fade-in duration-800">
+          <section className="py-20 bg-gradient-to-r from-teal-50/80 to-emerald-50/80 dark:from-teal-950/40 dark:to-emerald-950/40 animate-in fade-in duration-800">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="text-center mb-16 animate-in fade-in slide-in-from-bottom-4 duration-600">
                 <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-6">
-                  <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                  <span className="bg-gradient-to-r from-teal-600 to-emerald-600 bg-clip-text text-transparent">
                     {t("whoWeAre.familyStory.title")}
                   </span>
                 </h2>
@@ -145,8 +135,8 @@ export default function WhoWeAre() {
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
                   <div className="space-y-6">
                     <div className="flex items-start gap-4">
-                      <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center flex-shrink-0">
-                        <Heart className="w-6 h-6 text-blue-600" />
+                      <div className="w-12 h-12 bg-teal-100 dark:bg-teal-900 rounded-full flex items-center justify-center flex-shrink-0">
+                        <Heart className="w-6 h-6 text-teal-600" />
                       </div>
                       <div>
                         <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
@@ -176,14 +166,14 @@ export default function WhoWeAre() {
                   </div>
 
                   <div className="relative">
-                    <div className="bg-gradient-to-br from-blue-600 to-purple-600 rounded-2xl p-8 text-white">
+                    <div className="bg-gradient-to-br from-teal-600 to-emerald-600 rounded-2xl p-8 text-white">
                       <div className="flex items-center gap-3 mb-4">
                         <Star className="w-6 h-6" />
                         <h3 className="text-xl font-semibold">
                           {t("whoWeAre.familyStory.whyWeCare.title")}
                         </h3>
                       </div>
-                      <p className="text-blue-100 leading-relaxed">
+                      <p className="text-teal-100 leading-relaxed">
                         {t("whoWeAre.familyStory.whyWeCare.quote")}
                       </p>
                     </div>
@@ -198,7 +188,7 @@ export default function WhoWeAre() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="text-center mb-16 animate-in fade-in slide-in-from-bottom-4 duration-600">
                 <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-6">
-                  <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                  <span className="bg-gradient-to-r from-teal-600 to-emerald-600 bg-clip-text text-transparent">
                     {t("whoWeAre.coreValues.title")}
                   </span>
                 </h2>
@@ -216,7 +206,7 @@ export default function WhoWeAre() {
                     className="animate-in fade-in slide-in-from-bottom-4 duration-600"
                     style={{ animationDelay: `${index * 100}ms` }}
                   >
-                    <Card className="h-full shadow-lg border-blue-100 dark:border-blue-900 hover:shadow-xl hover:-translate-y-2 transition-all duration-300">
+                    <Card className="h-full shadow-lg border-teal-100 dark:border-teal-900 hover:shadow-xl hover:-translate-y-2 transition-all duration-300">
                       <CardHeader className="text-center pb-4">
                         <div className="flex justify-center mb-4">
                           {value.icon}
@@ -238,29 +228,29 @@ export default function WhoWeAre() {
           </section>
 
           {/* CTA Section */}
-          <section className="py-20 bg-gradient-to-r from-blue-600 to-purple-600 animate-in fade-in duration-800">
+          <section className="py-20 bg-gradient-to-r from-teal-600 to-emerald-600 animate-in fade-in duration-800">
             <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
               <div className="animate-in fade-in slide-in-from-bottom-4 duration-600">
                 <h2 className="text-3xl sm:text-4xl font-bold text-white mb-6">
                   {t("whoWeAre.cta.title")}
                 </h2>
-                <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
+                <p className="text-xl text-teal-100 mb-8 max-w-2xl mx-auto">
                   {t("whoWeAre.cta.description")}
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <Button
                     size="lg"
-                    className="bg-white text-blue-600 hover:bg-gray-100 px-8 py-4 text-lg font-semibold hover:scale-105 transition-transform duration-200"
+                    className="bg-white text-teal-600 hover:bg-gray-100 px-8 py-4 text-lg font-semibold hover:scale-105 transition-transform duration-200"
                     onClick={handleStartClaim}
                   >
                     {t("whoWeAre.cta.startClaim")}
                     <ArrowRight className="ml-2 w-5 h-5" />
                   </Button>
-                  <Link href="/what-we-do">
+                  <Link href="/how-it-works">
                     <Button
                       size="lg"
                       variant="outline"
-                      className="border-white text-white bg-transparent hover:bg-white hover:text-blue-600 px-8 py-4 text-lg font-semibold hover:scale-105 transition-transform duration-200 shadow-lg"
+                      className="border-white text-white bg-transparent hover:bg-white hover:text-teal-600 px-8 py-4 text-lg font-semibold hover:scale-105 transition-transform duration-200 shadow-lg"
                     >
                       {t("whoWeAre.cta.learnMore")}
                     </Button>
@@ -269,7 +259,6 @@ export default function WhoWeAre() {
               </div>
             </div>
           </section>
-        </div>
       </div>
     </div>
   );

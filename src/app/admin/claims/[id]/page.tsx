@@ -79,13 +79,13 @@ export default function ClaimDetailPage() {
       case "pending":
         return "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300";
       case "reviewing":
-        return "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300";
+        return "bg-teal-100 text-teal-800 dark:bg-teal-900 dark:text-teal-300";
       case "approved":
         return "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300";
       case "rejected":
         return "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300";
       case "in_progress":
-        return "bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-300";
+        return "bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-300";
       case "completed":
         return "bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-300";
       default:
@@ -172,7 +172,7 @@ export default function ClaimDetailPage() {
             className="w-full h-full object-cover opacity-25"
             fill
           />
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-50/70 via-white/80 to-indigo-50/70 dark:from-gray-950/70 dark:via-gray-900/80 dark:to-blue-950/70"></div>
+          <div className="absolute inset-0 bg-gradient-to-br from-teal-50/70 via-white/80 to-emerald-50/70 dark:from-gray-950/70 dark:via-gray-900/80 dark:to-teal-950/70"></div>
         </div>
 
         <div className="relative z-10 container mx-auto px-4 py-8 pt-24">
@@ -200,7 +200,7 @@ export default function ClaimDetailPage() {
             className="w-full h-full object-cover opacity-25"
             fill
           />
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-50/70 via-white/80 to-indigo-50/70 dark:from-gray-950/70 dark:via-gray-900/80 dark:to-blue-950/70"></div>
+          <div className="absolute inset-0 bg-gradient-to-br from-teal-50/70 via-white/80 to-emerald-50/70 dark:from-gray-950/70 dark:via-gray-900/80 dark:to-teal-950/70"></div>
         </div>
 
         <div className="relative z-10 container mx-auto px-4 py-8 pt-24">
@@ -212,7 +212,7 @@ export default function ClaimDetailPage() {
             <p className="text-gray-600 dark:text-gray-400 mb-4">{error}</p>
             <Button
               onClick={() => router.push("/admin")}
-              className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white"
+              className="bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-700 hover:to-emerald-700 text-white"
             >
               <ArrowLeft className="h-4 w-4 mr-2" />
               Back to Admin
@@ -234,7 +234,7 @@ export default function ClaimDetailPage() {
             className="w-full h-full object-cover opacity-25"
             fill
           />
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-50/70 via-white/80 to-indigo-50/70 dark:from-gray-950/70 dark:via-gray-900/80 dark:to-blue-950/70"></div>
+          <div className="absolute inset-0 bg-gradient-to-br from-teal-50/70 via-white/80 to-emerald-50/70 dark:from-gray-950/70 dark:via-gray-900/80 dark:to-teal-950/70"></div>
         </div>
 
         <div className="relative z-10 container mx-auto px-4 py-8 pt-24">
@@ -249,7 +249,7 @@ export default function ClaimDetailPage() {
             </p>
             <Button
               onClick={() => router.push("/admin")}
-              className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white"
+              className="bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-700 hover:to-emerald-700 text-white"
             >
               <ArrowLeft className="h-4 w-4 mr-2" />
               Back to Admin
@@ -270,7 +270,7 @@ export default function ClaimDetailPage() {
           className="w-full h-full object-cover opacity-25"
           fill
         />
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-50/70 via-white/80 to-indigo-50/70 dark:from-gray-950/70 dark:via-gray-900/80 dark:to-blue-950/70"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-teal-50/70 via-white/80 to-emerald-50/70 dark:from-gray-950/70 dark:via-gray-900/80 dark:to-teal-950/70"></div>
       </div>
 
       <div className="relative z-10 container mx-auto px-4 py-8 pt-24">
@@ -288,7 +288,7 @@ export default function ClaimDetailPage() {
             <div className="flex-1">
               <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-2">
                 Claim{" "}
-                <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-teal-600 to-emerald-600 bg-clip-text text-transparent">
                   {claim.claimNumber}
                 </span>
               </h1>
@@ -350,7 +350,7 @@ export default function ClaimDetailPage() {
               <>
                 <Button
                   onClick={() => setEditing(true)}
-                  className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-6 py-3 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+                  className="bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-700 hover:to-emerald-700 text-white px-6 py-3 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
                 >
                   <Edit className="h-5 w-5 mr-2" />
                   Edit Claim
@@ -365,7 +365,7 @@ export default function ClaimDetailPage() {
           <div className="lg:col-span-2 space-y-8">
             {/* Insurance Information */}
             <Card className="group relative overflow-hidden border-0 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 backdrop-blur-sm">
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-600/5 to-purple-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-teal-600/5 to-emerald-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-gray-900 dark:text-white">
                   <Shield className="h-6 w-6" />
@@ -387,7 +387,7 @@ export default function ClaimDetailPage() {
                             insuranceCompany: e.target.value,
                           })
                         }
-                        className="border-2 border-gray-200 focus:border-blue-500 rounded-lg"
+                        className="border-2 border-gray-200 focus:border-teal-500 rounded-lg"
                       />
                     ) : (
                       <p className="text-gray-900 dark:text-white font-medium">
@@ -405,7 +405,7 @@ export default function ClaimDetailPage() {
                         onChange={(e) =>
                           setClaim({ ...claim, policyNumber: e.target.value })
                         }
-                        className="border-2 border-gray-200 focus:border-blue-500 rounded-lg"
+                        className="border-2 border-gray-200 focus:border-teal-500 rounded-lg"
                       />
                     ) : (
                       <p className="text-gray-900 dark:text-white font-medium">
@@ -423,7 +423,7 @@ export default function ClaimDetailPage() {
                         onChange={(e) =>
                           setClaim({ ...claim, claimNumber: e.target.value })
                         }
-                        className="border-2 border-gray-200 focus:border-blue-500 rounded-lg"
+                        className="border-2 border-gray-200 focus:border-teal-500 rounded-lg"
                       />
                     ) : (
                       <p className="text-gray-900 dark:text-white font-medium">
@@ -441,7 +441,7 @@ export default function ClaimDetailPage() {
                         onChange={(e) =>
                           setClaim({ ...claim, adjusterName: e.target.value })
                         }
-                        className="border-2 border-gray-200 focus:border-blue-500 rounded-lg"
+                        className="border-2 border-gray-200 focus:border-teal-500 rounded-lg"
                       />
                     ) : (
                       <p className="text-gray-900 dark:text-white font-medium">
@@ -459,7 +459,7 @@ export default function ClaimDetailPage() {
                         onChange={(e) =>
                           setClaim({ ...claim, adjusterPhone: e.target.value })
                         }
-                        className="border-2 border-gray-200 focus:border-blue-500 rounded-lg"
+                        className="border-2 border-gray-200 focus:border-teal-500 rounded-lg"
                       />
                     ) : (
                       <p className="text-gray-900 dark:text-white font-medium">
@@ -477,7 +477,7 @@ export default function ClaimDetailPage() {
                         onChange={(e) =>
                           setClaim({ ...claim, fileNumber: e.target.value })
                         }
-                        className="border-2 border-gray-200 focus:border-blue-500 rounded-lg"
+                        className="border-2 border-gray-200 focus:border-teal-500 rounded-lg"
                       />
                     ) : (
                       <p className="text-gray-900 dark:text-white font-medium">
@@ -900,7 +900,7 @@ export default function ClaimDetailPage() {
                     <Badge
                       className={
                         claim.treatedByDoctor
-                          ? "bg-blue-100 text-blue-800"
+                          ? "bg-teal-100 text-teal-800"
                           : "bg-gray-100 text-gray-800"
                       }
                     >
@@ -1154,7 +1154,7 @@ export default function ClaimDetailPage() {
                     <Badge
                       className={
                         claim.inCourseOfEmployment
-                          ? "bg-blue-100 text-blue-800"
+                          ? "bg-teal-100 text-teal-800"
                           : "bg-gray-100 text-gray-800"
                       }
                     >
@@ -1302,7 +1302,7 @@ export default function ClaimDetailPage() {
                     <Badge
                       className={
                         claim.workersComp
-                          ? "bg-purple-100 text-purple-800"
+                          ? "bg-emerald-100 text-emerald-800"
                           : "bg-gray-100 text-gray-800"
                       }
                     >
@@ -1419,8 +1419,8 @@ export default function ClaimDetailPage() {
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
-                  <p className="text-sm text-blue-800 dark:text-blue-200">
+                <div className="bg-teal-50 dark:bg-teal-900/20 border border-teal-200 dark:border-teal-800 rounded-lg p-4">
+                  <p className="text-sm text-teal-800 dark:text-teal-200">
                     <strong>Medical Authorization:</strong> This authorization
                     will authorize you to furnish all information regarding my
                     condition while under your observation or treatment,
@@ -1530,8 +1530,8 @@ export default function ClaimDetailPage() {
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                <div className="bg-purple-50 dark:bg-purple-900/20 border border-purple-200 dark:border-purple-800 rounded-lg p-4">
-                  <p className="text-sm text-purple-800 dark:text-purple-200">
+                <div className="bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800 rounded-lg p-4">
+                  <p className="text-sm text-emerald-800 dark:text-emerald-200">
                     <strong>Standard Disclosure:</strong> The undersigned
                     insured person affirms that services were actually rendered,
                     they have the right to confirm services, were not solicited,
@@ -1674,7 +1674,7 @@ export default function ClaimDetailPage() {
           <div className="space-y-8">
             {/* Status & Priority */}
             <Card className="group relative overflow-hidden border-0 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 backdrop-blur-sm">
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-600/5 to-purple-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-teal-600/5 to-emerald-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
               <CardHeader>
                 <CardTitle className="text-gray-900 dark:text-white">
                   Status & Priority
@@ -1692,7 +1692,7 @@ export default function ClaimDetailPage() {
                         setClaim({ ...claim, status: value })
                       }
                     >
-                      <SelectTrigger className="border-2 border-gray-200 focus:border-blue-500 rounded-lg">
+                      <SelectTrigger className="border-2 border-gray-200 focus:border-teal-500 rounded-lg">
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
@@ -1725,7 +1725,7 @@ export default function ClaimDetailPage() {
                         setClaim({ ...claim, priority: value })
                       }
                     >
-                      <SelectTrigger className="border-2 border-gray-200 focus:border-blue-500 rounded-lg">
+                      <SelectTrigger className="border-2 border-gray-200 focus:border-teal-500 rounded-lg">
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
@@ -1750,7 +1750,7 @@ export default function ClaimDetailPage() {
 
             {/* Financial Information */}
             <Card className="group relative overflow-hidden border-0 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 backdrop-blur-sm">
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-600/5 to-purple-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-teal-600/5 to-emerald-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-gray-900 dark:text-white">
                   <DollarSign className="h-6 w-6" />
@@ -1772,7 +1772,7 @@ export default function ClaimDetailPage() {
                           estimatedValue: parseFloat(e.target.value) || 0,
                         })
                       }
-                      className="border-2 border-gray-200 focus:border-blue-500 rounded-lg"
+                      className="border-2 border-gray-200 focus:border-teal-500 rounded-lg"
                     />
                   ) : (
                     <p className="text-3xl font-bold text-gray-900 dark:text-white">
@@ -1794,7 +1794,7 @@ export default function ClaimDetailPage() {
                           settlementAmount: parseFloat(e.target.value) || 0,
                         })
                       }
-                      className="border-2 border-gray-200 focus:border-blue-500 rounded-lg"
+                      className="border-2 border-gray-200 focus:border-teal-500 rounded-lg"
                     />
                   ) : (
                     <p className="text-3xl font-bold text-gray-900 dark:text-white">
@@ -1807,7 +1807,7 @@ export default function ClaimDetailPage() {
 
             {/* Notes */}
             <Card className="group relative overflow-hidden border-0 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 backdrop-blur-sm">
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-600/5 to-purple-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-teal-600/5 to-emerald-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-gray-900 dark:text-white">
                   <FileText className="h-6 w-6" />
@@ -1841,11 +1841,11 @@ export default function ClaimDetailPage() {
                     value={newNote}
                     onChange={(e) => setNewNote(e.target.value)}
                     rows={3}
-                    className="border-2 border-gray-200 focus:border-blue-500 rounded-lg resize-none"
+                    className="border-2 border-gray-200 focus:border-teal-500 rounded-lg resize-none"
                   />
                   <Button
                     onClick={handleAddNote}
-                    className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+                    className="w-full bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-700 hover:to-emerald-700 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
                   >
                     Add Note
                   </Button>

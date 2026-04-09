@@ -38,7 +38,7 @@ export function Modal({
         className={`relative bg-white dark:bg-gray-900 rounded-2xl shadow-2xl ${sizeClasses[size]} w-full max-h-[90vh] overflow-hidden`}
       >
         {/* Header */}
-        <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-800 bg-gradient-to-r from-blue-50 to-blue-100 dark:from-gray-800 dark:to-gray-800">
+        <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-800 bg-gradient-to-r from-teal-50 to-teal-100 dark:from-gray-800 dark:to-gray-800">
           <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
             {title}
           </h2>

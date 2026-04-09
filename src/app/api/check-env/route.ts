@@ -21,6 +21,19 @@ export async function GET() {
       mongoUriPreview: process.env.MONGODB_URI
         ? process.env.MONGODB_URI.substring(0, 30) + "..."
         : "Not set",
+      supabase: {
+        hasUrl: !!process.env.NEXT_PUBLIC_SUPABASE_URL,
+        urlHost: process.env.NEXT_PUBLIC_SUPABASE_URL
+          ? (() => {
+              try {
+                return new URL(process.env.NEXT_PUBLIC_SUPABASE_URL!).host;
+              } catch {
+                return "invalid";
+              }
+            })()
+          : null,
+        hasServiceRoleKey: !!process.env.SUPABASE_SERVICE_ROLE_KEY,
+      },
     },
     app: {
       hasAppUrl: !!process.env.NEXT_PUBLIC_APP_URL,

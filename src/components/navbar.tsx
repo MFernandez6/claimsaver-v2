@@ -13,6 +13,7 @@ import {
   LayoutDashboard,
 } from "lucide-react";
 import LanguageSwitcher from "./language-switcher";
+import { BrandLogo } from "./brand-logo";
 import { useTranslation } from "react-i18next";
 
 // Wrapper component to handle Clerk authentication
@@ -53,7 +54,7 @@ function AuthSection() {
         <SignInButton mode="modal">
           <Button
             size="sm"
-            className="bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 text-white px-4 py-2 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5"
+            className="bg-gradient-to-r from-teal-500 to-teal-700 hover:from-teal-600 hover:to-teal-800 text-white px-4 py-2 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5"
           >
             {t("navigation.signIn")}
           </Button>
@@ -101,13 +102,13 @@ function DashboardLink({ pathname }: { pathname: string }) {
       <Link
         href={isAdmin ? "/admin" : "/dashboard"}
         className={`relative px-4 py-2 text-sm font-medium rounded-lg transition-all duration-300 ${pathname === "/admin" || pathname === "/dashboard"
-          ? "text-blue-600 bg-blue-50 dark:text-blue-400 dark:bg-blue-950/30"
-          : "text-gray-700 hover:text-blue-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-blue-400 dark:hover:bg-gray-800/50"
+          ? "text-teal-600 bg-teal-50 dark:text-teal-400 dark:bg-teal-950/30"
+          : "text-gray-700 hover:text-teal-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-teal-400 dark:hover:bg-gray-800/50"
           }`}
       >
         {isAdmin ? "Admin" : t("navigation.dashboard")}
         {(pathname === "/admin" || pathname === "/dashboard") && (
-          <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 to-blue-700/10 rounded-lg" />
+          <div className="absolute inset-0 bg-gradient-to-r from-teal-500/10 to-teal-700/10 rounded-lg" />
         )}
       </Link>
     </div>
@@ -156,7 +157,7 @@ function MobileAuthSection() {
         <SignInButton mode="modal">
           <Button
             size="sm"
-            className="w-full bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 text-white px-4 py-2 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300"
+            className="w-full bg-gradient-to-r from-teal-500 to-teal-700 hover:from-teal-600 hover:to-teal-800 text-white px-4 py-2 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300"
           >
             {t("navigation.signIn")}
           </Button>
@@ -215,12 +216,12 @@ function MobileDashboardLink({
       <Link
         href={isAdmin ? "/admin" : "/dashboard"}
         className={`flex items-center gap-3 px-3 py-3 rounded-lg text-base font-medium transition-all duration-300 ${pathname === "/admin" || pathname === "/dashboard"
-          ? "text-blue-600 bg-blue-50 dark:text-blue-400 dark:bg-blue-950/30"
-          : "text-gray-700 hover:text-blue-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-blue-400 dark:hover:bg-gray-800/50"
+          ? "text-teal-600 bg-teal-50 dark:text-teal-400 dark:bg-teal-950/30"
+          : "text-gray-700 hover:text-teal-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-teal-400 dark:hover:bg-gray-800/50"
           }`}
         onClick={onClick}
       >
-        <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-blue-700 rounded-lg flex items-center justify-center text-white">
+        <div className="w-8 h-8 bg-gradient-to-r from-teal-500 to-teal-700 rounded-lg flex items-center justify-center text-white">
           <LayoutDashboard className="w-4 h-4" />
         </div>
         <div>
@@ -265,7 +266,7 @@ function ThemeToggle() {
       variant="ghost"
       size="sm"
       onClick={toggleTheme}
-      className="w-9 h-9 p-0 rounded-lg bg-white/80 backdrop-blur-sm border border-gray-200 hover:bg-white hover:border-blue-300 dark:bg-gray-800/80 dark:border-gray-700 dark:hover:bg-gray-800 dark:hover:border-blue-600 transition-all duration-300 hover:scale-105 hover:-translate-y-0.5"
+      className="w-9 h-9 p-0 rounded-lg bg-white/80 backdrop-blur-sm border border-gray-200 hover:bg-white hover:border-teal-300 dark:bg-gray-800/80 dark:border-gray-700 dark:hover:bg-gray-800 dark:hover:border-teal-600 transition-all duration-300 hover:scale-105 hover:-translate-y-0.5"
       aria-label="Toggle theme"
     >
       {theme === "light" ? (
@@ -343,14 +344,9 @@ export default function Navbar() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             {/* Logo/Brand */}
-            <div className="flex-shrink-0 hover:scale-105 transition-all duration-300">
-              <Link href="/" className="flex items-center space-x-3">
-                <div className="w-9 h-9 bg-gradient-to-br from-blue-500 to-blue-700 rounded-xl flex items-center justify-center shadow-lg">
-                  <span className="text-white font-black text-sm">C+</span>
-                </div>
-                <span className="text-xl font-black bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
-                  ClaimSaver+
-                </span>
+            <div className="flex-shrink-0 hover:opacity-90 transition-opacity duration-300">
+              <Link href="/" className="flex items-center">
+                <BrandLogo variant="navbar" />
               </Link>
             </div>
 
@@ -360,8 +356,8 @@ export default function Navbar() {
               <Link
                 href="/who-we-are"
                 className={`px-4 py-2 text-sm font-medium rounded-lg transition-all duration-300 ${pathname === "/who-we-are"
-                  ? "text-blue-600 bg-blue-50 dark:text-blue-400 dark:bg-blue-950/30"
-                  : "text-gray-700 hover:text-blue-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-blue-400 dark:hover:bg-gray-800/50"
+                  ? "text-teal-600 bg-teal-50 dark:text-teal-400 dark:bg-teal-950/30"
+                  : "text-gray-700 hover:text-teal-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-teal-400 dark:hover:bg-gray-800/50"
                   }`}
               >
                 {t("navigation.whoWeAre")}
@@ -370,18 +366,38 @@ export default function Navbar() {
               <Link
                 href="/what-we-do"
                 className={`px-4 py-2 text-sm font-medium rounded-lg transition-all duration-300 ${pathname === "/what-we-do"
-                  ? "text-blue-600 bg-blue-50 dark:text-blue-400 dark:bg-blue-950/30"
-                  : "text-gray-700 hover:text-blue-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-blue-400 dark:hover:bg-gray-800/50"
+                  ? "text-teal-600 bg-teal-50 dark:text-teal-400 dark:bg-teal-950/30"
+                  : "text-gray-700 hover:text-teal-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-teal-400 dark:hover:bg-gray-800/50"
                   }`}
               >
                 {t("navigation.whatWeDo")}
               </Link>
 
               <Link
+                href="/how-it-works"
+                className={`px-4 py-2 text-sm font-medium rounded-lg transition-all duration-300 ${pathname === "/how-it-works"
+                  ? "text-teal-600 bg-teal-50 dark:text-teal-400 dark:bg-teal-950/30"
+                  : "text-gray-700 hover:text-teal-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-teal-400 dark:hover:bg-gray-800/50"
+                  }`}
+              >
+                {t("navigation.howItWorks")}
+              </Link>
+
+              <Link
+                href="/need-professional-help"
+                className={`hidden xl:inline-flex px-4 py-2 text-sm font-medium rounded-lg transition-all duration-300 ${pathname === "/need-professional-help"
+                  ? "text-teal-600 bg-teal-50 dark:text-teal-400 dark:bg-teal-950/30"
+                  : "text-gray-700 hover:text-teal-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-teal-400 dark:hover:bg-gray-800/50"
+                  }`}
+              >
+                {t("navigation.needHelpShort")}
+              </Link>
+
+              <Link
                 href="/pricing"
                 className={`px-4 py-2 text-sm font-medium rounded-lg transition-all duration-300 ${pathname === "/pricing"
-                  ? "text-blue-600 bg-blue-50 dark:text-blue-400 dark:bg-blue-950/30"
-                  : "text-gray-700 hover:text-blue-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-blue-400 dark:hover:bg-gray-800/50"
+                  ? "text-teal-600 bg-teal-50 dark:text-teal-400 dark:bg-teal-950/30"
+                  : "text-gray-700 hover:text-teal-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-teal-400 dark:hover:bg-gray-800/50"
                   }`}
               >
                 {t("navigation.pricing")}
@@ -390,7 +406,7 @@ export default function Navbar() {
               {/* File Claim CTA Button */}
               <Link
                 href="/claim-form"
-                className="ml-2 px-5 py-2 text-sm font-semibold rounded-lg bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-0.5"
+                className="ml-2 px-5 py-2 text-sm font-semibold rounded-lg bg-gradient-to-r from-teal-600 to-teal-700 hover:from-teal-700 hover:to-teal-800 text-white shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-0.5"
               >
                 {t("navigation.submitClaim")}
               </Link>
@@ -419,7 +435,7 @@ export default function Navbar() {
             <div className="lg:hidden">
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="p-2 rounded-lg text-gray-700 hover:text-blue-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:text-blue-400 dark:hover:bg-gray-800 transition-all duration-300"
+                className="p-2 rounded-lg text-gray-700 hover:text-teal-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:text-teal-400 dark:hover:bg-gray-800 transition-all duration-300"
               >
                 {isMobileMenuOpen ? (
                   <X className="w-6 h-6" />
@@ -442,8 +458,8 @@ export default function Navbar() {
                   href="/who-we-are"
                   onClick={() => setIsMobileMenuOpen(false)}
                   className={`flex items-center gap-3 px-3 py-3 rounded-lg text-base font-medium transition-all duration-300 ${pathname === "/who-we-are"
-                      ? "text-blue-600 bg-blue-50 dark:text-blue-400 dark:bg-blue-950/30"
-                      : "text-gray-700 hover:text-blue-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-blue-400 dark:hover:bg-gray-800/50"
+                      ? "text-teal-600 bg-teal-50 dark:text-teal-400 dark:bg-teal-950/30"
+                      : "text-gray-700 hover:text-teal-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-teal-400 dark:hover:bg-gray-800/50"
                     }`}
                 >
                   {t("navigation.whoWeAre")}
@@ -453,19 +469,41 @@ export default function Navbar() {
                   href="/what-we-do"
                   onClick={() => setIsMobileMenuOpen(false)}
                   className={`flex items-center gap-3 px-3 py-3 rounded-lg text-base font-medium transition-all duration-300 ${pathname === "/what-we-do"
-                      ? "text-blue-600 bg-blue-50 dark:text-blue-400 dark:bg-blue-950/30"
-                      : "text-gray-700 hover:text-blue-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-blue-400 dark:hover:bg-gray-800/50"
+                      ? "text-teal-600 bg-teal-50 dark:text-teal-400 dark:bg-teal-950/30"
+                      : "text-gray-700 hover:text-teal-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-teal-400 dark:hover:bg-gray-800/50"
                     }`}
                 >
                   {t("navigation.whatWeDo")}
                 </Link>
 
                 <Link
+                  href="/how-it-works"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className={`flex items-center gap-3 px-3 py-3 rounded-lg text-base font-medium transition-all duration-300 ${pathname === "/how-it-works"
+                      ? "text-teal-600 bg-teal-50 dark:text-teal-400 dark:bg-teal-950/30"
+                      : "text-gray-700 hover:text-teal-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-teal-400 dark:hover:bg-gray-800/50"
+                    }`}
+                >
+                  {t("navigation.howItWorks")}
+                </Link>
+
+                <Link
+                  href="/need-professional-help"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className={`flex items-center gap-3 px-3 py-3 rounded-lg text-base font-medium transition-all duration-300 ${pathname === "/need-professional-help"
+                      ? "text-teal-600 bg-teal-50 dark:text-teal-400 dark:bg-teal-950/30"
+                      : "text-gray-700 hover:text-teal-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-teal-400 dark:hover:bg-gray-800/50"
+                    }`}
+                >
+                  {t("navigation.needProfessionalHelp")}
+                </Link>
+
+                <Link
                   href="/pricing"
                   onClick={() => setIsMobileMenuOpen(false)}
                   className={`flex items-center gap-3 px-3 py-3 rounded-lg text-base font-medium transition-all duration-300 ${pathname === "/pricing"
-                      ? "text-blue-600 bg-blue-50 dark:text-blue-400 dark:bg-blue-950/30"
-                      : "text-gray-700 hover:text-blue-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-blue-400 dark:hover:bg-gray-800/50"
+                      ? "text-teal-600 bg-teal-50 dark:text-teal-400 dark:bg-teal-950/30"
+                      : "text-gray-700 hover:text-teal-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-teal-400 dark:hover:bg-gray-800/50"
                     }`}
                 >
                   {t("navigation.pricing")}
@@ -475,7 +513,7 @@ export default function Navbar() {
                 <Link
                   href="/claim-form"
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="flex items-center justify-center gap-3 px-3 py-3 rounded-lg text-base font-semibold bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white shadow-md transition-all duration-300"
+                  className="flex items-center justify-center gap-3 px-3 py-3 rounded-lg text-base font-semibold bg-gradient-to-r from-teal-600 to-teal-700 hover:from-teal-700 hover:to-teal-800 text-white shadow-md transition-all duration-300"
                 >
                   {t("navigation.submitClaim")}
                 </Link>

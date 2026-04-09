@@ -207,8 +207,9 @@ interface JourneyStep {
 const claimsJourneySteps: JourneyStep[] = [
   {
     id: 1,
-    title: "Initial Consultation",
-    description: "Schedule your first consultation with our team",
+    title: "Enter your information",
+    description:
+      "Use guided forms to enter your own details—no third-party filing on your behalf",
     icon: FileText,
     status: "pending",
     estimatedDays: 1,
@@ -216,8 +217,9 @@ const claimsJourneySteps: JourneyStep[] = [
   },
   {
     id: 2,
-    title: "Document Collection",
-    description: "Gather all necessary medical and accident documents",
+    title: "Organize documents",
+    description:
+      "Upload police reports, medical records, and photos to your secure account",
     icon: ClipboardList,
     status: "pending",
     estimatedDays: 7,
@@ -225,8 +227,9 @@ const claimsJourneySteps: JourneyStep[] = [
   },
   {
     id: 3,
-    title: "Claim Filing",
-    description: "Submit your claim with all required documentation",
+    title: "Track treatment & expenses",
+    description:
+      "Log appointments and costs; follow your own medical providers’ guidance",
     icon: Stethoscope,
     status: "pending",
     estimatedDays: 14,
@@ -234,8 +237,9 @@ const claimsJourneySteps: JourneyStep[] = [
   },
   {
     id: 4,
-    title: "Insurance Review",
-    description: "Insurance company reviews your claim",
+    title: "Insurer processes your claim",
+    description:
+      "After you submit, your carrier reviews the materials you sent—timelines vary",
     icon: Shield,
     status: "pending",
     estimatedDays: 30,
@@ -243,8 +247,9 @@ const claimsJourneySteps: JourneyStep[] = [
   },
   {
     id: 5,
-    title: "Begin Your Recovery",
-    description: "Start your physical therapy and recovery journey",
+    title: "Stay on deadlines",
+    description:
+      "Use reminders for common milestones (general info—not legal advice)",
     icon: TrendingUp,
     status: "pending",
     estimatedDays: 30,
@@ -252,12 +257,13 @@ const claimsJourneySteps: JourneyStep[] = [
   },
   {
     id: 6,
-    title: "Settlement Negotiation",
-    description: "Negotiate fair compensation for your injuries",
+    title: "You handle follow-up",
+    description:
+      "Communicate with your insurer as needed; we do not negotiate for you",
     icon: DollarSign,
     status: "pending",
     estimatedDays: 45,
-    required: true,
+    required: false,
   },
 ];
 
@@ -542,7 +548,7 @@ export default function DashboardPage() {
       case "completed":
         return "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300";
       case "in progress":
-        return "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300";
+        return "bg-teal-100 text-teal-800 dark:bg-teal-900 dark:text-teal-300";
       case "pending":
         return "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300";
       case "overdue":
@@ -669,7 +675,7 @@ export default function DashboardPage() {
       <div className="min-h-screen bg-gray-50 dark:bg-gray-950 pt-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="flex items-center justify-center h-64">
-            <Loader2 className="w-8 h-8 animate-spin text-blue-600" />
+            <Loader2 className="w-8 h-8 animate-spin text-teal-600" />
           </div>
         </div>
       </div>
@@ -705,10 +711,10 @@ export default function DashboardPage() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Claims Journey Steps */}
           <div className="lg:col-span-2">
-            <Card className="shadow-lg border-0 bg-gradient-to-br from-white to-blue-50 dark:from-gray-900 dark:to-blue-950">
+            <Card className="shadow-lg border-0 bg-gradient-to-br from-white to-teal-50 dark:from-gray-900 dark:to-teal-950">
               <CardHeader>
                 <CardTitle className="flex items-center gap-3 text-xl font-bold text-gray-900 dark:text-white">
-                  <MapPinIcon className="w-6 h-6 text-blue-600" />
+                  <MapPinIcon className="w-6 h-6 text-teal-600" />
                   Your Claims Journey
                 </CardTitle>
                 <p className="text-gray-600 dark:text-gray-400">
@@ -724,7 +730,7 @@ export default function DashboardPage() {
                     >
                       <button
                         onClick={() => toggleStepCompletion(step.id)}
-                        className="flex-shrink-0 w-8 h-8 bg-gradient-to-r from-blue-500 to-blue-700 rounded-full flex items-center justify-center text-white font-bold hover:scale-110 transition-transform duration-200 cursor-pointer"
+                        className="flex-shrink-0 w-8 h-8 bg-gradient-to-r from-teal-500 to-teal-700 rounded-full flex items-center justify-center text-white font-bold hover:scale-110 transition-transform duration-200 cursor-pointer"
                         title="Click to mark as complete"
                       >
                         {step.status === "completed" ? (
@@ -735,7 +741,7 @@ export default function DashboardPage() {
                       </button>
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2 mb-1">
-                          <step.icon className="w-4 h-4 text-blue-600" />
+                          <step.icon className="w-4 h-4 text-teal-600" />
                           <h3 className="font-semibold text-gray-900 dark:text-white text-sm">
                             {step.title}
                           </h3>
@@ -808,7 +814,7 @@ export default function DashboardPage() {
                           <Button
                             size="sm"
                             onClick={() => handleViewClaim(claim._id)}
-                            className="flex-1 bg-blue-600 hover:bg-blue-700 text-white"
+                            className="flex-1 bg-teal-600 hover:bg-teal-700 text-white"
                           >
                             <Eye className="w-4 h-4 mr-1" />
                             View
@@ -833,10 +839,10 @@ export default function DashboardPage() {
             )}
 
             {/* Document Repository */}
-            <Card className="shadow-lg border-0 bg-gradient-to-br from-white to-indigo-50 dark:from-gray-900 dark:to-indigo-950 mt-6">
+            <Card className="shadow-lg border-0 bg-gradient-to-br from-white to-emerald-50 dark:from-gray-900 dark:to-emerald-950 mt-6">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-lg font-bold text-gray-900 dark:text-white">
-                  <FileText className="w-5 h-5 text-indigo-600" />
+                  <FileText className="w-5 h-5 text-emerald-600" />
                   Document Repository ({documents.length})
                 </CardTitle>
                 <p className="text-gray-600 dark:text-gray-400">
@@ -847,7 +853,7 @@ export default function DashboardPage() {
                 <div className="space-y-3">
                   <Button
                     onClick={() => setShowUploadModal(true)}
-                    className="w-full bg-indigo-600 hover:bg-indigo-700 text-white"
+                    className="w-full bg-emerald-600 hover:bg-emerald-700 text-white"
                   >
                     <Upload className="w-4 h-4 mr-2" />
                     Upload Document
@@ -855,7 +861,7 @@ export default function DashboardPage() {
                   <Button
                     onClick={() => router.push("/pricing")}
                     variant="outline"
-                    className="w-full border-indigo-300 text-indigo-600 hover:bg-indigo-50 dark:border-indigo-600 dark:text-indigo-400 dark:hover:bg-indigo-950/30"
+                    className="w-full border-emerald-300 text-emerald-600 hover:bg-emerald-50 dark:border-emerald-600 dark:text-emerald-400 dark:hover:bg-emerald-950/30"
                   >
                     <DollarSign className="w-4 h-4 mr-2" />
                     View Pricing
@@ -863,7 +869,7 @@ export default function DashboardPage() {
                   <Button
                     onClick={() => router.push("/claim-form")}
                     variant="outline"
-                    className="w-full border-indigo-300 text-indigo-600 hover:bg-indigo-50 dark:border-indigo-600 dark:text-indigo-400 dark:hover:bg-indigo-950/30"
+                    className="w-full border-emerald-300 text-emerald-600 hover:bg-emerald-50 dark:border-emerald-600 dark:text-emerald-400 dark:hover:bg-emerald-950/30"
                   >
                     <Plus className="w-4 h-4 mr-2" />
                     New Claim
@@ -881,8 +887,8 @@ export default function DashboardPage() {
                         className="flex items-center justify-between p-3 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800"
                       >
                         <div className="flex items-center gap-3">
-                          <div className="w-10 h-10 bg-indigo-100 dark:bg-indigo-900/30 rounded-lg flex items-center justify-center">
-                            <FileText className="w-5 h-5 text-indigo-600" />
+                          <div className="w-10 h-10 bg-emerald-100 dark:bg-emerald-900/30 rounded-lg flex items-center justify-center">
+                            <FileText className="w-5 h-5 text-emerald-600" />
                           </div>
                           <div>
                             <h5 className="font-medium text-gray-900 dark:text-white text-sm">
@@ -898,7 +904,7 @@ export default function DashboardPage() {
                             size="sm"
                             variant="ghost"
                             onClick={() => handleViewDocument(doc)}
-                            className="text-indigo-600 hover:text-indigo-700"
+                            className="text-emerald-600 hover:text-emerald-700"
                           >
                             <Eye className="w-4 h-4" />
                           </Button>
@@ -930,10 +936,10 @@ export default function DashboardPage() {
           {/* Sidebar */}
           <div className="space-y-6">
             {/* Quick Actions */}
-            <Card className="shadow-lg border-0 bg-gradient-to-br from-white to-indigo-50 dark:from-gray-900 dark:to-indigo-950">
+            <Card className="shadow-lg border-0 bg-gradient-to-br from-white to-emerald-50 dark:from-gray-900 dark:to-emerald-950">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-lg font-bold text-gray-900 dark:text-white">
-                  <Zap className="w-5 h-5 text-indigo-600" />
+                  <Zap className="w-5 h-5 text-emerald-600" />
                   Quick Actions
                 </CardTitle>
               </CardHeader>
@@ -941,7 +947,7 @@ export default function DashboardPage() {
                 <div className="space-y-3">
                   <Button
                     onClick={() => setShowUploadModal(true)}
-                    className="w-full bg-indigo-600 hover:bg-indigo-700 text-white"
+                    className="w-full bg-emerald-600 hover:bg-emerald-700 text-white"
                   >
                     <Upload className="w-4 h-4 mr-2" />
                     Upload Document
@@ -949,7 +955,7 @@ export default function DashboardPage() {
                   <Button
                     onClick={handleViewMostRecentClaim}
                     variant="outline"
-                    className="w-full border-indigo-300 text-indigo-600 hover:bg-indigo-50 dark:border-indigo-600 dark:text-indigo-400 dark:hover:bg-indigo-950/30"
+                    className="w-full border-emerald-300 text-emerald-600 hover:bg-emerald-50 dark:border-emerald-600 dark:text-emerald-400 dark:hover:bg-emerald-950/30"
                     disabled={claims.length === 0}
                   >
                     <Eye className="w-4 h-4 mr-2" />
@@ -958,7 +964,7 @@ export default function DashboardPage() {
                   <Button
                     onClick={() => router.push("/pricing")}
                     variant="outline"
-                    className="w-full border-indigo-300 text-indigo-600 hover:bg-indigo-50 dark:border-indigo-600 dark:text-indigo-400 dark:hover:bg-indigo-950/30"
+                    className="w-full border-emerald-300 text-emerald-600 hover:bg-emerald-50 dark:border-emerald-600 dark:text-emerald-400 dark:hover:bg-emerald-950/30"
                   >
                     <DollarSign className="w-4 h-4 mr-2" />
                     View Pricing
@@ -966,7 +972,7 @@ export default function DashboardPage() {
                   <Button
                     onClick={() => router.push("/claim-form")}
                     variant="outline"
-                    className="w-full border-indigo-300 text-indigo-600 hover:bg-indigo-50 dark:border-indigo-600 dark:text-indigo-400 dark:hover:bg-indigo-950/30"
+                    className="w-full border-emerald-300 text-emerald-600 hover:bg-emerald-50 dark:border-emerald-600 dark:text-emerald-400 dark:hover:bg-emerald-950/30"
                   >
                     <Plus className="w-4 h-4 mr-2" />
                     New Claim
@@ -1048,33 +1054,33 @@ export default function DashboardPage() {
             </Card>
 
             {/* Policy Limits */}
-            <Card className="shadow-lg border-0 bg-gradient-to-br from-white to-purple-50 dark:from-gray-900 dark:to-purple-950">
+            <Card className="shadow-lg border-0 bg-gradient-to-br from-white to-emerald-50 dark:from-gray-900 dark:to-emerald-950">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-lg font-bold text-gray-900 dark:text-white">
-                  <Shield className="w-5 h-5 text-purple-600" />
+                  <Shield className="w-5 h-5 text-emerald-600" />
                   Policy Limits
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-3">
-                  <div className="p-3 rounded-lg bg-purple-50 dark:bg-purple-900/20 border border-purple-200 dark:border-purple-700">
-                    <h4 className="font-semibold text-purple-900 dark:text-purple-100 text-sm mb-2">
+                  <div className="p-3 rounded-lg bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-700">
+                    <h4 className="font-semibold text-emerald-900 dark:text-emerald-100 text-sm mb-2">
                       Bodily Injury
                     </h4>
                     <div className="space-y-1 text-xs">
                       <div className="flex justify-between">
-                        <span className="text-purple-700 dark:text-purple-300">
+                        <span className="text-emerald-700 dark:text-emerald-300">
                           Per Person:
                         </span>
-                        <span className="font-medium text-purple-900 dark:text-purple-100">
+                        <span className="font-medium text-emerald-900 dark:text-emerald-100">
                           {formatCurrency(policyLimits.bodilyInjury.perPerson)}
                         </span>
                       </div>
                       <div className="flex justify-between">
-                        <span className="text-purple-700 dark:text-purple-300">
+                        <span className="text-emerald-700 dark:text-emerald-300">
                           Per Accident:
                         </span>
-                        <span className="font-medium text-purple-900 dark:text-purple-100">
+                        <span className="font-medium text-emerald-900 dark:text-emerald-100">
                           {formatCurrency(
                             policyLimits.bodilyInjury.perAccident
                           )}
@@ -1083,16 +1089,16 @@ export default function DashboardPage() {
                     </div>
                   </div>
 
-                  <div className="p-3 rounded-lg bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700">
-                    <h4 className="font-semibold text-blue-900 dark:text-blue-100 text-sm mb-2">
+                  <div className="p-3 rounded-lg bg-teal-50 dark:bg-teal-900/20 border border-teal-200 dark:border-teal-700">
+                    <h4 className="font-semibold text-teal-900 dark:text-teal-100 text-sm mb-2">
                       Property Damage
                     </h4>
                     <div className="text-xs">
                       <div className="flex justify-between">
-                        <span className="text-blue-700 dark:text-blue-300">
+                        <span className="text-teal-700 dark:text-teal-300">
                           Limit:
                         </span>
-                        <span className="font-medium text-blue-900 dark:text-blue-100">
+                        <span className="font-medium text-teal-900 dark:text-teal-100">
                           {formatCurrency(policyLimits.propertyDamage)}
                         </span>
                       </div>
@@ -1289,7 +1295,7 @@ export default function DashboardPage() {
               <div className="flex gap-3">
                 <Button
                   onClick={addEvent}
-                  className="flex-1 bg-blue-600 hover:bg-blue-700"
+                  className="flex-1 bg-teal-600 hover:bg-teal-700"
                 >
                   Add Event
                 </Button>

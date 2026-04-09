@@ -39,7 +39,7 @@ interface DocumentShareModalProps {
 const documentCategories = {
   medical: {
     label: "Medical Records",
-    color: "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300",
+    color: "bg-teal-100 text-teal-800 dark:bg-teal-900 dark:text-teal-300",
   },
   insurance: {
     label: "Insurance",
@@ -52,7 +52,7 @@ const documentCategories = {
   legal: {
     label: "Legal Documents",
     color:
-      "bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-300",
+      "bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-300",
   },
   other: {
     label: "Other",
@@ -169,7 +169,7 @@ export default function DocumentShareModal({
             {/* Document Preview */}
             <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-4">
               <div className="flex items-start gap-3">
-                <div className="w-10 h-10 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center flex-shrink-0">
+                <div className="w-10 h-10 bg-teal-100 dark:bg-teal-900/30 rounded-lg flex items-center justify-center flex-shrink-0">
                   {getFileIcon(document.mimeType)}
                 </div>
                 <div className="flex-1 min-w-0">
@@ -232,18 +232,18 @@ export default function DocumentShareModal({
             )}
 
             {/* Note about current implementation */}
-            <div className="bg-blue-50 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
+            <div className="bg-teal-50 dark:bg-teal-950/30 border border-teal-200 dark:border-teal-800 rounded-lg p-4">
               <div className="flex items-start gap-2">
-                <div className="w-5 h-5 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <span className="text-xs text-blue-600 dark:text-blue-400">
+                <div className="w-5 h-5 bg-teal-100 dark:bg-teal-900/30 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <span className="text-xs text-teal-600 dark:text-teal-400">
                     ℹ
                   </span>
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-blue-800 dark:text-blue-200 mb-1">
+                  <p className="text-sm font-medium text-teal-800 dark:text-teal-200 mb-1">
                     Document Sharing
                   </p>
-                  <p className="text-xs text-blue-700 dark:text-blue-300">
+                  <p className="text-xs text-teal-700 dark:text-teal-300">
                     This will send document metadata and information to the
                     recipient via email. Currently in simulation mode - check
                     the server logs to see the email details that would be sent.
@@ -264,7 +264,7 @@ export default function DocumentShareModal({
               <Button
                 onClick={handleShare}
                 disabled={isSharing || !email.trim()}
-                className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
+                className="bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-700 hover:to-emerald-700"
               >
                 {isSharing ? (
                   <>

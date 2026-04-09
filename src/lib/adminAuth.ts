@@ -1,5 +1,4 @@
 import { auth } from "@clerk/nextjs/server";
-import dbConnect from "@/lib/db";
 import { createUserIfMissing } from "./createUserIfMissing";
 
 interface UserDocument {
@@ -27,11 +26,7 @@ export async function checkAdminAuth(): Promise<AuthResult> {
       return { isAuthorized: false, error: "Unauthorized", status: 401 };
     }
 
-    console.log("🔗 Connecting to database...");
-    await dbConnect();
-    console.log("✅ Database connected");
-
-    // Try to create user if missing
+    // Try to create user if missing (Supabase profiles)
     console.log("👤 Checking if user exists in database...");
     const user = await createUserIfMissing();
 
@@ -57,7 +52,7 @@ export async function checkAdminAuth(): Promise<AuthResult> {
     }
 
     console.log("✅ Admin authentication successful");
-    return { isAuthorized: true, user };
+    return { isAuthorized: true, user: user as UserDocument };
   } catch (error) {
     console.error("❌ Error in admin authentication:", error);
 
@@ -66,9 +61,7 @@ export async function checkAdminAuth(): Promise<AuthResult> {
     let statusCode = 500;
 
     if (error instanceof Error) {
-      if (error.message.includes("MongoDB")) {
-        errorMessage = "Database connection error. Please try again.";
-      } else if (error.message.includes("authentication")) {
+      if (error.message.includes("authentication")) {
         errorMessage = "Authentication error. Please sign in again.";
         statusCode = 401;
       } else if (error.message.includes("CLERK")) {

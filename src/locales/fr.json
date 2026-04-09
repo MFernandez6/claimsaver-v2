@@ -23,10 +23,16 @@
     "home": "Accueil",
     "whoWeAre": "Qui Nous Sommes",
     "whatWeDo": "Ce Que Nous Faisons",
+    "howItWorks": "Comment ça marche",
+    "learningCenter": "Centre d'apprentissage",
+    "needProfessionalHelp": "Besoin d'aide professionnelle ?",
+    "needHelpShort": "Dossier complexe ?",
+    "licenseCredentials": "Licence et références",
+    "contact": "Contact",
     "pricing": "Tarifs",
     "notarization": "Notarisation",
     "dashboard": "Tableau de Bord",
-    "submitClaim": "Soumettre Réclamation",
+    "submitClaim": "Commencer votre dossier",
     "signIn": "Se Connecter",
     "signUp": "S'Inscrire",
     "signOut": "Se Déconnecter",
@@ -36,10 +42,11 @@
   },
   "home": {
     "hero": {
-      "title": "Récupérez Plus",
-      "subtitle": "Gardez Ce Qui Est À Vous",
-      "description": "Obtenez la compensation que vous méritez avec nos services experts de récupération d'accident. Pas de frais cachés, pas de surprises.",
-      "cta": "Démarrer Votre Récupération",
+      "title": "Déposez vous-même votre réclamation sans faute.",
+      "subtitle": "Gardez ce qui vous revient.",
+      "description": "Les outils et l'aide pour déposer votre réclamation PIP en Floride, suivre votre rétablissement et conserver le plus possible de vos prestations. Forfait plateforme 500 $—pas d'honoraires de résultat.",
+      "cta": "Voir comment ça marche",
+      "ctaSecondary": "Commencer à remplir votre dossier",
       "learnMore": "En Savoir Plus",
       "watchDemo": "Regarder la Démo",
       "imageAlt": "Arrière-plan ClaimSaver+"
@@ -49,7 +56,7 @@
     },
     "features": {
       "title": "Tout Ce Dont Vous Avez Besoin",
-      "subtitle": "Outils et soutien complets pour rationaliser votre processus de récupération d'accident",
+      "subtitle": "Outils guidés pour déposer et gérer vous-même votre réclamation PIP en Floride : formulaires, stockage, suivi et rappels",
       "feature1": {
         "title": "Dépôt de Formulaires Sans Faute",
         "description": "Soumission de formulaires rationalisée avec validation en temps réel et confirmation instantanée."
@@ -63,64 +70,89 @@
         "description": "Restez informé avec des notifications instantanées et le suivi des progrès du cas."
       },
       "feature5": {
-        "title": "Assistance à la Récupération",
-        "description": "Services d'expertise en sinistres pour maximiser votre récupération d'indemnisation."
+        "title": "Suivi du rétablissement",
+        "description": "Suivez vos soins, dépenses et délais au même endroit, avec des rappels pour les échéances importantes."
       }
     },
     "benefits": {
       "benefit1": {
-        "title": "Traitement Instantané",
-        "description": "Validation de formulaires en temps réel et confirmation immédiate de soumission"
+        "title": "Vous gardez la main",
+        "description": "Vous saisissez vos informations et déposez votre propre réclamation. Nous fournissons formulaires, validation et organisation—pas de représentation."
       },
       "benefit3": {
-        "title": "Résultats Prouvés",
-        "description": "Des milliers de réclamations réussies traitées avec des taux de satisfaction élevés"
+        "title": "Tarification claire",
+        "description": "Forfait plateforme—pas un pourcentage de votre prestation PIP"
       },
       "benefit4": {
-        "title": "Support Premium",
-        "description": "Équipe dédiée disponible pour vous guider à chaque étape"
+        "title": "Aide quand il le faut",
+        "description": "Assistance par e-mail pour la plateforme et la facturation—pas de conseil juridique sur votre dossier"
       }
     },
     "whyChoose": {
       "title": "Pourquoi Choisir",
       "brand": "ClaimSaver+",
-      "description": "Nous combinons une technologie de pointe avec une expertise humaine pour offrir l'expérience de récupération d'accident la plus efficace et efficiente.",
+      "description": "Plateforme en libre-service pour les réclamations PIP sans faute en Floride : formulaires guidés, documents, suivi des dépenses et ressources pédagogiques pour déposer et gérer vous-même votre dossier.",
       "getStarted": "Commencer Aujourd'hui",
-      "flatFee": "Tarif fixe 500 $",
-      "freeConsultation": "Consultation gratuite",
+      "flatFee": "Accès plateforme 500 $",
+      "freeConsultation": "Ressources pédagogiques et visite guidée",
       "imageAlt": "Arrière-plan ClaimSaver+"
     },
     "stats": {
-      "title": "Métriques de Succès",
-      "recoveryTime": "Temps de Récupération Moyen",
-      "recoveryTimeValue": "6-12 mois",
-      "successRate": "Taux de Réussite",
-      "successRateValue": "95%",
-      "satisfaction": "Satisfaction Client",
-      "satisfactionValue": "4.9/5",
-      "flatFeeLabel": "Tarif Fixe",
-      "flatFeeValue": "500 $"
+      "title": "Tarification simple et transparente",
+      "recoveryTime": "Prestation PIP illustrative (exemple)",
+      "recoveryTimeValue": "Plafond 10 000 $",
+      "successRate": "vs honoraires typ. 33 % sur 10 k$",
+      "successRateValue": "3 300 $",
+      "satisfaction": "Forfait plateforme",
+      "satisfactionValue": "500 $",
+      "flatFeeLabel": "Forfait libre-service",
+      "flatFeeValue": "500 $",
+      "statsNote": "Exemple : prestation PIP 10 000 $ et 33 % de contingence à titre comparatif seulement—aucun résultat garanti."
+    },
+    "story": {
+      "heroBannerAlt": "ClaimSaver+ — accompagnement professionnel pour les réclamations PIP en Floride",
+      "pipStepsAlt": "Illustration en cinq étapes du processus de réclamation PIP en Floride",
+      "whatYouGetAlt": "Aperçu des outils et avantages inclus avec ClaimSaver+",
+      "beforeAfterAlt": "Avant et après : dossiers éparpillés versus parcours de réclamation organisé",
+      "pipStepsTitle": "Votre parcours PIP en cinq étapes",
+      "pipStepsSubtitle": "De l’accident à une réclamation structurée : la feuille de route que notre plateforme guidée suit avec vous.",
+      "whatYouGetTitle": "Ce que vous obtenez",
+      "whatYouGetSubtitle": "Outils structurés et stockage sécurisé—pas d’honoraires de résultat.",
+      "beforeAfterTitle": "Du chaos à la clarté",
+      "beforeAfterSubtitle": "Remplacez la paperasse éparpillée par un parcours guidé unique que vous maîtrisez."
     },
     "faq": {
       "title": "Questions Fréquemment Posées",
       "subtitle": "Obtenez des réponses aux questions les plus courantes sur ClaimSaver+",
       "legal": {
         "question": "Est-ce légal?",
-        "answer": "ClaimSaver+ est une plateforme technologique qui fournit des services de soutien administratif. Nous ne sommes PAS un cabinet d'avocats et ne fournissons PAS de conseils juridiques ou de représentation. Nous fournissons un soutien administratif pour l'organisation de documents et le dépôt de formulaires. Nous n'évaluons pas les cas, ne fournissons pas d'avis juridiques et ne représentons pas les clients. Pour des conseils juridiques, vous devez consulter des avocats qualifiés qui peuvent vous fournir les conseils et la représentation juridiques dont vous avez besoin."
+        "answer": "Oui. ClaimSaver+ est une plateforme logicielle en libre-service pour les réclamations PIP de véhicules à moteur en Floride. Nous ne sommes PAS un cabinet d'avocats et ne fournissons PAS de conseils juridiques, d'évaluation de réclamation ni de représentation. Nous ne négocions pas avec les assureurs et ne déposons pas de réclamation à votre place. Pour un conseil sur votre situation, consultez un avocat agréé en Floride."
+      },
+      "accidents": {
+        "question": "Quels types d'accidents couvre ClaimSaver+ ?",
+        "answer": "La plateforme vise les réclamations PIP liées aux véhicules en Floride—auto, moto, camion, piéton, vélo—afin que vous documentiez et demandiez vous-même les prestations sans faute. Nous ne garantissons aucun résultat et n'agissons pas comme votre représentant."
+      },
+      "documents": {
+        "question": "Dois-je fournir des documents ?",
+        "answer": "Oui : rapports de police, dossiers médicaux, assurance, photos, etc. Notre plateforme permet de les télécharger et de les organiser de façon sécurisée."
+      },
+      "states": {
+        "question": "ClaimSaver+ est-il disponible partout ?",
+        "answer": "ClaimSaver+ se concentre sur les réclamations PIP en Floride. D'autres États peuvent s'ajouter plus tard. Nous ne fournissons pas de conseil juridique ; pour votre juridiction, consultez un avocat."
       }
     }
   },
   "pricing": {
     "title": "Transparent, Équitable et Rentable",
-    "subtitle": "Plus d'Argent dans Votre Poche, Moins de Stress dans Votre Vie",
-    "startClaim": "Démarrer Votre Réclamation",
+    "subtitle": "Un forfait pour des outils en libre-service—afin de conserver le plus possible d'une prestation PIP typique",
+    "startClaim": "Commencer à remplir votre dossier",
     "learnMore": "En Savoir Plus",
     "selectServices": "Sélectionnez Vos Services et Paiement",
     "selectServicesDesc": "Choisissez les services dont vous avez besoin et complétez votre paiement en toute sécurité avec Stripe",
     "services": {
       "noFaultAssistance": {
-        "name": "Assistance Sans Faute",
-        "description": "Assistance complète pour le dépôt et la récupération de réclamations d'accident",
+        "name": "Accès plateforme en libre-service",
+        "description": "Formulaires PIP guidés, outils documentaires et rappels—vous déposez vous-même votre réclamation",
         "price": "500.00"
       },
       "notarization": {
@@ -139,28 +171,30 @@
     },
     "claimSaverAdvantages": {
       "title": "Avantage ClaimSaver+",
-      "keep95Percent": "Gardez 95% de votre indemnisation",
-      "noContingency": "Pas de frais de contingence",
-      "transparentPricing": "Tarif fixe transparent",
-      "professionalService": "Service professionnel",
-      "maximumRecovery": "Récupération maximale pour vous"
+      "keep95Percent": "Conservez plus de 95 % d'une prestation PIP typique de 10 k$ après un forfait de 500 $ (illustratif—aucun résultat garanti)",
+      "noContingency": "Pas de structure d'honoraires de 33 % sur notre plateforme en libre-service",
+      "transparentPricing": "Forfait transparent pour l'accès à la plateforme",
+      "professionalService": "Outils et information—vous décidez et soumettez",
+      "maximumRecovery": "Restez organisé et informé tout au long de votre dossier"
     },
+    "comparisonNote": "Comparaison : dépôt seul avec ClaimSaver+ vs avocat à 33 % sur une prestation PIP de 10 000 $. Les résultats réels varient.",
+    "selfHelpSubtitle": "Accès plateforme en libre-service—vous déposez, vous contrôlez",
     "features": {
       "transparentPricing": {
         "title": "Tarification Transparente",
-        "description": "Pas de frais cachés, pas de surprises. Sachez exactement ce que vous paierez à l'avance."
+        "description": "Un seul forfait clair pour l'accès à la plateforme. Pas d'abonnement caché pour le produit principal."
       },
       "maximumRecovery": {
-        "title": "Récupération Maximale",
-        "description": "Gardez plus de votre indemnisation avec notre structure de tarif fixe."
+        "title": "Conservez plus de votre prestation",
+        "description": "Par rapport aux pourcentages de contingence courants, un forfait peut vous laisser davantage sur les réclamations PIP standard que vous gérez vous-même."
       },
       "professionalService": {
-        "title": "Service Professionnel",
-        "description": "Support administratif expert sans les frais traditionnels élevés."
+        "title": "Libre-service guidé",
+        "description": "Parcours étape par étape et validation—sans négocier avec les assureurs ni parler en votre nom."
       },
       "fasterProcessing": {
-        "title": "Traitement Plus Rapide",
-        "description": "Processus rationalisé qui vous donne des résultats plus rapidement que les méthodes traditionnelles."
+        "title": "Restez sur la bonne voie",
+        "description": "Rappels et listes pour compléter les formulaires et les délais habituels."
       }
     },
     "testimonials": {
@@ -168,15 +202,15 @@
       "subtitle": "Histoires réelles de vraies personnes qui ont économisé des milliers avec ClaimSaver+"
     },
     "cta": {
-      "title": "Prêt à Économiser des Milliers?",
-      "subtitle": "Rejoignez des milliers de victimes d'accident qui ont utilisé ClaimSaver+ pour maximiser leur récupération. Commencez aujourd'hui avec notre tarification transparente à tarif fixe.",
-      "button": "Démarrer Votre Réclamation"
+      "title": "Prêt à déposer votre propre réclamation ?",
+      "subtitle": "Outils guidés pour 500 $. Vous préparez et soumettez votre réclamation PIP vous-même—pas d'honoraires de contingence vers ClaimSaver+.",
+      "button": "Commencer à remplir votre dossier"
     }
   },
   "claimForm": {
     "header": {
       "title": "Formulaire Sans Faute de Floride",
-      "description": "Complétez votre réclamation d'accident avec notre formulaire étape par étape",
+      "description": "Saisissez vous-même vos informations—vous restez responsable de votre réclamation ; ClaimSaver+ fournit un logiciel et un stockage, pas de conseil juridique ni de représentation.",
       "step": "Étape"
     },
     "steps": {
@@ -192,8 +226,8 @@
       "step": "Étape"
     },
     "success": {
-      "title": "Réclamation Soumise avec Succès!",
-      "description": "Votre réclamation a été soumise et est maintenant en cours d'examen.",
+      "title": "Informations enregistrées",
+      "description": "Vos réponses ont été enregistrées dans votre compte ClaimSaver+. Continuez à organiser vos documents et, lorsque vous êtes prêt, transmettez les éléments à votre assureur vous-même—ClaimSaver+ ne dépose pas et ne négocie pas pour vous.",
       "goToDashboard": "Aller au Tableau de Bord"
     },
     "errors": {
@@ -338,7 +372,7 @@
     }
   },
   "footer": {
-    "description": "Simplifiant la soumission de formulaires d'accident et la récupération. Actuellement au service de la Floride et de New York avec des états supplémentaires à ajouter à l'avenir.",
+    "description": "Technologie en libre-service pour les réclamations sans faute (PIP) en Floride : formulaires guidés, documents et suivi. Au service des conducteurs en Floride.",
     "quickLinks": "Liens Rapides",
     "contactUs": "Nous Contacter",
     "support": "Support",
@@ -351,7 +385,7 @@
     "termsOfService": "Conditions de Service",
     "cookiePolicy": "Politique des Cookies",
     "legalDisclaimer": "Avertissement Légal",
-    "legalText": "ClaimSaver+ n'offre pas de conseils juridiques ou de représentation et n'est pas un cabinet d'avocats ou un substitut aux conseils ou services d'un avocat ou cabinet d'avocats. Les informations fournies sur ce site ne constituent pas des conseils juridiques. Si vous recherchez des conseils ou une représentation concernant votre situation spécifique, vous devriez contacter un avocat dans votre état. ClaimSaver+ ne garantit pas le résultat d'une affaire juridique. Nos services se limitent au soutien administratif."
+    "legalText": "ClaimSaver+ est une plateforme en libre-service—pas un cabinet d'avocats. Nous ne fournissons pas de conseils juridiques, de représentation, d'évaluation de réclamation ni de négociation avec les assureurs en votre nom. Les informations sont générales et éducatives. Vous déposez vous-même votre réclamation PIP avec nos outils. Pour votre situation, consultez un avocat. Nous ne garantissons aucun résultat. Des orientations vers des avocats ou d'autres professionnels peuvent être proposées séparément ; elles ne font pas partie du forfait plateforme standard."
   },
   "whoWeAre": {
     "hero": {

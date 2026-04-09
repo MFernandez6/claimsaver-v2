@@ -18,21 +18,22 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "ClaimSaver+ - Accident Form Filing and Recovery App",
+  metadataBase: new URL("https://claimsaverplus.net"),
+  title: "ClaimSaver+ — Self-help Florida PIP claim tools",
   description:
-    "Simplify the process of filing no-fault accident forms and recovering compensation. Currently servicing Florida and New York with additional states to be added in the future.",
+    "Guided no-fault (PIP) forms, document storage, and tracking so you can file your own Florida motor vehicle claim. Not a law firm; not legal advice.",
   openGraph: {
-    title: "ClaimSaver+ - Accident Form Filing and Recovery App",
+    title: "ClaimSaver+ — Self-help Florida PIP claim tools",
     description:
-      "Simplify the process of filing no-fault accident forms and recovering compensation. Currently servicing Florida and New York with additional states to be added in the future.",
+      "Guided no-fault (PIP) forms, document storage, and tracking so you can file your own Florida motor vehicle claim. Not a law firm; not legal advice.",
     url: "https://claimsaverplus.net",
     siteName: "ClaimSaver+",
     images: [
       {
-        url: "/images/long-logo-ClaimSaver.jpg",
+        url: "/images/brand/claimsaver-social-banner-concept-01.png",
         width: 1200,
         height: 630,
-        alt: "ClaimSaver+ - Accident Form Filing and Recovery App",
+        alt: "ClaimSaver+ — Self-help Florida PIP claim tools",
       },
     ],
     locale: "en_US",
@@ -40,14 +41,10 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "ClaimSaver+ - Accident Form Filing and Recovery App",
+    title: "ClaimSaver+ — Self-help Florida PIP claim tools",
     description:
-      "Simplify the process of filing no-fault accident forms and recovering compensation. Currently servicing Florida and New York with additional states to be added in the future.",
-    images: ["/images/long-logo-ClaimSaver.jpg"],
-  },
-  icons: {
-    icon: "/favicon.ico",
-    apple: "/apple-touch-icon.png",
+      "Guided no-fault (PIP) forms, document storage, and tracking so you can file your own Florida motor vehicle claim.",
+    images: ["/images/brand/claimsaver-social-banner-concept-01.png"],
   },
 };
 
@@ -66,7 +63,7 @@ export default function RootLayout({
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
           <I18nProvider>
-            <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-blue-50 dark:from-gray-950 dark:via-gray-900 dark:to-blue-950">
+            <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-emerald-50/80 dark:from-gray-950 dark:via-gray-900 dark:to-emerald-950/30">
               <Navbar />
               <main className="pt-16">{children}</main>
               <Footer />
@@ -83,7 +80,7 @@ export default function RootLayout({
       publishableKey={publishableKey}
       appearance={{
         elements: {
-          formButtonPrimary: "bg-blue-600 hover:bg-blue-700 text-white",
+          formButtonPrimary: "bg-teal-600 hover:bg-teal-700 text-white",
           card: "shadow-lg border border-gray-200 dark:border-gray-700",
           headerTitle: "text-gray-900 dark:text-white",
           headerSubtitle: "text-gray-600 dark:text-gray-300",
@@ -96,7 +93,7 @@ export default function RootLayout({
         >
           <I18nProvider>
             <SessionManager />
-            <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-blue-50 dark:from-gray-950 dark:via-gray-900 dark:to-blue-950">
+            <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-emerald-50/80 dark:from-gray-950 dark:via-gray-900 dark:to-emerald-950/30">
               <Navbar />
               <main className="pt-16">{children}</main>
               <Footer />

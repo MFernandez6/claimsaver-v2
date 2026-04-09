@@ -1,6 +1,6 @@
 import { auth } from "@clerk/nextjs/server";
-import dbConnect from "@/lib/db";
-import User from "@/models/User";
+import { getSupabaseAdmin, isSupabaseConfigured } from "@/lib/supabase/admin";
+import { profileRowToLegacy } from "@/lib/supabase/mappers";
 
 interface UserDocument {
   _id: string;
@@ -19,23 +19,31 @@ interface UserDocument {
     zipCode?: string;
     country?: string;
   };
-  lastLogin?: Date;
-  createdAt?: Date;
-  updatedAt?: Date;
+  lastLogin?: string;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 export async function getCurrentUser(): Promise<UserDocument | null> {
   try {
     const { userId } = await auth();
 
-    if (!userId) {
+    if (!userId || !isSupabaseConfigured()) {
       return null;
     }
 
-    await dbConnect();
+    const supabase = getSupabaseAdmin();
+    const { data, error } = await supabase
+      .from("profiles")
+      .select("*")
+      .eq("clerk_id", userId)
+      .maybeSingle();
 
-    const user = await User.findOne({ clerkId: userId }).lean();
-    return user as UserDocument | null;
+    if (error || !data) {
+      return null;
+    }
+
+    return profileRowToLegacy(data as Record<string, unknown>) as UserDocument;
   } catch (error) {
     console.error("Error getting current user:", error);
     return null;
@@ -58,10 +66,8 @@ export async function hasPermission(permission: string): Promise<boolean> {
 
     if (!user) return false;
 
-    // Super admin has all permissions
     if (user.role === "super_admin") return true;
 
-    // Check specific permission
     return user.adminPermissions?.[permission] || false;
   } catch (error) {
     console.error("Error checking permission:", error);
@@ -74,7 +80,8 @@ interface UserData {
   firstName: string;
   lastName: string;
   phone?: string;
-  address?: {
+  /** Structured address or a single line (e.g. from claim form) */
+  address?: string | {
     street?: string;
     city?: string;
     state?: string;
@@ -83,47 +90,91 @@ interface UserData {
   };
 }
 
-export async function createOrUpdateUser(clerkId: string, userData: UserData) {
-  try {
-    await dbConnect();
+const defaultAdminPerms = {
+  canViewClaims: false,
+  canEditClaims: false,
+  canDeleteClaims: false,
+  canManageUsers: false,
+  canViewAnalytics: false,
+};
 
-    const existingUser = await User.findOne({ clerkId });
+const defaultStats = {
+  totalClaims: 0,
+  activeClaims: 0,
+  completedClaims: 0,
+  totalSettlements: 0,
+};
 
-    if (existingUser) {
-      // Update existing user
-      const updatedUser = await User.findOneAndUpdate(
-        { clerkId },
-        { ...userData, lastLogin: new Date() },
-        { new: true }
-      );
-      return updatedUser;
-    } else {
-      // Create new user
-      const newUser = new User({
-        clerkId,
-        ...userData,
-        role: "user", // Default role
-        isActive: true,
-        adminPermissions: {
-          canViewClaims: false,
-          canEditClaims: false,
-          canDeleteClaims: false,
-          canManageUsers: false,
-          canViewAnalytics: false,
-        },
-        stats: {
-          totalClaims: 0,
-          activeClaims: 0,
-          completedClaims: 0,
-          totalSettlements: 0,
-        },
-      });
-
-      await newUser.save();
-      return newUser;
-    }
-  } catch (error) {
-    console.error("Error creating/updating user:", error);
-    throw error;
+function normalizeAddress(
+  address: UserData["address"]
+): Record<string, string> {
+  if (!address) return {};
+  if (typeof address === "string") {
+    return { street: address };
   }
+  return {
+    street: address.street ?? "",
+    city: address.city ?? "",
+    state: address.state ?? "",
+    zipCode: address.zipCode ?? "",
+    country: address.country ?? "USA",
+  };
+}
+
+export async function createOrUpdateUser(clerkId: string, userData: UserData) {
+  if (!isSupabaseConfigured()) {
+    throw new Error("Supabase is not configured");
+  }
+
+  const supabase = getSupabaseAdmin();
+  const addr = normalizeAddress(userData.address);
+
+  const { data: existing } = await supabase
+    .from("profiles")
+    .select("id")
+    .eq("clerk_id", clerkId)
+    .maybeSingle();
+
+  const now = new Date().toISOString();
+
+  if (existing) {
+    const { data, error } = await supabase
+      .from("profiles")
+      .update({
+        email: userData.email,
+        first_name: userData.firstName,
+        last_name: userData.lastName,
+        phone: userData.phone ?? "",
+        address: addr,
+        last_login: now,
+        updated_at: now,
+      })
+      .eq("clerk_id", clerkId)
+      .select()
+      .single();
+
+    if (error) throw new Error(error.message);
+    return profileRowToLegacy(data as Record<string, unknown>);
+  }
+
+  const { data, error } = await supabase
+    .from("profiles")
+    .insert({
+      clerk_id: clerkId,
+      email: userData.email,
+      first_name: userData.firstName,
+      last_name: userData.lastName,
+      phone: userData.phone ?? "",
+      address: addr,
+      role: "user",
+      is_active: true,
+      admin_permissions: defaultAdminPerms,
+      stats: defaultStats,
+      last_login: now,
+    })
+    .select()
+    .single();
+
+  if (error) throw new Error(error.message);
+  return profileRowToLegacy(data as Record<string, unknown>);
 }

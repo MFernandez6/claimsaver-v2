@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { PageHeroBackdrop } from "@/components/page-hero-backdrop";
 import { Button } from "@/components/ui/button";
 import { useClerk } from "@clerk/nextjs";
 import { getStripe } from "@/lib/stripe";
@@ -13,14 +13,11 @@ import {
   TrendingUp,
   Shield,
   Clock,
-  Star,
   ArrowRight,
   Calculator,
   Award,
   CreditCard,
   FileText,
-  Zap,
-  Bell,
 } from "lucide-react";
 
 export default function Pricing() {
@@ -55,7 +52,7 @@ export default function Pricing() {
 
   const features = [
     {
-      icon: <Calculator className="w-6 h-6 text-blue-600" />,
+      icon: <Calculator className="w-6 h-6 text-teal-600" />,
       title: t("pricing.features.transparentPricing.title"),
       description: t("pricing.features.transparentPricing.description"),
     },
@@ -65,7 +62,7 @@ export default function Pricing() {
       description: t("pricing.features.maximumRecovery.description"),
     },
     {
-      icon: <Shield className="w-6 h-6 text-purple-600" />,
+      icon: <Shield className="w-6 h-6 text-emerald-600" />,
       title: t("pricing.features.professionalService.title"),
       description: t("pricing.features.professionalService.description"),
     },
@@ -233,13 +230,13 @@ export default function Pricing() {
                 {/* Outer ring */}
                 <div className="absolute inset-0 border-4 border-gray-200 dark:border-gray-700 rounded-full"></div>
                 {/* Animated ring */}
-                <div className="absolute inset-0 border-4 border-transparent border-t-blue-500 border-r-purple-500 rounded-full animate-spin"></div>
+                <div className="absolute inset-0 border-4 border-transparent border-t-teal-500 border-r-emerald-500 rounded-full animate-spin"></div>
                 {/* Inner pulse */}
-                <div className="absolute inset-2 bg-gradient-to-r from-blue-500 to-blue-700 rounded-full animate-pulse"></div>
+                <div className="absolute inset-2 bg-gradient-to-r from-teal-500 to-teal-700 rounded-full animate-pulse"></div>
                 {/* Center dot */}
                 <div className="absolute inset-4 bg-white dark:bg-gray-900 rounded-full"></div>
                 {/* Outer ring */}
-                <div className="absolute inset-6 bg-gradient-to-r from-blue-500 to-blue-700 rounded-full"></div>
+                <div className="absolute inset-6 bg-gradient-to-r from-teal-500 to-teal-700 rounded-full"></div>
               </div>
 
               <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
@@ -251,13 +248,13 @@ export default function Pricing() {
 
               {/* Progress dots */}
               <div className="flex justify-center gap-1 mt-4">
-                <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce"></div>
+                <div className="w-2 h-2 bg-teal-500 rounded-full animate-bounce"></div>
                 <div
-                  className="w-2 h-2 bg-purple-500 rounded-full animate-bounce"
+                  className="w-2 h-2 bg-emerald-500 rounded-full animate-bounce"
                   style={{ animationDelay: "0.1s" }}
                 ></div>
                 <div
-                  className="w-2 h-2 bg-blue-500 rounded-full animate-bounce"
+                  className="w-2 h-2 bg-teal-500 rounded-full animate-bounce"
                   style={{ animationDelay: "0.2s" }}
                 ></div>
               </div>
@@ -267,16 +264,9 @@ export default function Pricing() {
       )}
 
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-blue-50 via-white to-indigo-50 dark:from-gray-950 dark:via-gray-900 dark:to-blue-950">
-        {/* Background Image */}
-        <div className="fixed inset-0 z-0">
-          <Image
-            src="/images/long-logo-ClaimSaver.jpg"
-            alt="ClaimSaver+ Background"
-            className="w-full h-full object-cover opacity-25"
-            fill
-          />
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-50/70 via-white/80 to-indigo-50/70 dark:from-gray-950/70 dark:via-gray-900/80 dark:to-blue-950/70"></div>
+      <section className="relative overflow-hidden bg-gradient-to-br from-slate-50 via-white to-emerald-50 dark:from-slate-950 dark:via-gray-900 dark:to-slate-900">
+        <div className="absolute inset-0 z-0">
+          <PageHeroBackdrop />
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-24">
@@ -288,7 +278,7 @@ export default function Pricing() {
                   <span key={index}>
                     {index > 0 && ", "}
                     {index === 1 ? (
-                      <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                      <span className="bg-gradient-to-r from-teal-600 to-emerald-600 bg-clip-text text-transparent">
                         {part}
                       </span>
                     ) : (
@@ -305,7 +295,7 @@ export default function Pricing() {
               <Button
                 size="lg"
                 onClick={handleStartClaim}
-                className="bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 text-white px-8 py-4 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+                className="bg-gradient-to-r from-teal-500 to-teal-700 hover:from-teal-600 hover:to-teal-800 text-white px-8 py-4 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
               >
                 {t("pricing.startClaim")}
                 <ArrowRight className="ml-2 w-5 h-5" />
@@ -340,7 +330,7 @@ export default function Pricing() {
                       <Card
                         key={service.id}
                         className={`cursor-pointer transition-all duration-300 hover:shadow-lg ${selectedServices.includes(service.id)
-                          ? "ring-2 ring-blue-500 bg-blue-50 dark:bg-blue-950/30"
+                          ? "ring-2 ring-teal-500 bg-teal-50 dark:bg-teal-950/30"
                           : "hover:bg-gray-50 dark:hover:bg-gray-800/50"
                           }`}
                         onClick={() => toggleService(service.id)}
@@ -348,15 +338,15 @@ export default function Pricing() {
                         <CardContent className="p-4">
                           <div className="flex items-center justify-between">
                             <div className="flex items-center gap-4">
-                              <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-blue-700 rounded-lg flex items-center justify-center text-white">
+                              <div className="w-10 h-10 bg-gradient-to-r from-teal-500 to-teal-700 rounded-lg flex items-center justify-center text-white">
                                 {service.icon}
                               </div>
                               <div>
                                 <h3 className="text-lg font-semibold text-gray-900 dark:text-white text-left">
-                                  ClaimSaver+
+                                  {service.name}
                                 </h3>
                                 <p className="text-gray-600 dark:text-gray-300 text-sm text-left">
-                                  {service.name}
+                                  {service.description}
                                 </p>
                               </div>
                             </div>
@@ -371,7 +361,7 @@ export default function Pricing() {
                               </div>
                               <div
                                 className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${selectedServices.includes(service.id)
-                                  ? "bg-blue-500 border-blue-500"
+                                  ? "bg-teal-500 border-teal-500"
                                   : "border-gray-300 dark:border-gray-600"
                                   }`}
                               >
@@ -431,7 +421,7 @@ export default function Pricing() {
                           <span className="text-lg font-semibold text-gray-900 dark:text-white">
                             Total
                           </span>
-                          <span className="text-2xl font-bold text-blue-600">
+                          <span className="text-2xl font-bold text-teal-600">
                             ${getTotalPrice().toFixed(2)}
                           </span>
                         </div>
@@ -441,7 +431,7 @@ export default function Pricing() {
                       <Button
                         onClick={handleCheckout}
                         disabled={selectedServices.length === 0 || isProcessing}
-                        className="w-full bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 text-white py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="w-full bg-gradient-to-r from-teal-500 to-teal-700 hover:from-teal-600 hover:to-teal-800 text-white py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
                       >
                         {isProcessing ? (
                           <div className="flex items-center gap-2">
@@ -473,80 +463,18 @@ export default function Pricing() {
                 </CardContent>
               </Card>
 
-              {/* Public Adjuster License Overlay */}
-              <div className="absolute inset-0 backdrop-blur-sm flex items-center justify-center z-20">
-                <div className="bg-white/98 dark:bg-gray-900/98 backdrop-blur-2xl rounded-2xl p-6 shadow-2xl border border-white/20 dark:border-gray-700/20 max-w-sm w-full mx-4 transform scale-105">
-                  {/* Animated Background Elements */}
-                  <div className="absolute inset-0 overflow-hidden rounded-2xl">
-                    <div className="absolute -top-8 -right-8 w-16 h-16 bg-gradient-to-br from-blue-400/20 to-purple-400/20 rounded-full blur-xl animate-pulse"></div>
-                    <div className="absolute -bottom-8 -left-8 w-12 h-12 bg-gradient-to-br from-purple-400/20 to-pink-400/20 rounded-full blur-xl animate-pulse delay-1000"></div>
-                    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-24 h-24 bg-gradient-to-br from-blue-500/10 to-purple-500/10 rounded-full blur-2xl animate-pulse delay-500"></div>
-                  </div>
-
-                  {/* Content */}
-                  <div className="relative z-10 text-center">
-                    {/* Icon with Animation */}
-                    <div className="relative mb-4">
-                      <div className="w-16 h-16 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 rounded-full flex items-center justify-center mx-auto shadow-2xl animate-pulse">
-                        <Shield className="w-8 h-8 text-white animate-bounce" />
-                      </div>
-                      <div className="absolute -top-1 -right-1 w-4 h-4 bg-yellow-400 rounded-full flex items-center justify-center animate-ping">
-                        <Star className="w-2 h-2 text-white" />
-                      </div>
-                      <div className="absolute -bottom-1 -left-1 w-4 h-4 bg-pink-400 rounded-full flex items-center justify-center animate-ping delay-300">
-                        <Award className="w-2 h-2 text-white" />
-                      </div>
-                    </div>
-
-                    {/* Title */}
-                    <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
-                      Awaiting{" "}
-                      <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent animate-pulse">
-                        License
-                      </span>
-                    </h3>
-
-                    {/* Subtitle */}
-                    <p className="text-base text-gray-600 dark:text-gray-300 mb-4 leading-relaxed">
-                      Our services are temporarily limited while we obtain our
-                      Public Adjuster license for enhanced claim processing
-                    </p>
-
-                    {/* Features Preview */}
-                    <div className="space-y-2 mb-4">
-                      <div className="flex items-center justify-center gap-2 text-xs text-gray-600 dark:text-gray-400">
-                        <Shield className="w-3 h-3 text-green-500" />
-                        <span>Enhanced claim processing</span>
-                      </div>
-                      <div className="flex items-center justify-center gap-2 text-xs text-gray-600 dark:text-gray-400">
-                        <Clock className="w-3 h-3 text-blue-500" />
-                        <span>Professional adjustment services</span>
-                      </div>
-                      <div className="flex items-center justify-center gap-2 text-xs text-gray-600 dark:text-gray-400">
-                        <Zap className="w-3 h-3 text-yellow-500" />
-                        <span>Full regulatory compliance</span>
-                      </div>
-                    </div>
-
-                    {/* Notification Button */}
-                    <Button className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white py-2 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 group text-sm">
-                      <Bell className="w-3 h-3 mr-2 group-hover:animate-bounce" />
-                      Get Notified When Available
-                    </Button>
-
-                    {/* Progress Indicator */}
-                    <div className="mt-4">
-                      <div className="flex items-center justify-center gap-1 mb-1">
-                        <div className="w-1.5 h-1.5 bg-blue-500 rounded-full animate-pulse"></div>
-                        <div className="w-1.5 h-1.5 bg-purple-500 rounded-full animate-pulse delay-150"></div>
-                        <div className="w-1.5 h-1.5 bg-pink-500 rounded-full animate-pulse delay-300"></div>
-                      </div>
-                      <p className="text-xs text-gray-500 dark:text-gray-400">
-                        License application in progress
-                      </p>
-                    </div>
-                  </div>
-                </div>
+              <div className="mt-6 rounded-xl border border-teal-200 dark:border-teal-800 bg-teal-50/90 dark:bg-teal-950/40 px-4 py-3 text-center text-sm text-gray-700 dark:text-gray-300">
+                <span className="font-medium text-gray-900 dark:text-white">
+                  Need more than self-help?
+                </span>{" "}
+                If your situation may require legal judgment or representation,{" "}
+                <a
+                  href="/need-professional-help"
+                  className="text-teal-600 dark:text-teal-400 font-semibold underline underline-offset-2"
+                >
+                  see options for professional help
+                </a>
+                .
               </div>
             </div>
           </div>
@@ -554,21 +482,16 @@ export default function Pricing() {
       </section>
 
       {/* Pricing Comparison */}
-      <section className="py-24 relative overflow-hidden">
-        {/* Background Image */}
-        <div
-          className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat opacity-25"
-          style={{
-            backgroundImage: "url('/images/long-logo-ClaimSaver.jpg')",
-          }}
-        ></div>
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-50/60 via-white/70 to-indigo-50/60 dark:from-gray-950/60 dark:via-gray-900/70 dark:to-blue-950/60"></div>
+      <section className="py-24 relative overflow-hidden bg-gradient-to-br from-slate-50/90 via-white to-emerald-50/40 dark:from-gray-900 dark:to-slate-900/40">
+        <div className="absolute inset-0 z-0">
+          <PageHeroBackdrop />
+        </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-6">
               The{" "}
-              <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-teal-600 to-emerald-600 bg-clip-text text-transparent">
                 ClaimSaver+ Advantage
               </span>
             </h2>
@@ -633,7 +556,7 @@ export default function Pricing() {
                     $500.00
                   </div>
                   <p className="text-gray-600 dark:text-gray-300">
-                    One-time flat fee
+                    {t("pricing.selfHelpSubtitle")}
                   </p>
                 </div>
               </CardHeader>
@@ -648,9 +571,14 @@ export default function Pricing() {
                     </li>
                   ))}
                 </ul>
-                <div className="mt-6 p-4 bg-green-100 dark:bg-green-900/50 rounded-lg">
+                <div className="mt-6 p-4 bg-green-100 dark:bg-green-900/50 rounded-lg space-y-2">
                   <p className="text-sm text-green-800 dark:text-green-200 font-medium">
-                    Net to victim: Keep 95% of settlement
+                    Illustrative: on a $10K PIP benefit, a flat $500 platform fee
+                    leaves far more in your pocket than a 33% contingency fee—your
+                    results may differ.
+                  </p>
+                  <p className="text-xs text-green-800/80 dark:text-green-200/90">
+                    {t("pricing.comparisonNote")}
                   </p>
                 </div>
               </CardContent>
@@ -660,16 +588,9 @@ export default function Pricing() {
       </section>
 
       {/* Why Choose Section */}
-      <section className="py-24 bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-900 dark:to-blue-950/30 relative overflow-hidden">
-        {/* Background Image */}
-        <div className="fixed inset-0 z-0">
-          <Image
-            src="/images/long-logo-ClaimSaver.jpg"
-            alt="ClaimSaver+ Background"
-            className="w-full h-full object-cover opacity-20"
-            fill
-          />
-          <div className="absolute inset-0 bg-gradient-to-br from-gray-50/80 to-blue-50/80 dark:from-gray-900/80 dark:to-blue-950/80"></div>
+      <section className="py-24 bg-gradient-to-br from-slate-50 to-emerald-50/50 dark:from-gray-900 dark:to-slate-900/80 relative overflow-hidden">
+        <div className="absolute inset-0 z-0">
+          <PageHeroBackdrop />
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -677,7 +598,7 @@ export default function Pricing() {
             <div>
               <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-6">
                 Why Choose{" "}
-                <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-teal-600 to-emerald-600 bg-clip-text text-transparent">
                   ClaimSaver+?
                 </span>
               </h2>
@@ -694,7 +615,7 @@ export default function Pricing() {
                 </p>
                 <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg">
                   <div className="flex items-center gap-3 mb-4">
-                    <Calculator className="w-6 h-6 text-blue-600" />
+                    <Calculator className="w-6 h-6 text-teal-600" />
                     <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
                       Savings Calculator
                     </h3>
@@ -728,10 +649,10 @@ export default function Pricing() {
                     key={index}
                     className="group relative overflow-hidden border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 backdrop-blur-sm"
                   >
-                    <div className="absolute inset-0 bg-gradient-to-r from-blue-600/5 to-purple-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <div className="absolute inset-0 bg-gradient-to-r from-teal-600/5 to-emerald-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     <CardContent className="p-6">
                       <div className="flex items-center gap-3 mb-3">
-                        <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg flex items-center justify-center text-white group-hover:scale-110 transition-transform duration-300">
+                        <div className="w-10 h-10 bg-gradient-to-r from-teal-500 to-emerald-500 rounded-lg flex items-center justify-center text-white group-hover:scale-110 transition-transform duration-300">
                           {feature.icon}
                         </div>
                         <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
@@ -751,18 +672,18 @@ export default function Pricing() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-24 bg-gradient-to-br from-blue-600 to-purple-600 relative overflow-hidden">
+      <section className="py-24 bg-gradient-to-br from-teal-600 to-emerald-600 relative overflow-hidden">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-4xl sm:text-5xl font-bold text-white mb-6">
             {t("pricing.cta.title")}
           </h2>
-          <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
+          <p className="text-xl text-teal-100 mb-8 max-w-2xl mx-auto">
             {t("pricing.cta.subtitle")}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button
               size="lg"
-              className="bg-white text-blue-600 hover:bg-gray-100 px-8 py-4 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+              className="bg-white text-teal-600 hover:bg-gray-100 px-8 py-4 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
               onClick={handleStartClaim}
             >
               {t("pricing.cta.button")}
@@ -779,10 +700,10 @@ export default function Pricing() {
             </Button>
           </div>
           <div className="mt-8 p-4 bg-white/10 rounded-lg">
-            <div className="flex items-center justify-center gap-2 text-blue-100">
+            <div className="flex items-center justify-center gap-2 text-teal-100">
               <Award className="w-5 h-5" />
               <span className="font-semibold">
-                Flat fee $500.00 • No hidden costs • Keep 95% of settlement
+                Flat $500 self-help access • No contingency fee to ClaimSaver+
               </span>
             </div>
           </div>
@@ -808,23 +729,24 @@ export default function Pricing() {
             <div className="space-y-6">
               <div>
                 <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">
-                  Revolutionizing Accident Claims
+                  Self-help for Florida PIP
                 </h3>
                 <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-                  ClaimSaver+ is a revolutionary platform that helps accident
-                  victims maximize their settlements while minimizing costs.
-                  Unlike traditional options that take 33% of your settlement,
-                  we charge a flat $500.00 fee, allowing you to keep 95% of your
-                  money.
+                  ClaimSaver+ provides software and education so you can prepare
+                  and file your own no-fault claim. We do not negotiate with
+                  insurers or provide legal advice. A flat $500 fee buys platform
+                  access—compared to typical attorney contingency percentages on
+                  the same benefit amount, many users keep more after fees, but
+                  your situation may differ.
                 </p>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="bg-blue-50 dark:bg-blue-950/30 p-4 rounded-lg">
-                  <h4 className="font-semibold text-blue-900 dark:text-blue-100 mb-2">
+                <div className="bg-teal-50 dark:bg-teal-950/30 p-4 rounded-lg">
+                  <h4 className="font-semibold text-teal-900 dark:text-teal-100 mb-2">
                     Traditional Method
                   </h4>
-                  <ul className="text-sm text-blue-800 dark:text-blue-200 space-y-1">
+                  <ul className="text-sm text-teal-800 dark:text-teal-200 space-y-1">
                     <li>• 33% service contingency fee</li>
                     <li>• Hidden processing costs</li>
                     <li>• Complex legal procedures</li>
@@ -850,68 +772,70 @@ export default function Pricing() {
                 </h3>
                 <div className="space-y-3">
                   <div className="flex items-start gap-3">
-                    <div className="w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center text-sm font-semibold flex-shrink-0 mt-0.5">
+                    <div className="w-8 h-8 bg-teal-500 text-white rounded-full flex items-center justify-center text-sm font-semibold flex-shrink-0 mt-0.5">
                       1
                     </div>
                     <div>
                       <h4 className="font-medium text-gray-900 dark:text-white">
-                        Submit Your Claim
+                        Enter your information
                       </h4>
                       <p className="text-sm text-gray-600 dark:text-gray-300">
-                        Complete our simple online form with your accident
-                        details
+                        Guided forms—you provide the facts; we help with formats
+                        and completeness
                       </p>
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
-                    <div className="w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center text-sm font-semibold flex-shrink-0 mt-0.5">
+                    <div className="w-8 h-8 bg-teal-500 text-white rounded-full flex items-center justify-center text-sm font-semibold flex-shrink-0 mt-0.5">
                       2
                     </div>
                     <div>
                       <h4 className="font-medium text-gray-900 dark:text-white">
-                        Professional Processing
+                        Organize &amp; validate
                       </h4>
                       <p className="text-sm text-gray-600 dark:text-gray-300">
-                        Our experts handle all paperwork and negotiations
+                        Upload documents and use validation—you submit your own
+                        claim package
                       </p>
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
-                    <div className="w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center text-sm font-semibold flex-shrink-0 mt-0.5">
+                    <div className="w-8 h-8 bg-teal-500 text-white rounded-full flex items-center justify-center text-sm font-semibold flex-shrink-0 mt-0.5">
                       3
                     </div>
                     <div>
                       <h4 className="font-medium text-gray-900 dark:text-white">
-                        Maximum Recovery
+                        Submit to your insurer
                       </h4>
                       <p className="text-sm text-gray-600 dark:text-gray-300">
-                        Keep 95% of your settlement with our flat-rate structure
+                        You send materials to your carrier; we do not negotiate
+                        for you
                       </p>
                     </div>
                   </div>
                 </div>
               </div>
 
-              <div className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-950/30 dark:to-purple-950/30 p-4 rounded-lg">
+              <div className="bg-gradient-to-r from-teal-50 to-emerald-50 dark:from-teal-950/30 dark:to-emerald-950/30 p-4 rounded-lg">
                 <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-                  Why Choose ClaimSaver+?
+                  Why use ClaimSaver+?
                 </h3>
                 <ul className="text-sm text-gray-600 dark:text-gray-300 space-y-1">
                   <li>
-                    • <strong>Transparent Pricing:</strong> Know exactly what
-                    you&apos;ll pay upfront
+                    • <strong>Transparent fee:</strong> Flat platform access—not
+                    a percentage of your benefit
                   </li>
                   <li>
-                    • <strong>Maximum Recovery:</strong> Keep more of your
-                    settlement
+                    • <strong>You stay in control:</strong> You file and
+                    communicate with your insurer
                   </li>
                   <li>
-                    • <strong>Professional Service:</strong> Expert support
-                    without high traditional fees
+                    • <strong>Tools &amp; education:</strong> Validation,
+                    storage, reminders— not representation
                   </li>
                   <li>
-                    • <strong>Faster Processing:</strong> Streamlined process
-                    gets results quickly
+                    • <strong>Know the limits:</strong> Not for legal advice—
+                    use an attorney when needed
                   </li>
                 </ul>
               </div>
@@ -930,7 +854,7 @@ export default function Pricing() {
                   setShowLearnMoreModal(false);
                   handleStartClaim();
                 }}
-                className="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
+                className="flex-1 bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-700 hover:to-emerald-700"
               >
                 Start Your Claim
               </Button>
@@ -956,40 +880,40 @@ export default function Pricing() {
             </div>
 
             <div className="space-y-6">
-              <div className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-950/30 dark:to-purple-950/30 p-6 rounded-lg">
+              <div className="bg-gradient-to-r from-teal-50 to-emerald-50 dark:from-teal-950/30 dark:to-emerald-950/30 p-6 rounded-lg">
                 <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">
-                  Complete Accident Claim Services
+                  What you get with platform access
                 </h3>
                 <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-                  We provide comprehensive accident claim assistance to help you
-                  navigate the complex process and maximize your recovery. Our
-                  flat-rate pricing ensures you keep more of your settlement.
+                  Software to help you prepare your own Florida no-fault filing:
+                  guided information entry, document storage, expense tracking,
+                  and reminders. We do not communicate with your insurer as your
+                  representative or negotiate on your behalf.
                 </p>
               </div>
 
               <div className="space-y-4">
                 <div className="border border-gray-200 dark:border-gray-700 rounded-lg p-6">
                   <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg flex items-center justify-center text-white flex-shrink-0">
+                    <div className="w-12 h-12 bg-gradient-to-r from-teal-500 to-emerald-500 rounded-lg flex items-center justify-center text-white flex-shrink-0">
                       <Shield className="w-6 h-6" />
                     </div>
                     <div className="flex-1">
                       <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-                        No-Fault Assistance - $500.00
+                        Self-help platform access — $500.00
                       </h4>
                       <p className="text-gray-600 dark:text-gray-300 mb-3">
-                        Complete accident claim filing and recovery assistance.
-                        This comprehensive service includes:
+                        Includes guided workflows and tools for you to prepare
+                        your own materials. Does not include representation or
+                        negotiation. Includes:
                       </p>
                       <ul className="text-sm text-gray-600 dark:text-gray-300 space-y-1">
-                        <li>• Accident claim form preparation and filing</li>
-                        <li>• Medical documentation review and organization</li>
-                        <li>
-                          • Insurance company communication and negotiation
-                        </li>
-                        <li>• Settlement evaluation and optimization</li>
-                        <li>• Legal compliance and documentation</li>
-                        <li>• Ongoing support throughout the process</li>
+                        <li>• Guided PIP-related information entry</li>
+                        <li>• Secure upload and organization of your documents</li>
+                        <li>• Field validation and formatting checks</li>
+                        <li>• Expense logging and deadline reminders (general)</li>
+                        <li>• Educational content (not case-specific advice)</li>
+                        <li>• Email support for platform/technical questions</li>
                       </ul>
                     </div>
                   </div>
@@ -997,7 +921,7 @@ export default function Pricing() {
 
                 <div className="border border-gray-200 dark:border-gray-700 rounded-lg p-6">
                   <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg flex items-center justify-center text-white flex-shrink-0">
+                    <div className="w-12 h-12 bg-gradient-to-r from-teal-500 to-emerald-500 rounded-lg flex items-center justify-center text-white flex-shrink-0">
                       <FileText className="w-6 h-6" />
                     </div>
                     <div className="flex-1">
@@ -1055,7 +979,7 @@ export default function Pricing() {
               </Button>
               <Button
                 onClick={() => setShowServicesModal(false)}
-                className="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
+                className="flex-1 bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-700 hover:to-emerald-700"
               >
                 Select Services
               </Button>
@@ -1083,13 +1007,13 @@ export default function Pricing() {
             <div className="space-y-6">
               <div>
                 <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">
-                  Understanding Our Pricing Model
+                  Understanding our pricing
                 </h3>
                 <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-                  ClaimSaver+ offers a revolutionary flat-rate pricing model
-                  that saves you thousands compared to traditional methods
-                  contingency fees. Our transparent pricing ensures you know
-                  exactly what you&apos;ll pay upfront.
+                  You pay a flat fee for self-help software access—not a
+                  percentage of your claim. Compare total costs to other options
+                  that may charge contingency fees; your net outcome depends on
+                  your facts and coverage.
                 </p>
               </div>
 
@@ -1114,13 +1038,13 @@ export default function Pricing() {
                     <li>• Flat $500.00 fee</li>
                     <li>• No hidden costs</li>
                     <li>• No contingency fees</li>
-                    <li>• All-inclusive service</li>
+                    <li>• Self-help platform tools</li>
                     <li>• Total: $500.00</li>
                   </ul>
                 </div>
               </div>
 
-              <div className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-950/30 dark:to-purple-950/30 p-6 rounded-lg">
+              <div className="bg-gradient-to-r from-teal-50 to-emerald-50 dark:from-teal-950/30 dark:to-emerald-950/30 p-6 rounded-lg">
                 <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
                   💰 Your Savings Breakdown
                 </h3>
@@ -1152,43 +1076,43 @@ export default function Pricing() {
 
               <div>
                 <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">
-                  What&apos;s Included in Our Flat Fee
+                  What&apos;s included in the flat fee
                 </h3>
                 <div className="space-y-2">
                   <div className="flex items-start gap-3">
                     <CheckCircle className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" />
                     <span className="text-gray-700 dark:text-gray-300">
-                      Complete accident claim form preparation and filing
+                      Guided digital workflows for information you enter yourself
                     </span>
                   </div>
                   <div className="flex items-start gap-3">
                     <CheckCircle className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" />
                     <span className="text-gray-700 dark:text-gray-300">
-                      Medical documentation review and organization
+                      Secure storage and organization of your uploaded files
                     </span>
                   </div>
                   <div className="flex items-start gap-3">
                     <CheckCircle className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" />
                     <span className="text-gray-700 dark:text-gray-300">
-                      Insurance company communication and negotiation
+                      Validation and formatting checks—not legal strategy
                     </span>
                   </div>
                   <div className="flex items-start gap-3">
                     <CheckCircle className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" />
                     <span className="text-gray-700 dark:text-gray-300">
-                      Settlement evaluation and optimization
+                      Reminders and educational articles (general information)
                     </span>
                   </div>
                   <div className="flex items-start gap-3">
                     <CheckCircle className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" />
                     <span className="text-gray-700 dark:text-gray-300">
-                      Legal compliance and documentation
+                      Support for billing and technical platform questions
                     </span>
                   </div>
                   <div className="flex items-start gap-3">
                     <CheckCircle className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" />
                     <span className="text-gray-700 dark:text-gray-300">
-                      Ongoing support throughout the entire process
+                      No negotiation or insurer communication on your behalf
                     </span>
                   </div>
                 </div>
@@ -1232,7 +1156,7 @@ export default function Pricing() {
                   setShowPricingModal(false);
                   handleStartClaim();
                 }}
-                className="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
+                className="flex-1 bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-700 hover:to-emerald-700"
               >
                 Start Your Claim
               </Button>

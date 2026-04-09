@@ -3,14 +3,16 @@
 import { useState, useEffect } from "react";
 import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import FAQ from "@/components/faq";
+import { BrandLogo } from "@/components/brand-logo";
+import { PageHeroBackdrop } from "@/components/page-hero-backdrop";
 import { useClerk } from "@clerk/nextjs";
 import { useTranslation } from "react-i18next";
 import {
-  Play,
   Shield,
   FileText,
   Smartphone,
@@ -18,7 +20,7 @@ import {
   CheckCircle,
   ArrowRight,
   Zap,
-  Award,
+  Calculator,
   X,
   Home as HomeIcon,
 } from "lucide-react";
@@ -30,7 +32,6 @@ export default function Home() {
   const { openSignIn } = useClerk();
   const { t } = useTranslation();
   const [showWelcomeBanner, setShowWelcomeBanner] = useState(true);
-  const [videoRef, setVideoRef] = useState<HTMLVideoElement | null>(null);
 
   // Check if user has an active session
   const hasActiveSession =
@@ -48,14 +49,6 @@ export default function Home() {
       return () => clearTimeout(timer);
     }
   }, [isLoaded, user, hasActiveSession, signOut]);
-
-  // Initialize video as muted
-  useEffect(() => {
-    if (videoRef) {
-      videoRef.muted = true;
-      videoRef.volume = 0.2; // Set volume to 20% but keep muted
-    }
-  }, [videoRef]);
 
   const handleGetStarted = () => {
     openSignIn();
@@ -95,26 +88,26 @@ export default function Home() {
       icon: <FileText className="w-6 h-6" />,
       title: t("home.features.feature1.title"),
       description: t("home.features.feature1.description"),
-      gradientClass: "from-blue-500 to-blue-600",
+      gradientClass: "from-teal-600 to-emerald-700",
     },
 
     {
       icon: <Shield className="w-6 h-6" />,
       title: t("home.features.feature3.title"),
       description: t("home.features.feature3.description"),
-      gradientClass: "from-purple-500 to-purple-600",
+      gradientClass: "from-slate-600 to-slate-800",
     },
     {
       icon: <Smartphone className="w-6 h-6" />,
       title: t("home.features.feature4.title"),
       description: t("home.features.feature4.description"),
-      gradientClass: "from-orange-500 to-orange-600",
+      gradientClass: "from-teal-600 to-emerald-700",
     },
     {
       icon: <TrendingUp className="w-6 h-6" />,
       title: t("home.features.feature5.title"),
       description: t("home.features.feature5.description"),
-      gradientClass: "from-red-500 to-red-600",
+      gradientClass: "from-teal-700 to-emerald-800",
     },
   ];
 
@@ -131,7 +124,7 @@ export default function Home() {
     <div className="min-h-screen bg-white dark:bg-gray-950">
       {/* Welcome Banner for Authenticated Users */}
       {isLoaded && user && showWelcomeBanner && hasActiveSession && (
-        <div className="fixed top-16 left-0 right-0 z-50 bg-gradient-to-r from-blue-400 to-blue-800 text-white px-4 py-3 shadow-lg">
+        <div className="fixed top-16 left-0 right-0 z-50 bg-gradient-to-r from-emerald-600 to-teal-900 text-white px-4 py-3 shadow-lg">
           <div className="max-w-7xl mx-auto flex items-center justify-between">
             <div className="flex items-center gap-3">
               <HomeIcon className="w-5 h-5" />
@@ -164,117 +157,81 @@ export default function Home() {
       )}
 
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-blue-50 via-white to-blue-100 dark:from-gray-950 dark:via-gray-900 dark:to-blue-950">
-        {/* Background Image */}
-        <div className="fixed inset-0 z-0">
-          <Image
-            src="/images/long-logo-ClaimSaver.jpg"
-            alt={t("home.hero.imageAlt")}
-            className="w-full h-full object-cover opacity-25"
-            fill
-          />
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-50/70 via-white/80 to-blue-100/70 dark:from-gray-950/70 dark:via-gray-900/80 dark:to-blue-950/70"></div>
-        </div>
+      <section className="relative overflow-hidden bg-gradient-to-br from-slate-50 via-white to-emerald-50 dark:from-slate-950 dark:via-gray-900 dark:to-slate-900">
+        <PageHeroBackdrop />
 
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-24">
-          <div className="text-center max-w-4xl mx-auto">
-            <div className="flex justify-center mb-12">
-              <div className="flex items-center gap-6">
-                <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-700 rounded-2xl flex items-center justify-center shadow-lg">
-                  <span className="text-white font-black text-2xl">C+</span>
-                </div>
-                <span className="text-4xl sm:text-5xl lg:text-6xl font-black bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent tracking-tight">
-                  ClaimSaver+
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-16 lg:pb-20">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+            <div className="text-center lg:text-left order-2 lg:order-1">
+              <div className="flex justify-center lg:justify-start mb-8">
+                <BrandLogo variant="navbar" />
+              </div>
+
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
+                {t("home.hero.title")}
+                <span className="block bg-gradient-to-r from-emerald-600 to-teal-800 bg-clip-text text-transparent mt-1">
+                  {t("home.hero.subtitle")}
                 </span>
-              </div>
-            </div>
+              </h1>
 
-            {/* Cool Decorative Line */}
-            <div className="flex justify-center items-center mb-12">
-              <div className="flex items-center gap-4 w-full max-w-md">
-                <div className="flex-1 h-px bg-gradient-to-r from-transparent via-blue-400 to-blue-600"></div>
-                <div className="w-3 h-3 bg-gradient-to-r from-blue-500 to-blue-700 rounded-full shadow-lg"></div>
-                <div className="flex-1 h-px bg-gradient-to-l from-transparent via-blue-400 to-blue-600"></div>
-              </div>
-            </div>
+              <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-300 mb-8 leading-relaxed max-w-xl mx-auto lg:mx-0">
+                {t("home.hero.description")}
+              </p>
 
-            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
-              {t("home.hero.title")}
-              <span className="block bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
-                {t("home.hero.subtitle")}
-              </span>
-            </h1>
-
-            <p className="text-xl sm:text-2xl text-gray-600 dark:text-gray-300 mb-8 leading-relaxed max-w-3xl mx-auto">
-              {t("home.hero.description")}
-            </p>
-
-            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-              {!isLoaded || !user ? (
-                <>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-0">
+                {!isLoaded || !user ? (
+                  <>
+                    <Button
+                      size="lg"
+                      asChild
+                      className="bg-gradient-to-r from-emerald-600 to-teal-800 hover:from-emerald-700 hover:to-teal-900 text-white px-8 py-4 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+                    >
+                      <Link href="/how-it-works">
+                        {t("home.hero.cta")}
+                        <ArrowRight className="ml-2 w-5 h-5 inline" />
+                      </Link>
+                    </Button>
+                    <Button
+                      size="lg"
+                      variant="outline"
+                      onClick={handleGetStarted}
+                      className="border-2 border-slate-300 hover:border-emerald-400 text-gray-800 dark:text-gray-200 px-8 py-4 text-lg font-semibold rounded-xl shadow-md hover:shadow-lg transition-all duration-300 bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm"
+                    >
+                      {t("home.hero.ctaSecondary")}
+                    </Button>
+                  </>
+                ) : (
                   <Button
                     size="lg"
-                    onClick={handleGetStarted}
-                    className="bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 text-white px-8 py-4 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+                    onClick={handleGoToDashboard}
+                    className="bg-gradient-to-r from-emerald-600 to-teal-800 hover:from-emerald-700 hover:to-teal-900 text-white px-8 py-4 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
                   >
-                    {t("home.hero.cta")}
+                    Go to Dashboard
                     <ArrowRight className="ml-2 w-5 h-5" />
                   </Button>
-                  <Button
-                    size="lg"
-                    variant="outline"
-                    className="border-2 border-gray-300 hover:border-gray-400 text-gray-700 dark:text-gray-300 px-8 py-4 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
-                  >
-                    {t("home.hero.watchDemo")}
-                    <Play className="ml-2 w-5 h-5" />
-                  </Button>
-                </>
-              ) : (
-                <Button
-                  size="lg"
-                  onClick={handleGoToDashboard}
-                  className="bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 text-white px-8 py-4 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
-                >
-                  Go to Dashboard
-                  <ArrowRight className="ml-2 w-5 h-5" />
-                </Button>
-              )}
+                )}
+              </div>
             </div>
 
-            {/* Video Section */}
-            <div className="relative max-w-5xl mx-auto">
-              <video
-                ref={setVideoRef}
-                autoPlay
-                loop
-                playsInline
-                controls
-                className="w-full h-auto rounded-2xl shadow-2xl"
-                style={{ aspectRatio: "16/9" }}
-              >
-                <source src="/video/Whiteboard.mp4" type="video/mp4" />
-                {t("home.video.notSupported")}
-              </video>
+            <div className="relative max-w-2xl mx-auto lg:max-w-none order-1 lg:order-2">
+              <div className="rounded-2xl overflow-hidden shadow-2xl ring-1 ring-slate-200/90 dark:ring-slate-700/90 bg-white dark:bg-slate-900">
+                <Image
+                  src="/images/brand/claimsaver-hero-banner-concept-01.png"
+                  alt={t("home.story.heroBannerAlt")}
+                  width={1200}
+                  height={800}
+                  className="w-full h-auto object-cover"
+                  priority
+                />
+              </div>
             </div>
           </div>
         </div>
       </section>
 
       {/* Features Section */}
-      <section className="py-24 bg-white dark:bg-gray-950 relative overflow-hidden">
-        {/* Background Pattern */}
-        <div className="fixed inset-0 z-0 opacity-15">
-          <div
-            className="absolute inset-0"
-            style={{
-              backgroundImage: `url('/images/logo-blue-black.png')`,
-              backgroundSize: "300px 300px",
-              backgroundRepeat: "repeat",
-              backgroundPosition: "center",
-              opacity: 0.15,
-            }}
-          ></div>
-        </div>
+      <section className="py-24 bg-white dark:bg-gray-950 relative overflow-hidden border-y border-slate-100 dark:border-slate-800/80">
+        <div className="absolute inset-0 bg-[linear-gradient(to_bottom,transparent_0%,rgba(13,148,136,0.04)_50%,transparent_100%)] pointer-events-none" />
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
@@ -293,7 +250,7 @@ export default function Home() {
                   key={index}
                   className="group relative overflow-hidden border-0 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 bg-gradient-to-br from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 backdrop-blur-sm"
                 >
-                  <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-blue-700/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/5 to-teal-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                   <CardHeader className="pb-4">
                     <div
                       className={`w-12 h-12 bg-gradient-to-r ${feature.gradientClass} rounded-xl flex items-center justify-center text-white mb-4 group-hover:scale-110 transition-transform duration-300 relative overflow-hidden`}
@@ -321,25 +278,82 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Why Choose Section */}
-      <section className="py-24 bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-900 dark:to-blue-950/30 relative overflow-hidden">
-        {/* Background Image */}
-        <div className="fixed inset-0 z-0">
-          <Image
-            src="/images/long-logo-ClaimSaver.jpg"
-            alt={t("home.whyChoose.imageAlt")}
-            className="w-full h-full object-cover opacity-20"
-            fill
-          />
-          <div className="absolute inset-0 bg-gradient-to-br from-gray-50/80 to-blue-50/80 dark:from-gray-900/80 dark:to-blue-950/80"></div>
+      {/* Brand visuals — PIP journey, value prop, before/after (graphics + PR themes) */}
+      <section className="py-20 bg-slate-50/90 dark:bg-slate-950/40 border-y border-slate-200/70 dark:border-slate-800/60">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-20">
+          <div>
+            <div className="text-center max-w-3xl mx-auto mb-10">
+              <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-3">
+                {t("home.story.pipStepsTitle")}
+              </h2>
+              <p className="text-lg text-gray-600 dark:text-gray-300">
+                {t("home.story.pipStepsSubtitle")}
+              </p>
+            </div>
+            <div className="rounded-2xl overflow-hidden shadow-xl border border-slate-200/90 dark:border-slate-700 bg-white dark:bg-slate-900">
+              <Image
+                src="/images/social/week1-wed-pip-5-steps.png"
+                alt={t("home.story.pipStepsAlt")}
+                width={1600}
+                height={900}
+                className="w-full h-auto object-cover"
+              />
+            </div>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-10 lg:gap-12 items-stretch">
+            <div className="flex flex-col rounded-2xl overflow-hidden shadow-xl border border-slate-200/90 dark:border-slate-700 bg-white dark:bg-slate-900">
+              <div className="p-6 pb-0">
+                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+                  {t("home.story.whatYouGetTitle")}
+                </h3>
+                <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">
+                  {t("home.story.whatYouGetSubtitle")}
+                </p>
+              </div>
+              <div className="p-4 pt-4 mt-auto">
+                <Image
+                  src="/images/social/week4-thu-what-you-get.png"
+                  alt={t("home.story.whatYouGetAlt")}
+                  width={1200}
+                  height={900}
+                  className="w-full h-auto object-cover rounded-lg"
+                />
+              </div>
+            </div>
+            <div className="flex flex-col rounded-2xl overflow-hidden shadow-xl border border-slate-200/90 dark:border-slate-700 bg-white dark:bg-slate-900">
+              <div className="p-6 pb-0">
+                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+                  {t("home.story.beforeAfterTitle")}
+                </h3>
+                <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">
+                  {t("home.story.beforeAfterSubtitle")}
+                </p>
+              </div>
+              <div className="p-4 pt-4 mt-auto">
+                <Image
+                  src="/images/social/week3-mon-before-after.png"
+                  alt={t("home.story.beforeAfterAlt")}
+                  width={1200}
+                  height={900}
+                  className="w-full h-auto object-cover rounded-lg"
+                />
+              </div>
+            </div>
+          </div>
         </div>
+      </section>
+
+      {/* Why Choose Section */}
+      <section className="py-24 bg-gradient-to-br from-slate-50 to-emerald-50/50 dark:from-gray-900 dark:to-slate-900/80 relative overflow-hidden">
+        <PageHeroBackdrop />
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div>
               <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-6">
                 {t("home.whyChoose.title")}{" "}
-                <span className="bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-emerald-600 to-teal-800 bg-clip-text text-transparent">
                   {t("home.whyChoose.brand")}?
                 </span>
               </h2>
@@ -350,7 +364,7 @@ export default function Home() {
               <div className="space-y-6">
                 {benefits.map((benefit, index) => (
                   <div key={index} className="flex items-start gap-4">
-                    <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-blue-700 rounded-lg flex items-center justify-center text-white flex-shrink-0">
+                    <div className="w-10 h-10 bg-gradient-to-r from-emerald-600 to-teal-800 rounded-lg flex items-center justify-center text-white flex-shrink-0">
                       {benefit.icon}
                     </div>
                     <div>
@@ -369,7 +383,7 @@ export default function Home() {
                 <Button
                   size="lg"
                   onClick={handleGetStarted}
-                  className="bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 text-white px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+                  className="bg-gradient-to-r from-emerald-600 to-teal-800 hover:from-emerald-700 hover:to-teal-900 text-white px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
                 >
                   {t("home.whyChoose.getStarted")}
                   <ArrowRight className="ml-2 w-5 h-5" />
@@ -388,33 +402,41 @@ export default function Home() {
             </div>
 
             <div className="relative">
-              <div className="bg-gradient-to-br from-blue-500 to-blue-800 rounded-3xl p-8 text-white shadow-2xl">
+              <div className="bg-gradient-to-br from-emerald-600 to-teal-900 rounded-3xl p-8 text-white shadow-2xl">
                 <div className="flex items-center gap-3 mb-6">
-                  <Award className="w-8 h-8" />
+                  <Calculator className="w-8 h-8" />
                   <h3 className="text-2xl font-bold">
                     {t("home.stats.title")}
                   </h3>
                 </div>
                 <div className="space-y-6">
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-center justify-between gap-4">
                     <span className="text-lg">
                       {t("home.stats.recoveryTime")}
                     </span>
-                    <span className="text-2xl font-bold">
+                    <span className="text-2xl font-bold text-right">
                       {t("home.stats.recoveryTimeValue")}
                     </span>
                   </div>
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-center justify-between gap-4">
                     <span className="text-lg">
                       {t("home.stats.successRate")}
                     </span>
-                    <span className="text-2xl font-bold">
+                    <span className="text-2xl font-bold text-right">
                       {t("home.stats.successRateValue")}
                     </span>
                   </div>
-
-                  {/* Empty space to maintain layout */}
-                  <div className="h-6"></div>
+                  <div className="flex items-center justify-between gap-4">
+                    <span className="text-lg">
+                      {t("home.stats.satisfaction")}
+                    </span>
+                    <span className="text-2xl font-bold text-right">
+                      {t("home.stats.satisfactionValue")}
+                    </span>
+                  </div>
+                  <p className="text-xs text-teal-100/90 leading-snug pt-2 border-t border-white/20">
+                    {t("home.stats.statsNote")}
+                  </p>
                 </div>
               </div>
 

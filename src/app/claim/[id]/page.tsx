@@ -182,7 +182,7 @@ export default function ClaimDetailPage() {
 
   if (!isLoaded) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-800 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-teal-50 via-emerald-50 to-emerald-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-800 flex items-center justify-center">
         <Loader2 className="h-8 w-8 animate-spin" />
       </div>
     );
@@ -190,7 +190,7 @@ export default function ClaimDetailPage() {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-800">
+      <div className="min-h-screen bg-gradient-to-br from-teal-50 via-emerald-50 to-emerald-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-800">
         <div className="container mx-auto px-4 py-8">
           <div className="max-w-2xl mx-auto text-center">
             <div className="w-16 h-16 bg-red-100 dark:bg-red-900/50 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -211,7 +211,7 @@ export default function ClaimDetailPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-800 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-teal-50 via-emerald-50 to-emerald-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-800 flex items-center justify-center">
         <div className="text-center">
           <Loader2 className="h-8 w-8 animate-spin mx-auto mb-4" />
           <p className="text-gray-600 dark:text-gray-400">
@@ -224,7 +224,7 @@ export default function ClaimDetailPage() {
 
   if (!claim) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-800">
+      <div className="min-h-screen bg-gradient-to-br from-teal-50 via-emerald-50 to-emerald-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-800">
         <div className="container mx-auto px-4 py-8">
           <div className="max-w-2xl mx-auto text-center">
             <div className="w-16 h-16 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -244,7 +244,7 @@ export default function ClaimDetailPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-800">
+    <div className="min-h-screen bg-gradient-to-br from-teal-50 via-emerald-50 to-emerald-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-800">
       {/* Header */}
       <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border-b border-gray-200 dark:border-gray-700">
         <div className="container mx-auto px-4 py-6">
@@ -270,7 +270,7 @@ export default function ClaimDetailPage() {
             <Button
               onClick={downloadClaim}
               disabled={downloading}
-              className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white"
+              className="bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-700 hover:to-emerald-700 text-white"
             >
               {downloading ? (
                 <Loader2 className="mr-2 w-4 h-4 animate-spin" />

@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import { Button } from "@/components/ui/button";
+import { PageHeroBackdrop } from "@/components/page-hero-backdrop";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import FAQ from "@/components/faq";
 import { useTranslation } from "react-i18next";
@@ -180,23 +180,16 @@ export default function Notarization() {
   return (
     <div className="min-h-screen bg-white dark:bg-gray-950">
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-blue-50 via-white to-indigo-50 dark:from-gray-950 dark:via-gray-900 dark:to-blue-950">
-        {/* Background Image */}
-        <div className="fixed inset-0 z-0">
-          <Image
-            src="/images/long-logo-ClaimSaver.jpg"
-            alt={t("notarization.hero.imageAlt")}
-            className="w-full h-full object-cover opacity-25"
-            fill
-          />
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-50/70 via-white/80 to-indigo-50/70 dark:from-gray-950/70 dark:via-gray-900/80 dark:to-blue-950/70"></div>
+      <section className="relative overflow-hidden bg-gradient-to-br from-slate-50 via-white to-emerald-50 dark:from-slate-950 dark:via-gray-900 dark:to-slate-900">
+        <div className="absolute inset-0 z-0">
+          <PageHeroBackdrop />
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-16">
           <div className="text-center max-w-4xl mx-auto">
             <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
               {t("notarization.hero.title")}{" "}
-              <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-teal-600 to-emerald-600 bg-clip-text text-transparent">
                 {t("notarization.hero.subtitle")}
               </span>
             </h1>
@@ -212,7 +205,7 @@ export default function Notarization() {
                     .getElementById("notarization-section")
                     ?.scrollIntoView({ behavior: "smooth" })
                 }
-                className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-4 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+                className="bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-700 hover:to-emerald-700 text-white px-8 py-4 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
               >
                 {t("notarization.hero.startNotarization")}
                 <ArrowRight className="ml-2 w-5 h-5" />
@@ -241,16 +234,16 @@ export default function Notarization() {
           <div className="bg-white/98 dark:bg-gray-900/98 backdrop-blur-2xl rounded-2xl p-6 shadow-2xl border border-white/20 dark:border-gray-700/20 max-w-sm w-full mx-4 transform scale-105">
             {/* Animated Background Elements */}
             <div className="absolute inset-0 overflow-hidden rounded-2xl">
-              <div className="absolute -top-8 -right-8 w-16 h-16 bg-gradient-to-br from-blue-400/20 to-purple-400/20 rounded-full blur-xl animate-pulse"></div>
-              <div className="absolute -bottom-8 -left-8 w-12 h-12 bg-gradient-to-br from-purple-400/20 to-pink-400/20 rounded-full blur-xl animate-pulse delay-1000"></div>
-              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-24 h-24 bg-gradient-to-br from-blue-500/10 to-purple-500/10 rounded-full blur-2xl animate-pulse delay-500"></div>
+              <div className="absolute -top-8 -right-8 w-16 h-16 bg-gradient-to-br from-teal-400/20 to-emerald-400/20 rounded-full blur-xl animate-pulse"></div>
+              <div className="absolute -bottom-8 -left-8 w-12 h-12 bg-gradient-to-br from-emerald-400/20 to-pink-400/20 rounded-full blur-xl animate-pulse delay-1000"></div>
+              <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-24 h-24 bg-gradient-to-br from-teal-500/10 to-emerald-500/10 rounded-full blur-2xl animate-pulse delay-500"></div>
             </div>
 
             {/* Content */}
             <div className="relative z-10 text-center">
               {/* Icon with Animation */}
               <div className="relative mb-4">
-                <div className="w-16 h-16 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 rounded-full flex items-center justify-center mx-auto shadow-2xl animate-pulse">
+                <div className="w-16 h-16 bg-gradient-to-r from-teal-600 via-emerald-600 to-pink-600 rounded-full flex items-center justify-center mx-auto shadow-2xl animate-pulse">
                   <Clock className="w-8 h-8 text-white animate-bounce" />
                 </div>
                 <div className="absolute -top-1 -right-1 w-4 h-4 bg-yellow-400 rounded-full flex items-center justify-center animate-ping">
@@ -264,7 +257,7 @@ export default function Notarization() {
               {/* Title */}
               <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
                 Coming{" "}
-                <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent animate-pulse">
+                <span className="bg-gradient-to-r from-teal-600 via-emerald-600 to-pink-600 bg-clip-text text-transparent animate-pulse">
                   Soon
                 </span>
               </h3>
@@ -284,7 +277,7 @@ export default function Notarization() {
                   <span>Bank-Level Security</span>
                 </div>
                 <div className="flex items-center justify-center gap-2 text-xs text-gray-600 dark:text-gray-400">
-                  <Clock className="w-3 h-3 text-blue-500" />
+                  <Clock className="w-3 h-3 text-teal-500" />
                   <span>24/7 Availability</span>
                 </div>
                 <div className="flex items-center justify-center gap-2 text-xs text-gray-600 dark:text-gray-400">
@@ -294,7 +287,7 @@ export default function Notarization() {
               </div>
 
               {/* Notification Button */}
-              <Button className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white py-2 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 group text-sm">
+              <Button className="w-full bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-700 hover:to-emerald-700 text-white py-2 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 group text-sm">
                 <Bell className="w-3 h-3 mr-2 group-hover:animate-bounce" />
                 Get Notified When Available
               </Button>
@@ -302,8 +295,8 @@ export default function Notarization() {
               {/* Progress Indicator */}
               <div className="mt-4">
                 <div className="flex items-center justify-center gap-1 mb-1">
-                  <div className="w-1.5 h-1.5 bg-blue-500 rounded-full animate-pulse"></div>
-                  <div className="w-1.5 h-1.5 bg-purple-500 rounded-full animate-pulse delay-150"></div>
+                  <div className="w-1.5 h-1.5 bg-teal-500 rounded-full animate-pulse"></div>
+                  <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse delay-150"></div>
                   <div className="w-1.5 h-1.5 bg-pink-500 rounded-full animate-pulse delay-300"></div>
                 </div>
                 <p className="text-xs text-gray-500 dark:text-gray-400">
@@ -318,7 +311,7 @@ export default function Notarization() {
           <div className="text-center mb-4">
             <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4">
               Get Started with{" "}
-              <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-teal-600 to-emerald-600 bg-clip-text text-transparent">
                 Notarization
               </span>
             </h2>
@@ -337,7 +330,7 @@ export default function Notarization() {
                     <div
                       className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold ${
                         step === 1
-                          ? "bg-blue-600 text-white"
+                          ? "bg-teal-600 text-white"
                           : "bg-gray-200 dark:bg-gray-700 text-gray-500"
                       }`}
                     >
@@ -347,7 +340,7 @@ export default function Notarization() {
                       <div
                         className={`w-12 h-1 mx-2 ${
                           step === 1
-                            ? "bg-blue-600"
+                            ? "bg-teal-600"
                             : "bg-gray-200 dark:bg-gray-700"
                         }`}
                       />
@@ -368,7 +361,7 @@ export default function Notarization() {
             {/* Main Notarization Card */}
             <Card className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm border-0 shadow-2xl">
               <CardHeader className="text-center pb-4">
-                <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center mx-auto mb-3">
+                <div className="w-12 h-12 bg-gradient-to-r from-teal-500 to-emerald-500 rounded-full flex items-center justify-center mx-auto mb-3">
                   <Upload className="w-6 h-6 text-white" />
                 </div>
                 <CardTitle className="text-xl font-bold text-gray-900 dark:text-white">
@@ -384,7 +377,7 @@ export default function Notarization() {
                   <h3 className="text-base font-semibold text-gray-900 dark:text-white">
                     Document Upload *
                   </h3>
-                  <div className="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg p-6 text-center hover:border-blue-400 transition-colors">
+                  <div className="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg p-6 text-center hover:border-teal-400 transition-colors">
                     <Upload className="w-10 h-10 text-gray-400 mx-auto mb-3" />
                     <p className="text-base font-semibold text-gray-700 dark:text-gray-300 mb-1">
                       Choose a PDF document to upload
@@ -401,7 +394,7 @@ export default function Notarization() {
                     />
                     <label
                       htmlFor="document-upload"
-                      className="inline-block bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg cursor-pointer transition-colors"
+                      className="inline-block bg-teal-600 hover:bg-teal-700 text-white px-4 py-2 rounded-lg cursor-pointer transition-colors"
                     >
                       Browse Files
                     </label>
@@ -422,7 +415,7 @@ export default function Notarization() {
                         type="text"
                         required
                         maxLength={100}
-                        className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white text-sm"
+                        className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent dark:bg-gray-700 dark:text-white text-sm"
                         placeholder="Enter your full legal name as it appears on ID"
                         title="Enter your full legal name exactly as it appears on your government-issued identification"
                       />
@@ -434,7 +427,7 @@ export default function Notarization() {
                       <input
                         type="email"
                         required
-                        className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white text-sm"
+                        className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent dark:bg-gray-700 dark:text-white text-sm"
                         placeholder="Enter your email address"
                         title="This email will be used for DocuSign envelope delivery"
                       />
@@ -447,7 +440,7 @@ export default function Notarization() {
                         type="tel"
                         required
                         pattern="[0-9]{10,}"
-                        className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white text-sm"
+                        className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent dark:bg-gray-700 dark:text-white text-sm"
                         placeholder="Enter your phone number"
                         title="Phone number for identity verification during notarization"
                       />
@@ -459,7 +452,7 @@ export default function Notarization() {
                       <input
                         type="date"
                         required
-                        className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white text-sm"
+                        className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent dark:bg-gray-700 dark:text-white text-sm"
                         title="Date of birth for identity verification"
                       />
                     </div>
@@ -478,7 +471,7 @@ export default function Notarization() {
                       </label>
                       <select
                         required
-                        className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white text-sm"
+                        className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent dark:bg-gray-700 dark:text-white text-sm"
                         title="Select the type of government-issued identification you will present"
                       >
                         <option value="">Select ID Type</option>
@@ -502,7 +495,7 @@ export default function Notarization() {
                         required
                         maxLength={4}
                         pattern="[0-9]{4}"
-                        className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white text-sm"
+                        className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent dark:bg-gray-700 dark:text-white text-sm"
                         placeholder="Last 4 digits only"
                         title="Enter only the last 4 digits of your ID number for verification"
                       />
@@ -522,7 +515,7 @@ export default function Notarization() {
                       </label>
                       <select
                         required
-                        className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white text-sm"
+                        className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent dark:bg-gray-700 dark:text-white text-sm"
                         title="Select the type of notarization you require"
                       >
                         <option value="">Select Notarization Type</option>
@@ -543,7 +536,7 @@ export default function Notarization() {
                       <input
                         type="text"
                         maxLength={200}
-                        className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white text-sm"
+                        className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent dark:bg-gray-700 dark:text-white text-sm"
                         placeholder="e.g., Power of Attorney, Affidavit"
                         title="Optional: Provide a title for your document"
                       />
@@ -563,7 +556,7 @@ export default function Notarization() {
                       </label>
                       <input
                         type="email"
-                        className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white text-sm"
+                        className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent dark:bg-gray-700 dark:text-white text-sm"
                         placeholder="Optional: Additional recipient email"
                         title="Optional: Add another email to receive the notarized document"
                       />
@@ -575,7 +568,7 @@ export default function Notarization() {
                       <textarea
                         maxLength={500}
                         rows={3}
-                        className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white text-sm"
+                        className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent dark:bg-gray-700 dark:text-white text-sm"
                         placeholder="Any special instructions for the notary"
                         title="Optional: Provide any special instructions for the notarization process"
                       />
@@ -590,7 +583,7 @@ export default function Notarization() {
                       type="checkbox"
                       required
                       id="consent-agreement"
-                      className="mt-1 w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                      className="mt-1 w-4 h-4 text-teal-600 bg-gray-100 border-gray-300 rounded focus:ring-teal-500 dark:focus:ring-teal-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                     />
                     <label
                       htmlFor="consent-agreement"
@@ -607,7 +600,7 @@ export default function Notarization() {
                       type="checkbox"
                       required
                       id="identity-verification"
-                      className="mt-1 w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                      className="mt-1 w-4 h-4 text-teal-600 bg-gray-100 border-gray-300 rounded focus:ring-teal-500 dark:focus:ring-teal-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
                     />
                     <label
                       htmlFor="identity-verification"
@@ -621,7 +614,7 @@ export default function Notarization() {
 
                 <Button
                   type="submit"
-                  className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white py-3 text-base font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+                  className="w-full bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-700 hover:to-emerald-700 text-white py-3 text-base font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
                 >
                   Start Notarization Process
                   <ArrowRight className="ml-2 w-4 h-4" />
@@ -633,11 +626,11 @@ export default function Notarization() {
       </section>
 
       {/* Online Notarization Hero Section */}
-      <section className="py-12 bg-gradient-to-br from-blue-50/60 to-purple-50/60 dark:from-blue-950/40 dark:to-purple-950/40 relative overflow-hidden">
+      <section className="py-12 bg-gradient-to-br from-teal-50/60 to-emerald-50/60 dark:from-teal-950/40 dark:to-emerald-950/40 relative overflow-hidden">
         <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4">
             Secure{" "}
-            <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-teal-600 to-emerald-600 bg-clip-text text-transparent">
               Online Notarization
             </span>
           </h2>
@@ -649,8 +642,8 @@ export default function Notarization() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
             <div className="flex flex-col items-center">
-              <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center mb-3">
-                <Shield className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+              <div className="w-12 h-12 bg-teal-100 dark:bg-teal-900/30 rounded-full flex items-center justify-center mb-3">
+                <Shield className="w-6 h-6 text-teal-600 dark:text-teal-400" />
               </div>
               <h3 className="text-sm font-semibold text-gray-900 dark:text-white mb-1">
                 Bank-Level Security
@@ -660,8 +653,8 @@ export default function Notarization() {
               </p>
             </div>
             <div className="flex flex-col items-center">
-              <div className="w-12 h-12 bg-purple-100 dark:bg-purple-900/30 rounded-full flex items-center justify-center mb-3">
-                <Clock className="w-6 h-6 text-purple-600 dark:text-purple-400" />
+              <div className="w-12 h-12 bg-emerald-100 dark:bg-emerald-900/30 rounded-full flex items-center justify-center mb-3">
+                <Clock className="w-6 h-6 text-emerald-600 dark:text-emerald-400" />
               </div>
               <h3 className="text-sm font-semibold text-gray-900 dark:text-white mb-1">
                 24/7 Availability
@@ -687,13 +680,13 @@ export default function Notarization() {
 
       {/* Document Types Section */}
       <section className="relative overflow-hidden py-12">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-50/60 via-white/70 to-indigo-50/60 dark:from-gray-950/60 dark:via-gray-900/70 dark:to-blue-950/60"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-teal-50/60 via-white/70 to-emerald-50/60 dark:from-gray-950/60 dark:via-gray-900/70 dark:to-teal-950/60"></div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-8">
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4 border-b-2 border-blue-600 pb-2">
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4 border-b-2 border-teal-600 pb-2">
               Documents We{" "}
-              <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-teal-600 to-emerald-600 bg-clip-text text-transparent">
                 Notarize
               </span>
             </h2>
@@ -707,11 +700,11 @@ export default function Notarization() {
             {documentTypes.map((docType, index) => (
               <Card
                 key={index}
-                className="text-center border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 bg-gradient-to-br from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 cursor-pointer hover:bg-gradient-to-br hover:from-blue-50 hover:to-indigo-50 dark:hover:from-blue-950/50 dark:hover:to-indigo-950/50"
+                className="text-center border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 bg-gradient-to-br from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 cursor-pointer hover:bg-gradient-to-br hover:from-teal-50 hover:to-emerald-50 dark:hover:from-teal-950/50 dark:hover:to-emerald-950/50"
                 onClick={() => handleDocumentClick(docType)}
               >
                 <CardContent className="p-4">
-                  <FileText className="w-6 h-6 text-blue-600 mx-auto mb-2" />
+                  <FileText className="w-6 h-6 text-teal-600 mx-auto mb-2" />
                   <p className="text-xs font-semibold text-gray-900 dark:text-white">
                     {docType}
                   </p>
@@ -764,11 +757,11 @@ export default function Notarization() {
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="bg-blue-50 dark:bg-blue-950/30 p-4 rounded-lg">
-                  <h4 className="font-semibold text-blue-900 dark:text-blue-100 mb-2">
+                <div className="bg-teal-50 dark:bg-teal-950/30 p-4 rounded-lg">
+                  <h4 className="font-semibold text-teal-900 dark:text-teal-100 mb-2">
                     Traditional Notarization
                   </h4>
-                  <ul className="text-sm text-blue-800 dark:text-blue-200 space-y-1">
+                  <ul className="text-sm text-teal-800 dark:text-teal-200 space-y-1">
                     <li>• Requires in-person meeting</li>
                     <li>• Limited availability</li>
                     <li>• Travel time and costs</li>
@@ -794,7 +787,7 @@ export default function Notarization() {
                 </h3>
                 <div className="space-y-3">
                   <div className="flex items-start gap-3">
-                    <div className="w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center text-sm font-semibold flex-shrink-0 mt-0.5">
+                    <div className="w-8 h-8 bg-teal-500 text-white rounded-full flex items-center justify-center text-sm font-semibold flex-shrink-0 mt-0.5">
                       1
                     </div>
                     <div>
@@ -807,7 +800,7 @@ export default function Notarization() {
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
-                    <div className="w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center text-sm font-semibold flex-shrink-0 mt-0.5">
+                    <div className="w-8 h-8 bg-teal-500 text-white rounded-full flex items-center justify-center text-sm font-semibold flex-shrink-0 mt-0.5">
                       2
                     </div>
                     <div>
@@ -821,7 +814,7 @@ export default function Notarization() {
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
-                    <div className="w-8 h-8 bg-blue-500 text-white rounded-full flex items-center justify-center text-sm font-semibold flex-shrink-0 mt-0.5">
+                    <div className="w-8 h-8 bg-teal-500 text-white rounded-full flex items-center justify-center text-sm font-semibold flex-shrink-0 mt-0.5">
                       3
                     </div>
                     <div>
@@ -836,7 +829,7 @@ export default function Notarization() {
                 </div>
               </div>
 
-              <div className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-950/30 dark:to-purple-950/30 p-4 rounded-lg">
+              <div className="bg-gradient-to-r from-teal-50 to-emerald-50 dark:from-teal-950/30 dark:to-emerald-950/30 p-4 rounded-lg">
                 <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
                   Legal Compliance
                 </h3>
@@ -876,7 +869,7 @@ export default function Notarization() {
                     .getElementById("notarization-section")
                     ?.scrollIntoView({ behavior: "smooth" });
                 }}
-                className="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
+                className="flex-1 bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-700 hover:to-emerald-700"
               >
                 Start Notarization
               </Button>
@@ -921,9 +914,9 @@ export default function Notarization() {
                     (example, index) => (
                       <div
                         key={index}
-                        className="bg-blue-50 dark:bg-blue-950/30 p-3 rounded-lg"
+                        className="bg-teal-50 dark:bg-teal-950/30 p-3 rounded-lg"
                       >
-                        <p className="text-sm font-medium text-blue-900 dark:text-blue-100">
+                        <p className="text-sm font-medium text-teal-900 dark:text-teal-100">
                           {example}
                         </p>
                       </div>
@@ -932,7 +925,7 @@ export default function Notarization() {
                 </div>
               </div>
 
-              <div className="bg-gradient-to-r from-green-50 to-blue-50 dark:from-green-950/30 dark:to-blue-950/30 p-4 rounded-lg">
+              <div className="bg-gradient-to-r from-green-50 to-teal-50 dark:from-green-950/30 dark:to-teal-950/30 p-4 rounded-lg">
                 <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
                   Notarization Requirements
                 </h3>
@@ -941,7 +934,7 @@ export default function Notarization() {
                 </p>
               </div>
 
-              <div className="bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-950/30 dark:to-pink-950/30 p-4 rounded-lg">
+              <div className="bg-gradient-to-r from-emerald-50 to-pink-50 dark:from-emerald-950/30 dark:to-pink-950/30 p-4 rounded-lg">
                 <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
                   Why Notarization is Required
                 </h3>
@@ -969,7 +962,7 @@ export default function Notarization() {
                     .getElementById("notarization-section")
                     ?.scrollIntoView({ behavior: "smooth" });
                 }}
-                className="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
+                className="flex-1 bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-700 hover:to-emerald-700"
               >
                 Start Notarization
               </Button>

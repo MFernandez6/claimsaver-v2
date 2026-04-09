@@ -1,8 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@clerk/nextjs/server";
-import dbConnect from "@/lib/db";
-import Claim from "@/models/Claim";
-import mongoose from "mongoose";
+import { getSupabaseAdmin, isSupabaseConfigured } from "@/lib/supabase/admin";
+import { claimRowToLegacy, isUuid } from "@/lib/supabase/mappers";
 
 export async function GET(
   request: NextRequest,
@@ -15,57 +14,42 @@ export async function GET(
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    await dbConnect();
+    if (!isSupabaseConfigured()) {
+      return NextResponse.json(
+        { error: "Database not configured" },
+        { status: 503 }
+      );
+    }
+
     const { id: claimId } = await params;
 
-    console.log(`Fetching claim ${claimId} for user ${userId}`);
-
-    // Validate ObjectId format
-    if (!mongoose.Types.ObjectId.isValid(claimId)) {
-      console.log(`Invalid ObjectId format: ${claimId}`);
+    if (!isUuid(claimId)) {
       return NextResponse.json(
         { error: "Invalid claim ID format" },
         { status: 400 }
       );
     }
 
-    // Find the claim by ID and ensure it belongs to the authenticated user
-    const claim = await Claim.findOne({
-      _id: new mongoose.Types.ObjectId(claimId),
-      userId: userId,
-    }).lean(); // Use lean() for better performance
+    const supabase = getSupabaseAdmin();
 
-    if (!claim) {
-      console.log(`Claim ${claimId} not found for user ${userId}`);
+    const { data: row, error } = await supabase
+      .from("claims")
+      .select("*")
+      .eq("id", claimId)
+      .eq("user_id", userId)
+      .maybeSingle();
+
+    if (error) {
+      return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+
+    if (!row) {
       return NextResponse.json({ error: "Claim not found" }, { status: 404 });
     }
 
-    console.log(`Successfully fetched claim ${claimId}`);
-
-    // Convert ObjectId to string for JSON serialization
-    const claimData = {
-      ...claim,
-      _id: claimId, // Use the original claimId since we know it's valid
-    };
-
-    return NextResponse.json(claimData);
+    return NextResponse.json(claimRowToLegacy(row as Record<string, unknown>));
   } catch (error) {
     console.error("Error fetching claim:", error);
-
-    // Provide more specific error messages
-    if (error instanceof mongoose.Error.CastError) {
-      return NextResponse.json(
-        { error: "Invalid claim ID format" },
-        { status: 400 }
-      );
-    }
-
-    if (error instanceof mongoose.Error.ValidationError) {
-      return NextResponse.json(
-        { error: "Validation error", details: error.message },
-        { status: 400 }
-      );
-    }
 
     return NextResponse.json(
       {

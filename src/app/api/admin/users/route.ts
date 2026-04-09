@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { checkAdminAuth } from "@/lib/adminAuth";
-import dbConnect from "@/lib/db";
-import User from "@/models/User";
+import { getSupabaseAdmin, isSupabaseConfigured } from "@/lib/supabase/admin";
+import { profileRowToLegacy } from "@/lib/supabase/mappers";
 
 export async function GET(request: NextRequest) {
   try {
@@ -14,7 +14,12 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    await dbConnect();
+    if (!isSupabaseConfigured()) {
+      return NextResponse.json(
+        { error: "Database not configured" },
+        { status: 503 }
+      );
+    }
 
     const { searchParams } = new URL(request.url);
     const role = searchParams.get("role");
@@ -23,71 +28,48 @@ export async function GET(request: NextRequest) {
     const limit = parseInt(searchParams.get("limit") || "10");
     const skip = (page - 1) * limit;
 
-    // Build query
-    const query: Record<string, unknown> = {};
+    const supabase = getSupabaseAdmin();
+
+    let query = supabase
+      .from("profiles")
+      .select("*", { count: "exact" })
+      .order("created_at", { ascending: false })
+      .range(skip, skip + limit - 1);
 
     if (role && role !== "all") {
-      query.role = role;
+      query = query.eq("role", role);
     }
 
-    if (search) {
-      query.$or = [
-        { firstName: { $regex: search, $options: "i" } },
-        { lastName: { $regex: search, $options: "i" } },
-        { email: { $regex: search, $options: "i" } },
-      ];
+    if (search && search.trim()) {
+      const safe = search.trim().replace(/[%]/g, "");
+      const p = `%${safe}%`;
+      query = query.or(
+        `email.ilike.${p},first_name.ilike.${p},last_name.ilike.${p}`
+      );
     }
 
-    const users = await User.find(query)
-      .sort({ createdAt: -1 })
-      .skip(skip)
-      .limit(limit)
-      .lean();
+    const { data: rows, error, count } = await query;
 
-    const total = await User.countDocuments(query);
+    if (error) {
+      return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+
+    const data = (rows || []).map((r) =>
+      profileRowToLegacy(r as Record<string, unknown>)
+    );
+    const total = count ?? 0;
 
     return NextResponse.json({
-      data: users,
+      data,
       pagination: {
         page,
         limit,
         total,
-        pages: Math.ceil(total / limit),
+        pages: Math.ceil(total / limit) || 1,
       },
     });
   } catch (error) {
     console.error("Error fetching users:", error);
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 }
-    );
-  }
-}
-
-export async function POST(request: NextRequest) {
-  try {
-    const authResult = await checkAdminAuth();
-
-    if (!authResult.isAuthorized) {
-      return NextResponse.json(
-        { error: authResult.error },
-        { status: authResult.status }
-      );
-    }
-
-    await dbConnect();
-    const body = await request.json();
-
-    const user = new User({
-      ...body,
-      clerkId: authResult.user.clerkId,
-    });
-
-    await user.save();
-
-    return NextResponse.json({ data: user }, { status: 201 });
-  } catch (error) {
-    console.error("Error creating user:", error);
     return NextResponse.json(
       { error: "Internal server error" },
       { status: 500 }

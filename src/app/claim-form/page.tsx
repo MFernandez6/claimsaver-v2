@@ -22,9 +22,6 @@ import {
   ArrowRight,
   ArrowLeft,
   Loader2,
-  Star,
-  Clock,
-  Bell,
 } from "lucide-react";
 
 interface FloridaNoFaultFormData {
@@ -500,7 +497,7 @@ export default function ClaimFormPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-800">
+    <div className="min-h-screen bg-gradient-to-br from-teal-50 via-emerald-50 to-emerald-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-800">
       {/* Background Pattern */}
       <div className="absolute inset-0 bg-[url('/images/logo-pattern.png')] opacity-5 dark:opacity-10"></div>
 
@@ -510,14 +507,14 @@ export default function ClaimFormPage() {
           <div className="text-center max-w-4xl mx-auto">
             {/* Logo */}
             <div className="mb-6">
-              <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl shadow-lg mb-4">
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-teal-600 to-emerald-600 rounded-2xl shadow-lg mb-4">
                 <FileText className="w-8 h-8 text-white" />
               </div>
               <h1 className="text-5xl font-bold mb-4">
                 <span className="font-bold text-gray-900 dark:text-white">
                   Florida{" "}
                 </span>
-                <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-teal-600 to-emerald-600 bg-clip-text text-transparent">
                   No-Fault
                 </span>
                 <span className="font-bold text-gray-900 dark:text-white">
@@ -533,7 +530,7 @@ export default function ClaimFormPage() {
             {/* Progress Bar */}
             <div className="w-full bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm rounded-full h-4 mb-8 shadow-inner">
               <div
-                className="bg-gradient-to-r from-blue-500 to-purple-600 h-4 rounded-full transition-all duration-700 ease-out shadow-lg"
+                className="bg-gradient-to-r from-teal-500 to-emerald-600 h-4 rounded-full transition-all duration-700 ease-out shadow-lg"
                 style={{ width: `${(currentStep / totalSteps) * 100}%` }}
               ></div>
             </div>
@@ -544,7 +541,7 @@ export default function ClaimFormPage() {
                 <div
                   key={i + 1}
                   className={`flex items-center justify-center w-12 h-12 rounded-full transition-all duration-500 ${i + 1 === currentStep
-                    ? "bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg scale-110"
+                    ? "bg-gradient-to-r from-teal-600 to-emerald-600 text-white shadow-lg scale-110"
                     : i + 1 < currentStep
                       ? "bg-gradient-to-r from-green-500 to-emerald-600 text-white shadow-md"
                       : "bg-white/70 dark:bg-gray-700/70 text-gray-500 dark:text-gray-400 shadow-sm"
@@ -595,16 +592,15 @@ export default function ClaimFormPage() {
       )}
 
       <div className="container mx-auto px-4 pb-12">
-        <div className="relative">
-          <Card className="group relative overflow-hidden border-0 shadow-2xl bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm">
-            <div className="absolute inset-0 bg-gradient-to-r from-blue-600/5 to-purple-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+        <Card className="group relative overflow-hidden border-0 shadow-2xl bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm">
+            <div className="absolute inset-0 bg-gradient-to-r from-teal-600/5 to-emerald-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
             <CardContent className="p-8 relative z-10">
               {/* Step 1: Personal Information */}
               {currentStep === 1 && (
                 <div className="space-y-8">
                   <div className="text-center mb-8">
-                    <div className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-r from-blue-100 to-purple-100 dark:from-blue-900/50 dark:to-purple-900/50 rounded-xl mb-4">
-                      <User className="w-6 h-6 text-blue-400" />
+                    <div className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-r from-teal-100 to-emerald-100 dark:from-teal-900/50 dark:to-emerald-900/50 rounded-xl mb-4">
+                      <User className="w-6 h-6 text-teal-400" />
                     </div>
                     <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
                       Personal Information
@@ -615,7 +611,7 @@ export default function ClaimFormPage() {
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="group">
-                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3 group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors">
                         Full Name *
                       </label>
                       <Input
@@ -624,11 +620,11 @@ export default function ClaimFormPage() {
                           handleInputChange("claimantName", e.target.value)
                         }
                         placeholder="Enter your full name"
-                        className="w-full border-2 border-gray-200 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-400 focus:ring-2 focus:ring-blue-500/20 dark:focus:ring-blue-400/20 transition-all duration-200 bg-white/50 dark:bg-gray-700/50 backdrop-blur-sm"
+                        className="w-full border-2 border-gray-200 dark:border-gray-600 focus:border-teal-500 dark:focus:border-teal-400 focus:ring-2 focus:ring-teal-500/20 dark:focus:ring-teal-400/20 transition-all duration-200 bg-white/50 dark:bg-gray-700/50 backdrop-blur-sm"
                       />
                     </div>
                     <div className="group">
-                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3 group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors">
                         Email Address *
                       </label>
                       <Input
@@ -638,11 +634,11 @@ export default function ClaimFormPage() {
                           handleInputChange("claimantEmail", e.target.value)
                         }
                         placeholder="Enter your email"
-                        className="w-full border-2 border-gray-200 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-400 focus:ring-2 focus:ring-blue-500/20 dark:focus:ring-blue-400/20 transition-all duration-200 bg-white/50 dark:bg-gray-700/50 backdrop-blur-sm"
+                        className="w-full border-2 border-gray-200 dark:border-gray-600 focus:border-teal-500 dark:focus:border-teal-400 focus:ring-2 focus:ring-teal-500/20 dark:focus:ring-teal-400/20 transition-all duration-200 bg-white/50 dark:bg-gray-700/50 backdrop-blur-sm"
                       />
                     </div>
                     <div className="group">
-                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3 group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors">
                         Phone Number *
                       </label>
                       <Input
@@ -652,11 +648,11 @@ export default function ClaimFormPage() {
                           handleInputChange("claimantPhone", e.target.value)
                         }
                         placeholder="Enter your phone number"
-                        className="w-full border-2 border-gray-200 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-400 focus:ring-2 focus:ring-blue-500/20 dark:focus:ring-blue-400/20 transition-all duration-200 bg-white/50 dark:bg-gray-700/50 backdrop-blur-sm"
+                        className="w-full border-2 border-gray-200 dark:border-gray-600 focus:border-teal-500 dark:focus:border-teal-400 focus:ring-2 focus:ring-teal-500/20 dark:focus:ring-teal-400/20 transition-all duration-200 bg-white/50 dark:bg-gray-700/50 backdrop-blur-sm"
                       />
                     </div>
                     <div className="group">
-                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3 group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors">
                         Date of Birth *
                       </label>
                       <Input
@@ -665,12 +661,12 @@ export default function ClaimFormPage() {
                         onChange={(e) =>
                           handleInputChange("claimantDOB", e.target.value)
                         }
-                        className="w-full border-2 border-gray-200 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-400 focus:ring-2 focus:ring-blue-500/20 dark:focus:ring-blue-400/20 transition-all duration-200 bg-white/50 dark:bg-gray-700/50 backdrop-blur-sm"
+                        className="w-full border-2 border-gray-200 dark:border-gray-600 focus:border-teal-500 dark:focus:border-teal-400 focus:ring-2 focus:ring-teal-500/20 dark:focus:ring-teal-400/20 transition-all duration-200 bg-white/50 dark:bg-gray-700/50 backdrop-blur-sm"
                       />
                     </div>
                   </div>
                   <div className="group">
-                    <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                    <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3 group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors">
                       Current Address *
                     </label>
                     <Textarea
@@ -680,7 +676,7 @@ export default function ClaimFormPage() {
                       }
                       placeholder="Enter your current address"
                       rows={3}
-                      className="w-full border-2 border-gray-200 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-400 focus:ring-2 focus:ring-blue-500/20 dark:focus:ring-blue-400/20 transition-all duration-200 bg-white/50 dark:bg-gray-700/50 backdrop-blur-sm resize-none"
+                      className="w-full border-2 border-gray-200 dark:border-gray-600 focus:border-teal-500 dark:focus:border-teal-400 focus:ring-2 focus:ring-teal-500/20 dark:focus:ring-teal-400/20 transition-all duration-200 bg-white/50 dark:bg-gray-700/50 backdrop-blur-sm resize-none"
                     />
                   </div>
                 </div>
@@ -1265,14 +1261,14 @@ export default function ClaimFormPage() {
                           Important Legal Notice
                         </h4>
                         <p className="text-sm text-red-700 dark:text-red-300">
-                          This insurance information disclosure authorization
-                          allows ClaimSaver+ to receive
-                          claim updates and information from your insurance
-                          company. By signing this form, you are giving explicit
-                          permission for your insurance company to share claim
-                          information with us. This authorization is necessary
-                          to provide you with comprehensive claim support and
-                          ensure you receive all updates regarding your case.
+                          This authorization allows your insurer to disclose
+                          claim-related information to ClaimSaver+ so it can be
+                          stored in your secure account for your own use in
+                          preparing your PIP claim. ClaimSaver+ is a self-help
+                          platform—we do not negotiate with your insurer or act
+                          as your representative. By signing, you direct your
+                          insurer to share information with the platform as you
+                          designate below.
                         </p>
                       </div>
                     </div>
@@ -1579,12 +1575,11 @@ export default function ClaimFormPage() {
 
                     <div className="bg-green-50 dark:bg-green-950/30 rounded-lg p-4 mb-4">
                       <p className="text-sm text-green-800 dark:text-green-200">
-                        <strong>Purpose:</strong> This information is being
-                        requested to provide comprehensive claim support and
-                        ensure you receive all updates regarding your accident
-                        claim. ClaimSaver+ will use this information to assist
-                        with your claim processing and keep you informed of all
-                        developments.
+                        <strong>Purpose:</strong> This information helps you
+                        organize your own no-fault claim in ClaimSaver+—for
+                        example, storing claim status updates in your account.
+                        The platform does not process claims on your behalf or
+                        communicate with your insurer as your agent.
                       </p>
                     </div>
 
@@ -1600,7 +1595,7 @@ export default function ClaimFormPage() {
                             e.target.value
                           )
                         }
-                        placeholder="Comprehensive claim support and claim status updates"
+                        placeholder="e.g., Personal use—organizing my PIP claim in ClaimSaver+"
                         rows={3}
                         className="w-full border-2 border-gray-200 dark:border-gray-600 focus:border-green-500 dark:focus:border-green-400 focus:ring-2 focus:ring-green-500/20 dark:focus:ring-green-400/20 transition-all duration-200 bg-white/50 dark:bg-gray-700/50 backdrop-blur-sm"
                       />
@@ -1615,10 +1610,11 @@ export default function ClaimFormPage() {
 
                     <div className="bg-green-50 dark:bg-green-950/30 rounded-lg p-4 mb-4">
                       <p className="text-sm text-green-800 dark:text-green-200">
-                        <strong>Recipient:</strong> ClaimSaver+
-                        network will receive this information to provide
-                        comprehensive claim support and keep you informed of all
-                        claim developments.
+                        <strong>Recipient:</strong> ClaimSaver+ (the platform)
+                        may receive this information only so you can access it in
+                        your account. We do not act as a public adjuster or
+                        attorney for you unless you separately engage licensed
+                        professionals.
                       </p>
                     </div>
 
@@ -1635,7 +1631,7 @@ export default function ClaimFormPage() {
                               e.target.value
                             )
                           }
-                          placeholder="ClaimSaver+ Legal Team"
+                          placeholder="ClaimSaver+ (platform operator)"
                           className="w-full border-2 border-gray-200 dark:border-gray-600 focus:border-green-500 dark:focus:border-green-400 focus:ring-2 focus:ring-green-500/20 dark:focus:ring-green-400/20 transition-all duration-200 bg-white/50 dark:bg-gray-700/50 backdrop-blur-sm"
                         />
                       </div>
@@ -2013,8 +2009,8 @@ export default function ClaimFormPage() {
               {currentStep === 8 && (
                 <div className="space-y-8">
                   <div className="text-center mb-8">
-                    <div className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-r from-blue-100 to-purple-100 dark:from-blue-900/50 dark:to-purple-900/50 rounded-xl mb-4">
-                      <Shield className="w-6 h-6 text-blue-400" />
+                    <div className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-r from-teal-100 to-emerald-100 dark:from-teal-900/50 dark:to-emerald-900/50 rounded-xl mb-4">
+                      <Shield className="w-6 h-6 text-teal-400" />
                     </div>
                     <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
                       HIPAA Authorization Form
@@ -2045,14 +2041,13 @@ export default function ClaimFormPage() {
                           Important Legal Notice
                         </h4>
                         <p className="text-sm text-red-700 dark:text-red-300">
-                          This HIPAA authorization form allows ClaimSaver+ and
-                          ClaimSaver+ to access your health information
-                          for the purpose of processing your accident claim. By
-                          signing this form, you are giving explicit permission
-                          for healthcare providers to release your medical
-                          records to us. This authorization is required by
-                          federal law (HIPAA) and is necessary to pursue your
-                          claim effectively.
+                          This HIPAA authorization lets providers release your
+                          health information to ClaimSaver+ so it can be stored in
+                          your secure account for your own use (for example,
+                          assembling records for your PIP claim). ClaimSaver+ does
+                          not provide medical or legal advice. By signing, you
+                          permit disclosure to the recipient you name below, as
+                          allowed under HIPAA.
                         </p>
                       </div>
                     </div>
@@ -2066,7 +2061,7 @@ export default function ClaimFormPage() {
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div className="group">
-                        <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                        <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3 group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors">
                           Patient Name *
                         </label>
                         <Input
@@ -2078,12 +2073,12 @@ export default function ClaimFormPage() {
                             )
                           }
                           placeholder="Enter your full name"
-                          className="w-full border-2 border-gray-200 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-400 focus:ring-2 focus:ring-blue-500/20 dark:focus:ring-blue-400/20 transition-all duration-200 bg-white/50 dark:bg-gray-700/50 backdrop-blur-sm"
+                          className="w-full border-2 border-gray-200 dark:border-gray-600 focus:border-teal-500 dark:focus:border-teal-400 focus:ring-2 focus:ring-teal-500/20 dark:focus:ring-teal-400/20 transition-all duration-200 bg-white/50 dark:bg-gray-700/50 backdrop-blur-sm"
                         />
                       </div>
 
                       <div className="group">
-                        <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                        <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3 group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors">
                           Healthcare Provider/Organization *
                         </label>
                         <Input
@@ -2095,7 +2090,7 @@ export default function ClaimFormPage() {
                             )
                           }
                           placeholder="Enter healthcare provider name"
-                          className="w-full border-2 border-gray-200 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-400 focus:ring-2 focus:ring-blue-500/20 dark:focus:ring-blue-400/20 transition-all duration-200 bg-white/50 dark:bg-gray-700/50 backdrop-blur-sm"
+                          className="w-full border-2 border-gray-200 dark:border-gray-600 focus:border-teal-500 dark:focus:border-teal-400 focus:ring-2 focus:ring-teal-500/20 dark:focus:ring-teal-400/20 transition-all duration-200 bg-white/50 dark:bg-gray-700/50 backdrop-blur-sm"
                         />
                       </div>
                     </div>
@@ -2107,8 +2102,8 @@ export default function ClaimFormPage() {
                       Section II - Health Information to be Disclosed
                     </h4>
 
-                    <div className="bg-blue-50 dark:bg-blue-950/30 rounded-lg p-4 mb-4">
-                      <p className="text-sm text-blue-800 dark:text-blue-200 mb-4">
+                    <div className="bg-teal-50 dark:bg-teal-950/30 rounded-lg p-4 mb-4">
+                      <p className="text-sm text-teal-800 dark:text-teal-200 mb-4">
                         <strong>What this means:</strong> You are authorizing
                         the release of your complete health record related to
                         the accident and any subsequent treatment. This includes
@@ -2131,7 +2126,7 @@ export default function ClaimFormPage() {
                               e.target.value
                             )
                           }
-                          className="mt-1 w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
+                          className="mt-1 w-4 h-4 text-teal-600 border-gray-300 focus:ring-teal-500"
                         />
                         <label
                           htmlFor="disclosureComplete"
@@ -2157,7 +2152,7 @@ export default function ClaimFormPage() {
                               e.target.value
                             )
                           }
-                          className="mt-1 w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
+                          className="mt-1 w-4 h-4 text-teal-600 border-gray-300 focus:ring-teal-500"
                         />
                         <label
                           htmlFor="disclosurePartial"
@@ -2193,7 +2188,7 @@ export default function ClaimFormPage() {
                                   newExcluded
                                 );
                               }}
-                              className="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
+                              className="w-4 h-4 text-teal-600 border-gray-300 focus:ring-teal-500"
                             />
                             <label
                               htmlFor="excludeMentalHealth"
@@ -2223,7 +2218,7 @@ export default function ClaimFormPage() {
                                   newExcluded
                                 );
                               }}
-                              className="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
+                              className="w-4 h-4 text-teal-600 border-gray-300 focus:ring-teal-500"
                             />
                             <label
                               htmlFor="excludeCommunicable"
@@ -2254,7 +2249,7 @@ export default function ClaimFormPage() {
                                   newExcluded
                                 );
                               }}
-                              className="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
+                              className="w-4 h-4 text-teal-600 border-gray-300 focus:ring-teal-500"
                             />
                             <label
                               htmlFor="excludeSubstanceAbuse"
@@ -2281,7 +2276,7 @@ export default function ClaimFormPage() {
                                   newExcluded
                                 );
                               }}
-                              className="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
+                              className="w-4 h-4 text-teal-600 border-gray-300 focus:ring-teal-500"
                             />
                             <label
                               htmlFor="excludeGenetic"
@@ -2314,7 +2309,7 @@ export default function ClaimFormPage() {
                                 e.target.value
                               )
                             }
-                            className="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
+                            className="w-4 h-4 text-teal-600 border-gray-300 focus:ring-teal-500"
                           />
                           <label
                             htmlFor="disclosureElectronic"
@@ -2338,7 +2333,7 @@ export default function ClaimFormPage() {
                                 e.target.value
                               )
                             }
-                            className="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
+                            className="w-4 h-4 text-teal-600 border-gray-300 focus:ring-teal-500"
                           />
                           <label
                             htmlFor="disclosureHardCopy"
@@ -2357,18 +2352,18 @@ export default function ClaimFormPage() {
                       Section III - Reason for Disclosure
                     </h4>
 
-                    <div className="bg-blue-50 dark:bg-blue-950/30 rounded-lg p-4 mb-4">
-                      <p className="text-sm text-blue-800 dark:text-blue-200">
-                        <strong>Purpose:</strong> This authorization is for the
-                        purpose of processing your accident claim, including but
-                        not limited to: claim evaluation, settlement
-                        negotiations, legal proceedings, and coordination with
-                        healthcare providers and insurance companies.
+                    <div className="bg-teal-50 dark:bg-teal-950/30 rounded-lg p-4 mb-4">
+                      <p className="text-sm text-teal-800 dark:text-teal-200">
+                        <strong>Purpose:</strong> General description: obtaining
+                        records related to your accident so you can organize and
+                        submit your own PIP materials. ClaimSaver+ does not
+                        evaluate claims, negotiate settlements, or represent you
+                        in legal proceedings—you choose how to use your records.
                       </p>
                     </div>
 
                     <div className="group">
-                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3 group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors">
                         Reason for Disclosure *
                       </label>
                       <textarea
@@ -2381,7 +2376,7 @@ export default function ClaimFormPage() {
                         }
                         placeholder="Please detail the reasons why information is being shared. If you are initiating the request for sharing information and do not wish to list the reasons for sharing, write 'at my request'."
                         rows={4}
-                        className="w-full border-2 border-gray-200 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-400 focus:ring-2 focus:ring-blue-500/20 dark:focus:ring-blue-400/20 transition-all duration-200 bg-white/50 dark:bg-gray-700/50 backdrop-blur-sm rounded-lg p-3 resize-none"
+                        className="w-full border-2 border-gray-200 dark:border-gray-600 focus:border-teal-500 dark:focus:border-teal-400 focus:ring-2 focus:ring-teal-500/20 dark:focus:ring-teal-400/20 transition-all duration-200 bg-white/50 dark:bg-gray-700/50 backdrop-blur-sm rounded-lg p-3 resize-none"
                       />
                     </div>
                   </div>
@@ -2392,19 +2387,18 @@ export default function ClaimFormPage() {
                       Section IV - Who Can Receive My Health Information
                     </h4>
 
-                    <div className="bg-blue-50 dark:bg-blue-950/30 rounded-lg p-4 mb-4">
-                      <p className="text-sm text-blue-800 dark:text-blue-200">
-                        <strong>Recipients:</strong> ClaimSaver+ and our
-                        ClaimSaver+ will receive your health information
-                        for the purpose of processing your claim. We maintain
-                        strict confidentiality and security protocols to protect
-                        your information.
+                    <div className="bg-teal-50 dark:bg-teal-950/30 rounded-lg p-4 mb-4">
+                      <p className="text-sm text-teal-800 dark:text-teal-200">
+                        <strong>Recipients:</strong> ClaimSaver+ may receive your
+                        health information only for storage and organization in
+                        your account as part of the self-help platform. We are not
+                        your treating provider or legal representative.
                       </p>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div className="group">
-                        <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                        <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3 group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors">
                           Recipient Name *
                         </label>
                         <Input
@@ -2416,12 +2410,12 @@ export default function ClaimFormPage() {
                             )
                           }
                           placeholder="Enter recipient name"
-                          className="w-full border-2 border-gray-200 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-400 focus:ring-2 focus:ring-blue-500/20 dark:focus:ring-blue-400/20 transition-all duration-200 bg-white/50 dark:bg-gray-700/50 backdrop-blur-sm"
+                          className="w-full border-2 border-gray-200 dark:border-gray-600 focus:border-teal-500 dark:focus:border-teal-400 focus:ring-2 focus:ring-teal-500/20 dark:focus:ring-teal-400/20 transition-all duration-200 bg-white/50 dark:bg-gray-700/50 backdrop-blur-sm"
                         />
                       </div>
 
                       <div className="group">
-                        <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                        <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3 group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors">
                           Recipient Organization *
                         </label>
                         <Input
@@ -2433,13 +2427,13 @@ export default function ClaimFormPage() {
                             )
                           }
                           placeholder="ClaimSaver+"
-                          className="w-full border-2 border-gray-200 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-400 focus:ring-2 focus:ring-blue-500/20 dark:focus:ring-blue-400/20 transition-all duration-200 bg-white/50 dark:bg-gray-700/50 backdrop-blur-sm"
+                          className="w-full border-2 border-gray-200 dark:border-gray-600 focus:border-teal-500 dark:focus:border-teal-400 focus:ring-2 focus:ring-teal-500/20 dark:focus:ring-teal-400/20 transition-all duration-200 bg-white/50 dark:bg-gray-700/50 backdrop-blur-sm"
                         />
                       </div>
                     </div>
 
                     <div className="group">
-                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3 group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors">
                         Recipient Address *
                       </label>
                       <Input
@@ -2451,7 +2445,7 @@ export default function ClaimFormPage() {
                           )
                         }
                         placeholder="Enter recipient address"
-                        className="w-full border-2 border-gray-200 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-400 focus:ring-2 focus:ring-blue-500/20 dark:focus:ring-blue-400/20 transition-all duration-200 bg-white/50 dark:bg-gray-700/50 backdrop-blur-sm"
+                        className="w-full border-2 border-gray-200 dark:border-gray-600 focus:border-teal-500 dark:focus:border-teal-400 focus:ring-2 focus:ring-teal-500/20 dark:focus:ring-teal-400/20 transition-all duration-200 bg-white/50 dark:bg-gray-700/50 backdrop-blur-sm"
                       />
                     </div>
                   </div>
@@ -2462,8 +2456,8 @@ export default function ClaimFormPage() {
                       Section V - Duration of Authorization
                     </h4>
 
-                    <div className="bg-blue-50 dark:bg-blue-950/30 rounded-lg p-4 mb-4">
-                      <p className="text-sm text-blue-800 dark:text-blue-200">
+                    <div className="bg-teal-50 dark:bg-teal-950/30 rounded-lg p-4 mb-4">
+                      <p className="text-sm text-teal-800 dark:text-teal-200">
                         <strong>Duration:</strong> This authorization will
                         remain in effect until your claim is resolved or you
                         revoke it in writing. You have the right to revoke this
@@ -2487,7 +2481,7 @@ export default function ClaimFormPage() {
                               e.target.value
                             )
                           }
-                          className="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
+                          className="w-4 h-4 text-teal-600 border-gray-300 focus:ring-teal-500"
                         />
                         <label
                           htmlFor="durationClaim"
@@ -2511,7 +2505,7 @@ export default function ClaimFormPage() {
                               e.target.value
                             )
                           }
-                          className="w-4 h-4 text-blue-600 border-gray-300 focus:ring-blue-500"
+                          className="w-4 h-4 text-teal-600 border-gray-300 focus:ring-teal-500"
                         />
                         <label
                           htmlFor="durationSpecific"
@@ -2523,7 +2517,7 @@ export default function ClaimFormPage() {
                       {formData.hipaaDurationType === "specificDate" && (
                         <div className="ml-7">
                           <div className="group">
-                            <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                            <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3 group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors">
                               End Date *
                             </label>
                             <Input
@@ -2535,7 +2529,7 @@ export default function ClaimFormPage() {
                                   e.target.value
                                 )
                               }
-                              className="w-full border-2 border-gray-200 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-400 focus:ring-2 focus:ring-blue-500/20 dark:focus:ring-blue-400/20 transition-all duration-200 bg-white/50 dark:bg-gray-700/50 backdrop-blur-sm"
+                              className="w-full border-2 border-gray-200 dark:border-gray-600 focus:border-teal-500 dark:focus:border-teal-400 focus:ring-2 focus:ring-teal-500/20 dark:focus:ring-teal-400/20 transition-all duration-200 bg-white/50 dark:bg-gray-700/50 backdrop-blur-sm"
                             />
                           </div>
                         </div>
@@ -2549,8 +2543,8 @@ export default function ClaimFormPage() {
                       Section VI - Revocation Information
                     </h4>
 
-                    <div className="bg-blue-50 dark:bg-blue-950/30 rounded-lg p-4 mb-4">
-                      <p className="text-sm text-blue-800 dark:text-blue-200">
+                    <div className="bg-teal-50 dark:bg-teal-950/30 rounded-lg p-4 mb-4">
+                      <p className="text-sm text-teal-800 dark:text-teal-200">
                         <strong>Your Rights:</strong> You have the right to
                         revoke this authorization at any time by providing
                         written notice to the healthcare provider and
@@ -2561,7 +2555,7 @@ export default function ClaimFormPage() {
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div className="group">
-                        <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                        <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3 group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors">
                           Revocation Contact Name *
                         </label>
                         <Input
@@ -2573,12 +2567,12 @@ export default function ClaimFormPage() {
                             )
                           }
                           placeholder="Enter contact name for revocation"
-                          className="w-full border-2 border-gray-200 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-400 focus:ring-2 focus:ring-blue-500/20 dark:focus:ring-blue-400/20 transition-all duration-200 bg-white/50 dark:bg-gray-700/50 backdrop-blur-sm"
+                          className="w-full border-2 border-gray-200 dark:border-gray-600 focus:border-teal-500 dark:focus:border-teal-400 focus:ring-2 focus:ring-teal-500/20 dark:focus:ring-teal-400/20 transition-all duration-200 bg-white/50 dark:bg-gray-700/50 backdrop-blur-sm"
                         />
                       </div>
 
                       <div className="group">
-                        <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                        <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3 group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors">
                           Revocation Contact Organization *
                         </label>
                         <Input
@@ -2590,13 +2584,13 @@ export default function ClaimFormPage() {
                             )
                           }
                           placeholder="ClaimSaver+"
-                          className="w-full border-2 border-gray-200 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-400 focus:ring-2 focus:ring-blue-500/20 dark:focus:ring-blue-400/20 transition-all duration-200 bg-white/50 dark:bg-gray-700/50 backdrop-blur-sm"
+                          className="w-full border-2 border-gray-200 dark:border-gray-600 focus:border-teal-500 dark:focus:border-teal-400 focus:ring-2 focus:ring-teal-500/20 dark:focus:ring-teal-400/20 transition-all duration-200 bg-white/50 dark:bg-gray-700/50 backdrop-blur-sm"
                         />
                       </div>
                     </div>
 
                     <div className="group">
-                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3 group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors">
                         Revocation Contact Address *
                       </label>
                       <Input
@@ -2608,7 +2602,7 @@ export default function ClaimFormPage() {
                           )
                         }
                         placeholder="Enter revocation contact address"
-                        className="w-full border-2 border-gray-200 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-400 focus:ring-2 focus:ring-blue-500/20 dark:focus:ring-blue-400/20 transition-all duration-200 bg-white/50 dark:bg-gray-700/50 backdrop-blur-sm"
+                        className="w-full border-2 border-gray-200 dark:border-gray-600 focus:border-teal-500 dark:focus:border-teal-400 focus:ring-2 focus:ring-teal-500/20 dark:focus:ring-teal-400/20 transition-all duration-200 bg-white/50 dark:bg-gray-700/50 backdrop-blur-sm"
                       />
                     </div>
                   </div>
@@ -2619,8 +2613,8 @@ export default function ClaimFormPage() {
                       Section VII - Signature
                     </h4>
 
-                    <div className="bg-blue-50 dark:bg-blue-950/30 rounded-lg p-4 mb-4">
-                      <p className="text-sm text-blue-800 dark:text-blue-200">
+                    <div className="bg-teal-50 dark:bg-teal-950/30 rounded-lg p-4 mb-4">
+                      <p className="text-sm text-teal-800 dark:text-teal-200">
                         <strong>Important:</strong> By signing this form, you
                         acknowledge that you have read and understand this
                         authorization, and you voluntarily agree to the
@@ -2631,7 +2625,7 @@ export default function ClaimFormPage() {
 
                     <div className="space-y-4">
                       <div className="group">
-                        <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                        <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3 group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors">
                           Patient/Legal Representative Signature *
                         </label>
                         <div className="border-2 border-gray-200 dark:border-gray-600 rounded-lg p-4 bg-white/50 dark:bg-gray-700/50 backdrop-blur-sm">
@@ -2654,7 +2648,7 @@ export default function ClaimFormPage() {
                           ) : (
                             <button
                               onClick={() => openSignatureModal("hipaaAuth")}
-                              className="w-full py-8 border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg text-gray-500 dark:text-gray-400 hover:border-blue-500 dark:hover:border-blue-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                              className="w-full py-8 border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg text-gray-500 dark:text-gray-400 hover:border-teal-500 dark:hover:border-teal-400 hover:text-teal-600 dark:hover:text-teal-400 transition-colors"
                             >
                               Click to sign
                             </button>
@@ -2663,7 +2657,7 @@ export default function ClaimFormPage() {
                       </div>
 
                       <div className="group">
-                        <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                        <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3 group-hover:text-teal-600 dark:group-hover:text-teal-400 transition-colors">
                           Date *
                         </label>
                         <Input
@@ -2675,7 +2669,7 @@ export default function ClaimFormPage() {
                               e.target.value
                             )
                           }
-                          className="w-full border-2 border-gray-200 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-400 focus:ring-2 focus:ring-blue-500/20 dark:focus:ring-blue-400/20 transition-all duration-200 bg-white/50 dark:bg-gray-700/50 backdrop-blur-sm"
+                          className="w-full border-2 border-gray-200 dark:border-gray-600 focus:border-teal-500 dark:focus:border-teal-400 focus:ring-2 focus:ring-teal-500/20 dark:focus:ring-teal-400/20 transition-all duration-200 bg-white/50 dark:bg-gray-700/50 backdrop-blur-sm"
                         />
                       </div>
                     </div>
@@ -2760,7 +2754,7 @@ export default function ClaimFormPage() {
                   onClick={prevStep}
                   disabled={currentStep === 1}
                   variant="outline"
-                  className="px-8 py-3 border-2 border-gray-300 dark:border-gray-600 hover:border-blue-500 dark:hover:border-blue-400 hover:bg-blue-50 dark:hover:bg-blue-950/50 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="px-8 py-3 border-2 border-gray-300 dark:border-gray-600 hover:border-teal-500 dark:hover:border-teal-400 hover:bg-teal-50 dark:hover:bg-teal-950/50 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   <ArrowLeft className="mr-2 w-5 h-5" />
                   Previous
@@ -2770,7 +2764,7 @@ export default function ClaimFormPage() {
                   <Button
                     onClick={handleSubmit}
                     disabled={loading}
-                    className="px-8 py-3 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+                    className="px-8 py-3 bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-700 hover:to-emerald-700 text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
                   >
                     {loading ? (
                       <>
@@ -2787,7 +2781,7 @@ export default function ClaimFormPage() {
                 ) : (
                   <Button
                     onClick={nextStep}
-                    className="px-8 py-3 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105"
+                    className="px-8 py-3 bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-700 hover:to-emerald-700 text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105"
                   >
                     Next
                     <ArrowRight className="ml-2 w-5 h-5" />
@@ -2796,90 +2790,13 @@ export default function ClaimFormPage() {
               </div>
             </CardContent>
           </Card>
-
-          {/* Public Adjuster License Overlay */}
-          <div className="absolute inset-0 flex items-center justify-center z-20">
-            <div className="bg-white/98 dark:bg-gray-900/98 backdrop-blur-2xl rounded-2xl p-6 shadow-2xl border border-white/20 dark:border-gray-700/20 max-w-sm w-full mx-4 transform scale-105">
-              {/* Animated Background Elements */}
-              <div className="absolute inset-0 overflow-hidden rounded-2xl">
-                <div className="absolute -top-8 -right-8 w-16 h-16 bg-gradient-to-br from-blue-400/20 to-purple-400/20 rounded-full blur-xl animate-pulse"></div>
-                <div className="absolute -bottom-8 -left-8 w-12 h-12 bg-gradient-to-br from-purple-400/20 to-pink-400/20 rounded-full blur-xl animate-pulse delay-1000"></div>
-                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-24 h-24 bg-gradient-to-br from-blue-500/10 to-purple-500/10 rounded-full blur-2xl animate-pulse delay-500"></div>
-              </div>
-
-              {/* Content */}
-              <div className="relative z-10 text-center">
-                {/* Icon with Animation */}
-                <div className="relative mb-4">
-                  <div className="w-16 h-16 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 rounded-full flex items-center justify-center mx-auto shadow-2xl animate-pulse">
-                    <FileText className="w-8 h-8 text-white animate-bounce" />
-                  </div>
-                  <div className="absolute -top-1 -right-1 w-4 h-4 bg-yellow-400 rounded-full flex items-center justify-center animate-ping">
-                    <Star className="w-2 h-2 text-white" />
-                  </div>
-                  <div className="absolute -bottom-1 -left-1 w-4 h-4 bg-pink-400 rounded-full flex items-center justify-center animate-ping delay-300">
-                    <Award className="w-2 h-2 text-white" />
-                  </div>
-                </div>
-
-                {/* Title */}
-                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
-                  Awaiting{" "}
-                  <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent animate-pulse">
-                    License
-                  </span>
-                </h3>
-
-                {/* Subtitle */}
-                <p className="text-base text-gray-600 dark:text-gray-300 mb-4 leading-relaxed">
-                  Our claim form service is temporarily limited while we obtain
-                  our Public Adjuster license for enhanced processing
-                </p>
-
-                {/* Features Preview */}
-                <div className="space-y-2 mb-4">
-                  <div className="flex items-center justify-center gap-2 text-xs text-gray-600 dark:text-gray-400">
-                    <Shield className="w-3 h-3 text-green-400" />
-                    <span>Enhanced claim processing</span>
-                  </div>
-                  <div className="flex items-center justify-center gap-2 text-xs text-gray-600 dark:text-gray-400">
-                    <Clock className="w-3 h-3 text-blue-400" />
-                    <span>Professional adjustment services</span>
-                  </div>
-                  <div className="flex items-center justify-center gap-2 text-xs text-gray-600 dark:text-gray-400">
-                    <Zap className="w-3 h-3 text-yellow-400" />
-                    <span>Full regulatory compliance</span>
-                  </div>
-                </div>
-
-                {/* Notification Button */}
-                <Button className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white py-2 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 group text-sm">
-                  <Bell className="w-3 h-3 mr-2 group-hover:animate-bounce" />
-                  Get Notified When Available
-                </Button>
-
-                {/* Progress Indicator */}
-                <div className="mt-4">
-                  <div className="flex items-center justify-center gap-1 mb-1">
-                    <div className="w-1.5 h-1.5 bg-blue-500 rounded-full animate-pulse"></div>
-                    <div className="w-1.5 h-1.5 bg-purple-500 rounded-full animate-pulse delay-150"></div>
-                    <div className="w-1.5 h-1.5 bg-pink-500 rounded-full animate-pulse delay-300"></div>
-                  </div>
-                  <p className="text-xs text-gray-500 dark:text-gray-400">
-                    License application in progress
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
-      </div>
 
       {/* Signature Modal */}
       {signatureModalOpen && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
           <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl max-w-md w-full mx-4 overflow-hidden">
-            <div className="bg-gradient-to-r from-blue-600 to-purple-600 p-6">
+            <div className="bg-gradient-to-r from-teal-600 to-emerald-600 p-6">
               <div className="flex justify-between items-center">
                 <h3 className="text-xl font-bold text-white">
                   Digital Signature
@@ -2977,7 +2894,7 @@ export default function ClaimFormPage() {
                 </Button>
                 <Button
                   onClick={saveSignature}
-                  className="flex-1 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-200"
+                  className="flex-1 bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-700 hover:to-emerald-700 text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-200"
                 >
                   Save Signature
                 </Button>

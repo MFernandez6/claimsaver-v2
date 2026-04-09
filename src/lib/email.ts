@@ -3,6 +3,7 @@
 
 import { Resend } from "resend";
 import { getFileBuffer } from "./fileStorage";
+import { downloadClaimDocumentBytes } from "./storage/claimDocuments";
 
 interface EmailData {
   to: string;
@@ -29,6 +30,8 @@ interface Document {
   mimeType: string;
   createdAt: string;
   updatedAt: string;
+  /** Supabase Storage path (preferred) */
+  storage_path?: string;
 }
 
 // Initialize Resend client lazily to avoid build-time errors
@@ -192,33 +195,31 @@ The ClaimSaver Team
   // Try to get the file attachment
   const attachments = [];
   try {
-    if (document.url && document.url !== "#") {
-      console.log("Attempting to attach file:", {
-        filePath: document.url,
+    let fileBuffer: Buffer | null = null;
+
+    if (document.storage_path) {
+      fileBuffer = await downloadClaimDocumentBytes(document.storage_path);
+    } else if (document.url && document.url !== "#" && !document.url.startsWith("/api/")) {
+      fileBuffer = await getFileBuffer(document.url);
+    }
+
+    if (fileBuffer && fileBuffer.length > 0) {
+      console.log("Attaching file:", {
         fileName: document.fileName,
         mimeType: document.mimeType,
+        bytes: fileBuffer.length,
       });
-
-      const fileBuffer = await getFileBuffer(document.url);
-      console.log(
-        "File buffer retrieved successfully, size:",
-        fileBuffer.length
-      );
 
       attachments.push({
         filename: document.fileName,
         content: fileBuffer,
         contentType: document.mimeType,
       });
-
-      console.log("File attached successfully to email");
     } else {
-      console.log("No file path available for attachment");
+      console.log("No file bytes available for attachment");
     }
   } catch (error) {
     console.error("Error reading file for attachment:", error);
-    console.error("File path was:", document.url);
-    // Continue without attachment if file can't be read
   }
 
   return {
