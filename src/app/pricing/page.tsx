@@ -270,7 +270,7 @@ export default function Pricing() {
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-24">
           <div className="text-center max-w-4xl mx-auto">
-            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
+            <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 dark:text-white mb-6 leading-tight text-balance px-1">
               {t("pricing.title")
                 .split(", ")
                 .map((part, index) => (
@@ -335,13 +335,13 @@ export default function Pricing() {
                         onClick={() => toggleService(service.id)}
                       >
                         <CardContent className="p-4">
-                          <div className="flex items-center justify-between">
-                            <div className="flex items-center gap-4">
-                              <div className="w-10 h-10 bg-gradient-to-r from-teal-500 to-teal-700 rounded-lg flex items-center justify-center text-white">
+                          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                            <div className="flex min-w-0 items-start gap-3 sm:gap-4">
+                              <div className="w-10 h-10 shrink-0 bg-gradient-to-r from-teal-500 to-teal-700 rounded-lg flex items-center justify-center text-white">
                                 {service.icon}
                               </div>
-                              <div>
-                                <h3 className="text-lg font-semibold text-gray-900 dark:text-white text-left">
+                              <div className="min-w-0">
+                                <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white text-left">
                                   {service.name}
                                 </h3>
                                 <p className="text-gray-600 dark:text-gray-300 text-sm text-left">
@@ -349,8 +349,8 @@ export default function Pricing() {
                                 </p>
                               </div>
                             </div>
-                            <div className="flex items-center gap-4">
-                              <div className="text-right">
+                            <div className="flex shrink-0 items-center justify-between gap-4 border-t border-gray-100 pt-3 sm:border-t-0 sm:pt-0 sm:justify-end dark:border-gray-700/80">
+                              <div className="text-left sm:text-right">
                                 <div className="text-xl font-bold text-gray-900 dark:text-white">
                                   ${service.price.toFixed(2)}
                                 </div>
@@ -359,7 +359,7 @@ export default function Pricing() {
                                 </div>
                               </div>
                               <div
-                                className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${selectedServices.includes(service.id)
+                                className={`w-5 h-5 shrink-0 rounded-full border-2 flex items-center justify-center ${selectedServices.includes(service.id)
                                   ? "bg-teal-500 border-teal-500"
                                   : "border-gray-300 dark:border-gray-600"
                                   }`}

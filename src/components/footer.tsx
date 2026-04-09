@@ -30,22 +30,24 @@ export default function Footer() {
 
     return (
       <div
-        className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-in fade-in duration-300"
+        className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-3 sm:p-4 animate-in fade-in duration-300"
         onClick={onClose}
       >
         <div
-          className="bg-white dark:bg-gray-900 rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden shadow-2xl border border-gray-200 dark:border-gray-700 animate-in zoom-in-95 duration-300"
+          className="bg-white dark:bg-gray-900 rounded-2xl max-w-4xl w-full min-w-0 max-h-[min(90dvh,90vh)] overflow-hidden shadow-2xl border border-gray-200 dark:border-gray-700 animate-in zoom-in-95 duration-300"
           onClick={(e) => e.stopPropagation()}
         >
           {/* Header with gradient */}
           <div className="bg-gradient-to-r from-teal-600 to-teal-800 p-6 text-white relative">
-            <div className="flex items-center justify-between">
-              <h2 className="text-2xl font-black tracking-tight">{title}</h2>
+            <div className="flex items-start justify-between gap-3">
+              <h2 className="text-lg sm:text-2xl font-black tracking-tight min-w-0 pr-2 break-words">
+                {title}
+              </h2>
               <Button
                 variant="ghost"
                 size="sm"
                 onClick={onClose}
-                className="text-white hover:bg-white/20 rounded-full w-10 h-10 p-0 transition-all duration-300 hover:scale-110"
+                className="shrink-0 text-white hover:bg-white/20 rounded-full w-10 h-10 p-0 transition-all duration-300 hover:scale-110"
               >
                 <X className="w-5 h-5" />
               </Button>
@@ -56,7 +58,7 @@ export default function Footer() {
           </div>
 
           {/* Content */}
-          <div className="p-8 overflow-y-auto max-h-[calc(90vh-120px)] bg-gradient-to-br from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
+          <div className="p-4 sm:p-8 overflow-y-auto overscroll-contain max-h-[min(calc(90dvh-8rem),calc(90vh-8rem))] bg-gradient-to-br from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
             <div className="prose prose-gray dark:prose-invert max-w-none">
               <div className="space-y-8">{children}</div>
             </div>
@@ -90,7 +92,7 @@ export default function Footer() {
               <div className="flex items-center">
                 <BrandLogo variant="footer" />
               </div>
-              <p className="text-teal-100/60 text-sm leading-relaxed max-w-[220px]">
+              <p className="text-teal-100/60 text-sm leading-relaxed max-w-full sm:max-w-[220px]">
                 Guided PIP claim filing for Florida drivers. Secure documents. Smart tools. Flat pricing.
               </p>
             </div>

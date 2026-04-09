@@ -106,16 +106,16 @@ export default function Home() {
       {/* Welcome Banner for Authenticated Users */}
       {isLoaded && user && showWelcomeBanner && (
         <div className="fixed top-16 left-0 right-0 z-50 bg-gradient-to-r from-emerald-600 to-teal-900 text-white px-4 py-3 shadow-lg">
-          <div className="max-w-7xl mx-auto flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <HomeIcon className="w-5 h-5" />
-              <span className="font-medium">
+          <div className="max-w-7xl mx-auto flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex min-w-0 items-start gap-3 sm:items-center">
+              <HomeIcon className="w-5 h-5 shrink-0 mt-0.5 sm:mt-0" />
+              <span className="font-medium text-sm sm:text-base break-words">
                 Welcome back,{" "}
                 {user.firstName || user.emailAddresses[0]?.emailAddress}! Ready
                 to manage your claims?
               </span>
             </div>
-            <div className="flex items-center gap-2">
+            <div className="flex shrink-0 flex-wrap items-center gap-2 sm:justify-end">
               <Button
                 size="sm"
                 variant="secondary"
@@ -365,11 +365,11 @@ export default function Home() {
                 ))}
               </div>
 
-              <div className="mt-8 flex items-center gap-6">
+              <div className="mt-8 flex flex-col gap-6 sm:flex-row sm:items-center">
                 <Button
                   size="lg"
                   onClick={handleGetStarted}
-                  className="bg-gradient-to-r from-emerald-600 to-teal-800 hover:from-emerald-700 hover:to-teal-900 text-white px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+                  className="w-full sm:w-auto bg-gradient-to-r from-emerald-600 to-teal-800 hover:from-emerald-700 hover:to-teal-900 text-white px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
                 >
                   {t("home.whyChoose.getStarted")}
                   <ArrowRight className="ml-2 w-5 h-5" />
@@ -387,8 +387,8 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="relative">
-              <div className="bg-gradient-to-br from-emerald-600 to-teal-900 rounded-3xl p-8 text-white shadow-2xl">
+            <div className="relative pb-28 sm:pb-24 lg:pb-16">
+              <div className="bg-gradient-to-br from-emerald-600 to-teal-900 rounded-3xl p-6 sm:p-8 text-white shadow-2xl">
                 <div className="flex items-center gap-3 mb-6">
                   <Calculator className="w-8 h-8" />
                   <h3 className="text-2xl font-bold">
@@ -396,27 +396,27 @@ export default function Home() {
                   </h3>
                 </div>
                 <div className="space-y-6">
-                  <div className="flex items-center justify-between gap-4">
-                    <span className="text-lg">
+                  <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
+                    <span className="text-base sm:text-lg min-w-0">
                       {t("home.stats.recoveryTime")}
                     </span>
-                    <span className="text-2xl font-bold text-right">
+                    <span className="text-xl sm:text-2xl font-bold sm:text-right shrink-0">
                       {t("home.stats.recoveryTimeValue")}
                     </span>
                   </div>
-                  <div className="flex items-center justify-between gap-4">
-                    <span className="text-lg">
+                  <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
+                    <span className="text-base sm:text-lg min-w-0">
                       {t("home.stats.successRate")}
                     </span>
-                    <span className="text-2xl font-bold text-right">
+                    <span className="text-xl sm:text-2xl font-bold sm:text-right shrink-0">
                       {t("home.stats.successRateValue")}
                     </span>
                   </div>
-                  <div className="flex items-center justify-between gap-4">
-                    <span className="text-lg">
+                  <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
+                    <span className="text-base sm:text-lg min-w-0">
                       {t("home.stats.satisfaction")}
                     </span>
-                    <span className="text-2xl font-bold text-right">
+                    <span className="text-xl sm:text-2xl font-bold sm:text-right shrink-0">
                       {t("home.stats.satisfactionValue")}
                     </span>
                   </div>
@@ -427,8 +427,8 @@ export default function Home() {
               </div>
 
               {/* Flat Fee Card - Repositioned to middle lower part */}
-              <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-xl border border-gray-200 dark:border-gray-700">
-                <div className="flex items-center gap-3">
+              <div className="absolute -bottom-8 left-1/2 w-[min(100%,20rem)] max-w-[calc(100vw-2rem)] -translate-x-1/2 bg-white dark:bg-gray-800 rounded-2xl p-4 sm:p-6 shadow-xl border border-gray-200 dark:border-gray-700">
+                <div className="flex items-center gap-3 min-w-0">
                   <div className="w-12 h-12 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center">
                     <CheckCircle className="w-6 h-6 text-green-600" />
                   </div>
