@@ -1,6 +1,8 @@
--- ClaimSaver+ — Supabase Postgres + Storage (Clerk handles sign-in; store clerk_id in profiles)
--- Apply in Supabase Dashboard → SQL Editor, or: supabase db push
-
+-- ClaimSaver+ — Supabase Postgres + Storage (Clerk sign-in; clerk_id in profiles)
+-- Apply in SQL Editor: paste full file; do not paste the filename as line 1 (no 001_initial...).
+-- If you see "trailing junk after numeric literal", delete any line that is only the .sql filename.
+-- Tables: profiles, claims, claim_documents, calendar_events; storage bucket claim-documents
+--
 create table if not exists public.profiles (
   id uuid primary key default gen_random_uuid(),
   clerk_id text not null unique,

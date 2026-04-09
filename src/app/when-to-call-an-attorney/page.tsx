@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import { AlertTriangle, ArrowLeft } from "lucide-react";
 
-export default function NeedProfessionalHelpPage() {
+export default function WhenToCallAttorneyPage() {
   const { t } = useTranslation();
 
   const bullets = ["serious", "denied", "multi", "advice"] as const;
@@ -52,7 +52,9 @@ export default function NeedProfessionalHelpPage() {
               </Link>
             </Button>
             <Button asChild>
-              <Link href="/how-it-works">How self-help works</Link>
+              <Link href="/how-it-works">
+                {t("pages.needProfessionalHelp.ctaHowItWorks")}
+              </Link>
             </Button>
           </div>
         </div>

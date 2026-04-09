@@ -19,13 +19,13 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://claimsaverplus.net"),
-  title: "ClaimSaver+ — Self-help Florida PIP claim tools",
+  title: "ClaimSaver+ — Guided Florida PIP claim filing tools",
   description:
-    "Guided no-fault (PIP) forms, document storage, and tracking so you can file your own Florida motor vehicle claim. Not a law firm; not legal advice.",
+    "Professional-grade no-fault (PIP) tools: guided forms, secure storage, and tracking for your Florida motor vehicle claim. Not a law firm; not legal advice.",
   openGraph: {
-    title: "ClaimSaver+ — Self-help Florida PIP claim tools",
+    title: "ClaimSaver+ — Guided Florida PIP claim filing tools",
     description:
-      "Guided no-fault (PIP) forms, document storage, and tracking so you can file your own Florida motor vehicle claim. Not a law firm; not legal advice.",
+      "Professional-grade no-fault (PIP) tools: guided forms, secure storage, and tracking for your Florida motor vehicle claim. Not a law firm; not legal advice.",
     url: "https://claimsaverplus.net",
     siteName: "ClaimSaver+",
     images: [
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
         url: "/images/brand/claimsaver-social-banner-concept-01.png",
         width: 1200,
         height: 630,
-        alt: "ClaimSaver+ — Self-help Florida PIP claim tools",
+        alt: "ClaimSaver+ — Guided Florida PIP claim filing tools",
       },
     ],
     locale: "en_US",
@@ -41,9 +41,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "ClaimSaver+ — Self-help Florida PIP claim tools",
+    title: "ClaimSaver+ — Guided Florida PIP claim filing tools",
     description:
-      "Guided no-fault (PIP) forms, document storage, and tracking so you can file your own Florida motor vehicle claim.",
+      "Professional-grade no-fault (PIP) tools: guided forms, secure storage, and tracking for your Florida motor vehicle claim.",
     images: ["/images/brand/claimsaver-social-banner-concept-01.png"],
   },
 };

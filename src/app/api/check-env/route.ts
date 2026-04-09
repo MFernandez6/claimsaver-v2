@@ -1,5 +1,18 @@
 import { NextResponse } from "next/server";
 
+/** Host only — never return credentials from MONGODB_URI */
+function mongoConnectionHost(uri: string | undefined): string | null {
+  if (!uri) return null;
+  try {
+    const normalized = uri
+      .replace(/^mongodb\+srv:\/\//i, "https://")
+      .replace(/^mongodb:\/\//i, "https://");
+    return new URL(normalized).hostname;
+  } catch {
+    return "configured";
+  }
+}
+
 export async function GET() {
   const envCheck = {
     timestamp: new Date().toISOString(),
@@ -18,9 +31,7 @@ export async function GET() {
     },
     database: {
       hasMongoUri: !!process.env.MONGODB_URI,
-      mongoUriPreview: process.env.MONGODB_URI
-        ? process.env.MONGODB_URI.substring(0, 30) + "..."
-        : "Not set",
+      mongoHost: mongoConnectionHost(process.env.MONGODB_URI),
       supabase: {
         hasUrl: !!process.env.NEXT_PUBLIC_SUPABASE_URL,
         urlHost: process.env.NEXT_PUBLIC_SUPABASE_URL

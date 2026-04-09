@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { SignInButton, UserButton, useUser, useClerk } from "@clerk/nextjs";
+import { UserButton, useUser, useClerk } from "@clerk/nextjs";
 import {
   Sun,
   Moon,
@@ -51,14 +51,14 @@ function AuthSection() {
           </Button>
         </>
       ) : (
-        <SignInButton mode="modal">
+        <Link href="/claim-form#claim-auth">
           <Button
             size="sm"
             className="bg-gradient-to-r from-teal-500 to-teal-700 hover:from-teal-600 hover:to-teal-800 text-white px-4 py-2 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5"
           >
             {t("navigation.signIn")}
           </Button>
-        </SignInButton>
+        </Link>
       )}
     </div>
   );
@@ -118,7 +118,7 @@ function DashboardLink({ pathname }: { pathname: string }) {
 // Dropdown Menu Component
 
 // Mobile auth section
-function MobileAuthSection() {
+function MobileAuthSection({ onNavigate }: { onNavigate?: () => void }) {
   const { t } = useTranslation();
   const { isSignedIn, isLoaded } = useUser();
   const { signOut } = useClerk();
@@ -154,14 +154,18 @@ function MobileAuthSection() {
           </Button>
         </div>
       ) : (
-        <SignInButton mode="modal">
+        <Link
+          href="/claim-form#claim-auth"
+          className="block w-full"
+          onClick={onNavigate}
+        >
           <Button
             size="sm"
             className="w-full bg-gradient-to-r from-teal-500 to-teal-700 hover:from-teal-600 hover:to-teal-800 text-white px-4 py-2 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300"
           >
             {t("navigation.signIn")}
           </Button>
-        </SignInButton>
+        </Link>
       )}
     </>
   );
@@ -280,6 +284,7 @@ function ThemeToggle() {
 
 export default function Navbar() {
   const { t } = useTranslation();
+  const { isSignedIn } = useUser();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
   const [isClerkAvailable, setIsClerkAvailable] = useState(true);
@@ -384,8 +389,8 @@ export default function Navbar() {
               </Link>
 
               <Link
-                href="/need-professional-help"
-                className={`hidden xl:inline-flex px-4 py-2 text-sm font-medium rounded-lg transition-all duration-300 ${pathname === "/need-professional-help"
+                href="/when-to-call-an-attorney"
+                className={`hidden xl:inline-flex px-4 py-2 text-sm font-medium rounded-lg transition-all duration-300 ${pathname === "/when-to-call-an-attorney"
                   ? "text-teal-600 bg-teal-50 dark:text-teal-400 dark:bg-teal-950/30"
                   : "text-gray-700 hover:text-teal-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-teal-400 dark:hover:bg-gray-800/50"
                   }`}
@@ -403,24 +408,24 @@ export default function Navbar() {
                 {t("navigation.pricing")}
               </Link>
 
-              {/* File Claim CTA Button */}
-              <Link
-                href="/claim-form"
-                className="ml-2 px-5 py-2 text-sm font-semibold rounded-lg bg-gradient-to-r from-teal-600 to-teal-700 hover:from-teal-700 hover:to-teal-800 text-white shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-0.5"
-              >
-                {t("navigation.submitClaim")}
-              </Link>
+              {/* File Claim CTA — hidden when signed in (use Dashboard / claim flow from there) */}
+              {!isSignedIn && (
+                <Link
+                  href="/claim-form"
+                  className="ml-2 px-5 py-2 text-sm font-semibold rounded-lg bg-gradient-to-r from-teal-600 to-teal-700 hover:from-teal-700 hover:to-teal-800 text-white shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-0.5"
+                >
+                  {t("navigation.submitClaim")}
+                </Link>
+              )}
 
               {/* Dashboard Link */}
               {isClerkAvailable && <DashboardLink pathname={pathname} />}
 
               {/* Divider */}
-              <div className="w-px h-6 bg-gray-300 dark:bg-gray-600 mx-2"></div>
+              <div className="w-px h-5 bg-gray-300 dark:bg-gray-600 mx-1 shrink-0" aria-hidden />
 
               {/* Language Switcher */}
-              <div className="hover:scale-105 transition-all duration-300">
-                <LanguageSwitcher />
-              </div>
+              <LanguageSwitcher />
 
               {/* Authentication */}
               {isClerkAvailable && <AuthSection />}
@@ -488,9 +493,9 @@ export default function Navbar() {
                 </Link>
 
                 <Link
-                  href="/need-professional-help"
+                  href="/when-to-call-an-attorney"
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className={`flex items-center gap-3 px-3 py-3 rounded-lg text-base font-medium transition-all duration-300 ${pathname === "/need-professional-help"
+                  className={`flex items-center gap-3 px-3 py-3 rounded-lg text-base font-medium transition-all duration-300 ${pathname === "/when-to-call-an-attorney"
                       ? "text-teal-600 bg-teal-50 dark:text-teal-400 dark:bg-teal-950/30"
                       : "text-gray-700 hover:text-teal-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-teal-400 dark:hover:bg-gray-800/50"
                     }`}
@@ -509,14 +514,16 @@ export default function Navbar() {
                   {t("navigation.pricing")}
                 </Link>
 
-                {/* File Claim CTA Button */}
-                <Link
-                  href="/claim-form"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="flex items-center justify-center gap-3 px-3 py-3 rounded-lg text-base font-semibold bg-gradient-to-r from-teal-600 to-teal-700 hover:from-teal-700 hover:to-teal-800 text-white shadow-md transition-all duration-300"
-                >
-                  {t("navigation.submitClaim")}
-                </Link>
+                {/* File Claim CTA — hidden when signed in */}
+                {!isSignedIn && (
+                  <Link
+                    href="/claim-form"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="flex items-center justify-center gap-3 px-3 py-3 rounded-lg text-base font-semibold bg-gradient-to-r from-teal-600 to-teal-700 hover:from-teal-700 hover:to-teal-800 text-white shadow-md transition-all duration-300"
+                  >
+                    {t("navigation.submitClaim")}
+                  </Link>
+                )}
 
                 {/* Dashboard Link */}
                 {isClerkAvailable && (
@@ -548,7 +555,11 @@ export default function Navbar() {
 
                   {/* Authentication */}
                   <div className="pt-2">
-                    {isClerkAvailable && <MobileAuthSection />}
+                    {isClerkAvailable && (
+                      <MobileAuthSection
+                        onNavigate={() => setIsMobileMenuOpen(false)}
+                      />
+                    )}
                   </div>
                 </div>
               </div>

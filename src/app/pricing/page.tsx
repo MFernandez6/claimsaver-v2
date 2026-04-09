@@ -15,7 +15,6 @@ import {
   Clock,
   ArrowRight,
   Calculator,
-  Award,
   CreditCard,
   FileText,
 } from "lucide-react";
@@ -465,14 +464,14 @@ export default function Pricing() {
 
               <div className="mt-6 rounded-xl border border-teal-200 dark:border-teal-800 bg-teal-50/90 dark:bg-teal-950/40 px-4 py-3 text-center text-sm text-gray-700 dark:text-gray-300">
                 <span className="font-medium text-gray-900 dark:text-white">
-                  Need more than self-help?
+                  Complex claim or disputed coverage?
                 </span>{" "}
                 If your situation may require legal judgment or representation,{" "}
                 <a
-                  href="/need-professional-help"
+                  href="/when-to-call-an-attorney"
                   className="text-teal-600 dark:text-teal-400 font-semibold underline underline-offset-2"
                 >
-                  see options for professional help
+                  see when to call an attorney
                 </a>
                 .
               </div>
@@ -556,7 +555,7 @@ export default function Pricing() {
                     $500.00
                   </div>
                   <p className="text-gray-600 dark:text-gray-300">
-                    {t("pricing.selfHelpSubtitle")}
+                    {t("pricing.platformAccessSubtitle")}
                   </p>
                 </div>
               </CardHeader>
@@ -701,9 +700,9 @@ export default function Pricing() {
           </div>
           <div className="mt-8 p-4 bg-white/10 rounded-lg">
             <div className="flex items-center justify-center gap-2 text-teal-100">
-              <Award className="w-5 h-5" />
+              <CheckCircle className="w-5 h-5" />
               <span className="font-semibold">
-                Flat $500 self-help access • No contingency fee to ClaimSaver+
+                Flat $500 platform access • No contingency fee to ClaimSaver+
               </span>
             </div>
           </div>
@@ -729,11 +728,11 @@ export default function Pricing() {
             <div className="space-y-6">
               <div>
                 <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">
-                  Self-help for Florida PIP
+                  Guided Florida PIP filing
                 </h3>
                 <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
                   ClaimSaver+ provides software and education so you can prepare
-                  and file your own no-fault claim. We do not negotiate with
+                  and file your no-fault claim—you are the filer. We do not negotiate with
                   insurers or provide legal advice. A flat $500 fee buys platform
                   access—compared to typical attorney contingency percentages on
                   the same benefit amount, many users keep more after fees, but
@@ -794,7 +793,7 @@ export default function Pricing() {
                         Organize &amp; validate
                       </h4>
                       <p className="text-sm text-gray-600 dark:text-gray-300">
-                        Upload documents and use validation—you submit your own
+                        Upload documents and use validation—you submit the
                         claim package
                       </p>
                     </div>
@@ -885,7 +884,7 @@ export default function Pricing() {
                   What you get with platform access
                 </h3>
                 <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-                  Software to help you prepare your own Florida no-fault filing:
+                  Software to help you prepare your Florida no-fault filing:
                   guided information entry, document storage, expense tracking,
                   and reminders. We do not communicate with your insurer as your
                   representative or negotiate on your behalf.
@@ -900,11 +899,11 @@ export default function Pricing() {
                     </div>
                     <div className="flex-1">
                       <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-                        Self-help platform access — $500.00
+                        Guided platform access — $500.00
                       </h4>
                       <p className="text-gray-600 dark:text-gray-300 mb-3">
                         Includes guided workflows and tools for you to prepare
-                        your own materials. Does not include representation or
+                        your claim materials. Does not include representation or
                         negotiation. Includes:
                       </p>
                       <ul className="text-sm text-gray-600 dark:text-gray-300 space-y-1">
@@ -1010,7 +1009,7 @@ export default function Pricing() {
                   Understanding our pricing
                 </h3>
                 <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-                  You pay a flat fee for self-help software access—not a
+                  You pay a flat fee for guided platform access—not a
                   percentage of your claim. Compare total costs to other options
                   that may charge contingency fees; your net outcome depends on
                   your facts and coverage.
@@ -1038,7 +1037,7 @@ export default function Pricing() {
                     <li>• Flat $500.00 fee</li>
                     <li>• No hidden costs</li>
                     <li>• No contingency fees</li>
-                    <li>• Self-help platform tools</li>
+                    <li>• Guided claim filing tools</li>
                     <li>• Total: $500.00</li>
                   </ul>
                 </div>

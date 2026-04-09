@@ -25,7 +25,7 @@
     "whatWeDo": "What We Do",
     "howItWorks": "How It Works",
     "learningCenter": "Learning Center",
-    "needProfessionalHelp": "Need Professional Help?",
+    "needProfessionalHelp": "When to Call an Attorney",
     "needHelpShort": "Complex claim?",
     "licenseCredentials": "License & Credentials",
     "contact": "Contact",
@@ -42,21 +42,38 @@
   },
   "home": {
     "hero": {
-      "title": "File Your Own No-Fault Claim.",
+      "title": "File Your Florida No-Fault Claim.",
       "subtitle": "Keep What's Yours.",
-      "description": "The tools and guidance you need to file your own Florida PIP claim, track your recovery, and keep more of your benefits. Flat $500 platform access—not a contingency fee.",
+      "description": "The tools and guidance you need to move your Florida PIP claim forward—track your recovery and keep more of your benefits. Flat $500 platform access—not a contingency fee.",
       "cta": "See How It Works",
       "ctaSecondary": "Start Filing Your Claim",
       "learnMore": "Learn More",
       "watchDemo": "Watch Demo",
-      "imageAlt": "ClaimSaver+ Background"
+      "imageAlt": "ClaimSaver+ Background",
+      "eyebrow": "Florida PIP · Guided claim platform",
+      "visualLabel": "Claim workspace",
+      "visualLive": "Preview",
+      "visualProgressTitle": "Claim progress",
+      "visualProgressSubtitle": "Guided steps · save anytime",
+      "visualStepsDone": "Steps completed",
+      "visualStepsRatio": "5 / 8",
+      "visualStat1": "Forms",
+      "visualStat2": "Docs",
+      "visualStat3": "Timeline",
+      "visualDeadlineTitle": "Next milestone",
+      "visualDeadlineHint": "Deadlines & reminders in one place",
+      "visualDocsTitle": "Forms & uploads",
+      "visualDocsHint": "Encrypted storage for your records",
+      "trust1": "Not a law firm",
+      "trust2": "Flat $500 access",
+      "trust3": "Guided filing—you stay in control"
     },
     "video": {
       "notSupported": "Your browser does not support the video tag."
     },
     "features": {
       "title": "Everything You Need",
-      "subtitle": "Guided tools to file and manage your own Florida PIP claim—forms, storage, tracking, and reminders",
+      "subtitle": "Guided tools to file and manage your Florida PIP claim—forms, storage, tracking, and reminders",
       "feature1": {
         "title": "No-Fault Form Filing",
         "description": "Streamlined form submission with real-time validation and instant confirmation."
@@ -70,14 +87,14 @@
         "description": "Stay informed with instant notifications and case progress tracking."
       },
       "feature5": {
-        "title": "Recovery Tracking",
-        "description": "Monitor your treatment progress, expenses, and claim timeline in one place—with reminders for important deadlines."
+        "title": "Claim progress & timeline",
+        "description": "Track treatment, expenses, and deadlines in one place—with reminders so nothing slips through the cracks."
       }
     },
     "benefits": {
       "benefit1": {
         "title": "You stay in control",
-        "description": "You enter your information and submit your own claim. We provide the guided forms, validation, and organization—not representation."
+        "description": "You enter your information and submit your claim materials. We provide the guided forms, validation, and organization—not representation."
       },
       "benefit3": {
         "title": "Clear fee structure",
@@ -91,7 +108,7 @@
     "whyChoose": {
       "title": "Why Choose",
       "brand": "ClaimSaver+",
-      "description": "A self-help technology platform for Florida no-fault (PIP) claims: guided forms, document storage, expense tracking, and educational resources—so you can file and manage your own claim with confidence.",
+      "description": "Professional-grade claim filing tools for Florida no-fault (PIP): guided forms, secure storage, expense tracking, and education—so you can file and manage your claim with confidence.",
       "getStarted": "Get Started Today",
       "flatFee": "Flat $500 platform access",
       "freeConsultation": "Educational resources & platform walkthrough",
@@ -105,7 +122,7 @@
       "successRateValue": "$3,300",
       "satisfaction": "Flat platform fee",
       "satisfactionValue": "$500",
-      "flatFeeLabel": "Self-help platform fee",
+      "flatFeeLabel": "Flat platform fee",
       "flatFeeValue": "$500",
       "statsNote": "Example assumes a $10,000 PIP benefit and 33% contingency for comparison only—not a guarantee of your outcome."
     },
@@ -125,12 +142,12 @@
       "title": "Frequently Asked Questions",
       "subtitle": "Get answers to the most common questions about ClaimSaver+",
       "legal": {
-        "question": "Is this legal?",
-        "answer": "Yes. ClaimSaver+ is a self-help software platform for Florida motor vehicle no-fault (PIP) claims. We are NOT a law firm and do NOT provide legal advice, claim evaluation, or representation. We do not negotiate with insurers or file claims for you—you use our tools to prepare and organize your own materials. For legal advice about your specific situation, consult a licensed Florida attorney."
+        "question": "What's the difference between ClaimSaver+ and an attorney?",
+        "answer": "ClaimSaver+ is software: guided forms, secure storage, reminders, and education so you can prepare and submit your Florida PIP claim materials. We are not a law firm and do not provide legal advice, evaluate your claim’s merits, negotiate with insurers, or represent you. An attorney can advise on strategy, liability, coverage disputes, and represent you when your situation requires it. For advice about your specific matter, consult a licensed Florida attorney."
       },
       "accidents": {
         "question": "What types of accidents does ClaimSaver+ handle?",
-        "answer": "The platform is designed for Florida motor vehicle-related PIP claims—including car, motorcycle, truck, pedestrian, and bicycle incidents—so you can document and pursue no-fault benefits you are entitled to seek yourself. We do not guarantee outcomes or act as your representative."
+        "answer": "The platform is designed for Florida motor vehicle-related PIP claims—including car, motorcycle, truck, pedestrian, and bicycle incidents—so you can document and pursue no-fault benefits you are entitled to seek under your policy. We do not guarantee outcomes or act as your representative."
       },
       "documents": {
         "question": "Do I need to provide documents for my claim?",
@@ -146,18 +163,18 @@
     "howItWorks": {
       "title": "How It Works",
       "subtitle": "Your claim. Your control. Our tools.",
-      "intro": "ClaimSaver+ helps you file and manage your own Florida PIP claim. We do not file claims for you, negotiate with insurers, or provide legal advice—you use the platform to prepare, organize, and submit your own materials.",
+      "intro": "You handle every step. We provide the platform that makes each step easier.",
       "step1Title": "Create your account & pay for access",
       "step1Body": "Sign in, complete checkout for platform access, and unlock the guided workflows and document tools.",
       "step2Title": "Complete the guided PIP information",
-      "step2Body": "You enter your own details in plain-language, step-by-step screens. We validate formats and required fields—we do not evaluate the merits of your claim.",
+      "step2Body": "Walk through the PIP form one section at a time with plain-language prompts. Built-in validation catches formatting errors and missing fields before you submit.",
       "step3Title": "Upload & organize documents",
-      "step3Body": "Store police reports, medical records, photos, and insurance cards securely. The platform helps you stay organized; we do not act as your representative to third parties.",
+      "step3Body": "Upload police reports, medical records, photos, and insurance documents to your encrypted vault. Everything stays organized and accessible when you need it.",
       "step4Title": "Track deadlines & recovery",
       "step4Body": "Use calendars, reminders, and expense tracking—including awareness of common deadlines like Florida’s 14-day initial treatment rule (general information, not legal advice).",
-      "step5Title": "Compile and submit your claim yourself",
-      "step5Body": "When you are ready, you assemble your package and submit it to your insurer. We do not advocate or negotiate on your behalf.",
-      "disclaimer": "ClaimSaver+ is a self-help technology platform. We are not a law firm and do not provide legal advice, claim evaluation, or representation."
+      "step5Title": "Compile and submit your claim package",
+      "step5Body": "When you’re ready, pull your documents together into a complete claim package and submit it to your insurer.",
+      "disclaimer": "ClaimSaver+ is a guided claim technology platform—not a law firm. We do not provide legal advice, legal representation, claim evaluation, or negotiation with insurers on your behalf. Information on this site is general and educational only. You file your no-fault (PIP) claim using our tools—you are the filer, not ClaimSaver+. For advice about your specific situation, consult a licensed attorney. We do not guarantee any outcome. Optional attorney or other professional referrals may be offered separately where permitted; they are not part of the standard platform fee."
     },
     "learningCenter": {
       "title": "Learning Center",
@@ -165,7 +182,7 @@
       "intro": "These topics explain how no-fault claims often work. Your situation is unique; for advice about your specific case, consult a licensed Florida attorney.",
       "articles": {
         "pipSteps": {
-          "title": "How to file your own PIP claim in Florida (overview)",
+          "title": "How to file a PIP claim in Florida (overview)",
           "summary": "A high-level look at forms, documentation, and timelines—educational only."
         },
         "fourteenDay": {
@@ -174,7 +191,7 @@
         },
         "needLawyer": {
           "title": "Do you need an attorney for every PIP claim?",
-          "summary": "When self-help tools may be enough and when to seek professional help."
+          "summary": "When guided tools may be enough—and when to call a licensed attorney."
         },
         "documents": {
           "title": "Documents often used in no-fault claims",
@@ -185,26 +202,27 @@
           "summary": "Practical tips to stay organized and complete."
         }
       },
-      "footerDisclaimer": "This content is for general educational purposes. ClaimSaver+ is a self-help platform and does not provide legal advice."
+      "footerDisclaimer": "This content is for general educational purposes. ClaimSaver+ is a guided claim platform and does not provide legal advice."
     },
     "needProfessionalHelp": {
-      "title": "Need More Than Self-Help?",
-      "subtitle": "Some situations call for a licensed attorney or other professional",
-      "body": "ClaimSaver+ is built for Floridians who want to file and manage their own no-fault claim using guided tools. If you have a serious injury threshold question, disputed liability, a denied claim, multiple parties, or anything that requires legal judgment, you should speak with a licensed attorney.",
+      "title": "When Your Claim Needs Legal Expertise",
+      "subtitle": "Some claims go beyond standard PIP filing. Here’s how to know if yours is one of them.",
+      "body": "ClaimSaver+ is designed for standard Florida PIP claims—the kind that make up the vast majority of no-fault filings. But some situations involve complexities that go beyond form filing and documentation. Here are signals that your claim may benefit from a licensed attorney:",
       "bullets": {
         "serious": "Serious injury or stepping outside no-fault",
         "denied": "Claim denials or coverage disputes",
         "multi": "Multiple vehicles or complex liability",
         "advice": "Any question that requires legal advice about your specific situation"
       },
-      "closing": "We may offer optional, separately contracted professional services in the future; they will always be clearly distinguished from the self-help platform.",
-      "ctaHome": "Back to home"
+      "closing": "We may offer optional, separately contracted professional services in the future; they will always be clearly distinguished from the standard guided platform.",
+      "ctaHome": "Back to home",
+      "ctaHowItWorks": "How the platform works"
     },
     "licenseCredentials": {
       "title": "License & Credentials",
       "subtitle": "Transparency about what ClaimSaver+ is—and is not",
-      "body": "The ClaimSaver+ product is a self-help software platform. It is not a law firm, not your representative with an insurance company, and not a substitute for legal or adjusting advice when your situation requires it.",
-      "optionalPA": "If optional licensed public adjusting or other professional services are offered later, they will be a separate agreement with separate disclosures—not part of the standard $500 self-help access.",
+      "body": "The ClaimSaver+ product is guided claim software. It is not a law firm, not your representative with an insurance company, and not a substitute for legal or adjusting advice when your situation requires it.",
+      "optionalPA": "If optional licensed public adjusting or other professional services are offered later, they will be a separate agreement with separate disclosures—not part of the standard $500 platform access.",
       "verify": "When applicable, license numbers and verification links will appear here."
     },
     "contact": {
@@ -216,15 +234,15 @@
   },
   "pricing": {
     "title": "Transparent, Fair, and Cost-Effective",
-    "subtitle": "A flat fee for self-help tools—so you can keep more of a typical PIP benefit",
+    "subtitle": "A flat fee for guided tools—so you can keep more of a typical PIP benefit",
     "startClaim": "Start Filing Your Claim",
     "learnMore": "Learn More",
     "selectServices": "Select Your Services & Payment",
     "selectServicesDesc": "Choose the services you need and complete your payment securely with Stripe",
     "services": {
       "noFaultAssistance": {
-        "name": "Self-Help Platform Access",
-        "description": "Guided PIP forms, document tools, tracking, and reminders—you file your own claim",
+        "name": "Guided Claim Platform",
+        "description": "Guided PIP forms, document tools, tracking, and reminders—you remain the party filing",
         "price": "500.00"
       },
       "notarization": {
@@ -244,24 +262,24 @@
     "claimSaverAdvantages": {
       "title": "ClaimSaver+ Advantage",
       "keep95Percent": "Keep 95%+ of a typical $10K PIP benefit after a flat $500 fee (illustrative math—not a result guarantee)",
-      "noContingency": "No 33% contingency fee structure on our self-help platform",
+      "noContingency": "No 33% contingency fee structure on our platform",
       "transparentPricing": "Transparent flat rate for platform access",
       "professionalService": "Tools and education—you decide and submit",
       "maximumRecovery": "Stay organized and informed throughout your claim"
     },
-    "comparisonNote": "Comparison assumes you self-file using ClaimSaver+ tools versus using a 33% contingency attorney on a $10,000 PIP benefit. Actual outcomes vary.",
-    "selfHelpSubtitle": "Self-help platform access — you file, you control",
+    "comparisonNote": "Comparison assumes you file using ClaimSaver+ guided tools versus using a 33% contingency attorney on a $10,000 PIP benefit. Actual outcomes vary.",
+    "platformAccessSubtitle": "Guided platform access—you control the process",
     "features": {
       "transparentPricing": {
         "title": "Transparent Pricing",
-        "description": "One clear fee for platform access. No hidden subscription for the core self-help product."
+        "description": "One clear fee for platform access. No hidden subscription for the core product."
       },
       "maximumRecovery": {
         "title": "Keep More of Your Benefit",
-        "description": "Compared to typical contingency percentages, a flat fee can leave more in your pocket on standard PIP claims you handle yourself."
+        "description": "Compared to typical contingency percentages, a flat fee can leave more in your pocket on standard PIP claims you manage with the platform."
       },
       "professionalService": {
-        "title": "Guided Self-Help",
+        "title": "Guided claim tools",
         "description": "Step-by-step workflows and validation—without negotiating with insurers or speaking for you."
       },
       "fasterProcessing": {
@@ -271,18 +289,18 @@
     },
     "testimonials": {
       "title": "What Our Clients Say",
-      "subtitle": "Real stories from real people who saved thousands with ClaimSaver+"
+      "subtitle": "Real stories from Florida drivers who filed smarter with ClaimSaver+"
     },
     "cta": {
-      "title": "Ready to File Your Own Claim?",
-      "subtitle": "Get guided tools for a flat $500. You prepare and submit your own PIP claim—no contingency fee to ClaimSaver+.",
+      "title": "Ready to Move Your Claim Forward?",
+      "subtitle": "Get guided tools for a flat $500. You prepare and submit your PIP materials—no contingency fee to ClaimSaver+.",
       "button": "Start Filing Your Claim"
     }
   },
   "claimForm": {
     "header": {
       "title": "Florida No-Fault Form",
-      "description": "Enter your own information step by step—you remain responsible for your claim; ClaimSaver+ provides software and storage, not legal advice or representation.",
+      "description": "Enter your information step by step—you remain responsible for your claim; ClaimSaver+ provides software and storage, not legal advice or representation.",
       "step": "Step"
     },
     "steps": {
@@ -299,7 +317,7 @@
     },
     "success": {
       "title": "Information Saved",
-      "description": "Your responses have been submitted to your ClaimSaver+ account. Continue organizing documents and, when ready, submit materials to your insurer yourself—ClaimSaver+ does not file or negotiate for you.",
+      "description": "Your responses have been submitted to your ClaimSaver+ account. Continue organizing documents and, when ready, submit materials to your insurer directly—ClaimSaver+ does not file or negotiate for you.",
       "goToDashboard": "Go to Dashboard"
     },
     "errors": {
@@ -443,7 +461,7 @@
     }
   },
   "footer": {
-    "description": "Self-help technology for Florida no-fault (PIP) claims—guided forms, document tools, and tracking. Serving Florida drivers.",
+    "description": "Guided PIP claim filing for Florida drivers—secure documents, smart tools, flat pricing.",
     "quickLinks": "Quick Links",
     "contactUs": "Contact Us",
     "support": "Support",
@@ -456,19 +474,19 @@
     "termsOfService": "Terms of Service",
     "cookiePolicy": "Cookie Policy",
     "legalDisclaimer": "Legal Disclaimer",
-    "legalText": "ClaimSaver+ is a self-help technology platform—not a law firm. We do not provide legal advice, legal representation, claim evaluation, or negotiation with insurers on your behalf. Information on this site is general and educational only. You file your own no-fault (PIP) claim using our tools. For advice about your specific situation, consult a licensed attorney. We do not guarantee any outcome. Optional attorney or other professional referrals may be offered separately where permitted; they are not part of the standard platform fee."
+    "legalText": "ClaimSaver+ is a guided claim technology platform—not a law firm. We do not provide legal advice, legal representation, claim evaluation, or negotiation with insurers on your behalf. Information on this site is general and educational only. You file your no-fault (PIP) claim using our tools—you are the filer, not ClaimSaver+. For advice about your specific situation, consult a licensed attorney. We do not guarantee any outcome. Optional attorney or other professional referrals may be offered separately where permitted; they are not part of the standard platform fee."
   },
   "whoWeAre": {
     "hero": {
       "title": "Tools for",
       "subtitle": "Your Florida PIP Claim",
-      "description": "We built ClaimSaver+ so Florida drivers can file and manage their own no-fault claims with clear guidance—without paying contingency fees for work you can do yourself."
+      "description": "We built ClaimSaver+ so Florida drivers can file and manage no-fault claims with clear, guided tools—without paying contingency fees for paperwork you can complete with the platform."
     },
     "about": {
       "title": "About ClaimSaver+",
-      "paragraph1": "ClaimSaver+ is a self-help technology platform for Florida motor vehicle no-fault (PIP) claims. You enter your information, upload your documents, and submit your own claim materials. We provide software, validation, organization, reminders, and educational content—not legal advice or representation.",
+      "paragraph1": "ClaimSaver+ is a guided claim filing platform for Florida motor vehicle no-fault (PIP) claims. You enter your information, upload your documents, and submit your claim materials. We provide software, validation, organization, reminders, and educational content—not legal advice or representation.",
       "paragraph2": "Our goal is to reduce confusion and errors that push people toward expensive services for straightforward paperwork. You stay in control; we provide the tools and general information to help you move through the process confidently.",
-      "paragraph3": "We are not a law firm and do not negotiate with insurance companies on your behalf. When a situation is too complex for self-help, we point you toward professional resources—see our “Need Professional Help?” page.",
+      "paragraph3": "We are not a law firm and do not negotiate with insurance companies on your behalf. When a situation is too complex for standard PIP filing alone, we point you toward professional resources—see our “When to Call an Attorney” page.",
       "imageAlt": "ClaimSaver+ Family",
       "familyFirst": "Family First"
     },
@@ -481,7 +499,7 @@
       },
       "mission": {
         "title": "Our Mission",
-        "description": "To make straightforward, affordable self-help tools available for Florida families handling their own no-fault claims—without paying contingency fees for work they can do themselves with good guidance."
+        "description": "To give Florida families straightforward, affordable tools to file and manage no-fault claims—without paying contingency fees for paperwork they can complete with good guidance and the platform."
       },
       "whyWeCare": {
         "title": "Why We Care",
@@ -491,11 +509,11 @@
     "values": {
       "mission": {
         "title": "Our Mission",
-        "description": "To give Florida accident victims affordable, transparent tools to file and manage their own no-fault claims—with clear boundaries that respect the difference between technology and legal representation."
+        "description": "To give Florida drivers affordable, transparent tools to file and manage no-fault claims—with honest clarity about what software can and can’t do."
       },
       "vision": {
         "title": "Our Vision",
-        "description": "A trusted self-help option alongside attorneys and adjusters: professional-grade organization and education for people who choose to handle their own standard PIP filings."
+        "description": "A trusted alternative for drivers who don’t need an attorney for a standard PIP claim—professional-grade organization and education when you choose to manage the filing directly."
       },
       "values": {
         "title": "Our Values",
@@ -503,7 +521,7 @@
       },
       "support": {
         "title": "Customer Support",
-        "description": "We help with platform, billing, and technical questions. We do not provide legal advice or case-specific strategy; those questions go to a licensed attorney."
+        "description": "Our support team handles platform and billing questions. For legal questions about your specific situation, we’ll point you to the right resources—including a licensed attorney when that’s what you need."
       }
     },
     "coreValues": {
@@ -521,7 +539,7 @@
     "hero": {
       "title": "Your Claim.",
       "subtitle": "Your Control. Our Tools.",
-      "description": "ClaimSaver+ is a self-help platform that gives Florida accident victims the tools, forms, and guidance to file their own no-fault PIP claims. A flat $500 platform fee—no contingency percentage to us.",
+      "description": "ClaimSaver+ gives Florida drivers professional-grade tools, forms, and guidance to file no-fault PIP claims. A flat $500 platform fee—no contingency percentage to us.",
       "startRecovery": "See How It Works",
       "fileClaim": "Start Filing Your Claim",
       "imageAlt": "ClaimSaver+ Background"
@@ -529,16 +547,16 @@
     "services": {
       "title": "What the",
       "subtitle": "Platform Provides",
-      "description": "Tools for you to file and manage your own claim—we do not file for you or negotiate with insurers",
+      "description": "Everything you need to prepare and submit your claim—guided workflows, secure storage, and reminders while you stay in control",
       "noFault": {
         "title": "Guided PIP form completion",
-        "description": "You fill out the standardized information yourself with field-level explanations and validation—we help ensure fields are complete and formatted, not that your answers are legally “best.”",
+        "description": "You fill out the standardized information with field-level explanations and validation—we help ensure fields are complete and formatted, not that your answers are legally “best.”",
         "features": {
           "interface": "Step-by-step guided workflow",
           "upload": "You control what you upload to your secure account",
           "validation": "Format and completeness checks",
           "errorChecking": "Automated checks for common field issues",
-          "confirmation": "You review and submit your own materials"
+          "confirmation": "You review and submit your materials"
         }
       },
       "documents": {
@@ -566,7 +584,7 @@
     },
     "process": {
       "title": "A typical",
-      "subtitle": "self-help flow",
+      "subtitle": "guided filing flow",
       "description": "You perform each step; the platform helps you stay organized",
       "imageAlt": "ClaimSaver+ Background",
       "step1": {
@@ -575,7 +593,7 @@
       },
       "step2": {
         "title": "Track your recovery",
-        "description": "Log medical appointments, upload treatment-related records you choose, and track expenses using the built-in tools. Follow your own providers’ instructions—ClaimSaver+ does not give medical advice."
+        "description": "Log medical appointments, upload treatment-related records you choose, and track expenses using the built-in tools. Follow your healthcare providers’ instructions—ClaimSaver+ does not give medical advice."
       },
       "step3": {
         "title": "Stay on track",
@@ -583,7 +601,7 @@
       },
       "step4": {
         "title": "File your claim",
-        "description": "When you are ready, use ClaimSaver+ to compile your documents into a complete package and submit it to your insurance company yourself. We do not communicate with insurers for you, advocate, or negotiate on your behalf."
+        "description": "When you are ready, use ClaimSaver+ to compile your documents into a complete package and submit it to your insurance company directly. We do not communicate with insurers for you, advocate, or negotiate on your behalf."
       }
     },
     "faq": {
@@ -591,7 +609,7 @@
       "subtitle": "Get answers to the most common questions about our services",
       "whatDoWeDo": {
         "question": "What exactly does ClaimSaver+ do for me?",
-        "answer": "We provide software: guided forms, validation, secure storage, expense tracking, reminders, and education. You file your own claim and communicate with your insurer. We do not negotiate, evaluate legal merit, or represent you."
+        "answer": "We provide software: guided forms, validation, secure storage, expense tracking, reminders, and education. You file your claim and communicate with your insurer. We do not negotiate, evaluate legal merit, or represent you."
       },
       "documents": {
         "question": "What documents do I need to provide?",
@@ -607,7 +625,7 @@
       },
       "help": {
         "question": "What if I need help during the process?",
-        "answer": "Contact us for platform, billing, or technical issues. We cannot tell you what you should do in your specific legal situation—that requires a licensed attorney. If your matter is too complex for self-help, see our “Need Professional Help?” page."
+        "answer": "Contact us for platform, billing, or technical issues. We cannot tell you what you should do in your specific legal situation—that requires a licensed attorney. If your matter is too complex for standard PIP filing alone, see our “When to Call an Attorney” page."
       },
       "timeline": {
         "question": "How long does the entire process take?",
@@ -626,7 +644,7 @@
     },
     "hero": {
       "title": "Payment Successful!",
-      "description": "Thank you for choosing ClaimSaver+. Your payment was processed. You can now use the self-help platform to complete your guided forms and organize your claim."
+      "description": "Thank you for choosing ClaimSaver+. Your payment was processed. You can now use the platform to complete your guided forms and organize your claim."
     },
     "whatsNext": {
       "title": "What's Next?",
@@ -646,13 +664,13 @@
       "dashboard": "Go to Dashboard"
     },
     "journey": {
-      "title": "Your Self-Help Workflow",
+      "title": "Your guided workflow",
       "description": "You control each step. ClaimSaver+ provides tools and reminders—not representation."
     },
     "steps": {
       "caseReview": {
         "title": "Complete your guided forms",
-        "description": "Enter your own details with validation and plain-language field help."
+        "description": "Enter your details with validation and plain-language field help."
       },
       "documentation": {
         "title": "Upload & organize",
@@ -660,7 +678,7 @@
       },
       "recovery": {
         "title": "Submit to your insurer",
-        "description": "When ready, compile your package and send it to your insurance company yourself."
+        "description": "When ready, compile your package and send it to your insurance company directly."
       }
     },
     "returnHome": "Return to Home"

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -8,9 +8,8 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import FAQ from "@/components/faq";
-import { BrandLogo } from "@/components/brand-logo";
 import { PageHeroBackdrop } from "@/components/page-hero-backdrop";
-import { useClerk } from "@clerk/nextjs";
+import { HomeHeroVisual } from "@/components/home-hero-visual";
 import { useTranslation } from "react-i18next";
 import {
   Shield,
@@ -23,35 +22,19 @@ import {
   Calculator,
   X,
   Home as HomeIcon,
+  Scale,
+  BadgeCheck,
+  Lock,
 } from "lucide-react";
 
 export default function Home() {
   const { user, isLoaded } = useUser();
-  const { signOut } = useClerk();
   const router = useRouter();
-  const { openSignIn } = useClerk();
   const { t } = useTranslation();
   const [showWelcomeBanner, setShowWelcomeBanner] = useState(true);
 
-  // Check if user has an active session
-  const hasActiveSession =
-    typeof window !== "undefined" &&
-    sessionStorage.getItem("claimsaver-active-session") === "true";
-
-  // Clear Clerk state if user is signed in but no active session
-  useEffect(() => {
-    if (isLoaded && user && !hasActiveSession) {
-      // Add a delay to avoid interfering with sign-in process
-      const timer = setTimeout(() => {
-        signOut();
-      }, 3000); // 3 second delay
-
-      return () => clearTimeout(timer);
-    }
-  }, [isLoaded, user, hasActiveSession, signOut]);
-
   const handleGetStarted = () => {
-    openSignIn();
+    router.push("/claim-form");
   };
 
   const handleGoToDashboard = () => {
@@ -80,7 +63,6 @@ export default function Home() {
       question: t("home.faq.states.question"),
       answer: t("home.faq.states.answer"),
     },
-
   ];
 
   const features = [
@@ -117,13 +99,12 @@ export default function Home() {
       title: t("home.benefits.benefit1.title"),
       description: t("home.benefits.benefit1.description"),
     },
-
   ];
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-950">
       {/* Welcome Banner for Authenticated Users */}
-      {isLoaded && user && showWelcomeBanner && hasActiveSession && (
+      {isLoaded && user && showWelcomeBanner && (
         <div className="fixed top-16 left-0 right-0 z-50 bg-gradient-to-r from-emerald-600 to-teal-900 text-white px-4 py-3 shadow-lg">
           <div className="max-w-7xl mx-auto flex items-center justify-between">
             <div className="flex items-center gap-3">
@@ -160,42 +141,43 @@ export default function Home() {
       <section className="relative overflow-hidden bg-gradient-to-br from-slate-50 via-white to-emerald-50 dark:from-slate-950 dark:via-gray-900 dark:to-slate-900">
         <PageHeroBackdrop />
 
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-16 lg:pb-20">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-20 lg:pb-28">
+          <div className="grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] gap-14 lg:gap-20 items-center">
             <div className="text-center lg:text-left order-2 lg:order-1">
-              <div className="flex justify-center lg:justify-start mb-8">
-                <BrandLogo variant="navbar" />
-              </div>
+              <p className="mb-5 inline-flex items-center justify-center gap-2 rounded-full border border-teal-200/90 bg-white/70 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-teal-800 shadow-sm backdrop-blur-sm dark:border-teal-500/25 dark:bg-slate-900/70 dark:text-teal-200 lg:justify-start">
+                <span className="h-1.5 w-1.5 rounded-full bg-teal-500 shadow-[0_0_12px_rgba(20,184,166,0.9)]" />
+                {t("home.hero.eyebrow")}
+              </p>
 
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
-                {t("home.hero.title")}
-                <span className="block bg-gradient-to-r from-emerald-600 to-teal-800 bg-clip-text text-transparent mt-1">
+              <h1 className="text-[2.125rem] sm:text-5xl lg:text-[3.25rem] font-bold tracking-tight text-slate-900 dark:text-white mb-5 leading-[1.1]">
+                <span className="block">{t("home.hero.title")}</span>
+                <span className="mt-2 block bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-800 bg-clip-text text-transparent">
                   {t("home.hero.subtitle")}
                 </span>
               </h1>
 
-              <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-300 mb-8 leading-relaxed max-w-xl mx-auto lg:mx-0">
+              <p className="text-lg sm:text-xl text-slate-600 dark:text-slate-300 mb-9 leading-relaxed max-w-xl mx-auto lg:mx-0 text-pretty">
                 {t("home.hero.description")}
               </p>
 
-              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-0">
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start mb-8">
                 {!isLoaded || !user ? (
                   <>
                     <Button
                       size="lg"
                       asChild
-                      className="bg-gradient-to-r from-emerald-600 to-teal-800 hover:from-emerald-700 hover:to-teal-900 text-white px-8 py-4 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+                      className="h-14 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-800 px-8 text-base font-semibold text-white shadow-[0_12px_40px_-8px_rgba(13,148,136,0.55)] hover:from-emerald-700 hover:to-teal-900 hover:shadow-[0_16px_48px_-8px_rgba(13,148,136,0.6)] transition-all duration-300"
                     >
-                      <Link href="/how-it-works">
+                      <Link href="/how-it-works" className="inline-flex items-center gap-2">
                         {t("home.hero.cta")}
-                        <ArrowRight className="ml-2 w-5 h-5 inline" />
+                        <ArrowRight className="h-5 w-5 shrink-0" />
                       </Link>
                     </Button>
                     <Button
                       size="lg"
                       variant="outline"
                       onClick={handleGetStarted}
-                      className="border-2 border-slate-300 hover:border-emerald-400 text-gray-800 dark:text-gray-200 px-8 py-4 text-lg font-semibold rounded-xl shadow-md hover:shadow-lg transition-all duration-300 bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm"
+                      className="h-14 rounded-xl border-2 border-slate-200 bg-white/90 px-8 text-base font-semibold text-slate-900 shadow-sm backdrop-blur-sm hover:border-teal-400/80 hover:bg-white dark:border-slate-600 dark:bg-slate-900/90 dark:text-slate-100 dark:hover:border-teal-500/50"
                     >
                       {t("home.hero.ctaSecondary")}
                     </Button>
@@ -204,26 +186,32 @@ export default function Home() {
                   <Button
                     size="lg"
                     onClick={handleGoToDashboard}
-                    className="bg-gradient-to-r from-emerald-600 to-teal-800 hover:from-emerald-700 hover:to-teal-900 text-white px-8 py-4 text-lg font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+                    className="h-14 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-800 px-8 text-base font-semibold text-white shadow-[0_12px_40px_-8px_rgba(13,148,136,0.55)] hover:from-emerald-700 hover:to-teal-900"
                   >
                     Go to Dashboard
-                    <ArrowRight className="ml-2 w-5 h-5" />
+                    <ArrowRight className="ml-2 h-5 w-5" />
                   </Button>
                 )}
               </div>
+
+              <ul className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 lg:justify-start text-sm text-slate-600 dark:text-slate-400">
+                <li className="inline-flex items-center gap-2">
+                  <Scale className="h-4 w-4 shrink-0 text-teal-600 dark:text-teal-400" aria-hidden />
+                  <span>{t("home.hero.trust1")}</span>
+                </li>
+                <li className="inline-flex items-center gap-2">
+                  <BadgeCheck className="h-4 w-4 shrink-0 text-teal-600 dark:text-teal-400" aria-hidden />
+                  <span>{t("home.hero.trust2")}</span>
+                </li>
+                <li className="inline-flex items-center gap-2">
+                  <Lock className="h-4 w-4 shrink-0 text-teal-600 dark:text-teal-400" aria-hidden />
+                  <span>{t("home.hero.trust3")}</span>
+                </li>
+              </ul>
             </div>
 
-            <div className="relative max-w-2xl mx-auto lg:max-w-none order-1 lg:order-2">
-              <div className="rounded-2xl overflow-hidden shadow-2xl ring-1 ring-slate-200/90 dark:ring-slate-700/90 bg-white dark:bg-slate-900">
-                <Image
-                  src="/images/brand/claimsaver-hero-banner-concept-01.png"
-                  alt={t("home.story.heroBannerAlt")}
-                  width={1200}
-                  height={800}
-                  className="w-full h-auto object-cover"
-                  priority
-                />
-              </div>
+            <div className="relative order-1 lg:order-2">
+              <HomeHeroVisual />
             </div>
           </div>
         </div>
@@ -256,9 +244,7 @@ export default function Home() {
                       className={`w-12 h-12 bg-gradient-to-r ${feature.gradientClass} rounded-xl flex items-center justify-center text-white mb-4 group-hover:scale-110 transition-transform duration-300 relative overflow-hidden`}
                     >
                       {/* Icon */}
-                      <div className="relative z-10">
-                        {feature.icon}
-                      </div>
+                      <div className="relative z-10">{feature.icon}</div>
                       {/* White fade overlay on the right */}
                       <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-white/60 pointer-events-none"></div>
                     </div>

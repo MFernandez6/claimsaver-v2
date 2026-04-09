@@ -91,7 +91,7 @@ export default function Footer() {
                 <BrandLogo variant="footer" />
               </div>
               <p className="text-teal-100/60 text-sm leading-relaxed max-w-[220px]">
-                Self-help tools for Florida no-fault (PIP) claims. Secure document storage and guided workflows.
+                Guided PIP claim filing for Florida drivers. Secure documents. Smart tools. Flat pricing.
               </p>
             </div>
             {/* Services */}
@@ -184,11 +184,11 @@ export default function Footer() {
                 </li>
                 <li>
                   <a
-                    href="/need-professional-help"
+                    href="/when-to-call-an-attorney"
                     className="text-teal-100/60 hover:text-white transition-all duration-300 text-sm flex items-center gap-2 group"
                   >
                     <span className="w-0 group-hover:w-2 h-[1px] bg-teal-400 transition-all duration-300"></span>
-                    Need Professional Help?
+                    When to Call an Attorney
                   </a>
                 </li>
                 <li>
@@ -252,7 +252,7 @@ export default function Footer() {
           <div className="border-t border-gray-800 pt-6">
             <div className="text-center">
               <p className="text-teal-100/20 text-[10px] tracking-widest uppercase">
-                © {new Date().getFullYear()} ClaimSaver+ • Self-help claim technology • Serving Florida drivers
+                © {new Date().getFullYear()} ClaimSaver+ • Guided claim platform • Serving Florida drivers
               </p>
             </div>
           </div>
@@ -263,7 +263,7 @@ export default function Footer() {
           <div className="mt-4 pt-4 border-t border-gray-800">
             <p className="text-[10px] text-gray-500 leading-relaxed text-center opacity-70 max-w-4xl mx-auto">
               <strong className="text-gray-400 uppercase tracking-widest text-[9px]">Legal Disclaimer:</strong>{" "}
-              ClaimSaver+ is a self-help technology platform. We are not a law firm, not your representative with an insurance company, and we do not provide legal advice, claim evaluation, or negotiation on your behalf. You file your own no-fault (PIP) claim using our tools. The $500 fee is for platform access (guided forms, storage, tracking, reminders, and educational content). We do not guarantee any outcome. For legal advice about your specific situation, consult a licensed Florida attorney.
+              ClaimSaver+ is a guided claim technology platform. We are not a law firm, not your representative with an insurance company, and we do not provide legal advice, claim evaluation, or negotiation on your behalf. You file your no-fault (PIP) claim using our tools—you are the filer, not ClaimSaver+. The $500 fee is for platform access (guided forms, storage, tracking, reminders, and educational content). We do not guarantee any outcome. For legal advice about your specific situation, consult a licensed Florida attorney.
             </p>
           </div>
         </div>
@@ -337,7 +337,7 @@ export default function Footer() {
                 <div className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0"></div>
                 <span>
                   Store and display information you enter in your account for
-                  your own claim organization (we do not act as your
+                  your claim organization (we do not act as your
                   representative to insurers)
                 </span>
               </li>
@@ -419,21 +419,21 @@ export default function Footer() {
               Description of Service
             </h3>
             <p className="mb-4 text-gray-600 dark:text-gray-300 leading-relaxed">
-              ClaimSaver+ is a self-help technology platform for Florida motor
+              ClaimSaver+ is a guided claim technology platform for Florida motor
               vehicle no-fault (PIP) claims.
               <strong className="text-red-600 dark:text-red-400">
                 {" "}
                 We are NOT a law firm and do NOT provide legal advice,
                 representation, or negotiation with insurers on your behalf.
               </strong>{" "}
-              You prepare and submit your own claim. The platform may include:
+              You prepare and submit your claim. The platform may include:
             </p>
             <ul className="space-y-2 text-gray-600 dark:text-gray-300">
               <li className="flex items-start gap-3">
                 <div className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0"></div>
                 <span>
                   Guided digital workflows and field validation for standardized
-                  information you enter yourself
+                  information you enter
                 </span>
               </li>
 
@@ -461,7 +461,7 @@ export default function Footer() {
                 <strong>Optional services:</strong> If separately offered in the
                 future, licensed professional services (such as public adjusting)
                 would be a distinct product with its own contract and
-                disclosures—not part of the standard self-help platform fee.
+                disclosures—not part of the standard platform fee.
               </p>
             </div>
           </div>
@@ -474,7 +474,7 @@ export default function Footer() {
               Fees and Payment
             </h3>
             <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-              Self-help platform access is offered for a flat fee of{" "}
+              Platform access is offered for a flat fee of{" "}
               <span className="font-bold text-green-600 dark:text-green-400">
                 $500
               </span>{" "}

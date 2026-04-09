@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { supportedLanguages } from "@/lib/i18n";
 import { ChevronDown, Globe } from "lucide-react";
 
+/** Compact globe + language code for crowded navbars; full names stay in the dropdown. */
 export default function LanguageSwitcher() {
   const { i18n } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
@@ -19,8 +20,6 @@ export default function LanguageSwitcher() {
     i18n.changeLanguage(languageCode);
     setCurrentLanguage(languageCode);
     setIsOpen(false);
-
-    // Store the language preference in localStorage
     localStorage.setItem("i18nextLng", languageCode);
   };
 
@@ -31,48 +30,57 @@ export default function LanguageSwitcher() {
   return (
     <div className="relative">
       <Button
+        type="button"
         variant="ghost"
         size="sm"
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+        className="h-9 min-h-[44px] px-2 gap-1 rounded-lg border border-transparent text-gray-700 hover:bg-gray-100 hover:border-gray-200 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:border-gray-700 lg:h-8 lg:min-h-8 lg:px-1.5 lg:gap-0.5 touch-manipulation"
+        aria-label={`Language: ${currentLang.name}`}
+        aria-expanded={isOpen}
+        aria-haspopup="listbox"
       >
-        <Globe className="w-4 h-4" />
-        <span className="hidden sm:inline">{currentLang.flag}</span>
-        <span className="hidden md:inline">{currentLang.name}</span>
+        <Globe className="h-3.5 w-3.5 shrink-0 opacity-80" />
+        <span className="text-[10px] font-semibold uppercase tracking-tight w-5 text-center leading-none">
+          {currentLang.code}
+        </span>
         <ChevronDown
-          className={`w-4 h-4 transition-transform ${
+          className={`h-3 w-3 shrink-0 opacity-50 transition-transform ${
             isOpen ? "rotate-180" : ""
           }`}
         />
       </Button>
 
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 z-50">
-          <div className="py-1">
-            {supportedLanguages.map((language) => (
-              <button
-                key={language.code}
-                onClick={() => handleLanguageChange(language.code)}
-                className={`w-full flex items-center gap-3 px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors ${
-                  currentLanguage === language.code
-                    ? "bg-teal-50 dark:bg-teal-900/30 text-teal-600 dark:text-teal-400"
-                    : "text-gray-700 dark:text-gray-300"
-                }`}
-              >
-                <span className="text-lg">{language.flag}</span>
-                <span>{language.name}</span>
-                {currentLanguage === language.code && (
-                  <div className="ml-auto w-2 h-2 bg-teal-600 dark:bg-teal-400 rounded-full"></div>
-                )}
-              </button>
-            ))}
-          </div>
+        <div className="absolute right-0 mt-1.5 min-w-[10rem] bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 z-50 py-1">
+          {supportedLanguages.map((language) => (
+            <button
+              key={language.code}
+              type="button"
+              role="option"
+              aria-selected={currentLanguage === language.code}
+              onClick={() => handleLanguageChange(language.code)}
+              className={`w-full flex items-center gap-2 px-3 py-1.5 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors ${
+                currentLanguage === language.code
+                  ? "bg-teal-50 dark:bg-teal-900/30 text-teal-600 dark:text-teal-400"
+                  : "text-gray-700 dark:text-gray-300"
+              }`}
+            >
+              <span className="text-base leading-none">{language.flag}</span>
+              <span className="text-left">{language.name}</span>
+              {currentLanguage === language.code && (
+                <span className="ml-auto w-1.5 h-1.5 bg-teal-600 dark:bg-teal-400 rounded-full shrink-0" />
+              )}
+            </button>
+          ))}
         </div>
       )}
 
-      {/* Backdrop to close dropdown when clicking outside */}
       {isOpen && (
-        <div className="fixed inset-0 z-40" onClick={() => setIsOpen(false)} />
+        <div
+          className="fixed inset-0 z-40"
+          aria-hidden
+          onClick={() => setIsOpen(false)}
+        />
       )}
     </div>
   );

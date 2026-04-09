@@ -18,7 +18,7 @@ interface FAQProps {
 
 export default function FAQ({
   title = "Common Questions",
-  subtitle = "How the self-help platform works—general information, not legal advice",
+  subtitle = "How the guided platform works—general information, not legal advice",
   items,
   className = "",
 }: FAQProps) {
@@ -76,7 +76,7 @@ export default function FAQ({
                     asChild
                     className="border-2 border-teal-300 hover:border-teal-400 text-teal-700 dark:text-teal-300 px-6 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
                   >
-                    <a href="/need-professional-help">Complex claim?</a>
+                    <a href="/when-to-call-an-attorney">When to call an attorney</a>
                   </Button>
                 </div>
               </div>

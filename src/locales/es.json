@@ -25,7 +25,7 @@
     "whatWeDo": "Qué Hacemos",
     "howItWorks": "Cómo funciona",
     "learningCenter": "Centro de aprendizaje",
-    "needProfessionalHelp": "¿Necesita ayuda profesional?",
+    "needProfessionalHelp": "Cuándo llamar a un abogado",
     "needHelpShort": "¿Caso complejo?",
     "licenseCredentials": "Licencia y credenciales",
     "contact": "Contacto",
@@ -42,21 +42,38 @@
   },
   "home": {
     "hero": {
-      "title": "Presenta tu propio reclamo sin culpa.",
+      "title": "Presenta tu reclamo sin culpa en Florida.",
       "subtitle": "Mantén lo tuyo.",
-      "description": "Las herramientas y la orientación para presentar tu reclamo PIP de Florida, seguir tu recuperación y conservar más de tus beneficios. Tarifa plana de $500 por acceso a la plataforma—no es un honorario de contingencia.",
+      "description": "Las herramientas y la orientación para avanzar tu reclamo PIP de Florida, seguir tu recuperación y conservar más de tus beneficios. Tarifa plana de $500 por acceso a la plataforma—no es un honorario de contingencia.",
       "cta": "Ver cómo funciona",
       "ctaSecondary": "Comenzar a presentar su reclamo",
       "learnMore": "Más Información",
       "watchDemo": "Ver Demo",
-      "imageAlt": "Fondo ClaimSaver+"
+      "imageAlt": "Fondo ClaimSaver+",
+      "eyebrow": "PIP en Florida · Plataforma guiada",
+      "visualLabel": "Espacio del reclamo",
+      "visualLive": "Vista previa",
+      "visualProgressTitle": "Progreso del reclamo",
+      "visualProgressSubtitle": "Pasos guiados · guarda en cualquier momento",
+      "visualStepsDone": "Pasos completados",
+      "visualStepsRatio": "5 / 8",
+      "visualStat1": "Formularios",
+      "visualStat2": "Documentos",
+      "visualStat3": "Cronograma",
+      "visualDeadlineTitle": "Próximo hito",
+      "visualDeadlineHint": "Plazos y recordatorios en un solo lugar",
+      "visualDocsTitle": "Formularios y cargas",
+      "visualDocsHint": "Almacenamiento cifrado para tus archivos",
+      "trust1": "No somos un bufete",
+      "trust2": "Tarifa plana $500",
+      "trust3": "Presentación guiada—tú tienes el control"
     },
     "video": {
       "notSupported": "Tu navegador no soporta el elemento de video."
     },
     "features": {
       "title": "Todo Lo Que Necesitas",
-      "subtitle": "Herramientas guiadas para presentar y gestionar tu propio reclamo PIP de Florida: formularios, almacenamiento, seguimiento y recordatorios",
+      "subtitle": "Herramientas guiadas para presentar y gestionar tu reclamo PIP de Florida: formularios, almacenamiento, seguimiento y recordatorios",
       "feature1": {
         "title": "Presentación de Formularios Sin Culpa",
         "description": "Presentación de formularios optimizada con validación en tiempo real y confirmación instantánea."
@@ -77,7 +94,7 @@
     "benefits": {
       "benefit1": {
         "title": "Tú tienes el control",
-        "description": "Tú ingresas la información y presentas tu propio reclamo. Ofrecemos formularios guiados, validación y organización—no representación."
+        "description": "Ingresas la información y envías los materiales de tu reclamo. Ofrecemos formularios guiados, validación y organización—no representación."
       },
       "benefit3": {
         "title": "Tarifas transparentes",
@@ -91,7 +108,7 @@
     "whyChoose": {
       "title": "¿Por Qué Elegir",
       "brand": "ClaimSaver+",
-      "description": "Plataforma de autoservicio para reclamos PIP sin culpa en Florida: formularios guiados, almacenamiento de documentos, seguimiento de gastos y material educativo para que presentes y gestiones tu propio reclamo.",
+      "description": "Herramientas de nivel profesional para reclamos PIP sin culpa en Florida: formularios guiados, almacenamiento seguro, seguimiento de gastos y educación para que presentes y gestiones tu reclamo con confianza.",
       "getStarted": "Comienza Hoy",
       "flatFee": "Acceso a la plataforma por $500",
       "freeConsultation": "Recursos educativos y recorrido de la plataforma",
@@ -105,7 +122,7 @@
       "successRateValue": "$3,300",
       "satisfaction": "Tarifa plana de plataforma",
       "satisfactionValue": "$500",
-      "flatFeeLabel": "Tarifa de plataforma de autoservicio",
+      "flatFeeLabel": "Tarifa plana de plataforma",
       "flatFeeValue": "$500",
       "statsNote": "Ejemplo asume beneficio PIP de $10,000 y 33% de contingencia solo para comparar—no garantiza su resultado."
     },
@@ -130,7 +147,7 @@
       },
       "accidents": {
         "question": "¿Qué tipos de accidentes maneja ClaimSaver+?",
-        "answer": "La plataforma está pensada para reclamos PIP relacionados con vehículos en Florida—auto, moto, camión, peatón, bicicleta—para que documente y busque usted mismo los beneficios sin culpa. No garantizamos resultados ni actuamos como su representante."
+        "answer": "La plataforma está pensada para reclamos PIP relacionados con vehículos en Florida—auto, moto, camión, peatón, bicicleta—para que documente y busque los beneficios sin culpa a los que tiene derecho según su póliza. No garantizamos resultados ni actuamos como su representante."
       },
       "documents": {
         "question": "¿Necesito proporcionar documentos para mi reclamo?",
@@ -144,15 +161,15 @@
   },
   "pricing": {
     "title": "Transparente, Justo y Rentable",
-    "subtitle": "Tarifa plana por herramientas de autoservicio—para conservar más de un beneficio PIP típico",
+    "subtitle": "Tarifa plana por herramientas guiadas—para conservar más de un beneficio PIP típico",
     "startClaim": "Comenzar a presentar su reclamo",
     "learnMore": "Más Información",
     "selectServices": "Selecciona Tus Servicios y Pago",
     "selectServicesDesc": "Elige los servicios que necesitas y completa tu pago de forma segura con Stripe",
     "services": {
       "noFaultAssistance": {
-        "name": "Acceso a plataforma de autoservicio",
-        "description": "Formularios PIP guiados, herramientas de documentos y recordatorios—usted presenta su propio reclamo",
+        "name": "Plataforma de reclamo guiada",
+        "description": "Formularios PIP guiados, herramientas de documentos y recordatorios—usted sigue siendo quien presenta",
         "price": "500.00"
       },
       "notarization": {
@@ -172,13 +189,13 @@
     "claimSaverAdvantages": {
       "title": "Ventaja de ClaimSaver+",
       "keep95Percent": "Conserva más del 95% de un beneficio PIP típico de $10K tras una tarifa plana de $500 (ilustrativo—no garantía de resultado)",
-      "noContingency": "Sin estructura de honorarios del 33% en nuestra plataforma de autoservicio",
+      "noContingency": "Sin estructura de honorarios del 33% en nuestra plataforma guiada",
       "transparentPricing": "Tarifa plana transparente por acceso a la plataforma",
       "professionalService": "Herramientas y educación—usted decide y envía",
       "maximumRecovery": "Organizado e informado durante su reclamo"
     },
-    "comparisonNote": "Comparación asume que usted presenta solo con ClaimSaver+ frente a un abogado del 33% sobre $10,000 de beneficio PIP. Los resultados reales varían.",
-    "selfHelpSubtitle": "Acceso a plataforma de autoservicio—usted presenta, usted controla",
+    "comparisonNote": "La comparación supone que presenta con las herramientas guiadas de ClaimSaver+ frente a un abogado del 33% sobre $10,000 de beneficio PIP. Los resultados reales varían.",
+    "platformAccessSubtitle": "Acceso guiado a la plataforma—usted controla el proceso",
     "features": {
       "transparentPricing": {
         "title": "Precios Transparentes",
@@ -189,7 +206,7 @@
         "description": "Frente a porcentajes de contingencia típicos, una tarifa plana puede dejarle más en reclamos PIP estándar que usted gestiona."
       },
       "professionalService": {
-        "title": "Autoservicio guiado",
+        "title": "Herramientas de reclamo guiadas",
         "description": "Flujos paso a paso y validación—sin negociar con aseguradoras ni hablar por usted."
       },
       "fasterProcessing": {
@@ -202,8 +219,8 @@
       "subtitle": "Historias reales de personas reales que ahorraron miles con ClaimSaver+"
     },
     "cta": {
-      "title": "¿Listo para presentar su propio reclamo?",
-      "subtitle": "Herramientas guiadas por $500. Usted prepara y envía su reclamo PIP—sin honorarios de contingencia a ClaimSaver+.",
+      "title": "¿Listo para avanzar tu reclamo?",
+      "subtitle": "Herramientas guiadas por $500. Preparas y envías tus materiales PIP—sin honorarios de contingencia a ClaimSaver+.",
       "button": "Comenzar a presentar su reclamo"
     }
   },
@@ -345,7 +362,7 @@
     }
   },
   "footer": {
-    "description": "Tecnología de autoservicio para reclamos sin culpa (PIP) en Florida: formularios guiados, documentos y seguimiento. Atendemos a conductores en Florida.",
+    "description": "Presentación guiada de reclamos PIP para conductores en Florida: documentos seguros, herramientas inteligentes, precio fijo.",
     "quickLinks": "Enlaces Rápidos",
     "contactUs": "Contáctanos",
     "support": "Soporte",
@@ -358,19 +375,19 @@
     "termsOfService": "Términos de Servicio",
     "cookiePolicy": "Política de Cookies",
     "legalDisclaimer": "Descargo de Responsabilidad Legal",
-    "legalText": "ClaimSaver+ es una plataforma de autoservicio—no un bufete. No brindamos asesoramiento legal, representación, evaluación de reclamos ni negociación con aseguradoras en su nombre. La información es general y educativa. Usted presenta su propio reclamo PIP con nuestras herramientas. Para su caso concreto, consulte a un abogado. No garantizamos resultados. Referencias opcionales a abogados u otros profesionales pueden ofrecerse por separado; no forman parte de la tarifa estándar de la plataforma."
+    "legalText": "ClaimSaver+ es una plataforma tecnológica de reclamos guiados—no un bufete. No brindamos asesoramiento legal, representación, evaluación de reclamos ni negociación con aseguradoras en su nombre. La información es general y educativa. Usted presenta su reclamo PIP con nuestras herramientas—usted es quien presenta, no ClaimSaver+. Para su caso concreto, consulte a un abogado. No garantizamos resultados. Referencias opcionales a abogados u otros profesionales pueden ofrecerse por separado; no forman parte de la tarifa estándar de la plataforma."
   },
   "whoWeAre": {
     "hero": {
-      "title": "Tu Socio de Confianza en",
-      "subtitle": "Recuperación de Accidentes",
-      "description": "Entendemos que lidiar con las consecuencias de un accidente puede ser abrumador. Por eso hemos creado una plataforma revolucionaria que te ayuda a presentar tu reclamo rápidamente."
+      "title": "Herramientas para",
+      "subtitle": "su reclamo PIP en Florida",
+      "description": "Creamos ClaimSaver+ para que los conductores en Florida puedan presentar y gestionar reclamos sin culpa con herramientas guiadas—sin pagar honorarios de contingencia por trámites que puede completar con la plataforma."
     },
     "about": {
       "title": "Acerca de ClaimSaver+",
-      "paragraph1": "ClaimSaver+ es una plataforma revolucionaria diseñada para simplificar el proceso de presentación de formularios de accidentes sin culpa y recuperar compensación para las víctimas de accidentes. Entendemos que lidiar con las consecuencias de un accidente puede ser abrumador, por eso hemos creado una solución fácil de usar que te ayuda.",
-      "paragraph2": "Nuestra plataforma combina tecnología de vanguardia con conocimiento legal experto para asegurar que recibas el apoyo y la compensación que mereces. Creemos que todos deberían tener acceso a representación legal de calidad, independientemente de sus circunstancias.",
-      "paragraph3": "En ClaimSaver+, estamos comprometidos a hacer el proceso legal lo más fluido y libre de estrés posible. Nuestro equipo de profesionales trabaja incansablemente para asegurar que tu caso reciba la atención que merece, y estamos aquí para guiarte en cada paso del camino.",
+      "paragraph1": "ClaimSaver+ es una plataforma de presentación de reclamos guiada para reclamos PIP de vehículos motorizados en Florida. Usted ingresa su información, sube sus documentos y envía los materiales de su reclamo. Brindamos software, validación, organización, recordatorios y contenido educativo—no asesoramiento legal ni representación.",
+      "paragraph2": "Nuestro objetivo es reducir la confusión y los errores que empujan a la gente hacia servicios costosos para un papeleo directo. Usted sigue al mando; nosotros damos las herramientas e información general para avanzar con confianza.",
+      "paragraph3": "No somos un bufete y no negociamos con compañías de seguros en su nombre. Cuando una situación es demasiado compleja para un PIP estándar, le indicamos recursos profesionales—vea nuestra página «Cuándo llamar a un abogado».",
       "imageAlt": "Familia ClaimSaver+",
       "familyFirst": "Familia Primero"
     },
@@ -383,7 +400,7 @@
       },
       "mission": {
         "title": "Nuestra Misión",
-        "description": "Hacer que el apoyo legal de calidad sea accesible y asequible para cada familia. Creemos que cuando la vida te lanza desafíos inesperados, no deberías tener que preocuparte por el costo de obtener la ayuda que mereces."
+        "description": "Ofrecer a las familias en Florida herramientas directas y asequibles para presentar y gestionar reclamos sin culpa—sin pagar honorarios de contingencia por trámites que pueden completar con buena orientación."
       },
       "whyWeCare": {
         "title": "Por Qué Nos Importa",
@@ -393,19 +410,19 @@
     "values": {
       "mission": {
         "title": "Nuestra Misión",
-        "description": "Simplificar el proceso de reclamos de accidentes y ayudar a las víctimas a recuperar la compensación que merecen a través de tecnología innovadora y apoyo legal experto."
+        "description": "Ofrecer a los conductores en Florida herramientas transparentes y asequibles para presentar y gestionar reclamos sin culpa—con claridad honesta sobre lo que el software puede y no puede hacer."
       },
       "vision": {
         "title": "Nuestra Visión",
-        "description": "Convertirnos en la plataforma líder para víctimas de accidentes, proporcionando acceso sin problemas a recursos legales y asegurando una compensación justa para todos."
+        "description": "Una opción confiable para quienes no necesitan un abogado para un PIP estándar: organización y educación de nivel profesional cuando elige gestionar la presentación directamente."
       },
       "values": {
         "title": "Nuestros Valores",
-        "description": "Estamos comprometidos con la transparencia, la integridad y poner a nuestros clientes primero. Creemos en hacer que el apoyo legal sea accesible para todos."
+        "description": "Transparencia, honestidad sobre lo que podemos y no podemos hacer, y respeto por su autonomía—su reclamo, sus decisiones."
       },
       "support": {
-        "title": "Nuestro Apoyo",
-        "description": "Nuestro equipo dedicado está disponible para asistirte durante todo tu viaje de recuperación, proporcionando apoyo y orientación personalizados."
+        "title": "Atención al cliente",
+        "description": "Nuestro equipo de soporte atiende preguntas de plataforma y facturación. Para cuestiones legales sobre su situación, le orientamos hacia los recursos adecuados—incluido un abogado licenciado cuando haga falta."
       }
     },
     "coreValues": {
@@ -414,24 +431,24 @@
     },
     "cta": {
       "title": "¿Listo para Comenzar?",
-      "description": "Únete a miles de familias que han confiado en ClaimSaver+ para ayudarlas a recuperar la compensación que merecen.",
-      "startClaim": "Iniciar Tu Reclamo",
-      "learnMore": "Más Información"
+      "description": "Explore cómo funciona la plataforma y comience su presentación guiada cuando esté listo.",
+      "startClaim": "Comenzar a presentar su reclamo",
+      "learnMore": "Cómo funciona"
     }
   },
   "whatWeDo": {
     "hero": {
-      "title": "Apoyo Integral de",
-      "subtitle": "Recuperación de Accidentes",
-      "description": "Proporcionamos apoyo administrativo y soluciones tecnológicas para ayudar a las víctimas de accidentes a navegar el proceso de reclamos. Nuestra plataforma optimiza la gestión de documentos para tu viaje de recuperación.",
-      "startRecovery": "Iniciar Tu Recuperación",
+      "title": "Su reclamo.",
+      "subtitle": "Su control. Nuestras herramientas.",
+      "description": "ClaimSaver+ ofrece a los conductores en Florida herramientas de nivel profesional, formularios y orientación para presentar reclamos PIP sin culpa. Tarifa plana de $500 por la plataforma—sin porcentaje de contingencia para nosotros.",
+      "startRecovery": "Ver cómo funciona",
       "fileClaim": "Presentar Reclamo",
       "imageAlt": "Fondo ClaimSaver+"
     },
     "services": {
-      "title": "Nuestros",
-      "subtitle": "Servicios",
-      "description": "Herramientas y apoyo integrales para optimizar tu proceso de recuperación de accidentes",
+      "title": "Lo que la",
+      "subtitle": "plataforma ofrece",
+      "description": "Todo lo necesario para preparar y enviar su reclamo: flujos guiados, almacenamiento seguro y recordatorios—usted sigue al mando",
       "noFault": {
         "title": "Presentación de Formularios de Accidentes Sin Culpa",
         "description": "Presentación de formularios optimizada con validación en tiempo real y confirmación instantánea.",
@@ -467,25 +484,25 @@
       }
     },
     "process": {
-      "title": "Tu Viaje de",
-      "subtitle": "Recuperación",
-      "description": "Un proceso simple paso a paso diseñado para ponerte de vuelta en el camino",
+      "title": "Un flujo de",
+      "subtitle": "presentación guiada",
+      "description": "Usted realiza cada paso; la plataforma le ayuda a mantenerse organizado",
       "imageAlt": "Fondo ClaimSaver+",
       "step1": {
-        "title": "Envía Tu Información",
-        "description": "Completa nuestros formularios integrales de admisión con información detallada del accidente, sube toda la documentación de respaldo incluyendo reportes policiales, registros médicos e información de seguro para procesamiento y análisis seguro."
+        "title": "Ingrese su información",
+        "description": "Use nuestros formularios guiados para los detalles del accidente y suba documentos a su cuenta segura. No “analizamos” su reclamo en cuanto a mérito legal—usted aporta los hechos."
       },
       "step2": {
-        "title": "Inicia el Proceso de Recuperación",
-        "description": "Enfócate en tus sesiones de fisioterapia, protocolos de manejo del dolor y sigue diligentemente tu plan de tratamiento médico prescrito mientras subes todos los registros médicos y gastos al repositorio seguro de documentos de ClaimSaver."
+        "title": "Seguimiento de su proceso",
+        "description": "Registre citas médicas, suba expedientes de tratamiento que elija y lleve gastos con las herramientas integradas. Siga las indicaciones de sus proveedores—ClaimSaver+ no brinda consejo médico."
       },
       "step3": {
-        "title": "Sigue la Orientación Médica",
-        "description": "Continúa adhiriéndote a las recomendaciones de tratamiento de tus proveedores de salud, asiste a todas las citas de seguimiento y mantente organizado creando entradas de calendario en ClaimSaver para rastrear tus citas médicas y progreso."
+        "title": "Manténgase al día",
+        "description": "Use calendarios y recordatorios para plazos y seguimientos. Los recordatorios reflejan plazos habituales (como la regla de 14 días) como información general—no consejo jurídico sobre lo que debe hacer."
       },
       "step4": {
-        "title": "Presentar al Seguro",
-        "description": "Una vez que tu tratamiento médico esté completo, ClaimSaver compilará tu paquete de reclamo integral y lo presentará al ajustador de seguros, luego abogará y negociará en tu nombre para asegurar la recuperación financiera óptima."
+        "title": "Presentar su reclamo",
+        "description": "Cuando esté listo, use ClaimSaver+ para reunir sus documentos en un paquete completo y envíelo directamente a su aseguradora. No nos comunicamos con las aseguradoras por usted ni abogamos ni negociamos en su nombre."
       }
     },
     "faq": {
@@ -493,7 +510,7 @@
       "subtitle": "Obtén respuestas a las preguntas más comunes sobre nuestros servicios",
       "whatDoWeDo": {
         "question": "¿Qué hace exactamente ClaimSaver+ por mí?",
-        "answer": "ClaimSaver+ proporciona apoyo administrativo integral para las víctimas de accidentes. Te ayudamos a presentar formularios de accidentes sin culpa, gestionamos tus documentos de forma segura y te guiamos a través del proceso de recuperación. Nos encargamos del papeleo mientras te enfocas en tu recuperación."
+        "answer": "Brindamos software: formularios guiados, validación, almacenamiento seguro, seguimiento de gastos, recordatorios y educación. Usted presenta su reclamo y se comunica con su aseguradora. No negociamos, no evaluamos mérito legal ni lo representamos."
       },
       "documents": {
         "question": "¿Qué documentos necesito proporcionar?",
@@ -509,7 +526,7 @@
       },
       "help": {
         "question": "¿Qué pasa si necesito ayuda durante el proceso?",
-        "answer": "Nuestro equipo de apoyo dedicado está disponible para ayudarte durante todo el proceso. Puedes contactarnos por teléfono, correo electrónico o a través de la plataforma. Proporcionamos orientación sobre los requisitos de documentos, respondemos preguntas sobre el proceso y nos aseguramos de que tengas todo lo que necesitas para un reclamo exitoso."
+        "answer": "Contáctenos para la plataforma, facturación o problemas técnicos. No podemos decirle qué debe hacer en su situación legal específica—eso requiere un abogado licenciado. Si su caso es demasiado complejo para un PIP estándar, vea nuestra página «Cuándo llamar a un abogado»."
       },
       "timeline": {
         "question": "¿Cuánto tiempo toma todo el proceso?",
@@ -517,14 +534,14 @@
       },
       "guarantee": {
         "question": "¿Garantizan compensación?",
-        "answer": "Aunque no podemos garantizar cantidades específicas de compensación, trabajamos diligentemente para maximizar tu recuperación. El éxito depende de varios factores incluyendo la severidad de las lesiones, la cobertura de seguro disponible y las circunstancias específicas de tu accidente."
+        "answer": "No. ClaimSaver+ no garantiza ningún resultado ni monto de acuerdo. Brindamos herramientas y educación general solamente. Los resultados dependen de sus hechos, su cobertura y cómo la aseguradora tramita el reclamo."
       }
     }
   },
   "claimForm": {
     "header": {
       "title": "Formulario Sin Culpa de Florida",
-      "description": "Ingrese usted mismo su información paso a paso—usted sigue siendo responsable de su reclamo; ClaimSaver+ ofrece software y almacenamiento, no asesoramiento legal ni representación.",
+      "description": "Ingrese su información paso a paso—usted sigue siendo responsable de su reclamo; ClaimSaver+ ofrece software y almacenamiento, no asesoramiento legal ni representación.",
       "step": "Paso"
     },
     "steps": {
@@ -541,7 +558,7 @@
     },
     "success": {
       "title": "Información guardada",
-      "description": "Sus respuestas se enviaron a su cuenta de ClaimSaver+. Siga organizando documentos y, cuando esté listo, envíe los materiales a su aseguradora usted mismo—ClaimSaver+ no presenta ni negocia por usted.",
+      "description": "Sus respuestas se enviaron a su cuenta de ClaimSaver+. Siga organizando documentos y, cuando esté listo, envíe los materiales a su aseguradora directamente—ClaimSaver+ no presenta ni negocia por usted.",
       "goToDashboard": "Ir al Panel"
     },
     "errors": {

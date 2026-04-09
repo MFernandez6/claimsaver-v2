@@ -37,7 +37,7 @@ export default function ContactPage() {
           </a>
           <div className="mt-12">
             <Button asChild variant="outline">
-              <Link href="/need-professional-help">Complex legal questions</Link>
+              <Link href="/when-to-call-an-attorney">When to call an attorney</Link>
             </Button>
           </div>
         </div>

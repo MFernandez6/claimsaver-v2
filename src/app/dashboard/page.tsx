@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useUser, useClerk } from "@clerk/nextjs";
+import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -209,7 +209,7 @@ const claimsJourneySteps: JourneyStep[] = [
     id: 1,
     title: "Enter your information",
     description:
-      "Use guided forms to enter your own details—no third-party filing on your behalf",
+      "Use guided forms to enter your details—no third-party filing on your behalf",
     icon: FileText,
     status: "pending",
     estimatedDays: 1,
@@ -229,7 +229,7 @@ const claimsJourneySteps: JourneyStep[] = [
     id: 3,
     title: "Track treatment & expenses",
     description:
-      "Log appointments and costs; follow your own medical providers’ guidance",
+      "Log appointments and costs; follow your medical providers’ guidance",
     icon: Stethoscope,
     status: "pending",
     estimatedDays: 14,
@@ -269,7 +269,6 @@ const claimsJourneySteps: JourneyStep[] = [
 
 export default function DashboardPage() {
   const { user, isLoaded } = useUser();
-  const { signOut } = useClerk();
   const router = useRouter();
   const [claims, setClaims] = useState<UserClaim[]>([]);
   const [documents, setDocuments] = useState<Document[]>([]);
@@ -336,34 +335,12 @@ export default function DashboardPage() {
     return claimsJourneySteps;
   });
 
-  // Handle session management
+  // Redirect unauthenticated users to home
   useEffect(() => {
-    if (isLoaded && user) {
-      // Set session flag when user accesses dashboard
-      sessionStorage.setItem("claimsaver-active-session", "true");
-    } else if (isLoaded && !user) {
-      // User is not signed in, redirect to home
+    if (isLoaded && !user) {
       router.push("/");
     }
   }, [isLoaded, user, router]);
-
-  // Check for valid session after a delay to avoid race conditions
-  useEffect(() => {
-    if (isLoaded && user) {
-      const timer = setTimeout(() => {
-        const activeSession = sessionStorage.getItem(
-          "claimsaver-active-session"
-        );
-        if (!activeSession) {
-          // No active session after delay, force logout and redirect
-          signOut();
-          router.push("/");
-        }
-      }, 2000); // 2 second delay
-
-      return () => clearTimeout(timer);
-    }
-  }, [isLoaded, user, signOut, router]);
 
   const toggleStepCompletion = (stepId: number) => {
     setJourneySteps((prevSteps) => {

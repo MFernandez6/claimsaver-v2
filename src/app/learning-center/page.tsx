@@ -61,8 +61,8 @@ export default function LearningCenterPage() {
       </section>
 
       <section className="pb-20 max-w-3xl mx-auto px-4 text-center text-sm text-gray-500">
-        <Link href="/need-professional-help" className="text-teal-600 dark:text-teal-400 font-medium">
-          Need professional help with a complex claim?
+        <Link href="/when-to-call-an-attorney" className="text-teal-600 dark:text-teal-400 font-medium">
+          Wondering when to call an attorney?
         </Link>
       </section>
     </div>

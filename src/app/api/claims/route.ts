@@ -69,12 +69,25 @@ export async function POST(request: NextRequest) {
     const priority =
       body.estimatedValue > 10000 ? "high" : ("medium" as const);
 
+    const accidentDateRaw = body.accidentDate || body.dateOfAccident;
+    let accidentDateParsed: Date;
+    try {
+      accidentDateParsed = accidentDateRaw
+        ? new Date(accidentDateRaw)
+        : new Date();
+      if (Number.isNaN(accidentDateParsed.getTime())) {
+        accidentDateParsed = new Date();
+      }
+    } catch {
+      accidentDateParsed = new Date();
+    }
+
     const claim_data = {
       claimantName: body.claimantName,
       claimantEmail: body.claimantEmail,
       claimantPhone: body.claimantPhone,
       claimantAddress: body.claimantAddress,
-      accidentDate: new Date(body.accidentDate),
+      accidentDate: accidentDateParsed,
       accidentLocation: body.accidentLocation,
       accidentDescription: body.accidentDescription,
       insuranceCompany: body.insuranceCompany,
@@ -86,9 +99,13 @@ export async function POST(request: NextRequest) {
       estimatedValue: body.estimatedValue || 0,
       injuries: processedInjuries,
       propertyDamage: body.propertyDamage || "",
+      completionMethod: body.completionMethod || "",
+      employersList: body.employersList || "",
+      noFaultWorksheet: body,
       notes: [
         {
-          content: "Claim submitted by user through online form",
+          content:
+            "No-fault application worksheet saved (draft for user's insurer form).",
           author: "System",
           timestamp: new Date().toISOString(),
         },
