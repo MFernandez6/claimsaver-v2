@@ -33,23 +33,23 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL("https://claimsaverplus.net"),
   title: {
-    default: "ClaimSaver+ — Guided Florida PIP claim filing tools",
+    default: "ClaimSaver+ — Florida PIP claim software",
     template: "%s | ClaimSaver+",
   },
   description:
-    "Professional-grade no-fault (PIP) tools: guided forms, secure storage, and tracking for your Florida motor vehicle claim. Not a law firm; not legal advice.",
+    "Self-service software for Florida no-fault (PIP) claims: guided forms, secure storage, and tracking.",
   openGraph: {
-    title: "ClaimSaver+ — Guided Florida PIP claim filing tools",
+    title: "ClaimSaver+ — Florida PIP claim software",
     description:
-      "Professional-grade no-fault (PIP) tools: guided forms, secure storage, and tracking for your Florida motor vehicle claim. Not a law firm; not legal advice.",
+      "Self-service software for Florida no-fault (PIP) claims: guided forms, secure storage, and tracking.",
     url: "https://claimsaverplus.net",
     siteName: "ClaimSaver+",
     images: [
       {
-        url: "/images/brand/claimsaver-social-banner-concept-01.png",
+        url: "/images/brand/claimsaver-og-share-1200x630.png",
         width: 1200,
         height: 630,
-        alt: "ClaimSaver+ — Guided Florida PIP claim filing tools",
+        alt: "ClaimSaver+ — Florida PIP claim software",
       },
     ],
     locale: "en_US",
@@ -57,10 +57,10 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "ClaimSaver+ — Guided Florida PIP claim filing tools",
+    title: "ClaimSaver+ — Florida PIP claim software",
     description:
-      "Professional-grade no-fault (PIP) tools: guided forms, secure storage, and tracking for your Florida motor vehicle claim.",
-    images: ["/images/brand/claimsaver-social-banner-concept-01.png"],
+      "Self-service software for Florida PIP claims: guided forms, secure storage, and tracking.",
+    images: ["/images/brand/claimsaver-og-share-1200x630.png"],
   },
 };
 
