@@ -36,7 +36,7 @@ export function ClaimFormWizard() {
   const { user, isLoaded } = useUser();
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState<FloridaNoFaultFormData>(() =>
-    getInitialFloridaNoFaultFormData()
+    getInitialFloridaNoFaultFormData(),
   );
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -56,7 +56,8 @@ export function ClaimFormWizard() {
         claimantName: user.fullName || prev.claimantName,
         claimantEmail:
           user.primaryEmailAddress?.emailAddress || prev.claimantEmail,
-        claimantPhone: user.phoneNumbers?.[0]?.phoneNumber || prev.claimantPhone,
+        claimantPhone:
+          user.phoneNumbers?.[0]?.phoneNumber || prev.claimantPhone,
       }));
     }
   }, [isLoaded, user]);
@@ -80,7 +81,7 @@ export function ClaimFormWizard() {
         const claimNumber = String(c?.claimNumber ?? c?.claim_number ?? "");
         if (!claimId || !claimNumber) {
           throw new Error(
-            "Could not read saved claim reference. Please try again."
+            "Could not read saved claim reference. Please try again.",
           );
         }
         setDone({ claimId, claimNumber });
@@ -92,7 +93,7 @@ export function ClaimFormWizard() {
         setLoading(false);
       }
     },
-    []
+    [],
   );
 
   useEffect(() => {
@@ -130,7 +131,7 @@ export function ClaimFormWizard() {
 
   const handleChange = (
     field: keyof FloridaNoFaultFormData,
-    value: string | boolean | string[]
+    value: string | boolean | string[],
   ) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
   };
@@ -175,7 +176,9 @@ export function ClaimFormWizard() {
         sessionStorage.setItem("pendingClaimForm", JSON.stringify(formData));
         sessionStorage.setItem("pendingClaimResume", "1");
       } catch {
-        setError("Could not prepare save. Check browser storage and try again.");
+        setError(
+          "Could not prepare save. Check browser storage and try again.",
+        );
         return;
       }
       setAuthGateOpen(true);
@@ -238,8 +241,8 @@ export function ClaimFormWizard() {
         >
           <div className="container mx-auto max-w-3xl text-center">
             <p className="text-sm font-medium text-slate-900 dark:text-slate-100">
-              New here? Complete the worksheet below, then save—we&apos;ll create
-              your account so you can use the dashboard.
+              New here? Complete the worksheet below, then save—we&apos;ll
+              create your account so you can use the dashboard.
             </p>
             <p className="mt-2 text-xs text-slate-600 dark:text-slate-400">
               If you clicked &quot;Sign in&quot; and don&apos;t have an account
@@ -247,12 +250,18 @@ export function ClaimFormWizard() {
               register. Already registered?
             </p>
             <div className="mt-4 flex flex-wrap items-center justify-center gap-3">
-              <SignInButton mode="modal" forceRedirectUrl="/claim-form?resume=1">
+              <SignInButton
+                mode="modal"
+                forceRedirectUrl="/claim-form?resume=1"
+              >
                 <Button type="button" variant="outline" size="sm">
                   Sign in
                 </Button>
               </SignInButton>
-              <SignUpButton mode="modal" forceRedirectUrl="/claim-form?resume=1">
+              <SignUpButton
+                mode="modal"
+                forceRedirectUrl="/claim-form?resume=1"
+              >
                 <Button type="button" size="sm">
                   Create account
                 </Button>
@@ -309,9 +318,9 @@ export function ClaimFormWizard() {
                 <FormHelpCallout title="What this is">
                   <p>
                     Many people use a worksheet like this to line up answers
-                    before they copy them onto the paper or portal their
-                    insurer gave them. Others print this summary only for their
-                    own files.
+                    before they copy them onto the paper or portal their insurer
+                    gave them. Others print this summary only for their own
+                    files.
                   </p>
                 </FormHelpCallout>
                 <div className="rounded-lg border border-slate-200 p-4 text-sm text-slate-700 dark:border-slate-700 dark:text-slate-200">
@@ -336,8 +345,8 @@ export function ClaimFormWizard() {
                   />
                   <span>
                     I plan to transfer these answers onto my insurer&apos;s
-                    official form (or their portal), or print this summary for my
-                    records.
+                    official form (or their portal), or print this summary for
+                    my records.
                   </span>
                 </label>
                 <label className="flex items-start gap-3 text-sm text-slate-700 dark:text-slate-200">
@@ -351,15 +360,15 @@ export function ClaimFormWizard() {
                     className="mt-1"
                   />
                   <span>
-                    I expect to fill out the paper form my insurer sent by
-                    hand; I may upload a scan later.
+                    I expect to fill out the paper form my insurer sent by hand;
+                    I may upload a scan later.
                   </span>
                 </label>
                 <FormHelpCallout title="Usually helpful">
                   <p>
                     Many people keep a copy of the insurer&apos;s letter or
-                    claim number nearby while they work—those details often go in
-                    the header of the application.
+                    claim number nearby while they work—those details often go
+                    in the header of the application.
                   </p>
                 </FormHelpCallout>
               </div>
@@ -397,7 +406,7 @@ export function ClaimFormWizard() {
                           handleChange("policyHolder", e.target.value)
                         }
                         className="font-mono text-sm"
-              />
+                      />
                     </div>
                     <div>
                       <label className="mb-1 block text-xs font-bold uppercase text-slate-800 dark:text-slate-200">
@@ -566,7 +575,10 @@ export function ClaimFormWizard() {
                       <Input
                         value={formData.floridaResidencyDuration}
                         onChange={(e) =>
-                          handleChange("floridaResidencyDuration", e.target.value)
+                          handleChange(
+                            "floridaResidencyDuration",
+                            e.target.value,
+                          )
                         }
                         className="font-mono text-sm"
                       />
@@ -654,9 +666,9 @@ export function ClaimFormWizard() {
                 </FormReplicaLayout>
                 <FormHelpCallout title="Often people also…">
                   <p>
-                    Note the same vehicle year / make / model in the short
-                    lines if the insurer&apos;s form has separate boxes—many
-                    carriers use both a narrative and a line for plate or VIN.
+                    Note the same vehicle year / make / model in the short lines
+                    if the insurer&apos;s form has separate boxes—many carriers
+                    use both a narrative and a line for plate or VIN.
                   </p>
                 </FormHelpCallout>
                 <div className="grid gap-4 md:grid-cols-2">
@@ -764,7 +776,10 @@ export function ClaimFormWizard() {
                             type="checkbox"
                             checked={formData.hospitalInpatient}
                             onChange={(e) =>
-                              handleChange("hospitalInpatient", e.target.checked)
+                              handleChange(
+                                "hospitalInpatient",
+                                e.target.checked,
+                              )
                             }
                           />
                           Hospital inpatient
@@ -776,7 +791,7 @@ export function ClaimFormWizard() {
                             onChange={(e) =>
                               handleChange(
                                 "hospitalOutpatient",
-                                e.target.checked
+                                e.target.checked,
                               )
                             }
                           />
@@ -818,7 +833,10 @@ export function ClaimFormWizard() {
                             type="checkbox"
                             checked={formData.moreMedicalExpense}
                             onChange={(e) =>
-                              handleChange("moreMedicalExpense", e.target.checked)
+                              handleChange(
+                                "moreMedicalExpense",
+                                e.target.checked,
+                              )
                             }
                           />
                           Expect more medical expense
@@ -939,8 +957,8 @@ export function ClaimFormWizard() {
                   )}
                   <div className="mt-6">
                     <label className="mb-1 block text-xs font-bold uppercase text-slate-800 dark:text-slate-200">
-                      Present employers, occupation, and dates (free text —
-                      like the lined section on the paper form)
+                      Present employers, occupation, and dates (free text — like
+                      the lined section on the paper form)
                     </label>
                     <Textarea
                       value={formData.employersList}
@@ -1086,8 +1104,8 @@ export function ClaimFormWizard() {
                   </p>
                   <p className="mt-2 text-slate-600 dark:text-slate-400">
                     Often the paper form asks for a signature at the end. You
-                    can add one here for your PDF copy, or sign only the
-                    paper your insurer provides.
+                    can add one here for your PDF copy, or sign only the paper
+                    your insurer provides.
                   </p>
                   <div className="mt-4 rounded border-2 border-dashed border-slate-300 p-4 dark:border-slate-600">
                     {formData.signature ? (
@@ -1136,11 +1154,13 @@ export function ClaimFormWizard() {
                     <input
                       type="radio"
                       name="completionMethod2"
-                      checked={formData.completionMethod === "digital_worksheet"}
+                      checked={
+                        formData.completionMethod === "digital_worksheet"
+                      }
                       onChange={() =>
                         handleChange(
                           "completionMethod",
-                          "digital_worksheet" as CompletionMethod
+                          "digital_worksheet" as CompletionMethod,
                         )
                       }
                     />
@@ -1157,7 +1177,7 @@ export function ClaimFormWizard() {
                       onChange={() =>
                         handleChange(
                           "completionMethod",
-                          "paper_hand" as CompletionMethod
+                          "paper_hand" as CompletionMethod,
                         )
                       }
                     />
@@ -1170,7 +1190,9 @@ export function ClaimFormWizard() {
                 <dl className="grid gap-2 text-sm text-slate-700 dark:text-slate-200">
                   <div className="flex justify-between gap-4 border-b border-slate-100 py-2 dark:border-slate-800">
                     <dt>Name</dt>
-                    <dd className="font-mono text-right">{formData.claimantName || "—"}</dd>
+                    <dd className="font-mono text-right">
+                      {formData.claimantName || "—"}
+                    </dd>
                   </div>
                   <div className="flex justify-between gap-4 border-b border-slate-100 py-2 dark:border-slate-800">
                     <dt>Date of accident</dt>
@@ -1252,9 +1274,9 @@ export function ClaimFormWizard() {
               Create an account to save
             </h3>
             <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">
-              Saving your worksheet requires a free account. After you sign up or
-              sign in, we&apos;ll finish saving and you can open your dashboard
-              to upload documents and track your claim.
+              Saving your worksheet requires a free account. After you sign up
+              or sign in, we&apos;ll finish saving and you can open your
+              dashboard to upload documents and track your claim.
             </p>
             <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:justify-end">
               <Button
@@ -1267,12 +1289,18 @@ export function ClaimFormWizard() {
               >
                 Cancel
               </Button>
-              <SignInButton mode="modal" forceRedirectUrl="/claim-form?resume=1">
+              <SignInButton
+                mode="modal"
+                forceRedirectUrl="/claim-form?resume=1"
+              >
                 <Button type="button" variant="outline">
                   Sign in
                 </Button>
               </SignInButton>
-              <SignUpButton mode="modal" forceRedirectUrl="/claim-form?resume=1">
+              <SignUpButton
+                mode="modal"
+                forceRedirectUrl="/claim-form?resume=1"
+              >
                 <Button type="button">Create account</Button>
               </SignUpButton>
             </div>

@@ -14,6 +14,7 @@ import {
   DollarSign,
   ArrowRight,
   Upload,
+  PenLine,
 } from "lucide-react";
 
 export default function WhatWeDo() {
@@ -131,7 +132,7 @@ export default function WhatWeDo() {
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-24">
           <div className="text-center max-w-4xl mx-auto">
-            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
+            <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 dark:text-white mb-6 leading-tight text-balance">
               {t("whatWeDo.hero.title")}{" "}
               <span className="bg-gradient-to-r from-teal-600 to-emerald-600 bg-clip-text text-transparent">
                 {t("whatWeDo.hero.subtitle")}
@@ -216,6 +217,42 @@ export default function WhatWeDo() {
                 </CardContent>
               </Card>
             ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="py-12 bg-slate-50/90 dark:bg-slate-950/40 border-y border-slate-200/70 dark:border-slate-800/60">
+        <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900/80 p-6 sm:p-8 shadow-sm">
+            <div className="flex flex-col sm:flex-row sm:items-start gap-4">
+              <div className="w-12 h-12 shrink-0 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-700 dark:text-slate-200">
+                <PenLine className="w-6 h-6" aria-hidden />
+              </div>
+              <div className="min-w-0 space-y-3">
+                <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
+                  {t("whatWeDo.optionalNotarization.title")}
+                </h2>
+                <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+                  {t("whatWeDo.optionalNotarization.body")}
+                </p>
+                <div className="flex flex-wrap gap-x-5 gap-y-2 text-sm font-medium">
+                  <Link
+                    href="/notarization"
+                    className="text-teal-600 dark:text-teal-400 hover:underline inline-flex items-center"
+                  >
+                    {t("whatWeDo.optionalNotarization.linkNotarization")}
+                    <ArrowRight className="ml-1 w-4 h-4" aria-hidden />
+                  </Link>
+                  <Link
+                    href="/pricing"
+                    className="text-teal-600 dark:text-teal-400 hover:underline inline-flex items-center"
+                  >
+                    {t("whatWeDo.optionalNotarization.linkPricing")}
+                    <ArrowRight className="ml-1 w-4 h-4" aria-hidden />
+                  </Link>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>

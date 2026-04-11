@@ -5,16 +5,11 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { UserButton, useUser, useClerk } from "@clerk/nextjs";
-import {
-  Sun,
-  Moon,
-  X,
-  Menu,
-  LayoutDashboard,
-} from "lucide-react";
+import { Sun, Moon, X, Menu, LayoutDashboard } from "lucide-react";
 import LanguageSwitcher from "./language-switcher";
 import { BrandLogo } from "./brand-logo";
 import { useTranslation } from "react-i18next";
+import { isDesignatedAdminEmail } from "@/lib/adminAccess";
 
 // Wrapper component to handle Clerk authentication
 function AuthSection() {
@@ -75,10 +70,8 @@ function DashboardLink({ pathname }: { pathname: string }) {
     async function checkAdminRole() {
       if (isLoaded && isSignedIn && user) {
         try {
-          const adminEmails = ["claimsaverplus@gmail.com"];
           const userEmail = user.primaryEmailAddress?.emailAddress;
-          const adminStatus = adminEmails.includes(userEmail || "");
-          setIsAdmin(adminStatus);
+          setIsAdmin(isDesignatedAdminEmail(userEmail));
         } catch (error) {
           console.error("Error checking admin role:", error);
           setIsAdmin(false);
@@ -101,10 +94,11 @@ function DashboardLink({ pathname }: { pathname: string }) {
     <div className="hover:-translate-y-0.5 transition-all duration-300">
       <Link
         href={isAdmin ? "/admin" : "/dashboard"}
-        className={`relative px-4 py-2 text-sm font-medium rounded-lg transition-all duration-300 ${pathname === "/admin" || pathname === "/dashboard"
-          ? "text-teal-600 bg-teal-50 dark:text-teal-400 dark:bg-teal-950/30"
-          : "text-gray-700 hover:text-teal-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-teal-400 dark:hover:bg-gray-800/50"
-          }`}
+        className={`relative px-4 py-2 text-sm font-medium rounded-lg transition-all duration-300 ${
+          pathname === "/admin" || pathname === "/dashboard"
+            ? "text-teal-600 bg-teal-50 dark:text-teal-400 dark:bg-teal-950/30"
+            : "text-gray-700 hover:text-teal-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-teal-400 dark:hover:bg-gray-800/50"
+        }`}
       >
         {isAdmin ? "Admin" : t("navigation.dashboard")}
         {(pathname === "/admin" || pathname === "/dashboard") && (
@@ -190,10 +184,8 @@ function MobileDashboardLink({
     async function checkAdminRole() {
       if (isLoaded && isSignedIn && user) {
         try {
-          const adminEmails = ["claimsaverplus@gmail.com"];
           const userEmail = user.primaryEmailAddress?.emailAddress;
-          const adminStatus = adminEmails.includes(userEmail || "");
-          setIsAdmin(adminStatus);
+          setIsAdmin(isDesignatedAdminEmail(userEmail));
         } catch (error) {
           console.error("Error checking admin role:", error);
           setIsAdmin(false);
@@ -219,10 +211,11 @@ function MobileDashboardLink({
     >
       <Link
         href={isAdmin ? "/admin" : "/dashboard"}
-        className={`flex items-center gap-3 px-3 py-3 rounded-lg text-base font-medium transition-all duration-300 ${pathname === "/admin" || pathname === "/dashboard"
-          ? "text-teal-600 bg-teal-50 dark:text-teal-400 dark:bg-teal-950/30"
-          : "text-gray-700 hover:text-teal-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-teal-400 dark:hover:bg-gray-800/50"
-          }`}
+        className={`flex items-center gap-3 px-3 py-3 rounded-lg text-base font-medium transition-all duration-300 ${
+          pathname === "/admin" || pathname === "/dashboard"
+            ? "text-teal-600 bg-teal-50 dark:text-teal-400 dark:bg-teal-950/30"
+            : "text-gray-700 hover:text-teal-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-teal-400 dark:hover:bg-gray-800/50"
+        }`}
         onClick={onClick}
       >
         <div className="w-8 h-8 bg-gradient-to-r from-teal-500 to-teal-700 rounded-lg flex items-center justify-center text-white">
@@ -246,7 +239,7 @@ function ThemeToggle() {
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme") as "light" | "dark";
     const prefersDark = window.matchMedia(
-      "(prefers-color-scheme: dark)"
+      "(prefers-color-scheme: dark)",
     ).matches;
 
     if (savedTheme) {
@@ -360,50 +353,55 @@ export default function Navbar() {
               {/* Direct Navigation Links */}
               <Link
                 href="/who-we-are"
-                className={`px-4 py-2 text-sm font-medium rounded-lg transition-all duration-300 ${pathname === "/who-we-are"
-                  ? "text-teal-600 bg-teal-50 dark:text-teal-400 dark:bg-teal-950/30"
-                  : "text-gray-700 hover:text-teal-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-teal-400 dark:hover:bg-gray-800/50"
-                  }`}
+                className={`px-4 py-2 text-sm font-medium rounded-lg transition-all duration-300 ${
+                  pathname === "/who-we-are"
+                    ? "text-teal-600 bg-teal-50 dark:text-teal-400 dark:bg-teal-950/30"
+                    : "text-gray-700 hover:text-teal-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-teal-400 dark:hover:bg-gray-800/50"
+                }`}
               >
                 {t("navigation.whoWeAre")}
               </Link>
 
               <Link
                 href="/what-we-do"
-                className={`px-4 py-2 text-sm font-medium rounded-lg transition-all duration-300 ${pathname === "/what-we-do"
-                  ? "text-teal-600 bg-teal-50 dark:text-teal-400 dark:bg-teal-950/30"
-                  : "text-gray-700 hover:text-teal-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-teal-400 dark:hover:bg-gray-800/50"
-                  }`}
+                className={`px-4 py-2 text-sm font-medium rounded-lg transition-all duration-300 ${
+                  pathname === "/what-we-do"
+                    ? "text-teal-600 bg-teal-50 dark:text-teal-400 dark:bg-teal-950/30"
+                    : "text-gray-700 hover:text-teal-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-teal-400 dark:hover:bg-gray-800/50"
+                }`}
               >
                 {t("navigation.whatWeDo")}
               </Link>
 
               <Link
                 href="/how-it-works"
-                className={`px-4 py-2 text-sm font-medium rounded-lg transition-all duration-300 ${pathname === "/how-it-works"
-                  ? "text-teal-600 bg-teal-50 dark:text-teal-400 dark:bg-teal-950/30"
-                  : "text-gray-700 hover:text-teal-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-teal-400 dark:hover:bg-gray-800/50"
-                  }`}
+                className={`px-4 py-2 text-sm font-medium rounded-lg transition-all duration-300 ${
+                  pathname === "/how-it-works"
+                    ? "text-teal-600 bg-teal-50 dark:text-teal-400 dark:bg-teal-950/30"
+                    : "text-gray-700 hover:text-teal-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-teal-400 dark:hover:bg-gray-800/50"
+                }`}
               >
                 {t("navigation.howItWorks")}
               </Link>
 
               <Link
                 href="/when-to-call-an-attorney"
-                className={`hidden xl:inline-flex px-4 py-2 text-sm font-medium rounded-lg transition-all duration-300 ${pathname === "/when-to-call-an-attorney"
-                  ? "text-teal-600 bg-teal-50 dark:text-teal-400 dark:bg-teal-950/30"
-                  : "text-gray-700 hover:text-teal-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-teal-400 dark:hover:bg-gray-800/50"
-                  }`}
+                className={`hidden xl:inline-flex px-4 py-2 text-sm font-medium rounded-lg transition-all duration-300 ${
+                  pathname === "/when-to-call-an-attorney"
+                    ? "text-teal-600 bg-teal-50 dark:text-teal-400 dark:bg-teal-950/30"
+                    : "text-gray-700 hover:text-teal-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-teal-400 dark:hover:bg-gray-800/50"
+                }`}
               >
                 {t("navigation.needHelpShort")}
               </Link>
 
               <Link
                 href="/pricing"
-                className={`px-4 py-2 text-sm font-medium rounded-lg transition-all duration-300 ${pathname === "/pricing"
-                  ? "text-teal-600 bg-teal-50 dark:text-teal-400 dark:bg-teal-950/30"
-                  : "text-gray-700 hover:text-teal-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-teal-400 dark:hover:bg-gray-800/50"
-                  }`}
+                className={`px-4 py-2 text-sm font-medium rounded-lg transition-all duration-300 ${
+                  pathname === "/pricing"
+                    ? "text-teal-600 bg-teal-50 dark:text-teal-400 dark:bg-teal-950/30"
+                    : "text-gray-700 hover:text-teal-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-teal-400 dark:hover:bg-gray-800/50"
+                }`}
               >
                 {t("navigation.pricing")}
               </Link>
@@ -422,7 +420,10 @@ export default function Navbar() {
               {isClerkAvailable && <DashboardLink pathname={pathname} />}
 
               {/* Divider */}
-              <div className="w-px h-5 bg-gray-300 dark:bg-gray-600 mx-1 shrink-0" aria-hidden />
+              <div
+                className="w-px h-5 bg-gray-300 dark:bg-gray-600 mx-1 shrink-0"
+                aria-hidden
+              />
 
               {/* Language Switcher */}
               <LanguageSwitcher />
@@ -462,10 +463,11 @@ export default function Navbar() {
                 <Link
                   href="/who-we-are"
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className={`flex items-center gap-3 px-3 py-3 rounded-lg text-base font-medium transition-all duration-300 ${pathname === "/who-we-are"
+                  className={`flex items-center gap-3 px-3 py-3 rounded-lg text-base font-medium transition-all duration-300 ${
+                    pathname === "/who-we-are"
                       ? "text-teal-600 bg-teal-50 dark:text-teal-400 dark:bg-teal-950/30"
                       : "text-gray-700 hover:text-teal-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-teal-400 dark:hover:bg-gray-800/50"
-                    }`}
+                  }`}
                 >
                   {t("navigation.whoWeAre")}
                 </Link>
@@ -473,10 +475,11 @@ export default function Navbar() {
                 <Link
                   href="/what-we-do"
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className={`flex items-center gap-3 px-3 py-3 rounded-lg text-base font-medium transition-all duration-300 ${pathname === "/what-we-do"
+                  className={`flex items-center gap-3 px-3 py-3 rounded-lg text-base font-medium transition-all duration-300 ${
+                    pathname === "/what-we-do"
                       ? "text-teal-600 bg-teal-50 dark:text-teal-400 dark:bg-teal-950/30"
                       : "text-gray-700 hover:text-teal-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-teal-400 dark:hover:bg-gray-800/50"
-                    }`}
+                  }`}
                 >
                   {t("navigation.whatWeDo")}
                 </Link>
@@ -484,10 +487,11 @@ export default function Navbar() {
                 <Link
                   href="/how-it-works"
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className={`flex items-center gap-3 px-3 py-3 rounded-lg text-base font-medium transition-all duration-300 ${pathname === "/how-it-works"
+                  className={`flex items-center gap-3 px-3 py-3 rounded-lg text-base font-medium transition-all duration-300 ${
+                    pathname === "/how-it-works"
                       ? "text-teal-600 bg-teal-50 dark:text-teal-400 dark:bg-teal-950/30"
                       : "text-gray-700 hover:text-teal-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-teal-400 dark:hover:bg-gray-800/50"
-                    }`}
+                  }`}
                 >
                   {t("navigation.howItWorks")}
                 </Link>
@@ -495,10 +499,11 @@ export default function Navbar() {
                 <Link
                   href="/when-to-call-an-attorney"
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className={`flex items-center gap-3 px-3 py-3 rounded-lg text-base font-medium transition-all duration-300 ${pathname === "/when-to-call-an-attorney"
+                  className={`flex items-center gap-3 px-3 py-3 rounded-lg text-base font-medium transition-all duration-300 ${
+                    pathname === "/when-to-call-an-attorney"
                       ? "text-teal-600 bg-teal-50 dark:text-teal-400 dark:bg-teal-950/30"
                       : "text-gray-700 hover:text-teal-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-teal-400 dark:hover:bg-gray-800/50"
-                    }`}
+                  }`}
                 >
                   {t("navigation.needProfessionalHelp")}
                 </Link>
@@ -506,10 +511,11 @@ export default function Navbar() {
                 <Link
                   href="/pricing"
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className={`flex items-center gap-3 px-3 py-3 rounded-lg text-base font-medium transition-all duration-300 ${pathname === "/pricing"
+                  className={`flex items-center gap-3 px-3 py-3 rounded-lg text-base font-medium transition-all duration-300 ${
+                    pathname === "/pricing"
                       ? "text-teal-600 bg-teal-50 dark:text-teal-400 dark:bg-teal-950/30"
                       : "text-gray-700 hover:text-teal-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-teal-400 dark:hover:bg-gray-800/50"
-                    }`}
+                  }`}
                 >
                   {t("navigation.pricing")}
                 </Link>

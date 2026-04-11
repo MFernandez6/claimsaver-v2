@@ -31,6 +31,8 @@ import {
   TrendingUp,
   ClipboardList,
 } from "lucide-react";
+import { PageHeroBackdrop } from "@/components/page-hero-backdrop";
+import { DashboardOverviewPanels } from "@/components/dashboard-overview-panels";
 import ClaimDetail from "@/components/ClaimDetail";
 import { Modal } from "@/components/ui/modal";
 import { generateClaimPDF } from "@/utils/pdfGenerator";
@@ -390,13 +392,10 @@ export default function DashboardPage() {
 
   const loadClaims = async () => {
     try {
-      console.log("Loading claims...");
       const response = await fetch("/api/claims");
-      console.log(`Claims API response status: ${response.status}`);
 
       if (response.ok) {
         const data = await response.json();
-        console.log("Claims data received:", data);
         setClaims(data.claims || []);
       } else {
         const errorText = await response.text();
@@ -563,20 +562,11 @@ export default function DashboardPage() {
 
   const handleDownloadClaim = async (claimId: string, claimNumber: string) => {
     try {
-      console.log(
-        `Attempting to download claim: ${claimId}, claimNumber: ${claimNumber}`
-      );
-
       const response = await fetch(`/api/claims/${claimId}`);
-      console.log(`API response status: ${response.status}`);
 
       if (response.ok) {
         const data = await response.json();
-        console.log("Claim data received:", data);
-
-        console.log("Generating PDF...");
         const pdfBlob = await generateClaimPDF(data);
-        console.log("PDF generated successfully");
 
         const url = window.URL.createObjectURL(pdfBlob);
         const link = document.createElement("a");
@@ -586,8 +576,6 @@ export default function DashboardPage() {
         link.click();
         document.body.removeChild(link);
         window.URL.revokeObjectURL(url);
-
-        console.log("PDF download initiated");
       } else {
         const errorText = await response.text();
         console.error(`API error: ${response.status} - ${errorText}`);
@@ -649,8 +637,9 @@ export default function DashboardPage() {
 
   if (!isLoaded || checkingRole) {
     return (
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-950 pt-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="relative min-h-screen overflow-hidden bg-gradient-to-br from-slate-50 via-white to-emerald-50 pt-16 dark:from-slate-950 dark:via-gray-900 dark:to-slate-900">
+        <PageHeroBackdrop />
+        <div className="relative z-10 mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
           <div className="flex items-center justify-center h-64">
             <Loader2 className="w-8 h-8 animate-spin text-teal-600" />
           </div>
@@ -663,35 +652,45 @@ export default function DashboardPage() {
     return null;
   }
 
-  // Debug information
-  console.log("Dashboard state:", {
-    user: user?.id,
-    claimsCount: claims.length,
-    claims: claims,
-    isLoaded,
-    checkingRole,
-  });
+  const completedSteps = journeySteps.filter(
+    (s) => s.status === "completed"
+  ).length;
+  const totalSteps = journeySteps.length;
+  const nextCalendarEvent = (() => {
+    const upcoming = upcomingEvents
+      .filter((e) => !e.completed)
+      .sort(
+        (a, b) =>
+          new Date(a.date).getTime() - new Date(b.date).getTime()
+      )[0];
+    if (!upcoming) return null;
+    return {
+      title: upcoming.title,
+      dateLabel: `${new Date(upcoming.date).toLocaleDateString()}${
+        upcoming.time ? ` · ${upcoming.time}` : ""
+      }`,
+    };
+  })();
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-950 pt-16">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
-            Welcome back, {user.firstName || "User"}!
-          </h1>
-          <p className="text-gray-600 dark:text-gray-400">
-            Track your claims journey and stay organized with important events.
-          </p>
-        </div>
+    <div className="relative min-h-screen overflow-hidden bg-gradient-to-br from-slate-50 via-white to-emerald-50 pt-16 dark:from-slate-950 dark:via-gray-900 dark:to-slate-900">
+      <PageHeroBackdrop />
+      <div className="relative z-10 mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+        <DashboardOverviewPanels
+          welcomeName={user.firstName || user.username || "User"}
+          completedSteps={completedSteps}
+          totalSteps={totalSteps}
+          documentsCount={documents.length}
+          nextEvent={nextCalendarEvent}
+        />
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="mt-10 grid grid-cols-1 gap-8 lg:grid-cols-3">
           {/* Claims Journey Steps */}
           <div className="lg:col-span-2">
-            <Card className="shadow-lg border-0 bg-gradient-to-br from-white to-teal-50 dark:from-gray-900 dark:to-teal-950">
+            <Card className="rounded-2xl border border-slate-200/90 bg-white/90 shadow-[0_24px_80px_-12px_rgba(15,23,42,0.12)] backdrop-blur-xl dark:border-slate-700/80 dark:bg-slate-900/85 dark:shadow-[0_24px_80px_-12px_rgba(0,0,0,0.45)]">
               <CardHeader>
                 <CardTitle className="flex items-center gap-3 text-xl font-bold text-gray-900 dark:text-white">
-                  <MapPinIcon className="w-6 h-6 text-teal-600" />
+                  <MapPinIcon className="h-6 w-6 text-teal-600" />
                   Your Claims Journey
                 </CardTitle>
                 <p className="text-gray-600 dark:text-gray-400">
@@ -703,7 +702,7 @@ export default function DashboardPage() {
                   {journeySteps.map((step) => (
                     <div
                       key={step.id}
-                      className="flex items-center gap-3 p-3 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-sm hover:shadow-md transition-all duration-300"
+                      className="flex items-center gap-3 rounded-xl border border-slate-200/80 bg-white/90 p-3 shadow-sm transition-all duration-300 hover:shadow-md dark:border-slate-700/70 dark:bg-slate-800/70"
                     >
                       <button
                         onClick={() => toggleStepCompletion(step.id)}
@@ -742,7 +741,7 @@ export default function DashboardPage() {
 
             {/* Existing Claims Section */}
             {claims.length > 0 && (
-              <Card className="shadow-lg border-0 bg-gradient-to-br from-white to-gray-50 dark:from-gray-900 dark:to-gray-800 mt-6">
+              <Card className="mt-6 rounded-2xl border border-slate-200/90 bg-white/90 shadow-[0_24px_80px_-12px_rgba(15,23,42,0.12)] backdrop-blur-xl dark:border-slate-700/80 dark:bg-slate-900/85 dark:shadow-[0_24px_80px_-12px_rgba(0,0,0,0.45)]">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2 text-lg font-bold text-gray-900 dark:text-white">
                     <Folder className="w-5 h-5 text-gray-600" />
@@ -754,7 +753,7 @@ export default function DashboardPage() {
                     {claims.map((claim) => (
                       <div
                         key={claim._id}
-                        className="p-4 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:shadow-md transition-all duration-300"
+                        className="rounded-xl border border-slate-200/80 bg-white/90 p-4 shadow-sm transition-all duration-300 hover:shadow-md dark:border-slate-700/70 dark:bg-slate-800/70"
                       >
                         <div className="flex items-start justify-between mb-3">
                           <div>
@@ -816,7 +815,7 @@ export default function DashboardPage() {
             )}
 
             {/* Document Repository */}
-            <Card className="shadow-lg border-0 bg-gradient-to-br from-white to-emerald-50 dark:from-gray-900 dark:to-emerald-950 mt-6">
+            <Card className="mt-6 rounded-2xl border border-slate-200/90 bg-white/90 shadow-[0_24px_80px_-12px_rgba(15,23,42,0.12)] backdrop-blur-xl dark:border-slate-700/80 dark:bg-slate-900/85 dark:shadow-[0_24px_80px_-12px_rgba(0,0,0,0.45)]">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-lg font-bold text-gray-900 dark:text-white">
                   <FileText className="w-5 h-5 text-emerald-600" />
@@ -861,7 +860,7 @@ export default function DashboardPage() {
                     {documents.slice(0, 3).map((doc) => (
                       <div
                         key={doc._id}
-                        className="flex items-center justify-between p-3 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800"
+                        className="flex items-center justify-between rounded-xl border border-slate-200/80 bg-white/90 p-3 dark:border-slate-700/70 dark:bg-slate-800/70"
                       >
                         <div className="flex items-center gap-3">
                           <div className="w-10 h-10 bg-emerald-100 dark:bg-emerald-900/30 rounded-lg flex items-center justify-center">
@@ -913,7 +912,7 @@ export default function DashboardPage() {
           {/* Sidebar */}
           <div className="space-y-6">
             {/* Quick Actions */}
-            <Card className="shadow-lg border-0 bg-gradient-to-br from-white to-emerald-50 dark:from-gray-900 dark:to-emerald-950">
+            <Card className="rounded-2xl border border-slate-200/90 bg-white/90 shadow-[0_24px_80px_-12px_rgba(15,23,42,0.12)] backdrop-blur-xl dark:border-slate-700/80 dark:bg-slate-900/85 dark:shadow-[0_24px_80px_-12px_rgba(0,0,0,0.45)]">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-lg font-bold text-gray-900 dark:text-white">
                   <Zap className="w-5 h-5 text-emerald-600" />
@@ -959,7 +958,7 @@ export default function DashboardPage() {
             </Card>
 
             {/* Upcoming Events */}
-            <Card className="shadow-lg border-0 bg-gradient-to-br from-white to-green-50 dark:from-gray-900 dark:to-green-950">
+            <Card className="rounded-2xl border border-slate-200/90 bg-white/90 shadow-[0_24px_80px_-12px_rgba(15,23,42,0.12)] backdrop-blur-xl dark:border-slate-700/80 dark:bg-slate-900/85 dark:shadow-[0_24px_80px_-12px_rgba(0,0,0,0.45)]">
               <CardHeader>
                 <CardTitle className="flex items-center justify-between text-lg font-bold text-gray-900 dark:text-white">
                   <div className="flex items-center gap-2">
@@ -983,7 +982,7 @@ export default function DashboardPage() {
                     .map((event) => (
                       <div
                         key={event._id}
-                        className="p-3 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800"
+                        className="rounded-xl border border-slate-200/80 bg-white/90 p-3 dark:border-slate-700/70 dark:bg-slate-800/70"
                       >
                         <div className="flex items-start justify-between gap-2">
                           <div className="flex-1 min-w-0">
@@ -1031,7 +1030,7 @@ export default function DashboardPage() {
             </Card>
 
             {/* Policy Limits */}
-            <Card className="shadow-lg border-0 bg-gradient-to-br from-white to-emerald-50 dark:from-gray-900 dark:to-emerald-950">
+            <Card className="rounded-2xl border border-slate-200/90 bg-white/90 shadow-[0_24px_80px_-12px_rgba(15,23,42,0.12)] backdrop-blur-xl dark:border-slate-700/80 dark:bg-slate-900/85 dark:shadow-[0_24px_80px_-12px_rgba(0,0,0,0.45)]">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-lg font-bold text-gray-900 dark:text-white">
                   <Shield className="w-5 h-5 text-emerald-600" />

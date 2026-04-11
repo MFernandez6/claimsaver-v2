@@ -5,7 +5,7 @@ import { PageHeroBackdrop } from "@/components/page-hero-backdrop";
 import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { ArrowRight, CheckCircle } from "lucide-react";
+import { ArrowRight, PenLine } from "lucide-react";
 
 export default function HowItWorksPage() {
   const { t } = useTranslation();
@@ -61,11 +61,32 @@ export default function HowItWorksPage() {
       </section>
 
       <section className="pb-24 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="rounded-2xl border border-amber-200 dark:border-amber-900 bg-amber-50/80 dark:bg-amber-950/30 p-6 flex gap-3">
-          <CheckCircle className="w-6 h-6 text-amber-600 flex-shrink-0 mt-0.5" />
-          <p className="text-sm text-amber-900 dark:text-amber-100 leading-relaxed">
-            {t("pages.howItWorks.disclaimer")}
-          </p>
+        <div className="rounded-2xl border border-teal-200/90 dark:border-teal-800/80 bg-teal-50/70 dark:bg-teal-950/25 p-6 flex gap-3">
+          <PenLine
+            className="w-6 h-6 text-teal-700 dark:text-teal-300 flex-shrink-0 mt-0.5"
+            aria-hidden
+          />
+          <div className="space-y-3">
+            <p className="text-sm text-teal-950 dark:text-teal-50/95 leading-relaxed">
+              {t("pages.howItWorks.notarizationNote")}
+            </p>
+            <div className="flex flex-wrap gap-x-4 gap-y-2 text-sm font-medium">
+              <Link
+                href="/notarization"
+                className="text-teal-800 dark:text-teal-200 hover:underline inline-flex items-center"
+              >
+                {t("navigation.notarization")}
+                <ArrowRight className="ml-1 w-4 h-4" aria-hidden />
+              </Link>
+              <Link
+                href="/pricing"
+                className="text-teal-800 dark:text-teal-200 hover:underline inline-flex items-center"
+              >
+                {t("navigation.pricing")}
+                <ArrowRight className="ml-1 w-4 h-4" aria-hidden />
+              </Link>
+            </div>
+          </div>
         </div>
         <div className="flex flex-col sm:flex-row gap-4 justify-center mt-10">
           <Button asChild size="lg" className="bg-gradient-to-r from-teal-600 to-teal-700">

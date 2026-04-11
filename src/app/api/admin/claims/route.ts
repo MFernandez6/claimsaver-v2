@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { checkAdminAuth } from "@/lib/adminAuth";
 import { getSupabaseAdmin, isSupabaseConfigured } from "@/lib/supabase/admin";
 import { claimRowToLegacy } from "@/lib/supabase/mappers";
+import { mapSubmittersForUserIds } from "@/lib/adminClaims";
 
 function generateClaimNumber(): string {
   const date = new Date();
@@ -53,9 +54,25 @@ export async function GET(request: NextRequest) {
     if (search && search.trim()) {
       const safe = search.trim().replace(/[%]/g, "");
       const p = `%${safe}%`;
-      query = query.or(
-        `claim_number.ilike.${p},claim_data->>claimantName.ilike.${p},claim_data->>claimantEmail.ilike.${p}`
+
+      const { data: emailMatches } = await supabase
+        .from("profiles")
+        .select("clerk_id")
+        .ilike("email", p);
+
+      const clerkIds = (emailMatches || []).map(
+        (r: { clerk_id: string }) => r.clerk_id
       );
+
+      const orParts = [
+        `claim_number.ilike.${p}`,
+        `claim_data->>claimantName.ilike.${p}`,
+        `claim_data->>claimantEmail.ilike.${p}`,
+      ];
+      if (clerkIds.length > 0) {
+        orParts.push(`user_id.in.(${clerkIds.join(",")})`);
+      }
+      query = query.or(orParts.join(","));
     }
 
     const { data: rows, error, count } = await query;
@@ -65,9 +82,20 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: error.message }, { status: 500 });
     }
 
-    const data = (rows || []).map((r) =>
+    const legacyRows = (rows || []).map((r) =>
       claimRowToLegacy(r as Record<string, unknown>)
     );
+    const userIds = legacyRows.map((c) => String(c.userId ?? ""));
+    const submitterMap = await mapSubmittersForUserIds(supabase, userIds);
+
+    const data = legacyRows.map((c) => {
+      const s = submitterMap.get(String(c.userId ?? ""));
+      return {
+        ...c,
+        submitterEmail: s?.email ?? null,
+        submitterName: s?.name ?? null,
+      };
+    });
     const total = count ?? 0;
 
     return NextResponse.json({

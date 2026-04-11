@@ -51,8 +51,6 @@
       "watchDemo": "Ver Demo",
       "imageAlt": "Fondo ClaimSaver+",
       "eyebrow": "PIP en Florida · Plataforma guiada",
-      "visualLabel": "Espacio del reclamo",
-      "visualLive": "Vista previa",
       "visualProgressTitle": "Progreso del reclamo",
       "visualProgressSubtitle": "Pasos guiados · guarda en cualquier momento",
       "visualStepsDone": "Pasos completados",
@@ -66,7 +64,9 @@
       "visualDocsHint": "Almacenamiento cifrado para tus archivos",
       "trust1": "No somos un bufete",
       "trust2": "Tarifa plana $500",
-      "trust3": "Presentación guiada—tú tienes el control"
+      "trust3": "Presentación guiada—tú tienes el control",
+      "visualPreviewEventTitle": "Recordatorio de seguimiento",
+      "visualPreviewEventDate": "Ejemplo — añade el tuyo en Calendario"
     },
     "video": {
       "notSupported": "Tu navegador no soporta el elemento de video."
@@ -83,8 +83,8 @@
         "description": "Seguridad de nivel bancario para todos tus documentos de caso con acceso sin problemas."
       },
       "feature4": {
-        "title": "Actualizaciones en Tiempo Real",
-        "description": "Mantente informado con notificaciones instantáneas y seguimiento del progreso del caso."
+        "title": "Recordatorios e hitos",
+        "description": "Sigue la línea de tiempo de tu reclamo con recordatorios automáticos y actualizaciones por hitos—tú controlas cada paso."
       },
       "feature5": {
         "title": "Seguimiento de recuperación",
@@ -157,6 +157,29 @@
         "question": "¿Está ClaimSaver+ disponible en todos los estados?",
         "answer": "ClaimSaver+ se centra en reclamos PIP de vehículos motorizados en Florida. Otros estados podrían añadirse con el tiempo. No brindamos asesoramiento legal; para su jurisdicción, consulte a un abogado."
       }
+    },
+    "optionalServices": {
+      "title": "Acceso a la plataforma y notarización opcional",
+      "subtitle": "La presentación guiada de PIP es nuestro producto principal. La notarización en línea es un complemento separado—con precio y compra propios cuando lo necesite.",
+      "pipTitle": "Plataforma de reclamo guiada ($500)",
+      "pipBody": "Acceso a formularios PIP guiados, almacenamiento seguro de documentos, seguimiento y recordatorios. Esto es lo que usa para preparar y presentar su reclamo sin culpa en Florida.",
+      "notarizationBadge": "Complemento opcional",
+      "notarizationTitle": "Notarización en línea (~$25)",
+      "notarizationBody": "Notarización remota de documentos vía DocuSign. Añádalo en el pago si lo necesita, o revise el servicio primero—no forma parte del flujo guiado del formulario PIP.",
+      "linkNotarization": "Servicio de notarización",
+      "linkPricing": "Precios y pago"
+    }
+  },
+  "pages": {
+    "howItWorks": {
+      "notarizationNote": "¿Necesita notarizar un documento? Ofrecemos notarización en línea opcional vía DocuSign como servicio separado de la presentación guiada de PIP—aproximadamente $25 si lo añade al pagar. No es obligatorio para usar la plataforma de reclamos."
+    },
+    "learningCenter": {
+      "attorneyLink": "¿Se pregunta cuándo llamar a un abogado?",
+      "notarizationLink": "Notarización en línea opcional (separada de la presentación PIP)"
+    },
+    "contact": {
+      "notarizationNote": "La notarización en línea opcional es un servicio separado de la presentación guiada de PIP—añádala al pagar o revise los detalles primero:"
     }
   },
   "pricing": {
@@ -195,6 +218,8 @@
       "maximumRecovery": "Organizado e informado durante su reclamo"
     },
     "comparisonNote": "La comparación supone que presenta con las herramientas guiadas de ClaimSaver+ frente a un abogado del 33% sobre $10,000 de beneficio PIP. Los resultados reales varían.",
+    "optionalNotarizationIntro": "El acceso a la plataforma guiada de PIP ($500) y la notarización en línea opcional (~$25) son partidas separadas. Puede comprar notarización solo si la necesita—vea abajo.",
+    "selectServicesNotarizationHint": "Seleccione el acceso guiado a la plataforma para la presentación PIP. Añada notarización solo si necesita notarizar documentos; se factura por separado y no forma parte del flujo PIP.",
     "platformAccessSubtitle": "Acceso guiado a la plataforma—usted controla el proceso",
     "features": {
       "transparentPricing": {
@@ -320,6 +345,9 @@
   "dashboard": {
     "title": "Panel",
     "welcome": "Bienvenido de vuelta",
+    "overviewWelcome": "Bienvenido de nuevo, <name>{{name}}</name> — aquí está tu espacio de reclamo.",
+    "overviewNoUpcoming": "Sin próximos eventos — añade hitos en el calendario.",
+    "overviewDocsCount": "{{count}} documento(s) en tu bóveda segura",
     "navOverview": "Resumen",
     "recentActivity": "Actividad Reciente",
     "quickActions": "Acciones Rápidas",
@@ -375,7 +403,8 @@
     "termsOfService": "Términos de Servicio",
     "cookiePolicy": "Política de Cookies",
     "legalDisclaimer": "Descargo de Responsabilidad Legal",
-    "legalText": "ClaimSaver+ es una plataforma tecnológica de reclamos guiados—no un bufete. No brindamos asesoramiento legal, representación, evaluación de reclamos ni negociación con aseguradoras en su nombre. La información es general y educativa. Usted presenta su reclamo PIP con nuestras herramientas—usted es quien presenta, no ClaimSaver+. Para su caso concreto, consulte a un abogado. No garantizamos resultados. Referencias opcionales a abogados u otros profesionales pueden ofrecerse por separado; no forman parte de la tarifa estándar de la plataforma."
+    "legalText": "ClaimSaver+ es una plataforma tecnológica de reclamos guiados—no un bufete. No brindamos asesoramiento legal, representación, evaluación de reclamos ni negociación con aseguradoras en su nombre. La información es general y educativa. Usted presenta su reclamo PIP con nuestras herramientas—usted es quien presenta, no ClaimSaver+. Para su caso concreto, consulte a un abogado. No garantizamos resultados. Referencias opcionales a abogados u otros profesionales pueden ofrecerse por separado; no forman parte de la tarifa estándar de la plataforma.",
+    "optionalNotarization": "Notarización en línea opcional (DocuSign) disponible por separado—vea Notarización y Precios."
   },
   "whoWeAre": {
     "hero": {
@@ -483,6 +512,12 @@
         }
       }
     },
+    "optionalNotarization": {
+      "title": "Complemento opcional: notarización en línea",
+      "body": "¿Necesita notarizar documentos? Ofrecemos notarización remota vía DocuSign por una tarifa separada (~$25). No forma parte del servicio guiado del formulario PIP—solo la añade si la necesita, al pagar o tras revisar la página de notarización.",
+      "linkNotarization": "Servicio de notarización",
+      "linkPricing": "Precios y pago"
+    },
     "process": {
       "title": "Un flujo de",
       "subtitle": "presentación guiada",
@@ -502,7 +537,7 @@
       },
       "step4": {
         "title": "Presentar su reclamo",
-        "description": "Cuando esté listo, use ClaimSaver+ para reunir sus documentos en un paquete completo y envíelo directamente a su aseguradora. No nos comunicamos con las aseguradoras por usted ni abogamos ni negociamos en su nombre."
+        "description": "Cuando esté listo, reúna sus documentos en un paquete completo y envíelo a su aseguradora. Mantenerse organizado ayuda a presentar un reclamo completo—usted se comunica directamente con su compañía de seguros."
       }
     },
     "faq": {

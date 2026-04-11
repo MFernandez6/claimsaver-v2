@@ -289,6 +289,9 @@ export default function Pricing() {
             <p className="text-xl sm:text-2xl text-gray-600 dark:text-gray-300 mb-8 leading-relaxed max-w-3xl mx-auto">
               {t("pricing.subtitle")}
             </p>
+            <p className="text-base sm:text-lg text-gray-600 dark:text-gray-300 mb-8 leading-relaxed max-w-3xl mx-auto border border-teal-200/80 dark:border-teal-800/60 rounded-xl bg-teal-50/50 dark:bg-teal-950/20 px-4 py-3">
+              {t("pricing.optionalNotarizationIntro")}
+            </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
               <Button
@@ -320,6 +323,9 @@ export default function Pricing() {
                   </CardTitle>
                   <p className="text-gray-600 dark:text-gray-300 text-center">
                     {t("pricing.selectServicesDesc")}
+                  </p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400 text-center mt-2 max-w-2xl mx-auto">
+                    {t("pricing.selectServicesNotarizationHint")}
                   </p>
                 </CardHeader>
                 <CardContent className="space-y-6">

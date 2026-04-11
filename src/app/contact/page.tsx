@@ -26,6 +26,22 @@ export default function ContactPage() {
           <p className="text-gray-600 dark:text-gray-300 leading-relaxed mb-8">
             {t("pages.contact.body")}
           </p>
+          <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed mb-8 max-w-lg mx-auto">
+            {t("pages.contact.notarizationNote")}{" "}
+            <Link
+              href="/notarization"
+              className="text-teal-600 dark:text-teal-400 font-medium hover:underline"
+            >
+              {t("navigation.notarization")}
+            </Link>
+            {" · "}
+            <Link
+              href="/pricing"
+              className="text-teal-600 dark:text-teal-400 font-medium hover:underline"
+            >
+              {t("navigation.pricing")}
+            </Link>
+          </p>
           <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">
             {t("pages.contact.emailLabel")}
           </p>

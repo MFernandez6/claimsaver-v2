@@ -1,6 +1,7 @@
 import { auth } from "@clerk/nextjs/server";
 import { getSupabaseAdmin, isSupabaseConfigured } from "@/lib/supabase/admin";
 import { profileRowToLegacy } from "@/lib/supabase/mappers";
+import { isDesignatedAdminEmail } from "@/lib/adminAccess";
 
 interface UserDocument {
   _id: string;
@@ -53,7 +54,9 @@ export async function getCurrentUser(): Promise<UserDocument | null> {
 export async function isAdmin(): Promise<boolean> {
   try {
     const user = await getCurrentUser();
-    return user?.role === "admin" || user?.role === "super_admin";
+    if (!user) return false;
+    if (user.role === "admin" || user.role === "super_admin") return true;
+    return isDesignatedAdminEmail(user.email);
   } catch (error) {
     console.error("Error checking admin status:", error);
     return false;

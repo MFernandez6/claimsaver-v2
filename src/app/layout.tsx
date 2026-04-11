@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/navbar";
 import I18nProvider from "@/components/i18n-provider";
@@ -17,6 +17,13 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+/** Display / marketing wordmark only — pairs with Geist for UI (Stripe-style pairing). */
+const plusJakarta = Plus_Jakarta_Sans({
+  variable: "--font-plus-jakarta",
+  subsets: ["latin"],
+  display: "swap",
+});
+
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
@@ -25,7 +32,10 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://claimsaverplus.net"),
-  title: "ClaimSaver+ — Guided Florida PIP claim filing tools",
+  title: {
+    default: "ClaimSaver+ — Guided Florida PIP claim filing tools",
+    template: "%s | ClaimSaver+",
+  },
   description:
     "Professional-grade no-fault (PIP) tools: guided forms, secure storage, and tracking for your Florida motor vehicle claim. Not a law firm; not legal advice.",
   openGraph: {
@@ -66,7 +76,7 @@ export default function RootLayout({
     return (
       <html lang="en">
         <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+          className={`${geistSans.variable} ${geistMono.variable} ${plusJakarta.variable} antialiased`}
         >
           <I18nProvider>
             <div className="min-h-screen min-w-0 bg-gradient-to-br from-gray-50 via-white to-emerald-50/80 dark:from-gray-950 dark:via-gray-900 dark:to-emerald-950/30">
@@ -97,7 +107,7 @@ export default function RootLayout({
     >
       <html lang="en">
         <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+          className={`${geistSans.variable} ${geistMono.variable} ${plusJakarta.variable} antialiased`}
         >
           <I18nProvider>
             <SessionManager />

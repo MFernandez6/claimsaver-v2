@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { useUser } from "@clerk/nextjs";
 import { useRouter, useParams } from "next/navigation";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -25,8 +26,15 @@ import {
   Edit,
   Shield,
   FileText,
+  ExternalLink,
+  Download,
 } from "lucide-react";
-import { claimsApi, type Claim } from "@/lib/api";
+import {
+  claimsApi,
+  type Claim,
+  type SubmitterSummary,
+  type AdminClaimDocument,
+} from "@/lib/api";
 
 export default function ClaimDetailPage() {
   const { user, isLoaded } = useUser();
@@ -38,6 +46,11 @@ export default function ClaimDetailPage() {
   const [editing, setEditing] = useState(false);
   const [newNote, setNewNote] = useState("");
   const [error, setError] = useState<string | null>(null);
+  const [adminAuthorized, setAdminAuthorized] = useState<boolean | null>(null);
+  const [submitter, setSubmitter] = useState<SubmitterSummary | null>(null);
+  const [adminDocuments, setAdminDocuments] = useState<AdminClaimDocument[]>(
+    [],
+  );
 
   const loadClaim = useCallback(async () => {
     try {
@@ -51,7 +64,13 @@ export default function ClaimDetailPage() {
       }
 
       if (response.data) {
-        setClaim(response.data);
+        const c = response.data;
+        setClaim({
+          ...c,
+          notes: Array.isArray(c.notes) ? c.notes : [],
+        });
+        setSubmitter(response.submitter ?? null);
+        setAdminDocuments(response.documents ?? []);
       } else {
         throw new Error("Claim not found");
       }
@@ -64,14 +83,27 @@ export default function ClaimDetailPage() {
   }, [params.id]);
 
   useEffect(() => {
-    if (isLoaded && !user) {
+    if (!isLoaded) return;
+    if (!user) {
       router.push("/");
       return;
     }
 
-    if (isLoaded && user && params.id) {
-      loadClaim();
-    }
+    let cancelled = false;
+    (async () => {
+      const res = await fetch("/api/admin/me");
+      if (cancelled) return;
+      if (!res.ok) {
+        router.push("/dashboard");
+        return;
+      }
+      setAdminAuthorized(true);
+      if (params.id) loadClaim();
+    })();
+
+    return () => {
+      cancelled = true;
+    };
   }, [isLoaded, user, router, params.id, loadClaim]);
 
   const getStatusColor = (status: string) => {
@@ -144,7 +176,7 @@ export default function ClaimDetailPage() {
 
       const updatedClaim = {
         ...claim,
-        notes: [...claim.notes, note],
+        notes: [...(claim.notes || []), note],
       };
 
       const response = await claimsApi.updateClaim(claim._id, updatedClaim);
@@ -161,7 +193,7 @@ export default function ClaimDetailPage() {
     }
   };
 
-  if (loading) {
+  if (!isLoaded || adminAuthorized !== true || loading) {
     return (
       <div className="min-h-screen bg-white dark:bg-gray-950">
         {/* Background Image */}
@@ -300,14 +332,14 @@ export default function ClaimDetailPage() {
             <div className="flex items-center gap-2">
               <Badge
                 className={`${getStatusColor(
-                  claim.status
+                  claim.status,
                 )} px-4 py-2 text-sm font-semibold`}
               >
                 {claim.status.replace("_", " ")}
               </Badge>
               <Badge
                 className={`${getPriorityColor(
-                  claim.priority
+                  claim.priority,
                 )} px-4 py-2 text-sm font-semibold`}
               >
                 {claim.priority}
@@ -363,6 +395,33 @@ export default function ClaimDetailPage() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Main Content */}
           <div className="lg:col-span-2 space-y-8">
+            {/* Full wizard payload (every field the client submitted) */}
+            {claim.noFaultWorksheet &&
+              Object.keys(claim.noFaultWorksheet).length > 0 && (
+                <Card className="group relative overflow-hidden shadow-lg bg-gradient-to-br from-slate-50 to-white dark:from-gray-900 dark:to-gray-950 backdrop-blur-sm border border-slate-200 dark:border-slate-700">
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2 text-gray-900 dark:text-white">
+                      <FileText className="h-6 w-6" />
+                      Complete submission (all form fields)
+                    </CardTitle>
+                    <p className="text-sm text-gray-600 dark:text-gray-400">
+                      Raw PIP worksheet data as submitted by the client—includes
+                      every step of the guided form.
+                    </p>
+                  </CardHeader>
+                  <CardContent>
+                    <details className="group">
+                      <summary className="cursor-pointer text-sm font-medium text-teal-700 dark:text-teal-300 hover:underline">
+                        Show / hide full JSON
+                      </summary>
+                      <pre className="mt-3 max-h-[min(70vh,480px)] overflow-auto rounded-lg bg-slate-900 text-slate-100 p-4 text-xs leading-relaxed">
+                        {JSON.stringify(claim.noFaultWorksheet, null, 2)}
+                      </pre>
+                    </details>
+                  </CardContent>
+                </Card>
+              )}
+
             {/* Insurance Information */}
             <Card className="group relative overflow-hidden border-0 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 backdrop-blur-sm">
               <div className="absolute inset-0 bg-gradient-to-r from-teal-600/5 to-emerald-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
@@ -1672,6 +1731,151 @@ export default function ClaimDetailPage() {
 
           {/* Sidebar */}
           <div className="space-y-8">
+            {/* Submitter account (Clerk / profile) */}
+            <Card className="group relative overflow-hidden shadow-lg bg-gradient-to-br from-teal-50/80 to-white dark:from-teal-950/30 dark:to-gray-900 backdrop-blur-sm border border-teal-100 dark:border-teal-900">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2 text-gray-900 dark:text-white">
+                  <User className="h-6 w-6" />
+                  Client account
+                </CardTitle>
+                <p className="text-xs text-gray-600 dark:text-gray-400">
+                  Platform profile for the signed-in user who filed this claim.
+                </p>
+              </CardHeader>
+              <CardContent className="space-y-3 text-sm">
+                {submitter ? (
+                  <>
+                    <div>
+                      <span className="text-gray-500 dark:text-gray-400 block text-xs uppercase tracking-wide">
+                        Name
+                      </span>
+                      <span className="text-gray-900 dark:text-white font-medium">
+                        {submitter.firstName} {submitter.lastName}
+                      </span>
+                    </div>
+                    <div>
+                      <span className="text-gray-500 dark:text-gray-400 block text-xs uppercase tracking-wide">
+                        Email
+                      </span>
+                      <a
+                        href={`mailto:${submitter.email}`}
+                        className="text-teal-600 dark:text-teal-400 font-medium hover:underline break-all"
+                      >
+                        {submitter.email}
+                      </a>
+                    </div>
+                    {submitter.phone ? (
+                      <div>
+                        <span className="text-gray-500 dark:text-gray-400 block text-xs uppercase tracking-wide">
+                          Phone
+                        </span>
+                        <span className="text-gray-900 dark:text-white">
+                          {submitter.phone}
+                        </span>
+                      </div>
+                    ) : null}
+                    <div>
+                      <span className="text-gray-500 dark:text-gray-400 block text-xs uppercase tracking-wide">
+                        Clerk user ID
+                      </span>
+                      <code className="text-xs bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded break-all block">
+                        {submitter.clerkId}
+                      </code>
+                    </div>
+                  </>
+                ) : (
+                  <p className="text-gray-600 dark:text-gray-400">
+                    No profile row found—claim submitter id:{" "}
+                    <code className="text-xs break-all">{claim.userId}</code>
+                  </p>
+                )}
+              </CardContent>
+            </Card>
+
+            {/* Documents */}
+            <Card className="group relative overflow-hidden border-0 shadow-lg hover:shadow-2xl transition-all duration-500 bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 backdrop-blur-sm">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2 text-gray-900 dark:text-white">
+                  <FileText className="h-6 w-6" />
+                  Documents
+                </CardTitle>
+                <p className="text-xs text-gray-600 dark:text-gray-400">
+                  Files linked to this claim, plus unlinked uploads from the
+                  same account (not yet tied to a claim).
+                </p>
+              </CardHeader>
+              <CardContent className="space-y-3">
+                {adminDocuments.length === 0 ? (
+                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                    No documents uploaded yet.
+                  </p>
+                ) : (
+                  <ul className="space-y-3 max-h-80 overflow-y-auto">
+                    {adminDocuments.map((doc) => {
+                      const claimId = claim._id;
+                      const linked =
+                        doc.linkedToClaimId &&
+                        String(doc.linkedToClaimId) === String(claimId);
+                      return (
+                        <li
+                          key={doc._id}
+                          className="p-3 rounded-lg border border-gray-200 dark:border-gray-700 bg-gray-50/80 dark:bg-gray-800/50"
+                        >
+                          <div className="flex items-start justify-between gap-2">
+                            <div className="min-w-0">
+                              <p className="font-medium text-gray-900 dark:text-white text-sm truncate">
+                                {doc.name || doc.fileName}
+                              </p>
+                              <p className="text-xs text-gray-500 dark:text-gray-400">
+                                {doc.type} · {doc.uploadDate}{" "}
+                                {doc.size ? `· ${doc.size}` : ""}
+                              </p>
+                              <Badge
+                                variant="outline"
+                                className="mt-1 text-[10px] uppercase"
+                              >
+                                {linked
+                                  ? "Linked to this claim"
+                                  : "Account upload"}
+                              </Badge>
+                            </div>
+                            <div className="flex flex-col gap-1 shrink-0">
+                              <Button
+                                size="sm"
+                                variant="outline"
+                                className="h-8 px-2"
+                                asChild
+                              >
+                                <Link
+                                  href={`/api/admin/documents/${doc._id}/view`}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                >
+                                  <ExternalLink className="w-3.5 h-3.5" />
+                                </Link>
+                              </Button>
+                              <Button
+                                size="sm"
+                                variant="outline"
+                                className="h-8 px-2"
+                                asChild
+                              >
+                                <Link
+                                  href={`/api/admin/documents/${doc._id}/download`}
+                                >
+                                  <Download className="w-3.5 h-3.5" />
+                                </Link>
+                              </Button>
+                            </div>
+                          </div>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                )}
+              </CardContent>
+            </Card>
+
             {/* Status & Priority */}
             <Card className="group relative overflow-hidden border-0 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 backdrop-blur-sm">
               <div className="absolute inset-0 bg-gradient-to-r from-teal-600/5 to-emerald-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
@@ -1707,7 +1911,7 @@ export default function ClaimDetailPage() {
                   ) : (
                     <Badge
                       className={`${getStatusColor(
-                        claim.status
+                        claim.status,
                       )} px-4 py-2 text-sm font-semibold`}
                     >
                       {claim.status.replace("_", " ")}
@@ -1738,7 +1942,7 @@ export default function ClaimDetailPage() {
                   ) : (
                     <Badge
                       className={`${getPriorityColor(
-                        claim.priority
+                        claim.priority,
                       )} px-4 py-2 text-sm font-semibold`}
                     >
                       {claim.priority}
@@ -1816,7 +2020,7 @@ export default function ClaimDetailPage() {
               </CardHeader>
               <CardContent className="space-y-6">
                 <div className="space-y-4 max-h-64 overflow-y-auto">
-                  {claim.notes.map((note, index) => (
+                  {(claim.notes || []).map((note, index) => (
                     <div
                       key={index}
                       className="p-4 bg-gray-50 dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700"

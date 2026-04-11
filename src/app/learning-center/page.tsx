@@ -60,10 +60,20 @@ export default function LearningCenterPage() {
         ))}
       </section>
 
-      <section className="pb-20 max-w-3xl mx-auto px-4 text-center text-sm text-gray-500">
-        <Link href="/when-to-call-an-attorney" className="text-teal-600 dark:text-teal-400 font-medium">
-          Wondering when to call an attorney?
-        </Link>
+      <section className="pb-20 max-w-3xl mx-auto px-4 text-center text-sm text-gray-500 space-y-4">
+        <p>
+          <Link
+            href="/when-to-call-an-attorney"
+            className="text-teal-600 dark:text-teal-400 font-medium hover:underline"
+          >
+            {t("pages.learningCenter.attorneyLink")}
+          </Link>
+        </p>
+        <p>
+          <Link href="/notarization" className="text-teal-600 dark:text-teal-400 font-medium hover:underline">
+            {t("pages.learningCenter.notarizationLink")}
+          </Link>
+        </p>
       </section>
     </div>
   );

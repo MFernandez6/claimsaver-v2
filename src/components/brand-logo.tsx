@@ -53,12 +53,7 @@ export function BrandLogo({
       </defs>
       <title>ClaimSaver+</title>
       {/* Mark */}
-      <rect
-        width="32"
-        height="32"
-        rx="8"
-        fill={`url(#${gradId})`}
-      />
+      <rect width="32" height="32" rx="8" fill={`url(#${gradId})`} />
       <path
         d="M9.5 16.5l4.2 4.2L22.5 11"
         stroke="#0d9488"

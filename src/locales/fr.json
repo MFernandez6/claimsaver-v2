@@ -51,8 +51,6 @@
       "watchDemo": "Regarder la Démo",
       "imageAlt": "Arrière-plan ClaimSaver+",
       "eyebrow": "PIP Floride · Plateforme guidée",
-      "visualLabel": "Espace réclamation",
-      "visualLive": "Aperçu",
       "visualProgressTitle": "Avancement du dossier",
       "visualProgressSubtitle": "Étapes guidées · enregistrez à tout moment",
       "visualStepsDone": "Étapes terminées",
@@ -66,7 +64,9 @@
       "visualDocsHint": "Stockage chiffré pour vos dossiers",
       "trust1": "Pas un cabinet d'avocats",
       "trust2": "Forfait 500 $",
-      "trust3": "Dépôt guidé—vous gardez la maîtrise"
+      "trust3": "Dépôt guidé—vous gardez la maîtrise",
+      "visualPreviewEventTitle": "Rappel de suivi",
+      "visualPreviewEventDate": "Exemple — ajoutez le vôtre dans le calendrier"
     },
     "video": {
       "notSupported": "Votre navigateur ne prend pas en charge l'élément vidéo."
@@ -83,8 +83,8 @@
         "description": "Sécurité de niveau bancaire pour tous vos documents de cas avec accès transparent."
       },
       "feature4": {
-        "title": "Mises à Jour en Temps Réel",
-        "description": "Restez informé avec des notifications instantanées et le suivi des progrès du cas."
+        "title": "Rappels et jalons",
+        "description": "Suivez la chronologie de votre dossier avec des rappels automatiques et des mises à jour par jalons—vous gardez le contrôle à chaque étape."
       },
       "feature5": {
         "title": "Suivi du rétablissement",
@@ -157,6 +157,29 @@
         "question": "ClaimSaver+ est-il disponible partout ?",
         "answer": "ClaimSaver+ se concentre sur les réclamations PIP en Floride. D'autres États peuvent s'ajouter plus tard. Nous ne fournissons pas de conseil juridique ; pour votre juridiction, consultez un avocat."
       }
+    },
+    "optionalServices": {
+      "title": "Accès plateforme et notarisation facultative",
+      "subtitle": "Le dépôt PIP guidé est notre produit principal. La notarisation en ligne est une option distincte—facturée et achetée séparément si vous en avez besoin.",
+      "pipTitle": "Plateforme de réclamation guidée (500 $)",
+      "pipBody": "Accès aux formulaires PIP guidés, stockage sécurisé des documents, suivi et rappels. C’est ce que vous utilisez pour préparer et déposer votre réclamation sans faute en Floride.",
+      "notarizationBadge": "Option distincte",
+      "notarizationTitle": "Notarisation en ligne (~25 $)",
+      "notarizationBody": "Notarisation à distance des documents via DocuSign. Ajoutez-la au paiement si besoin, ou consultez d’abord le service—ce n’est pas intégré au parcours guidé du formulaire PIP.",
+      "linkNotarization": "Service de notarisation",
+      "linkPricing": "Tarifs et paiement"
+    }
+  },
+  "pages": {
+    "howItWorks": {
+      "notarizationNote": "Besoin de faire notariser un document ? Nous proposons une notarisation en ligne facultative via DocuSign, distincte du dépôt PIP guidé—environ 25 $ si vous l’ajoutez au paiement. Ce n’est pas requis pour utiliser la plateforme."
+    },
+    "learningCenter": {
+      "attorneyLink": "Vous vous demandez quand appeler un avocat ?",
+      "notarizationLink": "Notarisation en ligne facultative (distincte du dépôt PIP)"
+    },
+    "contact": {
+      "notarizationNote": "La notarisation en ligne facultative est distincte du dépôt PIP guidé—ajoutez-la au paiement ou consultez d’abord les détails :"
     }
   },
   "pricing": {
@@ -195,6 +218,8 @@
       "maximumRecovery": "Restez organisé et informé tout au long de votre dossier"
     },
     "comparisonNote": "Comparaison : dépôt avec les outils guidés ClaimSaver+ vs avocat à 33 % sur une prestation PIP de 10 000 $. Les résultats réels varient.",
+    "optionalNotarizationIntro": "L’accès à la plateforme PIP guidée (500 $) et la notarisation en ligne facultative (~25 $) sont des postes distincts. Vous ne payez la notarisation que si vous en avez besoin—voir ci-dessous.",
+    "selectServicesNotarizationHint": "Sélectionnez l’accès guidé pour le dépôt PIP. Ajoutez la notarisation seulement si vous devez faire notariser des documents ; elle est facturée séparément et ne fait pas partie du parcours PIP.",
     "platformAccessSubtitle": "Accès guidé à la plateforme—vous pilotez le processus",
     "features": {
       "transparentPricing": {
@@ -347,6 +372,9 @@
   "dashboard": {
     "title": "Tableau de Bord",
     "welcome": "Bon retour",
+    "overviewWelcome": "Bon retour, <name>{{name}}</name> — voici votre espace de réclamation.",
+    "overviewNoUpcoming": "Aucun événement à venir — ajoutez des jalons au calendrier.",
+    "overviewDocsCount": "{{count}} document(s) dans votre coffre sécurisé",
     "navOverview": "Aperçu",
     "recentActivity": "Activité Récente",
     "quickActions": "Actions Rapides",
@@ -402,7 +430,8 @@
     "termsOfService": "Conditions de Service",
     "cookiePolicy": "Politique des Cookies",
     "legalDisclaimer": "Avertissement Légal",
-    "legalText": "ClaimSaver+ est une plateforme technologique de réclamation guidée—pas un cabinet d'avocats. Nous ne fournissons pas de conseils juridiques, de représentation, d'évaluation de réclamation ni de négociation avec les assureurs en votre nom. Les informations sont générales et éducatives. Vous déposez votre réclamation PIP avec nos outils—vous êtes le déposant, pas ClaimSaver+. Pour votre situation, consultez un avocat. Nous ne garantissons aucun résultat. Des orientations vers des avocats ou d'autres professionnels peuvent être proposées séparément ; elles ne font pas partie du forfait plateforme standard."
+    "legalText": "ClaimSaver+ est une plateforme technologique de réclamation guidée—pas un cabinet d'avocats. Nous ne fournissons pas de conseils juridiques, de représentation, d'évaluation de réclamation ni de négociation avec les assureurs en votre nom. Les informations sont générales et éducatives. Vous déposez votre réclamation PIP avec nos outils—vous êtes le déposant, pas ClaimSaver+. Pour votre situation, consultez un avocat. Nous ne garantissons aucun résultat. Des orientations vers des avocats ou d'autres professionnels peuvent être proposées séparément ; elles ne font pas partie du forfait plateforme standard.",
+    "optionalNotarization": "Notarisation en ligne facultative (DocuSign) proposée séparément—voir Notarisation et Tarifs."
   },
   "whoWeAre": {
     "hero": {
@@ -465,71 +494,77 @@
   },
   "whatWeDo": {
     "hero": {
-      "title": "Support Complet de",
-      "subtitle": "Récupération d'Accident",
-      "description": "Nous fournissons un soutien administratif et des solutions technologiques pour aider les victimes d'accident à naviguer dans le processus de réclamation. Notre plateforme rationalise la gestion des documents pour votre voyage de récupération.",
-      "startRecovery": "Démarrer Votre Récupération",
-      "fileClaim": "Soumettre Réclamation",
+      "title": "Votre dossier.",
+      "subtitle": "Votre contrôle. Nos outils.",
+      "description": "ClaimSaver+ offre aux conducteurs en Floride des outils de niveau professionnel, des formulaires et des repères pour déposer eux-mêmes leurs réclamations PIP sans faute. Forfait plateforme 500 $—aucun pourcentage de contingence pour nous.",
+      "startRecovery": "Voir comment ça marche",
+      "fileClaim": "Commencer votre dossier",
       "imageAlt": "Arrière-plan ClaimSaver+"
     },
     "services": {
-      "title": "Nos",
-      "subtitle": "Services",
-      "description": "Outils et soutien complets pour rationaliser votre processus de récupération d'accident",
+      "title": "Ce que la",
+      "subtitle": "plateforme fournit",
+      "description": "Tout ce dont vous avez besoin pour préparer et transmettre votre propre dossier—parcours guidés, stockage sécurisé et rappels pendant que vous gardez la main",
       "noFault": {
-        "title": "Dépôt de Formulaires d'Accident Sans Faute",
-        "description": "Soumission de formulaires rationalisée avec validation en temps réel et confirmation instantanée.",
+        "title": "Formulaire PIP guidé",
+        "description": "Vous remplissez les informations normalisées avec des explications et une validation au niveau des champs—nous aidons à ce que les champs soient complets et bien formatés, pas à ce que vos réponses soient juridiquement « optimales ».",
         "features": {
-          "interface": "Interface de soumission de formulaires facile à utiliser",
-          "upload": "Système sécurisé de téléchargement de documents",
-          "validation": "Validation de formulaires en temps réel",
-          "errorChecking": "Vérification automatique des erreurs",
-          "confirmation": "Confirmation instantanée de soumission"
+          "interface": "Parcours guidé étape par étape",
+          "upload": "Vous contrôlez ce que vous téléchargez dans votre compte sécurisé",
+          "validation": "Contrôles de format et complet",
+          "errorChecking": "Contrôles automatiques des problèmes courants",
+          "confirmation": "Vous examinez et transmettez vos propres éléments"
         }
       },
       "documents": {
-        "title": "Gestion Sécurisée des Documents",
-        "description": "Sécurité de niveau bancaire pour tous vos documents de cas avec accès transparent.",
+        "title": "Organisation des documents",
+        "description": "Stockage sécurisé et listes de contrôle—outils d'organisation, pas d'examen professionnel de vos preuves.",
         "features": {
-          "storage": "Stockage de documents basé sur le cloud",
-          "encryption": "Chiffrement de bout en bout",
-          "sharing": "Partage facile de documents",
-          "version": "Contrôle de version et historique",
-          "mobile": "Accès mobile aux documents"
+          "storage": "Stockage chiffré pour vos fichiers",
+          "encryption": "Pratiques de sécurité adaptées aux données sensibles",
+          "sharing": "Partagez les exports que vous choisissez de créer",
+          "version": "Gardez vos téléchargements organisés au même endroit",
+          "mobile": "Accès depuis les navigateurs modernes sur téléphone ou ordinateur"
         }
       },
       "recovery": {
-        "title": "Soutien au Processus de Récupération",
-        "description": "Soutien administratif tout au long de votre processus de récupération et de réclamation.",
+        "title": "Outils de suivi",
+        "description": "Tableaux de bord personnels pour rendez-vous, dépenses et rappels—aides à l'organisation, pas d'encadrement médical ou juridique.",
         "features": {
-          "organization": "Assistance à l'organisation des documents",
-          "tracking": "Suivi des dépenses médicales",
-          "wageLoss": "Documentation de perte de salaire",
-          "property": "Documentation des dommages matériels",
-          "guidance": "Orientation et soutien du processus"
+          "organization": "Journaux de dépenses et regroupement de documents",
+          "tracking": "Suivez les dates et montants que vous saisissez",
+          "wageLoss": "Modèles pour documenter les pertes de revenus que vous déclarez",
+          "property": "Espace pour les documents matériels que vous téléchargez",
+          "guidance": "Contenu éducatif général—pas de conseil pour votre cas précis"
         }
       }
     },
+    "optionalNotarization": {
+      "title": "Option distincte : notarisation en ligne",
+      "body": "Besoin de faire notariser des documents ? Nous proposons la notarisation à distance via DocuSign moyennant des frais distincts (~25 $). Ce n’est pas inclus dans le service guidé du formulaire PIP—vous ne l’ajoutez que si nécessaire, au paiement ou après lecture de la page Notarisation.",
+      "linkNotarization": "Service de notarisation",
+      "linkPricing": "Tarifs et paiement"
+    },
     "process": {
-      "title": "Votre Voyage de",
-      "subtitle": "Récupération",
-      "description": "Un processus simple étape par étape conçu pour vous remettre sur la bonne voie",
+      "title": "Un parcours typique de",
+      "subtitle": "dépôt guidé",
+      "description": "Vous effectuez chaque étape ; la plateforme vous aide à rester organisé",
       "imageAlt": "Arrière-plan ClaimSaver+",
       "step1": {
-        "title": "Soumettre Vos Informations",
-        "description": "Complétez nos formulaires d'admission complets avec des informations détaillées sur l'accident, téléchargez toute la documentation de soutien incluant les rapports de police, dossiers médicaux et informations d'assurance pour traitement et analyse sécurisés."
+        "title": "Saisir vos informations",
+        "description": "Utilisez nos formulaires guidés pour les détails de l'accident et téléchargez les documents dans votre compte sécurisé. Nous n'« analysons » pas vos mérites juridiques—vous fournissez les faits."
       },
       "step2": {
-        "title": "Commencer le Processus de Récupération",
-        "description": "Concentrez-vous sur vos séances de physiothérapie, protocoles de gestion de la douleur et suivez diligemment votre plan de traitement médical prescrit tout en téléchargeant tous vos dossiers médicaux et dépenses dans le dépôt de documents sécurisé de ClaimSaver."
+        "title": "Suivre votre parcours",
+        "description": "Enregistrez les rendez-vous médicaux, téléchargez les dossiers de traitement que vous choisissez et suivez les dépenses avec les outils intégrés. Suivez les instructions de vos professionnels de santé—ClaimSaver+ ne donne pas de conseil médical."
       },
       "step3": {
-        "title": "Suivre l'Orientation Médicale",
-        "description": "Continuez à adhérer aux recommandations de traitement de vos fournisseurs de soins de santé, assistez à tous les rendez-vous de suivi et restez organisé en créant des entrées de calendrier dans ClaimSaver pour suivre vos rendez-vous médicaux et progrès."
+        "title": "Rester sur la bonne voie",
+        "description": "Utilisez calendriers et rappels pour les échéances et suivis. Les rappels reflètent des délais courants (comme la règle des 14 jours) à titre d'information générale—pas de conseil juridique sur ce que vous devez faire."
       },
       "step4": {
-        "title": "Soumettre à l'Assurance",
-        "description": "Une fois votre traitement médical terminé, ClaimSaver compilera votre dossier de réclamation complet et le soumettra à l'ajusteur d'assurance, puis défendra et négociera en votre nom pour assurer une récupération financière optimale."
+        "title": "Transmettre votre dossier",
+        "description": "Lorsque vous êtes prêt, rassemblez vos documents en un dossier complet et transmettez-le à votre assureur. Rester organisé aide à déposer un dossier complet—vous communiquez directement avec votre compagnie d'assurance."
       }
     },
     "faq": {
@@ -537,7 +572,7 @@
       "subtitle": "Obtenez des réponses aux questions les plus courantes sur nos services",
       "whatDoWeDo": {
         "question": "Que fait exactement ClaimSaver+ pour moi?",
-        "answer": "ClaimSaver+ fournit un soutien administratif complet pour les victimes d'accident. Nous vous aidons à déposer des formulaires d'accident sans faute, gérer vos documents en toute sécurité et vous guider à travers le processus de récupération. Nous gérons la paperasse pendant que vous vous concentrez sur votre récupération."
+        "answer": "Nous fournissons un logiciel : formulaires guidés, validation, stockage sécurisé, suivi des dépenses, rappels et contenu éducatif. Vous déposez votre propre réclamation et communiquez avec votre assureur. Nous ne négocions pas, n'évaluons pas le mérite juridique et ne vous représentons pas."
       },
       "documents": {
         "question": "Quels documents dois-je fournir?",
@@ -549,19 +584,19 @@
       },
       "mobile": {
         "question": "Puis-je accéder aux informations de mon cas sur mon téléphone?",
-        "answer": "Oui! Notre plateforme est entièrement optimisée pour mobile. Vous pouvez télécharger des documents, vérifier le statut du cas, communiquer avec notre équipe et recevoir des mises à jour en temps réel sur n'importe quel appareil. La plateforme fonctionne parfaitement sur smartphones, tablettes et ordinateurs."
+        "answer": "Oui. La plateforme fonctionne dans les navigateurs mobiles modernes pour télécharger des documents et utiliser votre tableau de bord en déplacement."
       },
       "help": {
         "question": "Que faire si j'ai besoin d'aide pendant le processus?",
-        "answer": "Notre équipe de soutien dédiée est disponible pour vous aider tout au long du processus. Vous pouvez nous contacter par téléphone, email ou via la plateforme. Nous fournissons des conseils sur les exigences de documents, répondons aux questions sur le processus et nous assurons que vous avez tout ce dont vous avez besoin pour une réclamation réussie."
+        "answer": "Contactez-nous pour la plateforme, la facturation ou le support technique. Nous ne pouvons pas vous dire quoi faire dans votre situation juridique précise—cela relève d'un avocat. Si votre dossier dépasse un PIP standard, voir notre page « Quand appeler un avocat »."
       },
       "timeline": {
         "question": "Combien de temps prend tout le processus?",
-        "answer": "L'échéancier varie selon la complexité de votre cas et l'état où l'accident s'est produit. Généralement, le dépōt initial de formulaires se produit dans les 24-48 heures. Le processus global de récupération prend généralement 3-6 mois, mais nous travaillons pour accélérer votre cas autant que possible."
+        "answer": "L'échéancier varie selon la complexité de votre cas et l'état où l'accident s'est produit. En général, le dépôt initial de formulaires peut se faire en 24 à 48 heures. L'ensemble du parcours peut prendre plusieurs mois selon les faits et l'assureur."
       },
       "guarantee": {
         "question": "Garantissez-vous une compensation?",
-        "answer": "Bien que nous ne puissions pas garantir des montants de compensation spécifiques, notre équipe travaille diligemment pour maximiser votre récupération. Le succès dépend de divers facteurs incluant la gravité des blessures, la couverture d'assurance disponible et les circonstances spécifiques de votre accident."
+        "answer": "Non. ClaimSaver+ ne garantit aucun résultat ni montant de règlement. Nous fournissons des outils et une formation générale uniquement. Les résultats dépendent de vos faits, de votre couverture et du traitement par l'assureur."
       }
     }
   },

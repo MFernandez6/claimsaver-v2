@@ -1,5 +1,6 @@
 import { auth } from "@clerk/nextjs/server";
 import { createUserIfMissing } from "./createUserIfMissing";
+import { isDesignatedAdminEmail } from "./adminAccess";
 
 interface UserDocument {
   clerkId: string;
@@ -41,8 +42,11 @@ export async function checkAdminAuth(): Promise<AuthResult> {
 
     console.log("✅ User found:", user.email, "Role:", user.role);
 
-    // Check if user has admin role
-    if (user.role !== "admin" && user.role !== "super_admin") {
+    const isRoleAdmin =
+      user.role === "admin" || user.role === "super_admin";
+    const isEmailAdmin = isDesignatedAdminEmail(user.email);
+
+    if (!isRoleAdmin && !isEmailAdmin) {
       console.log("❌ User does not have admin privileges:", user.role);
       return {
         isAuthorized: false,

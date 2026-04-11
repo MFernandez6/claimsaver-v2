@@ -8,6 +8,8 @@ import { Shield } from "lucide-react";
 
 export default function LicenseCredentialsPage() {
   const { t } = useTranslation();
+  const staffLicenseNumber =
+    process.env.NEXT_PUBLIC_FL_STAFF_ADJUSTER_LICENSE?.trim();
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-950">
@@ -26,6 +28,25 @@ export default function LicenseCredentialsPage() {
           <p className="text-gray-600 dark:text-gray-300 leading-relaxed mb-6">
             {t("pages.licenseCredentials.body")}
           </p>
+
+          <div className="rounded-xl border border-slate-200 bg-slate-50/80 p-5 dark:border-slate-700 dark:bg-slate-900/50 mb-6">
+            <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">
+              {t("pages.licenseCredentials.staffLicenseHeading")}
+            </h2>
+            {staffLicenseNumber ? (
+              <p className="text-gray-700 dark:text-gray-300 font-mono text-sm">
+                {staffLicenseNumber}
+              </p>
+            ) : (
+              <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">
+                {t("pages.licenseCredentials.staffLicenseBody")}
+              </p>
+            )}
+            <p className="text-sm text-gray-500 dark:text-gray-400 mt-3 leading-relaxed">
+              {t("pages.licenseCredentials.staffLicensePending")}
+            </p>
+          </div>
+
           <p className="text-gray-600 dark:text-gray-300 leading-relaxed mb-6">
             {t("pages.licenseCredentials.optionalPA")}
           </p>

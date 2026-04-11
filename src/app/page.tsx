@@ -10,6 +10,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import FAQ from "@/components/faq";
 import { PageHeroBackdrop } from "@/components/page-hero-backdrop";
 import { HomeHeroVisual } from "@/components/home-hero-visual";
+import { HeroLogoLockup } from "@/components/hero-logo-lockup";
 import { useTranslation } from "react-i18next";
 import {
   Shield,
@@ -25,6 +26,7 @@ import {
   Scale,
   BadgeCheck,
   Lock,
+  PenLine,
 } from "lucide-react";
 
 export default function Home() {
@@ -142,8 +144,10 @@ export default function Home() {
         <PageHeroBackdrop />
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-20 lg:pb-28">
+          <HeroLogoLockup />
+
           <div className="grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] gap-14 lg:gap-20 items-center">
-            <div className="text-center lg:text-left order-2 lg:order-1">
+            <div className="order-1 text-center lg:text-left">
               <p className="mb-5 inline-flex items-center justify-center gap-2 rounded-full border border-teal-200/90 bg-white/70 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-teal-800 shadow-sm backdrop-blur-sm dark:border-teal-500/25 dark:bg-slate-900/70 dark:text-teal-200 lg:justify-start">
                 <span className="h-1.5 w-1.5 rounded-full bg-teal-500 shadow-[0_0_12px_rgba(20,184,166,0.9)]" />
                 {t("home.hero.eyebrow")}
@@ -168,7 +172,10 @@ export default function Home() {
                       asChild
                       className="h-14 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-800 px-8 text-base font-semibold text-white shadow-[0_12px_40px_-8px_rgba(13,148,136,0.55)] hover:from-emerald-700 hover:to-teal-900 hover:shadow-[0_16px_48px_-8px_rgba(13,148,136,0.6)] transition-all duration-300"
                     >
-                      <Link href="/how-it-works" className="inline-flex items-center gap-2">
+                      <Link
+                        href="/how-it-works"
+                        className="inline-flex items-center gap-2"
+                      >
                         {t("home.hero.cta")}
                         <ArrowRight className="h-5 w-5 shrink-0" />
                       </Link>
@@ -196,21 +203,30 @@ export default function Home() {
 
               <ul className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 lg:justify-start text-sm text-slate-600 dark:text-slate-400">
                 <li className="inline-flex items-center gap-2">
-                  <Scale className="h-4 w-4 shrink-0 text-teal-600 dark:text-teal-400" aria-hidden />
+                  <Scale
+                    className="h-4 w-4 shrink-0 text-teal-600 dark:text-teal-400"
+                    aria-hidden
+                  />
                   <span>{t("home.hero.trust1")}</span>
                 </li>
                 <li className="inline-flex items-center gap-2">
-                  <BadgeCheck className="h-4 w-4 shrink-0 text-teal-600 dark:text-teal-400" aria-hidden />
+                  <BadgeCheck
+                    className="h-4 w-4 shrink-0 text-teal-600 dark:text-teal-400"
+                    aria-hidden
+                  />
                   <span>{t("home.hero.trust2")}</span>
                 </li>
                 <li className="inline-flex items-center gap-2">
-                  <Lock className="h-4 w-4 shrink-0 text-teal-600 dark:text-teal-400" aria-hidden />
+                  <Lock
+                    className="h-4 w-4 shrink-0 text-teal-600 dark:text-teal-400"
+                    aria-hidden
+                  />
                   <span>{t("home.hero.trust3")}</span>
                 </li>
               </ul>
             </div>
 
-            <div className="relative order-1 lg:order-2">
+            <div className="relative order-2">
               <HomeHeroVisual />
             </div>
           </div>
@@ -260,6 +276,75 @@ export default function Home() {
                 </Card>
               ))}
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Optional services: PIP platform vs notarization add-on */}
+      <section className="py-16 bg-slate-50/80 dark:bg-slate-950/50 border-y border-slate-200/70 dark:border-slate-800/60">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-10">
+            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-3">
+              {t("home.optionalServices.title")}
+            </h2>
+            <p className="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+              {t("home.optionalServices.subtitle")}
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <Card className="border border-slate-200/90 dark:border-slate-700 shadow-md bg-white dark:bg-slate-900/80">
+              <CardHeader className="pb-2">
+                <div className="flex items-center gap-3 mb-1">
+                  <div className="w-10 h-10 rounded-lg bg-teal-100 dark:bg-teal-900/40 flex items-center justify-center text-teal-700 dark:text-teal-300">
+                    <Shield className="w-5 h-5" aria-hidden />
+                  </div>
+                  <CardTitle className="text-lg text-gray-900 dark:text-white">
+                    {t("home.optionalServices.pipTitle")}
+                  </CardTitle>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <p className="text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
+                  {t("home.optionalServices.pipBody")}
+                </p>
+                <Link
+                  href="/pricing"
+                  className="inline-flex items-center text-teal-600 dark:text-teal-400 font-medium text-sm hover:underline"
+                >
+                  {t("home.optionalServices.linkPricing")}
+                  <ArrowRight className="ml-1 w-4 h-4" aria-hidden />
+                </Link>
+              </CardContent>
+            </Card>
+            <Card className="border border-slate-200/90 dark:border-slate-700 shadow-md bg-white dark:bg-slate-900/80">
+              <CardHeader className="pb-2">
+                <div className="flex items-center gap-3 mb-1">
+                  <span className="text-xs font-semibold uppercase tracking-wide text-teal-700 dark:text-teal-300 bg-teal-50 dark:bg-teal-950/50 px-2 py-0.5 rounded">
+                    {t("home.optionalServices.notarizationBadge")}
+                  </span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-700 dark:text-slate-200">
+                    <PenLine className="w-5 h-5" aria-hidden />
+                  </div>
+                  <CardTitle className="text-lg text-gray-900 dark:text-white">
+                    {t("home.optionalServices.notarizationTitle")}
+                  </CardTitle>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <p className="text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
+                  {t("home.optionalServices.notarizationBody")}
+                </p>
+                <Link
+                  href="/notarization"
+                  className="inline-flex items-center text-teal-600 dark:text-teal-400 font-medium text-sm hover:underline"
+                >
+                  {t("home.optionalServices.linkNotarization")}
+                  <ArrowRight className="ml-1 w-4 h-4" aria-hidden />
+                </Link>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </section>

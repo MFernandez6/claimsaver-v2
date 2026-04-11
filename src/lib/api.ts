@@ -103,6 +103,33 @@ export interface Claim {
   }>;
   submittedAt: string;
   lastUpdated: string;
+
+  /** Clerk user id (submitter) — from claim row */
+  userId?: string;
+  /** Enriched on admin list */
+  submitterEmail?: string | null;
+  submitterName?: string | null;
+  /** Full wizard payload saved at submission */
+  noFaultWorksheet?: Record<string, unknown>;
+}
+
+/** Admin claim detail extras from GET /api/admin/claims/[id] */
+export interface SubmitterSummary {
+  clerkId: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  phone: string;
+}
+
+export interface AdminClaimDocument {
+  _id: string;
+  name: string;
+  fileName: string;
+  type: string;
+  uploadDate: string;
+  size?: string;
+  linkedToClaimId?: string | null;
 }
 
 export interface User {
@@ -159,7 +186,12 @@ export const claimsApi = {
     }
   },
 
-  async getClaim(id: string): Promise<ApiResponse<Claim>> {
+  async getClaim(id: string): Promise<
+    ApiResponse<Claim> & {
+      submitter?: SubmitterSummary | null;
+      documents?: AdminClaimDocument[];
+    }
+  > {
     try {
       const response = await fetch(`/api/admin/claims/${id}`);
       const data = await response.json();

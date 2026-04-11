@@ -2,6 +2,10 @@ import { NextRequest, NextResponse } from "next/server";
 import { checkAdminAuth } from "@/lib/adminAuth";
 import { getSupabaseAdmin, isSupabaseConfigured } from "@/lib/supabase/admin";
 import { claimRowToLegacy, isUuid } from "@/lib/supabase/mappers";
+import {
+  getDocumentsForClaimAdmin,
+  getSubmitterForClaim,
+} from "@/lib/adminClaims";
 
 export async function GET(
   request: NextRequest,
@@ -45,8 +49,20 @@ export async function GET(
       return NextResponse.json({ error: "Claim not found" }, { status: 404 });
     }
 
+    const claim = claimRowToLegacy(row as Record<string, unknown>);
+    const userClerkId = String(claim.userId ?? "");
+
+    const [submitter, documents] = await Promise.all([
+      userClerkId ? getSubmitterForClaim(supabase, userClerkId) : null,
+      userClerkId
+        ? getDocumentsForClaimAdmin(supabase, id, userClerkId)
+        : [],
+    ]);
+
     return NextResponse.json({
-      data: claimRowToLegacy(row as Record<string, unknown>),
+      data: claim,
+      submitter,
+      documents,
     });
   } catch (error) {
     console.error("Error fetching claim:", error);

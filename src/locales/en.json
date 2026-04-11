@@ -51,8 +51,6 @@
       "watchDemo": "Watch Demo",
       "imageAlt": "ClaimSaver+ Background",
       "eyebrow": "Florida PIP · Guided claim platform",
-      "visualLabel": "Claim workspace",
-      "visualLive": "Preview",
       "visualProgressTitle": "Claim progress",
       "visualProgressSubtitle": "Guided steps · save anytime",
       "visualStepsDone": "Steps completed",
@@ -66,7 +64,9 @@
       "visualDocsHint": "Encrypted storage for your records",
       "trust1": "Not a law firm",
       "trust2": "Flat $500 access",
-      "trust3": "Guided filing—you stay in control"
+      "trust3": "Guided filing—you stay in control",
+      "visualPreviewEventTitle": "Follow-up reminder",
+      "visualPreviewEventDate": "Example — add your own in Calendar"
     },
     "video": {
       "notSupported": "Your browser does not support the video tag."
@@ -83,8 +83,8 @@
         "description": "Secure storage and management with bank-level encryption and easy access."
       },
       "feature4": {
-        "title": "Real-Time Updates",
-        "description": "Stay informed with instant notifications and case progress tracking."
+        "title": "Reminders & milestones",
+        "description": "Track your claim timeline with automated reminders and milestone updates—you stay in control of every step."
       },
       "feature5": {
         "title": "Claim progress & timeline",
@@ -157,6 +157,17 @@
         "question": "Is ClaimSaver+ available in all states?",
         "answer": "ClaimSaver+ is focused on Florida motor vehicle no-fault (PIP) claims. Other states may be added over time. We do not provide legal advice; for questions about your jurisdiction, consult a licensed attorney."
       }
+    },
+    "optionalServices": {
+      "title": "Platform access and optional notarization",
+      "subtitle": "Guided PIP filing is our core product. Online notarization is a separate add-on—priced and purchased on its own when you need it.",
+      "pipTitle": "Guided claim platform ($500)",
+      "pipBody": "Access to guided PIP forms, secure document storage, tracking, and reminders. This is what you use to prepare and file your Florida no-fault claim.",
+      "notarizationBadge": "Optional add-on",
+      "notarizationTitle": "Online notarization (~$25)",
+      "notarizationBody": "Remote document notarization via DocuSign. Add it at checkout if you need it, or review the service first—it is not part of the guided PIP form workflow.",
+      "linkNotarization": "Notarization service",
+      "linkPricing": "Pricing & checkout"
     }
   },
   "pages": {
@@ -174,7 +185,7 @@
       "step4Body": "Use calendars, reminders, and expense tracking—including awareness of common deadlines like Florida’s 14-day initial treatment rule (general information, not legal advice).",
       "step5Title": "Compile and submit your claim package",
       "step5Body": "When you’re ready, pull your documents together into a complete claim package and submit it to your insurer.",
-      "disclaimer": "ClaimSaver+ is a guided claim technology platform—not a law firm. We do not provide legal advice, legal representation, claim evaluation, or negotiation with insurers on your behalf. Information on this site is general and educational only. You file your no-fault (PIP) claim using our tools—you are the filer, not ClaimSaver+. For advice about your specific situation, consult a licensed attorney. We do not guarantee any outcome. Optional attorney or other professional referrals may be offered separately where permitted; they are not part of the standard platform fee."
+      "notarizationNote": "Need a document notarized? We offer optional online notarization via DocuSign as a separate service from guided PIP filing—about $25 when you add it at checkout. It is not required to use the claim platform."
     },
     "learningCenter": {
       "title": "Learning Center",
@@ -202,7 +213,9 @@
           "summary": "Practical tips to stay organized and complete."
         }
       },
-      "footerDisclaimer": "This content is for general educational purposes. ClaimSaver+ is a guided claim platform and does not provide legal advice."
+      "footerDisclaimer": "This content is for general educational purposes. ClaimSaver+ is a guided claim platform and does not provide legal advice.",
+      "attorneyLink": "Wondering when to call an attorney?",
+      "notarizationLink": "Optional online notarization (separate from PIP filing)"
     },
     "needProfessionalHelp": {
       "title": "When Your Claim Needs Legal Expertise",
@@ -214,7 +227,7 @@
         "multi": "Multiple vehicles or complex liability",
         "advice": "Any question that requires legal advice about your specific situation"
       },
-      "closing": "We may offer optional, separately contracted professional services in the future; they will always be clearly distinguished from the standard guided platform.",
+      "closing": "As we grow, we may add optional professional services as a separate offering—always clearly distinguished from standard platform access, with their own agreements and disclosures.",
       "ctaHome": "Back to home",
       "ctaHowItWorks": "How the platform works"
     },
@@ -222,14 +235,18 @@
       "title": "License & Credentials",
       "subtitle": "Transparency about what ClaimSaver+ is—and is not",
       "body": "The ClaimSaver+ product is guided claim software. It is not a law firm, not your representative with an insurance company, and not a substitute for legal or adjusting advice when your situation requires it.",
-      "optionalPA": "If optional licensed public adjusting or other professional services are offered later, they will be a separate agreement with separate disclosures—not part of the standard $500 platform access.",
-      "verify": "When applicable, license numbers and verification links will appear here."
+      "optionalPA": "As we grow, optional licensed public adjusting or other professional services may be offered as a separate product—with separate agreements and disclosures, not part of the standard $500 platform access.",
+      "verify": "Verification links to the Florida Department of Financial Services (DFS) license lookup will be posted here for any credentials we publish.",
+      "staffLicenseHeading": "Team credentials (Florida)",
+      "staffLicenseBody": "Staff adjuster and related Florida license numbers will appear here for public verification as soon as they are published for display. If you need confirmation before then, contact us and we will point you to the appropriate DFS records.",
+      "staffLicensePending": "Public adjuster (3-20) or other credentials, if offered as a separate service later, will be listed separately with full disclosures."
     },
     "contact": {
       "title": "Contact",
       "subtitle": "Platform & technical support",
       "body": "For help signing in, billing, or using the website, email us. We cannot answer questions about the legal merits of your specific claim or tell you what you should do in your case—those questions belong to a licensed attorney.",
-      "emailLabel": "Email"
+      "emailLabel": "Email",
+      "notarizationNote": "Optional online notarization is a separate service from guided PIP filing—add it at checkout or review details first:"
     }
   },
   "pricing": {
@@ -268,6 +285,8 @@
       "maximumRecovery": "Stay organized and informed throughout your claim"
     },
     "comparisonNote": "Comparison assumes you file using ClaimSaver+ guided tools versus using a 33% contingency attorney on a $10,000 PIP benefit. Actual outcomes vary.",
+    "optionalNotarizationIntro": "Guided PIP platform access ($500) and optional online notarization (~$25) are separate line items. You can purchase notarization only if you need it—see below.",
+    "selectServicesNotarizationHint": "Select guided platform access for PIP filing. Add notarization only if you need documents notarized; it is billed separately and is not part of the PIP workflow.",
     "platformAccessSubtitle": "Guided platform access—you control the process",
     "features": {
       "transparentPricing": {
@@ -420,6 +439,9 @@
   "dashboard": {
     "title": "Dashboard",
     "welcome": "Welcome back",
+    "overviewWelcome": "Welcome back, <name>{{name}}</name> — here’s your claim workspace.",
+    "overviewNoUpcoming": "No upcoming events — add milestones in the calendar.",
+    "overviewDocsCount": "{{count}} document(s) in your secure vault",
     "overview": {
       "title": "Recovery Overview",
       "subtitle": "Recovery Overview",
@@ -474,7 +496,8 @@
     "termsOfService": "Terms of Service",
     "cookiePolicy": "Cookie Policy",
     "legalDisclaimer": "Legal Disclaimer",
-    "legalText": "ClaimSaver+ is a guided claim technology platform—not a law firm. We do not provide legal advice, legal representation, claim evaluation, or negotiation with insurers on your behalf. Information on this site is general and educational only. You file your no-fault (PIP) claim using our tools—you are the filer, not ClaimSaver+. For advice about your specific situation, consult a licensed attorney. We do not guarantee any outcome. Optional attorney or other professional referrals may be offered separately where permitted; they are not part of the standard platform fee."
+    "legalText": "ClaimSaver+ is a guided claim technology platform—not a law firm. We do not provide legal advice, legal representation, claim evaluation, or negotiation with insurers on your behalf. Information on this site is general and educational only. You file your no-fault (PIP) claim using our tools—you are the filer, not ClaimSaver+. For advice about your specific situation, consult a licensed attorney. We do not guarantee any outcome. Optional attorney or other professional referrals may be offered separately where permitted; they are not part of the standard platform fee.",
+    "optionalNotarization": "Optional online notarization (DocuSign) is available separately—see Notarization and Pricing."
   },
   "whoWeAre": {
     "hero": {
@@ -582,6 +605,12 @@
         }
       }
     },
+    "optionalNotarization": {
+      "title": "Optional add-on: online notarization",
+      "body": "Need documents notarized? We offer remote notarization via DocuSign for a separate fee (~$25). It is not part of the guided PIP form service—you add it only if you need it, at checkout or after reviewing the notarization page.",
+      "linkNotarization": "Notarization service",
+      "linkPricing": "Pricing & checkout"
+    },
     "process": {
       "title": "A typical",
       "subtitle": "guided filing flow",
@@ -601,7 +630,7 @@
       },
       "step4": {
         "title": "File your claim",
-        "description": "When you are ready, use ClaimSaver+ to compile your documents into a complete package and submit it to your insurance company directly. We do not communicate with insurers for you, advocate, or negotiate on your behalf."
+        "description": "When you’re ready, compile your documents into a complete package and submit it to your insurer. Staying organized helps you file a complete claim—you communicate with your insurance company directly."
       }
     },
     "faq": {

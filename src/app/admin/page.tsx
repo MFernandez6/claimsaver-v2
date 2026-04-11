@@ -56,6 +56,7 @@ export default function AdminPage() {
   const [refreshing, setRefreshing] = useState(false);
   const [newClaimsCount, setNewClaimsCount] = useState(0);
   const [lastRefresh, setLastRefresh] = useState<Date>(new Date());
+  const [adminAuthorized, setAdminAuthorized] = useState<boolean | null>(null);
 
   // Load data from API
   const loadData = useCallback(async () => {
@@ -141,7 +142,7 @@ export default function AdminPage() {
     } catch (err) {
       console.error("Error updating claim status:", err);
       setError(
-        err instanceof Error ? err.message : "Failed to update claim status"
+        err instanceof Error ? err.message : "Failed to update claim status",
       );
     }
   };
@@ -186,7 +187,7 @@ export default function AdminPage() {
                 .toUpperCase()}</td></tr>
               <tr><td style="font-weight: bold; padding: 8px 0; border-bottom: 1px solid #f3f4f6;">Priority:</td><td style="padding: 8px 0; border-bottom: 1px solid #f3f4f6;">${claim.priority.toUpperCase()}</td></tr>
               <tr><td style="font-weight: bold; padding: 8px 0; border-bottom: 1px solid #f3f4f6;">Submitted Date:</td><td style="padding: 8px 0; border-bottom: 1px solid #f3f4f6;">${new Date(
-                claim.submittedAt
+                claim.submittedAt,
               ).toLocaleDateString()}</td></tr>
               <tr><td style="font-weight: bold; padding: 8px 0; border-bottom: 1px solid #f3f4f6;">Estimated Value:</td><td style="padding: 8px 0; border-bottom: 1px solid #f3f4f6;">$${
                 claim.estimatedValue?.toLocaleString() || "0"
@@ -240,7 +241,7 @@ export default function AdminPage() {
             <h3 style="color: #2563eb; font-size: 16px; margin: 0 0 15px 0; border-bottom: 1px solid #e5e7eb; padding-bottom: 5px;">Accident Details</h3>
             <table style="width: 100%; border-collapse: collapse;">
               <tr><td style="width: 200px; font-weight: bold; padding: 8px 0; border-bottom: 1px solid #f3f4f6;">Accident Date:</td><td style="padding: 8px 0; border-bottom: 1px solid #f3f4f6;">${new Date(
-                claim.accidentDate
+                claim.accidentDate,
               ).toLocaleDateString()}</td></tr>
               <tr><td style="font-weight: bold; padding: 8px 0; border-bottom: 1px solid #f3f4f6;">Accident Place:</td><td style="padding: 8px 0; border-bottom: 1px solid #f3f4f6;">${
                 claim.accidentPlace || "Not provided"
@@ -283,7 +284,7 @@ export default function AdminPage() {
           useCORS: true,
           allowTaint: true,
           backgroundColor: "#ffffff",
-        }
+        },
       );
 
       // 5. Remove the iframe
@@ -314,7 +315,7 @@ export default function AdminPage() {
       pdf.save(
         `claim-${claim.claimNumber}-${
           new Date().toISOString().split("T")[0]
-        }.pdf`
+        }.pdf`,
       );
     } catch (err) {
       console.error("Error generating PDF:", err);
@@ -380,7 +381,7 @@ export default function AdminPage() {
           new Date(claim.accidentDate).toLocaleDateString(),
           claim.estimatedValue || 0,
           new Date(claim.submittedAt).toLocaleDateString(),
-        ].join(",")
+        ].join(","),
       );
 
       const csvContent = [csvHeaders, ...csvRows].join("\n");
@@ -414,7 +415,7 @@ export default function AdminPage() {
         // Focus on status filter
         setTimeout(() => {
           const statusFilter = document.querySelector(
-            "[data-radix-collection-item]"
+            "[data-radix-collection-item]",
           );
           if (statusFilter) {
             (statusFilter as HTMLElement).focus();
@@ -437,21 +438,33 @@ export default function AdminPage() {
   };
 
   useEffect(() => {
-    if (isLoaded && !user) {
+    if (!isLoaded) return;
+    if (!user) {
       router.push("/");
       return;
     }
 
-    if (isLoaded && user) {
-      loadData();
+    let cancelled = false;
+    let interval: ReturnType<typeof setInterval> | undefined;
 
-      // Set up auto-refresh every 30 seconds
-      const interval = setInterval(() => {
+    (async () => {
+      const res = await fetch("/api/admin/me");
+      if (cancelled) return;
+      if (!res.ok) {
+        router.push("/dashboard");
+        return;
+      }
+      setAdminAuthorized(true);
+      await loadData();
+      interval = setInterval(() => {
         loadData();
       }, 30000);
+    })();
 
-      return () => clearInterval(interval);
-    }
+    return () => {
+      cancelled = true;
+      if (interval) clearInterval(interval);
+    };
   }, [isLoaded, user, router, loadData]);
 
   const getStatusColor = (status: string) => {
@@ -496,8 +509,8 @@ export default function AdminPage() {
     totalValue: claims.reduce((sum, c) => sum + (c.estimatedValue || 0), 0),
   };
 
-  // Show loading while checking authentication
-  if (!isLoaded || loading) {
+  // Show loading while checking authentication or admin gate
+  if (!isLoaded || adminAuthorized !== true || loading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-teal-50 to-emerald-100 dark:from-gray-950 dark:to-gray-900">
         <div className="container mx-auto px-4 py-8 pt-24">
@@ -735,6 +748,11 @@ export default function AdminPage() {
                             <p className="text-sm text-gray-600 dark:text-gray-300">
                               {claim.claimantName}
                             </p>
+                            {claim.submitterEmail && (
+                              <p className="text-xs text-gray-500 dark:text-gray-400 truncate max-w-[200px]">
+                                {claim.submitterEmail}
+                              </p>
+                            )}
                           </div>
                           <Badge className={getStatusColor(claim.status)}>
                             {claim.status}
@@ -958,12 +976,25 @@ export default function AdminPage() {
                             <Users className="w-4 h-4" />
                             <span>{claim.claimantName}</span>
                           </div>
+                          {claim.submitterEmail && (
+                            <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
+                              <span className="font-medium text-gray-600 dark:text-gray-300">
+                                Account:
+                              </span>
+                              <span
+                                className="truncate"
+                                title={claim.submitterEmail}
+                              >
+                                {claim.submitterEmail}
+                              </span>
+                            </div>
+                          )}
                           <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
                             <Clock className="w-4 h-4" />
                             <span>
                               Accident:{" "}
                               {new Date(
-                                claim.accidentDate
+                                claim.accidentDate,
                               ).toLocaleDateString()}
                             </span>
                           </div>

@@ -7,8 +7,10 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { BrandLogo } from "@/components/brand-logo";
+import { useTranslation } from "react-i18next";
 
 export default function Footer() {
+  const { t } = useTranslation();
   const [activeModal, setActiveModal] = useState<string | null>(null);
 
   const closeModal = () => {
@@ -92,8 +94,11 @@ export default function Footer() {
               <div className="flex items-center">
                 <BrandLogo variant="footer" />
               </div>
-              <p className="text-teal-100/60 text-sm leading-relaxed max-w-full sm:max-w-[220px]">
-                Guided PIP claim filing for Florida drivers. Secure documents. Smart tools. Flat pricing.
+              <p className="text-teal-100/60 text-sm leading-relaxed max-w-full sm:max-w-[260px]">
+                {t("footer.description")}
+              </p>
+              <p className="text-teal-100/50 text-xs leading-relaxed max-w-full sm:max-w-[260px]">
+                {t("footer.optionalNotarization")}
               </p>
             </div>
             {/* Services */}
