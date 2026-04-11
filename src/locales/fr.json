@@ -66,7 +66,9 @@
       "trust2": "Forfait 500 $",
       "trust3": "Dépôt guidé—vous gardez la maîtrise",
       "visualPreviewEventTitle": "Rappel de suivi",
-      "visualPreviewEventDate": "Exemple — ajoutez le vôtre dans le calendrier"
+      "visualPreviewEventDate": "Exemple — ajoutez le vôtre dans le calendrier",
+      "dashboardPreviewBadge": "Aperçu d’exemple",
+      "dashboardPreviewHint": "Votre progrès et vos documents s’afficheront ici après la connexion."
     },
     "video": {
       "notSupported": "Votre navigateur ne prend pas en charge l'élément vidéo."

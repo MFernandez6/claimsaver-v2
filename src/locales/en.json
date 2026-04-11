@@ -66,7 +66,9 @@
       "trust2": "Flat $500 access",
       "trust3": "Guided filing—you stay in control",
       "visualPreviewEventTitle": "Follow-up reminder",
-      "visualPreviewEventDate": "Example — add your own in Calendar"
+      "visualPreviewEventDate": "Example — add your own in Calendar",
+      "dashboardPreviewBadge": "Sample preview",
+      "dashboardPreviewHint": "Your own progress and documents will appear here after you sign in."
     },
     "video": {
       "notSupported": "Your browser does not support the video tag."

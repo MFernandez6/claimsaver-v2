@@ -7,6 +7,7 @@ import {
   ShieldCheck,
 } from "lucide-react";
 import { Trans, useTranslation } from "react-i18next";
+import { cn } from "@/lib/utils";
 
 export type DashboardOverviewPanelsProps = {
   /** Marketing hero uses fixed numbers; dashboard uses real counts */
@@ -17,6 +18,8 @@ export type DashboardOverviewPanelsProps = {
   nextEvent: { title: string; dateLabel: string } | null;
   /** Dashboard only: shows a prominent welcome; homepage preview omits this */
   welcomeName?: string;
+  /** Homepage hero: label as illustrative mock so it is not mistaken for a live dashboard */
+  variant?: "live" | "preview";
 };
 
 /**
@@ -28,8 +31,10 @@ export function DashboardOverviewPanels({
   documentsCount,
   nextEvent,
   welcomeName,
+  variant = "live",
 }: DashboardOverviewPanelsProps) {
   const { t } = useTranslation();
+  const isPreview = variant === "preview";
   const pct =
     totalSteps > 0
       ? Math.min(100, Math.round((completedSteps / totalSteps) * 100))
@@ -37,18 +42,48 @@ export function DashboardOverviewPanels({
 
   const stepsLabel = `${completedSteps} / ${totalSteps}`;
 
-  return (
-    <div className="relative w-full">
-      <div
-        className="pointer-events-none absolute -left-8 -top-12 h-64 w-64 rounded-full bg-teal-400/25 blur-3xl dark:bg-teal-500/15"
-        aria-hidden
-      />
-      <div
-        className="pointer-events-none absolute -right-6 bottom-0 h-56 w-56 rounded-full bg-emerald-500/20 blur-3xl dark:bg-emerald-400/10"
-        aria-hidden
-      />
+  const Root = isPreview ? "section" : "div";
 
-      <div className="relative">
+  return (
+    <Root
+      className={cn("relative w-full", isPreview && "pointer-events-none select-none")}
+      aria-labelledby={isPreview ? "dashboard-hero-preview-label" : undefined}
+    >
+      {isPreview ? (
+        <div className="mb-4 space-y-1.5">
+          <div
+            id="dashboard-hero-preview-label"
+            className="inline-flex items-center gap-2 rounded-full border border-teal-200 bg-teal-50/95 px-3 py-1.5 text-xs font-semibold uppercase tracking-wide text-teal-900 shadow-sm dark:border-teal-800/80 dark:bg-teal-950/70 dark:text-teal-100"
+          >
+            <span
+              className="h-1.5 w-1.5 rounded-full bg-teal-500 dark:bg-teal-400"
+              aria-hidden
+            />
+            {t("home.hero.dashboardPreviewBadge")}
+          </div>
+          <p className="max-w-md text-sm leading-snug text-slate-600 dark:text-slate-400">
+            {t("home.hero.dashboardPreviewHint")}
+          </p>
+        </div>
+      ) : null}
+
+      <div
+        className={cn(
+          "relative",
+          isPreview &&
+            "rounded-2xl p-3 ring-2 ring-dashed ring-teal-300/70 ring-offset-2 ring-offset-slate-50 dark:ring-teal-600/50 dark:ring-offset-slate-950 sm:p-4",
+        )}
+      >
+        <div
+          className="pointer-events-none absolute -left-8 -top-12 h-64 w-64 rounded-full bg-teal-400/25 blur-3xl dark:bg-teal-500/15"
+          aria-hidden
+        />
+        <div
+          className="pointer-events-none absolute -right-6 bottom-0 h-56 w-56 rounded-full bg-emerald-500/20 blur-3xl dark:bg-emerald-400/10"
+          aria-hidden
+        />
+
+        <div className="relative">
         {welcomeName ? (
           <div
             className="mb-6 overflow-hidden rounded-2xl border border-teal-300/60 bg-gradient-to-br from-teal-100/90 via-white to-emerald-50/90 p-1 shadow-[0_12px_40px_-8px_rgba(20,184,166,0.45)] ring-2 ring-teal-500/25 dark:border-teal-700/50 dark:from-teal-950/80 dark:via-slate-900 dark:to-emerald-950/50 dark:shadow-[0_12px_40px_-8px_rgba(20,184,166,0.2)] dark:ring-teal-400/20"
@@ -97,11 +132,12 @@ export function DashboardOverviewPanels({
           </div>
           <div
             className="h-2.5 overflow-hidden rounded-full bg-slate-100 dark:bg-slate-800"
-            role="progressbar"
-            aria-valuenow={pct}
-            aria-valuemin={0}
-            aria-valuemax={100}
-            aria-label={t("home.hero.visualProgressTitle")}
+            role={isPreview ? "presentation" : "progressbar"}
+            aria-hidden={isPreview ? true : undefined}
+            aria-valuenow={isPreview ? undefined : pct}
+            aria-valuemin={isPreview ? undefined : 0}
+            aria-valuemax={isPreview ? undefined : 100}
+            aria-label={isPreview ? undefined : t("home.hero.visualProgressTitle")}
           >
             <div
               className="h-full rounded-full bg-gradient-to-r from-teal-500 via-emerald-500 to-teal-600 shadow-[0_0_20px_rgba(20,184,166,0.45)] transition-[width] duration-500 ease-out"
@@ -158,7 +194,8 @@ export function DashboardOverviewPanels({
             </div>
           </div>
         </div>
+        </div>
       </div>
-    </div>
+    </Root>
   );
 }

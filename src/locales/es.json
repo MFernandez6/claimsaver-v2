@@ -66,7 +66,9 @@
       "trust2": "Tarifa plana $500",
       "trust3": "Presentación guiada—tú tienes el control",
       "visualPreviewEventTitle": "Recordatorio de seguimiento",
-      "visualPreviewEventDate": "Ejemplo — añade el tuyo en Calendario"
+      "visualPreviewEventDate": "Ejemplo — añade el tuyo en Calendario",
+      "dashboardPreviewBadge": "Vista previa de ejemplo",
+      "dashboardPreviewHint": "Tu propio progreso y documentos aparecerán aquí después de iniciar sesión."
     },
     "video": {
       "notSupported": "Tu navegador no soporta el elemento de video."
