@@ -106,7 +106,7 @@ export default function Pricing() {
 
   const handleCheckout = async () => {
     if (selectedServices.length === 0) {
-      alert("Please select at least one service");
+      alert(t("pricing.ui.alertSelectService"));
       return;
     }
 
@@ -152,7 +152,7 @@ export default function Pricing() {
       }
 
       if (!sessionId) {
-        throw new Error("No session ID received from server");
+        throw new Error(t("pricing.ui.errNoSession"));
       }
 
       // Validate the session before redirecting
@@ -168,9 +168,7 @@ export default function Pricing() {
       console.log("Session validation:", validationData);
 
       if (!validationData.valid) {
-        throw new Error(
-          "Checkout session is invalid or expired. Please try again."
-        );
+        throw new Error(t("pricing.ui.errSessionInvalid"));
       }
 
       const stripe = await getStripe();
@@ -189,22 +187,18 @@ export default function Pricing() {
         console.log("Stripe redirect initiated successfully");
       } else {
         console.error("Stripe failed to load");
-        throw new Error(
-          "Stripe is not available. Please check your configuration."
-        );
+        throw new Error(t("pricing.ui.errStripeUnavailable"));
       }
     } catch (error) {
       console.error("Error during checkout:", error);
 
-      let errorMessage =
-        "There was an error processing your payment. Please try again or contact support.";
+      let errorMessage = t("pricing.ui.errPaymentGeneric");
 
       if (error instanceof Error) {
         if (error.message.includes("apiKey")) {
-          errorMessage =
-            "Payment system is not properly configured. Please contact support.";
+          errorMessage = t("pricing.ui.errPaymentConfig");
         } else if (error.message.includes("session")) {
-          errorMessage = "Unable to create payment session. Please try again.";
+          errorMessage = t("pricing.ui.errNoSession");
         } else {
           errorMessage = error.message;
         }
@@ -239,10 +233,10 @@ export default function Pricing() {
               </div>
 
               <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-                Preparing Your Payment
+                {t("pricing.ui.loadingTitle")}
               </h3>
               <p className="text-gray-600 dark:text-gray-300 text-sm">
-                Validating session and redirecting to secure payment...
+                {t("pricing.ui.loadingSubtitle")}
               </p>
 
               {/* Progress dots */}
@@ -271,20 +265,16 @@ export default function Pricing() {
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-24">
           <div className="text-center max-w-4xl mx-auto">
             <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 dark:text-white mb-6 leading-tight text-balance px-1">
-              {t("pricing.title")
-                .split(", ")
-                .map((part, index) => (
-                  <span key={index}>
-                    {index > 0 && ", "}
-                    {index === 1 ? (
-                      <span className="bg-gradient-to-r from-teal-600 to-emerald-600 bg-clip-text text-transparent">
-                        {part}
-                      </span>
-                    ) : (
-                      part
-                    )}
-                  </span>
-                ))}
+              <span className="block sm:inline sm:mr-1">
+                {t("pricing.headlinePart1")}
+              </span>{" "}
+              <span className="block sm:inline">
+                <span className="bg-gradient-to-r from-teal-600 to-emerald-600 bg-clip-text text-transparent">
+                  {t("pricing.headlinePart2")}
+                </span>
+                <span className="text-gray-900 dark:text-white">.</span>
+              </span>{" "}
+              <span className="block sm:inline">{t("pricing.headlinePart3")}</span>
             </h1>
             <p className="text-xl sm:text-2xl text-gray-600 dark:text-gray-300 mb-8 leading-relaxed max-w-3xl mx-auto">
               {t("pricing.subtitle")}
@@ -327,6 +317,9 @@ export default function Pricing() {
                   <p className="text-sm text-gray-500 dark:text-gray-400 text-center mt-2 max-w-2xl mx-auto">
                     {t("pricing.selectServicesNotarizationHint")}
                   </p>
+                  <p className="mt-3 text-center text-sm leading-snug text-gray-700 dark:text-gray-300 max-w-2xl mx-auto rounded-lg border border-teal-200/70 bg-teal-50/80 px-3 py-2.5 dark:border-teal-800/60 dark:bg-teal-950/40">
+                    {t("pricing.selectServicesCheckoutNote")}
+                  </p>
                 </CardHeader>
                 <CardContent className="space-y-6">
                   {/* Service Selection */}
@@ -361,7 +354,7 @@ export default function Pricing() {
                                   ${service.price.toFixed(2)}
                                 </div>
                                 <div className="text-sm text-gray-500 dark:text-gray-400">
-                                  One-time fee
+                                  {t("pricing.ui.oneTimeFee")}
                                 </div>
                               </div>
                               <div
@@ -387,11 +380,11 @@ export default function Pricing() {
                       {/* Selected Services */}
                       <div className="space-y-3">
                         <h4 className="font-semibold text-gray-900 dark:text-white">
-                          Selected Services:
+                          {t("pricing.ui.selectedServicesHeading")}
                         </h4>
                         {selectedServices.length === 0 ? (
                           <p className="text-gray-500 dark:text-gray-400 text-sm">
-                            No services selected
+                            {t("pricing.ui.noServicesSelected")}
                           </p>
                         ) : (
                           selectedServices.map((serviceId) => {
@@ -424,7 +417,7 @@ export default function Pricing() {
                       <div className="border-t pt-4">
                         <div className="flex justify-between items-center">
                           <span className="text-lg font-semibold text-gray-900 dark:text-white">
-                            Total
+                            {t("pricing.ui.totalLabel")}
                           </span>
                           <span className="text-2xl font-bold text-teal-600">
                             ${getTotalPrice().toFixed(2)}
@@ -441,11 +434,11 @@ export default function Pricing() {
                         {isProcessing ? (
                           <div className="flex items-center gap-2">
                             <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                            Processing...
+                            {t("pricing.ui.processing")}
                           </div>
                         ) : (
                           <>
-                            Proceed to Payment
+                            {t("pricing.ui.proceedToPayment")}
                             <ArrowRight className="ml-2 w-4 h-4" />
                           </>
                         )}
@@ -454,12 +447,11 @@ export default function Pricing() {
                       {/* Security Notice */}
                       <div className="text-center">
                         <p className="text-xs text-gray-500 dark:text-gray-400">
-                          🔒 Secure payment powered by Stripe
+                          🔒 {t("pricing.ui.securePaymentStripe")}
                         </p>
                         {!process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY && (
                           <p className="text-xs text-orange-500 mt-1">
-                            ⚠️ Stripe not configured - payment processing
-                            disabled
+                            ⚠️ {t("pricing.ui.stripeNotConfigured")}
                           </p>
                         )}
                       </div>
@@ -470,14 +462,14 @@ export default function Pricing() {
 
               <div className="mt-6 rounded-xl border border-teal-200 dark:border-teal-800 bg-teal-50/90 dark:bg-teal-950/40 px-4 py-3 text-center text-sm text-gray-700 dark:text-gray-300">
                 <span className="font-medium text-gray-900 dark:text-white">
-                  Complex claim or disputed coverage?
+                  {t("pricing.ui.complexClaimLead")}
                 </span>{" "}
-                If your situation may require legal judgment or representation,{" "}
+                {t("pricing.ui.complexClaimMid")}{" "}
                 <a
                   href="/when-to-call-an-attorney"
                   className="text-teal-600 dark:text-teal-400 font-semibold underline underline-offset-2"
                 >
-                  see when to call an attorney
+                  {t("pricing.ui.complexClaimLink")}
                 </a>
                 .
               </div>
@@ -521,7 +513,7 @@ export default function Pricing() {
                     $3,000.00+
                   </div>
                   <p className="text-gray-600 dark:text-gray-300">
-                    Average fees and costs
+                    {t("pricing.ui.averageFeesCaption")}
                   </p>
                 </div>
               </CardHeader>
@@ -547,7 +539,7 @@ export default function Pricing() {
             {/* ClaimSaver+ Advantage */}
             <Card className="h-full shadow-xl border-green-200 dark:border-green-800 bg-green-50 dark:bg-green-950/30 relative overflow-hidden">
               <div className="absolute top-0 right-0 bg-green-600 text-white px-4 py-2 text-sm font-semibold rounded-bl-lg">
-                RECOMMENDED
+                {t("pricing.ui.recommendedBadge")}
               </div>
               <CardHeader className="text-center pb-4 pt-8">
                 <div className="flex items-center justify-center gap-3 mb-4">
@@ -578,9 +570,7 @@ export default function Pricing() {
                 </ul>
                 <div className="mt-6 p-4 bg-green-100 dark:bg-green-900/50 rounded-lg space-y-2">
                   <p className="text-sm text-green-800 dark:text-green-200 font-medium">
-                    Illustrative: on a $10K PIP benefit, a flat $500 platform fee
-                    leaves far more in your pocket than a 33% contingency fee—your
-                    results may differ.
+                    {t("pricing.ui.advantageCallout")}
                   </p>
                   <p className="text-xs text-green-800/80 dark:text-green-200/90">
                     {t("pricing.comparisonNote")}
@@ -602,44 +592,36 @@ export default function Pricing() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
               <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-6">
-                Why Choose{" "}
+                {t("pricing.ui.whyChooseLead")}{" "}
                 <span className="bg-gradient-to-r from-teal-600 to-emerald-600 bg-clip-text text-transparent">
-                  ClaimSaver+?
+                  {t("pricing.ui.whyChooseAccent")}
                 </span>
               </h2>
               <div className="space-y-6 text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
-                <p>
-                  In Florida, the average auto policy payout is $10,000.00. With
-                  traditional methods, after a 33% service contingency fee,
-                  victims are left with less than $7,000.00 before additional
-                  processing costs.
-                </p>
-                <p>
-                  ClaimSaver+ revolutionizes this process with our flat $500.00
-                  fee, allowing you to keep 95% of your settlement.
-                </p>
+                <p>{t("pricing.ui.whyParagraph1")}</p>
+                <p>{t("pricing.ui.whyParagraph2")}</p>
                 <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg">
                   <div className="flex items-center gap-3 mb-4">
                     <Calculator className="w-6 h-6 text-teal-600" />
                     <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
-                      Savings Calculator
+                      {t("pricing.ui.savingsCalculator")}
                     </h3>
                   </div>
                   <div className="space-y-2">
                     <div className="flex justify-between">
-                      <span>Traditional Service Fee (33%)</span>
+                      <span>{t("pricing.ui.calcTraditionalFee")}</span>
                       <span className="font-semibold text-red-600">
                         -$3,300.00
                       </span>
                     </div>
                     <div className="flex justify-between">
-                      <span>ClaimSaver+ Flat Fee</span>
+                      <span>{t("pricing.ui.calcFlatFee")}</span>
                       <span className="font-semibold text-green-600">
                         -$500.00
                       </span>
                     </div>
                     <div className="border-t pt-2 flex justify-between font-bold text-lg">
-                      <span>Your Savings</span>
+                      <span>{t("pricing.ui.calcYourSavings")}</span>
                       <span className="text-green-600">+$2,800.00</span>
                     </div>
                   </div>
@@ -708,7 +690,7 @@ export default function Pricing() {
             <div className="flex items-center justify-center gap-2 text-teal-100">
               <CheckCircle className="w-5 h-5" />
               <span className="font-semibold">
-                Flat $500 platform access • No contingency fee to ClaimSaver+
+                {t("pricing.ui.ctaFootnote")}
               </span>
             </div>
           </div>

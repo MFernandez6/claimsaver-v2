@@ -43,6 +43,8 @@
   "home": {
     "hero": {
       "title": "File Your Florida No-Fault Claim.",
+      "titleLine1": "File Your Florida",
+      "titleLine2": "No-Fault Claim.",
       "subtitle": "Keep What's Yours.",
       "description": "The tools and guidance you need to move your Florida PIP claim forward—track your recovery and keep more of your benefits. Flat $500 platform access—not a contingency fee.",
       "cta": "See How It Works",
@@ -126,7 +128,8 @@
       "satisfactionValue": "$500",
       "flatFeeLabel": "Flat platform fee",
       "flatFeeValue": "$500",
-      "statsNote": "Example assumes a $10,000 PIP benefit and 33% contingency for comparison only—not a guarantee of your outcome."
+      "statsNote": "Example assumes a $10,000 PIP benefit and 33% contingency for comparison only—not a guarantee of your outcome.",
+      "statsIllustrativeBadge": "Illustrative comparison—not your claim"
     },
     "story": {
       "heroBannerAlt": "ClaimSaver+ — professional guidance for Florida PIP claims",
@@ -253,6 +256,9 @@
   },
   "pricing": {
     "title": "Transparent, Fair, and Cost-Effective",
+    "headlinePart1": "Transparent.",
+    "headlinePart2": "Fair",
+    "headlinePart3": "Cost-Effective.",
     "subtitle": "A flat fee for guided tools—so you can keep more of a typical PIP benefit",
     "startClaim": "Start Filing Your Claim",
     "learnMore": "Learn More",
@@ -289,6 +295,7 @@
     "comparisonNote": "Comparison assumes you file using ClaimSaver+ guided tools versus using a 33% contingency attorney on a $10,000 PIP benefit. Actual outcomes vary.",
     "optionalNotarizationIntro": "Guided PIP platform access ($500) and optional online notarization (~$25) are separate line items. You can purchase notarization only if you need it—see below.",
     "selectServicesNotarizationHint": "Select guided platform access for PIP filing. Add notarization only if you need documents notarized; it is billed separately and is not part of the PIP workflow.",
+    "selectServicesCheckoutNote": "This is the purchase flow for this visit—not your claim dashboard or an existing order. Choose services below, then pay securely with Stripe.",
     "platformAccessSubtitle": "Guided platform access—you control the process",
     "features": {
       "transparentPricing": {
@@ -316,6 +323,42 @@
       "title": "Ready to Move Your Claim Forward?",
       "subtitle": "Get guided tools for a flat $500. You prepare and submit your PIP materials—no contingency fee to ClaimSaver+.",
       "button": "Start Filing Your Claim"
+    },
+    "ui": {
+      "complexClaimLead": "Complex claim or disputed coverage?",
+      "complexClaimMid": "If your situation may require legal judgment or representation,",
+      "complexClaimLink": "see when to call an attorney",
+      "comparisonTitleLead": "The",
+      "comparisonTitleAccent": "ClaimSaver+ Advantage",
+      "comparisonSubtitle": "See how our transparent pricing puts more money back in your pocket",
+      "averageFeesCaption": "Average fees and costs",
+      "recommendedBadge": "RECOMMENDED",
+      "advantageCallout": "Illustrative: on a $10K PIP benefit, a flat $500 platform fee leaves far more in your pocket than a 33% contingency fee—your results may differ.",
+      "whyChooseLead": "Why Choose",
+      "whyChooseAccent": "ClaimSaver+?",
+      "whyParagraph1": "In Florida, the average auto policy payout is $10,000.00. With traditional methods, after a 33% service contingency fee, victims are left with less than $7,000.00 before additional processing costs.",
+      "whyParagraph2": "ClaimSaver+ revolutionizes this process with our flat $500.00 fee, allowing you to keep 95% of your settlement.",
+      "savingsCalculator": "Savings Calculator",
+      "calcTraditionalFee": "Traditional Service Fee (33%)",
+      "calcFlatFee": "ClaimSaver+ Flat Fee",
+      "calcYourSavings": "Your Savings",
+      "ctaFootnote": "Flat $500 platform access • No contingency fee to ClaimSaver+",
+      "loadingTitle": "Preparing Your Payment",
+      "loadingSubtitle": "Validating session and redirecting to secure payment...",
+      "alertSelectService": "Please select at least one service",
+      "errSessionInvalid": "Checkout session is invalid or expired. Please try again.",
+      "errStripeUnavailable": "Stripe is not available. Please check your configuration.",
+      "errPaymentGeneric": "There was an error processing your payment. Please try again or contact support.",
+      "errPaymentConfig": "Payment system is not properly configured. Please contact support.",
+      "errNoSession": "Unable to create payment session. Please try again.",
+      "stripeNotConfigured": "Stripe not configured — payment processing disabled",
+      "oneTimeFee": "One-time fee",
+      "selectedServicesHeading": "Selected Services:",
+      "noServicesSelected": "No services selected",
+      "totalLabel": "Total",
+      "processing": "Processing...",
+      "proceedToPayment": "Proceed to Payment",
+      "securePaymentStripe": "Secure payment powered by Stripe"
     }
   },
   "claimForm": {

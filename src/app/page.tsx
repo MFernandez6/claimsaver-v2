@@ -28,6 +28,7 @@ import {
   Lock,
   PenLine,
 } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 export default function Home() {
   const { user, isLoaded } = useUser();
@@ -153,9 +154,14 @@ export default function Home() {
                 {t("home.hero.eyebrow")}
               </p>
 
-              <h1 className="text-[2.125rem] sm:text-5xl lg:text-[3.25rem] font-bold tracking-tight text-slate-900 dark:text-white mb-5 leading-[1.1]">
-                <span className="block">{t("home.hero.title")}</span>
-                <span className="mt-2 block bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-800 bg-clip-text text-transparent">
+              <h1 className="text-[2.125rem] sm:text-5xl lg:text-[3.25rem] font-bold tracking-tight text-slate-900 dark:text-white mb-5 leading-[1.1] text-balance">
+                <span className="block text-slate-900 dark:text-white">
+                  <span className="block sm:inline sm:whitespace-normal">
+                    {t("home.hero.titleLine1")}{" "}
+                  </span>
+                  <span className="block sm:inline">{t("home.hero.titleLine2")}</span>
+                </span>
+                <span className="mt-3 block bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-800 bg-clip-text text-transparent">
                   {t("home.hero.subtitle")}
                 </span>
               </h1>
@@ -255,24 +261,29 @@ export default function Home() {
                   className="group relative overflow-hidden border-0 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 bg-gradient-to-br from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 backdrop-blur-sm"
                 >
                   <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/5 to-teal-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                  <CardHeader className="pb-4">
-                    <div
-                      className={`w-12 h-12 bg-gradient-to-r ${feature.gradientClass} rounded-xl flex items-center justify-center text-white mb-4 group-hover:scale-110 transition-transform duration-300 relative overflow-hidden`}
-                    >
-                      {/* Icon */}
-                      <div className="relative z-10">{feature.icon}</div>
-                      {/* White fade overlay on the right */}
-                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-white/60 pointer-events-none"></div>
+                  <div className="relative p-6 md:p-6">
+                    <div className="flex flex-row gap-4 text-left md:flex-col md:text-left">
+                      <div
+                        className={cn(
+                          "relative shrink-0 overflow-hidden rounded-xl md:mb-4",
+                          "flex h-12 w-12 items-center justify-center text-white",
+                          "bg-gradient-to-r group-hover:scale-110 transition-transform duration-300",
+                          feature.gradientClass,
+                        )}
+                      >
+                        <div className="relative z-10">{feature.icon}</div>
+                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-white/60 pointer-events-none" />
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <h3 className="mb-3 text-xl font-semibold text-gray-900 dark:text-white">
+                          {feature.title}
+                        </h3>
+                        <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+                          {feature.description}
+                        </p>
+                      </div>
                     </div>
-                    <CardTitle className="text-xl font-semibold text-gray-900 dark:text-white">
-                      {feature.title}
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-                      {feature.description}
-                    </p>
-                  </CardContent>
+                  </div>
                 </Card>
               ))}
             </div>
@@ -474,8 +485,11 @@ export default function Home() {
 
             <div className="relative pb-28 sm:pb-24 lg:pb-16">
               <div className="bg-gradient-to-br from-emerald-600 to-teal-900 rounded-3xl p-6 sm:p-8 text-white shadow-2xl">
+                <p className="mb-4 text-center text-xs font-semibold uppercase tracking-wide text-teal-100/95 sm:text-left">
+                  {t("home.stats.statsIllustrativeBadge")}
+                </p>
                 <div className="flex items-center gap-3 mb-6">
-                  <Calculator className="w-8 h-8" />
+                  <Calculator className="w-8 h-8 shrink-0" />
                   <h3 className="text-2xl font-bold">
                     {t("home.stats.title")}
                   </h3>
