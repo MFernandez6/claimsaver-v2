@@ -17,7 +17,8 @@
     "getStarted": "Comenzar",
     "contactUs": "Contáctanos",
     "privacyPolicy": "Política de Privacidad",
-    "termsOfService": "Términos de Servicio"
+    "termsOfService": "Términos de Servicio",
+    "lastUpdated": "Última actualización"
   },
   "navigation": {
     "home": "Inicio",
@@ -38,7 +39,8 @@
     "signOut": "Cerrar Sesión",
     "ourStory": "Nuestra Historia",
     "howWeHelp": "Cómo Ayudamos",
-    "getStarted": "Comenzar"
+    "getStarted": "Comenzar",
+    "dataHandling": "Tratamiento de datos"
   },
   "home": {
     "hero": {
@@ -255,11 +257,11 @@
     }
   },
   "pricing": {
-    "title": "Transparente, Justo y Rentable",
-    "headlinePart1": "Transparente.",
-    "headlinePart2": "Justo",
-    "headlinePart3": "Rentable.",
-    "subtitle": "Tarifa plana por herramientas guiadas—para conservar más de un beneficio PIP típico",
+    "title": "Precios — software de reclamos PIP en Florida | ClaimSaver+",
+    "headlinePart1": "PIP de Florida.",
+    "headlinePart2": "Software guiado.",
+    "headlinePart3": "Acceso por $500.",
+    "subtitle": "El mismo producto que en el resto del sitio: software para preparar materiales de seguro sin culpa (PIP) en Florida—usted los envía a su aseguradora. $500 es solo acceso a la plataforma. La notarización en línea opcional (~$25) es un complemento aparte. ClaimSaver+ no es un bufete; no negociamos con aseguradoras ni actuamos como su representante.",
     "startClaim": "Comenzar a presentar su reclamo",
     "learnMore": "Más Información",
     "selectServices": "Selecciona Tus Servicios y Pago",
@@ -277,16 +279,16 @@
       }
     },
     "traditionalCosts": {
-      "title": "Costos Tradicionales",
-      "averagePolicy": "Póliza de auto promedio: $10,000.00",
-      "attorneyFee": "Tarifa de servicio tradicional: 33%",
-      "netToVictim": "Neto para la víctima: Menos de $7,000.00",
-      "additionalCosts": "Costos de procesamiento adicionales",
-      "hiddenFees": "Tarifas y cargos ocultos"
+      "title": "Ilustrativo: modelo de honorario por contingencia",
+      "averagePolicy": "Ejemplo de beneficio PIP usado en comparaciones: $10.000 (su póliza puede variar)",
+      "attorneyFee": "Ejemplo de honorario del 33% sobre ese beneficio: $3.300",
+      "netToVictim": "Importe ilustrativo restante antes de otros costos: menos de $7.000 de ese ejemplo",
+      "additionalCosts": "Otros gastos profesionales o judiciales pueden aplicar con cualquier vía",
+      "hiddenFees": "Las estructuras de contingencia varían por bufete—pida por escrito los términos a cualquier abogado que contrate"
     },
     "claimSaverAdvantages": {
       "title": "Ventaja de ClaimSaver+",
-      "keep95Percent": "Conserva más del 95% de un beneficio PIP típico de $10K tras una tarifa plana de $500 (ilustrativo—no garantía de resultado)",
+      "keep95Percent": "Solo ilustrativo: con un beneficio PIP de $10.000, una tarifa plana de $500 por software deja más del beneficio que un honorario del 33% sobre el mismo ejemplo—no es predicción de su resultado",
       "noContingency": "Sin estructura de honorarios del 33% en nuestra plataforma guiada",
       "transparentPricing": "Tarifa plana transparente por acceso a la plataforma",
       "professionalService": "Herramientas y educación—usted decide y envía",
@@ -315,10 +317,6 @@
         "description": "Recordatorios y listas de verificación para completar formularios y plazos habituales."
       }
     },
-    "testimonials": {
-      "title": "Lo Que Dicen Nuestros Clientes",
-      "subtitle": "Historias reales de personas reales que ahorraron miles con ClaimSaver+"
-    },
     "cta": {
       "title": "¿Listo para avanzar tu reclamo?",
       "subtitle": "Herramientas guiadas por $500. Preparas y envías tus materiales PIP—sin honorarios de contingencia a ClaimSaver+.",
@@ -328,16 +326,16 @@
       "complexClaimLead": "¿Reclamo complejo o cobertura en disputa?",
       "complexClaimMid": "Si su situación puede requerir criterio legal o representación,",
       "complexClaimLink": "vea cuándo llamar a un abogado",
-      "comparisonTitleLead": "La",
-      "comparisonTitleAccent": "ventaja de ClaimSaver+",
-      "comparisonSubtitle": "Vea cómo nuestros precios transparentes le dejan más dinero en el bolsillo",
+      "comparisonTitleLead": "Comparación ilustrativa:",
+      "comparisonTitleAccent": "Contingencia frente a software de tarifa plana",
+      "comparisonSubtitle": "Matemática de ejemplo para un límite PIP habitual—no es garantía sobre su caso o liquidación.",
       "averageFeesCaption": "Honorarios y costos promedio",
       "recommendedBadge": "RECOMENDADO",
       "advantageCallout": "Ilustrativo: en un beneficio PIP de $10.000, una tarifa plana de $500 deja mucho más en su bolsillo que un honorario de contingencia del 33%—sus resultados pueden variar.",
       "whyChooseLead": "¿Por qué elegir",
       "whyChooseAccent": "ClaimSaver+?",
       "whyParagraph1": "En Florida, el pago promedio de la póliza de auto es de $10.000. Con métodos tradicionales, tras un honorario de contingencia del 33%, a las víctimas les queda menos de $7.000 antes de otros gastos de tramitación.",
-      "whyParagraph2": "ClaimSaver+ cambia este proceso con nuestra tarifa plana de $500, para que conserve cerca del 95% de su liquidación.",
+      "whyParagraph2": "ClaimSaver+ cobra una tarifa plana de $500 por acceso al software: formularios guiados, almacenamiento, recordatorios y contenido educativo. No cobramos un porcentaje de sus beneficios ni gestionamos su reclamo por usted—usted sigue siendo quien presenta los documentos y se comunica con su aseguradora.",
       "savingsCalculator": "Calculadora de ahorros",
       "calcTraditionalFee": "Tarifa de servicio tradicional (33%)",
       "calcFlatFee": "Tarifa plana ClaimSaver+",
@@ -358,7 +356,31 @@
       "totalLabel": "Total",
       "processing": "Procesando...",
       "proceedToPayment": "Continuar al pago",
-      "securePaymentStripe": "Pago seguro con Stripe"
+      "securePaymentStripe": "Pago seguro con Stripe",
+      "supportEmailLine": "¿Dudas sobre el pago o la facturación? Use la página de Contacto (enlace en el pie).",
+      "faqTitle": "Preguntas sobre precios",
+      "faqSubtitle": "Respuestas directas—ClaimSaver+ vende acceso a software de preparación de reclamos, no servicios legales.",
+      "faq1q": "¿Qué incluye el pago de $500?",
+      "faq1a": "Acceso a los flujos PIP guiados, almacenamiento de documentos, recordatorios y contenido educativo de ClaimSaver+ para preparar usted mismo sus materiales. No es un honorario por representación, negociación ni comunicación con su aseguradora en su nombre.",
+      "faq2q": "¿Por qué comparan el 33% con $500?",
+      "faq2a": "Muchas personas comparan un porcentaje típico de contingencia con una tarifa plana de software—mostramos solo matemática ilustrativa. Si contrata un abogado es su decisión; no somos sustituto cuando su situación requiere asesoría licenciada.",
+      "faq3q": "¿ClaimSaver+ garantiza que recuperaré más dinero?",
+      "faq3a": "No. No garantizamos ningún resultado económico. Las tablas de esta página usan ejemplos simplificados. Los resultados dependen de su cobertura, los hechos y cómo su aseguradora tramita el reclamo.",
+      "faq4q": "¿A quién contacto por cargos o recibos?",
+      "faq4a": "Para facturación y soporte de la plataforma, use la página de Contacto (pie de página). No podemos asesorarle sobre el fondo legal de su reclamo.",
+      "faq5q": "¿La notarización está incluida en los $500?",
+      "faq5a": "No. La notarización en línea opcional por DocuSign es una partida aparte (~$25) si la añade al pagar. No es obligatoria para usar las herramientas guiadas.",
+      "modalServicesTitle": "Nuestros servicios",
+      "modalServicesSavingsHeading": "Comparación ilustrativa (solo ejemplo numérico)",
+      "modalServicesSavingsDifferenceLabel": "Diferencia ilustrativa en este ejemplo",
+      "modalPricingTitle": "Ilustración de precios",
+      "modalPricingSavingsBreakdown": "Comparación ilustrativa de honorarios (ejemplo)",
+      "modalPricingTotalDifferenceLabel": "Diferencia ilustrativa en el ejemplo",
+      "notaryBulletAvailability": "La disponibilidad depende de los notarios en la red DocuSign",
+      "notaryBulletCompletion": "La duración de la sesión varía; no es instantánea",
+      "btnClose": "Cerrar",
+      "btnStartYourClaim": "Comenzar su reclamo",
+      "modalSelectServices": "Seleccionar servicios"
     }
   },
   "notarization": {
@@ -587,40 +609,40 @@
       "imageAlt": "Fondo ClaimSaver+"
     },
     "services": {
-      "title": "Lo que la",
-      "subtitle": "plataforma ofrece",
-      "description": "Todo lo necesario para preparar y enviar su reclamo: flujos guiados, almacenamiento seguro y recordatorios—usted sigue al mando",
+      "title": "Lo que ofrece la",
+      "subtitle": "plataforma",
+      "description": "Todo lo que necesita para preparar y enviar su reclamo: flujos guiados, almacenamiento seguro y recordatorios mientras usted mantiene el control",
       "noFault": {
-        "title": "Presentación de Formularios de Accidentes Sin Culpa",
-        "description": "Presentación de formularios optimizada con validación en tiempo real y confirmación instantánea.",
+        "title": "Finalización guiada del formulario PIP",
+        "description": "Usted completa la información estandarizada con explicaciones y validación por campo: le ayudamos a que los campos estén completos y con el formato adecuado, no a que sus respuestas sean jurídicamente «óptimas».",
         "features": {
-          "interface": "Interfaz de presentación de formularios fácil de usar",
-          "upload": "Sistema seguro de carga de documentos",
-          "validation": "Validación de formularios en tiempo real",
-          "errorChecking": "Verificación automática de errores",
-          "confirmation": "Confirmación instantánea de presentación"
+          "interface": "Flujo guiado paso a paso",
+          "upload": "Usted controla lo que sube a su cuenta segura",
+          "validation": "Comprobaciones de formato e integridad",
+          "errorChecking": "Comprobaciones automáticas de problemas habituales en los campos",
+          "confirmation": "Usted revisa y envía sus propios materiales"
         }
       },
       "documents": {
-        "title": "Gestión Segura de Documentos",
-        "description": "Seguridad de nivel bancario para todos tus documentos de caso con acceso sin problemas.",
+        "title": "Organización de documentos",
+        "description": "Almacenamiento seguro y listas de verificación: herramientas de organización, no una revisión profesional de sus pruebas.",
         "features": {
-          "storage": "Almacenamiento de documentos basado en la nube",
-          "encryption": "Encriptación de extremo a extremo",
-          "sharing": "Compartir documentos fácilmente",
-          "version": "Control de versiones e historial",
-          "mobile": "Acceso móvil a documentos"
+          "storage": "Almacenamiento cifrado para sus archivos",
+          "encryption": "Prácticas de seguridad adecuadas para información sensible",
+          "sharing": "Comparta las exportaciones que elija crear",
+          "version": "Mantenga sus cargas organizadas en un solo lugar",
+          "mobile": "Acceso desde navegadores modernos en teléfono u ordenador"
         }
       },
       "recovery": {
-        "title": "Apoyo al Proceso de Recuperación",
-        "description": "Apoyo administrativo durante todo tu proceso de recuperación y reclamos.",
+        "title": "Herramientas de seguimiento",
+        "description": "Tableros personales para citas, gastos y recordatorios: ayudas organizativas, no vigilancia médica ni jurídica.",
         "features": {
-          "organization": "Asistencia en organización de documentos",
-          "tracking": "Seguimiento de gastos médicos",
-          "wageLoss": "Documentación de pérdida de salarios",
-          "property": "Documentación de daños a la propiedad",
-          "guidance": "Orientación y apoyo del proceso"
+          "organization": "Registros de gastos y agrupación de documentos",
+          "tracking": "Registre fechas e importes que usted introduce",
+          "wageLoss": "Plantillas para documentar la pérdida de ingresos que declare",
+          "property": "Espacio para la documentación relacionada con bienes que suba",
+          "guidance": "Contenido educativo general—no consejo para su caso concreto"
         }
       }
     },
@@ -648,8 +670,8 @@
         "description": "Use calendarios y recordatorios para plazos y seguimientos. Los recordatorios reflejan plazos habituales (como la regla de 14 días) como información general—no consejo jurídico sobre lo que debe hacer."
       },
       "step4": {
-        "title": "Presentar su reclamo",
-        "description": "Cuando esté listo, reúna sus documentos en un paquete completo y envíelo a su aseguradora. Mantenerse organizado ayuda a presentar un reclamo completo—usted se comunica directamente con su compañía de seguros."
+        "title": "Envío a su aseguradora (usted presenta)",
+        "description": "Cuando esté listo, compile sus documentos en un paquete completo y envíeselo usted mismo a su compañía de seguros. Usted se comunica directamente con la aseguradora; ClaimSaver+ no presenta ante un perito, no negocia ni habla en su nombre."
       }
     },
     "faq": {
@@ -665,11 +687,11 @@
       },
       "security": {
         "question": "¿Qué tan segura es mi información personal?",
-        "answer": "Usamos seguridad de nivel bancario con encriptación de extremo a extremo para todos los datos. Nuestra plataforma cumple con HIPAA y sigue protocolos de seguridad estrictos para proteger tu información personal, registros médicos y documentos del caso. Tu privacidad y seguridad son nuestras principales prioridades."
+        "answer": "Usamos protecciones estándar de la industria: cifrado en tránsito (HTTPS/TLS) y almacenamiento seguro para los archivos que sube. ClaimSaver+ es software de preparación de reclamos: no somos un proveedor de salud ni un plan «cubierto» por HIPAA, y no afirmamos una certificación formal HIPAA. Coordine información médica sensible con sus profesionales; no brindamos consejo médico ni legal."
       },
       "mobile": {
         "question": "¿Puedo acceder a la información de mi caso en mi teléfono?",
-        "answer": "¡Sí! Nuestra plataforma está completamente optimizada para móviles. Puedes subir documentos, verificar el estado del caso, comunicarte con nuestro equipo y recibir actualizaciones en tiempo real en cualquier dispositivo. La plataforma funciona sin problemas en smartphones, tablets y computadoras."
+        "answer": "Sí. La plataforma funciona en navegadores móviles modernos para que pueda subir documentos y usar su panel donde esté."
       },
       "help": {
         "question": "¿Qué pasa si necesito ayuda durante el proceso?",
@@ -677,7 +699,7 @@
       },
       "timeline": {
         "question": "¿Cuánto tiempo toma todo el proceso?",
-        "answer": "La línea de tiempo varía según la complejidad de tu caso y el estado donde ocurrió el accidente. Generalmente, la presentación inicial de formularios ocurre dentro de 24-48 horas. El proceso general de recuperación típicamente toma 3-6 meses, pero trabajamos para acelerar tu caso tanto como sea posible."
+        "answer": "El tiempo depende de su situación, su aseguradora y la rapidez con que complete los pasos en la plataforma. ClaimSaver+ solo ofrece herramientas y recordatorios—no controlamos los plazos del asegurador, el tratamiento médico ni los requisitos legales."
       },
       "guarantee": {
         "question": "¿Garantizan compensación?",

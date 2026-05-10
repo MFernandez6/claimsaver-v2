@@ -1,13 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import {
-  X,
-  Mail,
-} from "lucide-react";
+import { X, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { BrandLogo } from "@/components/brand-logo";
 import { useTranslation } from "react-i18next";
+import { ObfuscatedSupportEmail } from "@/components/obfuscated-support-email";
 
 export default function Footer() {
   const { t } = useTranslation();
@@ -217,6 +215,15 @@ export default function Footer() {
               </h3>
               <ul className="space-y-3">
                 <li>
+                  <a
+                    href="/data-handling"
+                    className="text-teal-100/60 hover:text-white transition-all duration-300 text-sm flex items-center gap-2 group"
+                  >
+                    <span className="w-0 group-hover:w-2 h-[1px] bg-teal-400 transition-all duration-300"></span>
+                    {t("navigation.dataHandling")}
+                  </a>
+                </li>
+                <li>
                   <button
                     onClick={() => setActiveModal("privacy")}
                     className="text-teal-100/60 hover:text-white transition-all duration-300 text-sm flex items-center gap-2 group text-left"
@@ -247,9 +254,7 @@ export default function Footer() {
                   <div className="w-8 h-8 rounded-lg bg-teal-500/10 flex items-center justify-center text-teal-400 group-hover:bg-teal-500/20 transition-all duration-300">
                     <Mail className="w-4 h-4" />
                   </div>
-                  <a href="mailto:support@claimsaverplus.com" className="hover:text-white transition-colors duration-300">
-                    support@claimsaverplus.com
-                  </a>
+                  <ObfuscatedSupportEmail className="hover:text-white transition-colors duration-300" />
                 </li>
               </ul>
             </div>
@@ -259,7 +264,8 @@ export default function Footer() {
           <div className="border-t border-gray-800 pt-6">
             <div className="text-center">
               <p className="text-teal-100/20 text-[10px] tracking-widest uppercase">
-                © {new Date().getFullYear()} ClaimSaver+ • Guided claim platform • Serving Florida drivers
+                © {new Date().getFullYear()} ClaimSaver+ • Guided claim
+                platform • Serving Florida drivers
               </p>
             </div>
           </div>
@@ -269,8 +275,18 @@ export default function Footer() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8">
           <div className="mt-4 pt-4 border-t border-gray-800">
             <p className="text-[10px] text-gray-500 leading-relaxed text-center opacity-70 max-w-4xl mx-auto">
-              <strong className="text-gray-400 uppercase tracking-widest text-[9px]">Legal Disclaimer:</strong>{" "}
-              ClaimSaver+ is a guided claim technology platform. We are not a law firm, not your representative with an insurance company, and we do not provide legal advice, claim evaluation, or negotiation on your behalf. You file your no-fault (PIP) claim using our tools—you are the filer, not ClaimSaver+. The $500 fee is for platform access (guided forms, storage, tracking, reminders, and educational content). We do not guarantee any outcome. For legal advice about your specific situation, consult a licensed Florida attorney.
+              <strong className="text-gray-400 uppercase tracking-widest text-[9px]">
+                Legal Disclaimer:
+              </strong>{" "}
+              ClaimSaver+ is a guided claim technology platform. We are not a
+              law firm, not your representative with an insurance company, and
+              we do not provide legal advice, claim evaluation, or negotiation
+              on your behalf. You file your no-fault (PIP) claim using our
+              tools—you are the filer, not ClaimSaver+. The $500 fee is for
+              platform access (guided forms, storage, tracking, reminders, and
+              educational content). We do not guarantee any outcome. For legal
+              advice about your specific situation, consult a licensed Florida
+              attorney.
             </p>
           </div>
         </div>
@@ -315,9 +331,7 @@ export default function Footer() {
               </li>
               <li className="flex items-start gap-3">
                 <div className="w-2 h-2 bg-teal-500 rounded-full mt-2 flex-shrink-0"></div>
-                <span>
-                  Communication history with our platform
-                </span>
+                <span>Communication history with our platform</span>
               </li>
             </ul>
           </div>
@@ -344,8 +358,8 @@ export default function Footer() {
                 <div className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0"></div>
                 <span>
                   Store and display information you enter in your account for
-                  your claim organization (we do not act as your
-                  representative to insurers)
+                  your claim organization (we do not act as your representative
+                  to insurers)
                 </span>
               </li>
               <li className="flex items-start gap-3">
@@ -375,13 +389,8 @@ export default function Footer() {
             </h3>
             <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
               If you have questions about this Privacy Policy, please contact us
-              at
-              <a
-                href="mailto:support@claimsaverplus.com"
-                className="text-teal-600 hover:text-teal-800 dark:text-teal-400 dark:hover:text-teal-300 font-semibold ml-1 transition-colors duration-300"
-              >
-                support@claimsaverplus.com
-              </a>
+              at{" "}
+              <ObfuscatedSupportEmail className="text-teal-600 hover:text-teal-800 dark:text-teal-400 dark:hover:text-teal-300 font-semibold transition-colors duration-300" />
             </p>
           </div>
 
@@ -426,8 +435,8 @@ export default function Footer() {
               Description of Service
             </h3>
             <p className="mb-4 text-gray-600 dark:text-gray-300 leading-relaxed">
-              ClaimSaver+ is a guided claim technology platform for Florida motor
-              vehicle no-fault (PIP) claims.
+              ClaimSaver+ is a guided claim technology platform for Florida
+              motor vehicle no-fault (PIP) claims.
               <strong className="text-red-600 dark:text-red-400">
                 {" "}
                 We are NOT a law firm and do NOT provide legal advice,
@@ -457,17 +466,17 @@ export default function Footer() {
             </ul>
             <div className="mt-4 p-4 bg-red-50 dark:bg-red-950/30 rounded-lg border border-red-200 dark:border-red-800">
               <p className="text-sm text-red-800 dark:text-red-200">
-                <strong>Important:</strong> We do not evaluate the merits of your
-                claim, tell you whether to accept a settlement, or communicate
-                with insurance companies as your representative. For legal
-                advice, consult a licensed attorney.
+                <strong>Important:</strong> We do not evaluate the merits of
+                your claim, tell you whether to accept a settlement, or
+                communicate with insurance companies as your representative. For
+                legal advice, consult a licensed attorney.
               </p>
             </div>
             <div className="mt-4 p-4 bg-teal-50 dark:bg-teal-950/30 rounded-lg border border-teal-200 dark:border-teal-800">
               <p className="text-sm text-teal-800 dark:text-teal-200">
                 <strong>Optional services:</strong> If separately offered in the
-                future, licensed professional services (such as public adjusting)
-                would be a distinct product with its own contract and
+                future, licensed professional services (such as public
+                adjusting) would be a distinct product with its own contract and
                 disclosures—not part of the standard platform fee.
               </p>
             </div>
@@ -499,13 +508,8 @@ export default function Footer() {
               Contact Information
             </h3>
             <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-              For questions about these Terms of Service, please contact us at
-              <a
-                href="mailto:support@claimsaverplus.com"
-                className="text-teal-600 hover:text-teal-800 dark:text-teal-400 dark:hover:text-teal-300 font-semibold ml-1 transition-colors duration-300"
-              >
-                support@claimsaverplus.com
-              </a>
+              For questions about these Terms of Service, please contact us at{" "}
+              <ObfuscatedSupportEmail className="text-teal-600 hover:text-teal-800 dark:text-teal-400 dark:hover:text-teal-300 font-semibold transition-colors duration-300" />
             </p>
           </div>
 
@@ -593,13 +597,8 @@ export default function Footer() {
             </h3>
             <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
               If you have questions about our use of cookies, please contact us
-              at
-              <a
-                href="mailto:support@claimsaverplus.com"
-                className="text-teal-600 hover:text-teal-800 dark:text-teal-400 dark:hover:text-teal-300 font-semibold ml-1 transition-colors duration-300"
-              >
-                support@claimsaverplus.com
-              </a>
+              at{" "}
+              <ObfuscatedSupportEmail className="text-teal-600 hover:text-teal-800 dark:text-teal-400 dark:hover:text-teal-300 font-semibold transition-colors duration-300" />
             </p>
           </div>
 

@@ -11,11 +11,31 @@ export default function HowItWorksPage() {
   const { t } = useTranslation();
 
   const steps = [
-    { n: 1, titleKey: "pages.howItWorks.step1Title", bodyKey: "pages.howItWorks.step1Body" },
-    { n: 2, titleKey: "pages.howItWorks.step2Title", bodyKey: "pages.howItWorks.step2Body" },
-    { n: 3, titleKey: "pages.howItWorks.step3Title", bodyKey: "pages.howItWorks.step3Body" },
-    { n: 4, titleKey: "pages.howItWorks.step4Title", bodyKey: "pages.howItWorks.step4Body" },
-    { n: 5, titleKey: "pages.howItWorks.step5Title", bodyKey: "pages.howItWorks.step5Body" },
+    {
+      n: 1,
+      titleKey: "pages.howItWorks.step1Title",
+      bodyKey: "pages.howItWorks.step1Body",
+    },
+    {
+      n: 2,
+      titleKey: "pages.howItWorks.step2Title",
+      bodyKey: "pages.howItWorks.step2Body",
+    },
+    {
+      n: 3,
+      titleKey: "pages.howItWorks.step3Title",
+      bodyKey: "pages.howItWorks.step3Body",
+    },
+    {
+      n: 4,
+      titleKey: "pages.howItWorks.step4Title",
+      bodyKey: "pages.howItWorks.step4Body",
+    },
+    {
+      n: 5,
+      titleKey: "pages.howItWorks.step5Title",
+      bodyKey: "pages.howItWorks.step5Body",
+    },
   ];
 
   return (
@@ -89,8 +109,15 @@ export default function HowItWorksPage() {
           </div>
         </div>
         <div className="flex flex-col sm:flex-row gap-4 justify-center mt-10">
-          <Button asChild size="lg" className="bg-gradient-to-r from-teal-600 to-teal-700">
-            <Link href="/pricing" className="inline-flex items-center justify-center">
+          <Button
+            asChild
+            size="lg"
+            className="bg-gradient-to-r from-teal-600 to-teal-700"
+          >
+            <Link
+              href="/pricing"
+              className="inline-flex items-center justify-center"
+            >
               View pricing
               <ArrowRight className="ml-2 w-5 h-5" />
             </Link>

@@ -17,7 +17,8 @@
     "getStarted": "Get Started",
     "contactUs": "Contact Us",
     "privacyPolicy": "Privacy Policy",
-    "termsOfService": "Terms of Service"
+    "termsOfService": "Terms of Service",
+    "lastUpdated": "Last updated"
   },
   "navigation": {
     "home": "Home",
@@ -38,7 +39,8 @@
     "signOut": "Sign Out",
     "ourStory": "Our Story",
     "howWeHelp": "How We Help",
-    "getStarted": "Get Started"
+    "getStarted": "Get Started",
+    "dataHandling": "Data handling"
   },
   "home": {
     "hero": {
@@ -84,7 +86,7 @@
       },
       "feature3": {
         "title": "Document Management",
-        "description": "Secure storage and management with bank-level encryption and easy access."
+        "description": "Secured cloud storage for your uploads: TLS (HTTPS) in transit; files stored with our provider (Supabase) using industry-standard encryption at rest (AES-256). You control what you upload."
       },
       "feature4": {
         "title": "Reminders & milestones",
@@ -252,14 +254,35 @@
       "body": "For help signing in, billing, or using the website, email us. We cannot answer questions about the legal merits of your specific claim or tell you what you should do in your case—those questions belong to a licensed attorney.",
       "emailLabel": "Email",
       "notarizationNote": "Optional online notarization is a separate service from guided PIP filing—add it at checkout or review details first:"
+    },
+    "dataHandling": {
+      "title": "Data handling & security",
+      "metaDescription": "How ClaimSaver+ processes and stores claim-related information: scope of HIPAA, encryption, vendors, payments, and accounts.",
+      "intro": "This page summarizes how the ClaimSaver+ application handles information you provide. It is general information, not legal advice, and does not replace any contract or policy you agree to when using the service.",
+      "section1Title": "HIPAA scope — no certification claimed",
+      "section1Body": "Many users upload health- and accident-related documents. ClaimSaver+ is built as claim-preparation software for consumers. We do not operate as your health care provider or health plan under HIPAA, and we do not claim to be a HIPAA business associate for routine platform use. We do not display or rely on a third-party HIPAA “certification” badge. If you are a regulated entity that requires a Business Associate Agreement, contact us before using the platform for regulated workflows.",
+      "section2Title": "What we collect and store",
+      "section2Body": "We collect account and profile information you provide (such as email via our authentication provider), claim form fields you enter, calendar and expense entries you create, and files you upload (for example documents and images related to your claim). Operational logs may include IP address, device type, and timestamps for security and troubleshooting.",
+      "section3Title": "Encryption and storage",
+      "section3Body": "Traffic between your browser and our services uses TLS (HTTPS). Uploaded files and application data are stored using our database and object storage providers (for example Supabase), which apply industry-standard encryption for data at rest consistent with their documentation (including AES-256-class protections as described by the provider). We do not describe this as “bank-level encryption,” which is not a defined technical standard. Backups, key management, and subprocessors follow our vendors’ architectures. Review vendor documentation for the latest technical detail.",
+      "section4Title": "Payments (Stripe)",
+      "section4Body": "Card payments are processed by Stripe. Card data is handled on Stripe’s systems under their PCI DSS program; for typical hosted Checkout flows, your deployment may fall under PCI SAQ A scope—confirm with your own compliance advisor. We do not store full card numbers on ClaimSaver+ servers for those flows.",
+      "section5Title": "Accounts and authentication",
+      "section5Body": "Sign-in is provided through Clerk. Clerk supports strong passwords and optional multi-factor authentication depending on how your organization or our project settings are configured. Check your account security settings in the profile menu. We recommend enabling MFA when available. Account lockout and risk controls are implemented by Clerk according to their platform defaults; refer to Clerk’s documentation for details.",
+      "section6Title": "Email and domain mail policy",
+      "section6Body": "Public support email is sent from our claimsaverplus.com domain. Organization administrators should configure SPF, DKIM, and DMARC for that domain with your DNS host so recipients can authenticate legitimate mail and reject spoofing; we cannot set DNS on your behalf.",
+      "section7Title": "Retention and deletion",
+      "section7Body": "We retain data as needed to operate your account and meet legal obligations. You may request deletion or export of personal data subject to applicable law and technical feasibility; contact support for account-specific requests.",
+      "section8Title": "Contact",
+      "section8Body": "Questions about this summary can be sent to our support channel listed on the Contact page."
     }
   },
   "pricing": {
-    "title": "Transparent, Fair, and Cost-Effective",
-    "headlinePart1": "Transparent.",
-    "headlinePart2": "Fair",
-    "headlinePart3": "Cost-Effective.",
-    "subtitle": "A flat fee for guided tools—so you can keep more of a typical PIP benefit",
+    "title": "Pricing — Florida PIP claim software | ClaimSaver+",
+    "headlinePart1": "Florida PIP.",
+    "headlinePart2": "Guided software.",
+    "headlinePart3": "Flat $500 access.",
+    "subtitle": "Same product as the rest of this site: software to help you prepare Florida no-fault (PIP) claim materials—you send them to your insurer. $500 is platform access only. Optional online notarization (~$25) is a separate add-on. ClaimSaver+ is not a law firm; we do not negotiate with insurers or act as your representative.",
     "startClaim": "Start Filing Your Claim",
     "learnMore": "Learn More",
     "selectServices": "Select Your Services & Payment",
@@ -277,16 +300,16 @@
       }
     },
     "traditionalCosts": {
-      "title": "Traditional Costs",
-      "averagePolicy": "Average auto policy: $10,000.00",
-      "attorneyFee": "Traditional service fee: 33%",
-      "netToVictim": "Net to victim: Less than $7,000.00",
-      "additionalCosts": "Additional processing costs",
-      "hiddenFees": "Hidden fees and charges"
+      "title": "Illustrative: attorney contingency model",
+      "averagePolicy": "Example PIP benefit used in comparisons: $10,000 (your policy may differ)",
+      "attorneyFee": "Example 33% contingency fee on that benefit: $3,300",
+      "netToVictim": "Illustrative amount left before other costs: less than $7,000 of the example benefit",
+      "additionalCosts": "Other professional or court costs may still apply with any path",
+      "hiddenFees": "Contingency structures vary by firm—ask any lawyer you hire for their written terms"
     },
     "claimSaverAdvantages": {
       "title": "ClaimSaver+ Advantage",
-      "keep95Percent": "Keep 95%+ of a typical $10K PIP benefit after a flat $500 fee (illustrative math—not a result guarantee)",
+      "keep95Percent": "Illustrative only: on a $10,000 PIP benefit example, a flat $500 software fee leaves more of the benefit than a 33% contingency fee on the same example—not a prediction of your outcome",
       "noContingency": "No 33% contingency fee structure on our platform",
       "transparentPricing": "Transparent flat rate for platform access",
       "professionalService": "Tools and education—you decide and submit",
@@ -315,10 +338,6 @@
         "description": "Reminders and checklists help you complete forms and follow common timelines."
       }
     },
-    "testimonials": {
-      "title": "What Our Clients Say",
-      "subtitle": "Real stories from Florida drivers who filed smarter with ClaimSaver+"
-    },
     "cta": {
       "title": "Ready to Move Your Claim Forward?",
       "subtitle": "Get guided tools for a flat $500. You prepare and submit your PIP materials—no contingency fee to ClaimSaver+.",
@@ -328,16 +347,17 @@
       "complexClaimLead": "Complex claim or disputed coverage?",
       "complexClaimMid": "If your situation may require legal judgment or representation,",
       "complexClaimLink": "see when to call an attorney",
-      "comparisonTitleLead": "The",
-      "comparisonTitleAccent": "ClaimSaver+ Advantage",
-      "comparisonSubtitle": "See how our transparent pricing puts more money back in your pocket",
+      "comparisonTitleLead": "Illustrative comparison:",
+      "comparisonTitleAccent": "Contingency fee vs. flat software fee",
+      "comparisonSubtitle": "Example math for a common PIP benefit limit—not a guarantee about your case or settlement.",
+      "supportEmailLine": "Questions about checkout or billing? Use the Contact page (linked in the footer).",
       "averageFeesCaption": "Average fees and costs",
       "recommendedBadge": "RECOMMENDED",
       "advantageCallout": "Illustrative: on a $10K PIP benefit, a flat $500 platform fee leaves far more in your pocket than a 33% contingency fee—your results may differ.",
       "whyChooseLead": "Why Choose",
       "whyChooseAccent": "ClaimSaver+?",
-      "whyParagraph1": "In Florida, the average auto policy payout is $10,000.00. With traditional methods, after a 33% service contingency fee, victims are left with less than $7,000.00 before additional processing costs.",
-      "whyParagraph2": "ClaimSaver+ revolutionizes this process with our flat $500.00 fee, allowing you to keep 95% of your settlement.",
+      "whyParagraph1": "For illustration only, many Florida drivers compare a $10,000 PIP benefit limit to typical 33% contingency fees—that is $3,300 in fees on that example amount alone (your policy and facts may differ).",
+      "whyParagraph2": "ClaimSaver+ charges a flat $500 for software access: guided forms, storage, reminders, and education. We do not take a percentage of your benefits and we do not handle your claim for you—you remain the person filing and communicating with your insurer.",
       "savingsCalculator": "Savings Calculator",
       "calcTraditionalFee": "Traditional Service Fee (33%)",
       "calcFlatFee": "ClaimSaver+ Flat Fee",
@@ -358,7 +378,30 @@
       "totalLabel": "Total",
       "processing": "Processing...",
       "proceedToPayment": "Proceed to Payment",
-      "securePaymentStripe": "Secure payment powered by Stripe"
+      "securePaymentStripe": "Secure payment powered by Stripe",
+      "faqTitle": "Pricing questions",
+      "faqSubtitle": "Straight answers—ClaimSaver+ sells access to claim-preparation software, not legal services.",
+      "faq1q": "What am I paying $500 for?",
+      "faq1a": "Access to ClaimSaver+’s guided PIP workflows, document storage, reminders, and educational content—so you can prepare your own materials. It is not a fee for representation, negotiation, or communicating with your insurance company on your behalf.",
+      "faq2q": "Why compare 33% to $500?",
+      "faq2a": "Many people compare a typical attorney contingency percentage to a flat software fee—we show illustrative math only. Whether you use an attorney is your choice; we are not a substitute for one when your situation requires licensed counsel.",
+      "faq3q": "Does ClaimSaver+ guarantee I’ll recover more money?",
+      "faq3a": "No. We do not guarantee any financial outcome. Charts on this page use simplified examples. Results depend on your coverage, facts, and how your insurer processes the claim.",
+      "faq4q": "Who do I contact about charges or receipts?",
+      "faq4a": "For billing and platform support, use the Contact page (footer). We cannot advise you on the legal merits of your claim.",
+      "faq5q": "Is notarization included in the $500?",
+      "faq5a": "No. Optional online notarization through DocuSign is a separate line item (~$25) if you add it at checkout. It is not required to use the guided claim tools.",
+      "modalServicesTitle": "Our Services",
+      "modalServicesSavingsHeading": "Illustrative comparison (example math only)",
+      "modalServicesSavingsDifferenceLabel": "Illustrative difference on this example",
+      "modalPricingTitle": "Pricing illustration",
+      "modalPricingSavingsBreakdown": "Illustrative fee comparison (example)",
+      "modalPricingTotalDifferenceLabel": "Illustrative difference on the example",
+      "notaryBulletAvailability": "Scheduling depends on notary availability in the DocuSign network",
+      "notaryBulletCompletion": "Session length varies—not instantaneous",
+      "btnClose": "Close",
+      "btnStartYourClaim": "Start Your Claim",
+      "modalSelectServices": "Select Services"
     }
   },
   "claimForm": {
@@ -406,20 +449,20 @@
         "description": "Fully compliant with state notarization laws and regulations"
       },
       "availability": {
-        "title": "24/7 Availability",
-        "description": "Get your documents notarized anytime, anywhere"
+        "title": "Schedule online",
+        "description": "Notary availability depends on the DocuSign network where you complete your session"
       },
       "remote": {
         "title": "Remote Notarization",
         "description": "Connect with licensed notaries via video conference"
       },
       "instant": {
-        "title": "Instant Processing",
-        "description": "Receive your notarized document within minutes"
+        "title": "Typical session length",
+        "description": "Many sessions complete quickly; actual timing depends on the notary and your document"
       },
       "security": {
-        "title": "Bank-Level Security",
-        "description": "End-to-end encryption and secure document handling"
+        "title": "Encryption & secure handling",
+        "description": "TLS-protected sessions; DocuSign governs notary-session security per its documentation"
       },
       "certified": {
         "title": "Certified Notaries",
@@ -477,8 +520,20 @@
       },
       "security": {
         "question": "How secure is the process?",
-        "answer": "Our platform uses bank-level encryption and security measures. All documents are encrypted in transit and at rest, and we maintain complete audit trails for all transactions."
+        "answer": "Your browser connects over TLS (HTTPS). The notary workflow is completed in DocuSign’s environment; follow DocuSign’s security documentation for session specifics. ClaimSaver+ stored files use TLS in transit and our storage provider’s standard protections for data at rest. We do not claim HIPAA certification."
       }
+    },
+    "promoSection": {
+      "description": "Remote notarization through DocuSign with TLS-protected access. Notary availability and how long a session takes depend on the DocuSign network and the notary—not 24/7 on-demand or guaranteed “instant” completion.",
+      "pillar1Title": "Encryption in transit",
+      "pillar1Desc": "HTTPS/TLS between your browser and service providers.",
+      "pillar2Title": "Network scheduling",
+      "pillar2Desc": "Sessions depend on notary availability in the DocuSign network.",
+      "pillar3Title": "Session timing",
+      "pillar3Desc": "Completion time varies by document and notary; it is not instantaneous."
+    },
+    "learnMoreModal": {
+      "digitalSecurityBullet": "Transport security: TLS (HTTPS). Notary sessions follow DocuSign’s platform controls; see their documentation for details."
     }
   },
   "dashboard": {
@@ -674,8 +729,8 @@
         "description": "Use calendars and reminders for deadlines and follow-ups. Reminders reflect common timelines (like the 14-day initial treatment rule) as general information—not legal advice about what you must do."
       },
       "step4": {
-        "title": "File your claim",
-        "description": "When you’re ready, compile your documents into a complete package and submit it to your insurer. Staying organized helps you file a complete claim—you communicate with your insurance company directly."
+        "title": "Send materials to your insurer (you file)",
+        "description": "When you’re ready, compile your documents into a complete package and send them to your insurance company yourself. You communicate with your carrier directly; ClaimSaver+ does not submit to an adjuster, negotiate, or speak for you."
       }
     },
     "faq": {
@@ -691,7 +746,7 @@
       },
       "security": {
         "question": "How secure is my personal information?",
-        "answer": "We use bank-level security with end-to-end encryption for all data. Our platform is HIPAA-compliant and follows strict security protocols to protect your personal information, medical records, and case documents. Your privacy and security are our top priorities."
+        "answer": "We use industry-standard protections, including TLS in transit and secured storage for the files you upload (see our Data handling page for details). ClaimSaver+ is claim-preparation software—not a HIPAA-covered health care provider or health plan—and we do not claim formal HIPAA certification, HIPAA “compliance,” or covered-entity status. Coordinate sensitive health information with your providers; we do not provide medical or legal advice."
       },
       "mobile": {
         "question": "Can I access my case information on my phone?",
@@ -703,7 +758,7 @@
       },
       "timeline": {
         "question": "How long does the entire process take?",
-        "answer": "The timeline varies depending on the complexity of your case and the state where the accident occurred. Generally, the initial form filing happens within 24-48 hours. The overall recovery process typically takes 3-6 months, but we work to expedite your case as much as possible."
+        "answer": "Timing depends on your situation, your insurer, and how quickly you complete steps using the platform. ClaimSaver+ provides tools and reminders only—we do not control insurer response times, medical treatment, or legal deadlines."
       },
       "guarantee": {
         "question": "Do you guarantee compensation?",

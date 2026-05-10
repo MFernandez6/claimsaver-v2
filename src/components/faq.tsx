@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { ChevronDown, ChevronUp, HelpCircle } from "lucide-react";
+import { ObfuscatedMailtoButton } from "@/components/obfuscated-support-email";
 import { Button } from "@/components/ui/button";
 
 interface FAQItem {
@@ -63,13 +64,9 @@ export default function FAQ({
                   case.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
-                  <Button
-                    asChild
-                    size="lg"
-                    className="bg-gradient-to-r from-teal-600 to-teal-800 hover:from-teal-700 hover:to-teal-900 text-white px-6 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
-                  >
-                    <a href="mailto:support@claimsaverplus.com">Email support</a>
-                  </Button>
+                  <ObfuscatedMailtoButton className="bg-gradient-to-r from-teal-600 to-teal-800 hover:from-teal-700 hover:to-teal-900 text-white px-6 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+                    Email support
+                  </ObfuscatedMailtoButton>
                   <Button
                     variant="outline"
                     size="lg"

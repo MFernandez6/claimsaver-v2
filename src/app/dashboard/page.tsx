@@ -280,7 +280,7 @@ export default function DashboardPage() {
   const [showPreviewModal, setShowPreviewModal] = useState(false);
   const [showShareModal, setShowShareModal] = useState(false);
   const [selectedDocument, setSelectedDocument] = useState<Document | null>(
-    null
+    null,
   );
   const [checkingRole, setCheckingRole] = useState(true);
   const [upcomingEvents, setUpcomingEvents] = useState<UpcomingEvent[]>([]);
@@ -325,7 +325,7 @@ export default function DashboardPage() {
           // Merge saved data with default structure to ensure all properties exist
           return claimsJourneySteps.map((step) => {
             const savedStep = parsed.find(
-              (s: { id: number; status: string }) => s.id === step.id
+              (s: { id: number; status: string }) => s.id === step.id,
             );
             return savedStep ? { ...step, status: savedStep.status } : step;
           });
@@ -354,14 +354,14 @@ export default function DashboardPage() {
                 ? "pending"
                 : "completed") as "pending" | "completed",
             }
-          : step
+          : step,
       );
 
       // Save to localStorage
       if (typeof window !== "undefined") {
         localStorage.setItem(
           "claimsaver-journey-steps",
-          JSON.stringify(updatedSteps)
+          JSON.stringify(updatedSteps),
         );
       }
 
@@ -490,8 +490,8 @@ export default function DashboardPage() {
         const updatedEvent = await response.json();
         setUpcomingEvents(
           upcomingEvents.map((event) =>
-            event._id === eventId ? updatedEvent : event
-          )
+            event._id === eventId ? updatedEvent : event,
+          ),
         );
       } else {
         console.error("Failed to update calendar event");
@@ -509,7 +509,7 @@ export default function DashboardPage() {
 
       if (response.ok) {
         setUpcomingEvents(
-          upcomingEvents.filter((event) => event._id !== eventId)
+          upcomingEvents.filter((event) => event._id !== eventId),
         );
       } else {
         console.error("Failed to delete calendar event");
@@ -584,7 +584,7 @@ export default function DashboardPage() {
     } catch (error) {
       console.error("Error downloading claim:", error);
       alert(
-        `Error downloading claim: ${error instanceof Error ? error.message : "Unknown error"}`
+        `Error downloading claim: ${error instanceof Error ? error.message : "Unknown error"}`,
       );
     }
   };
@@ -653,15 +653,14 @@ export default function DashboardPage() {
   }
 
   const completedSteps = journeySteps.filter(
-    (s) => s.status === "completed"
+    (s) => s.status === "completed",
   ).length;
   const totalSteps = journeySteps.length;
   const nextCalendarEvent = (() => {
     const upcoming = upcomingEvents
       .filter((e) => !e.completed)
       .sort(
-        (a, b) =>
-          new Date(a.date).getTime() - new Date(b.date).getTime()
+        (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(),
       )[0];
     if (!upcoming) return null;
     return {
@@ -773,7 +772,7 @@ export default function DashboardPage() {
                             <Calendar className="w-4 h-4" />
                             <span>
                               {new Date(
-                                claim.accidentDate
+                                claim.accidentDate,
                               ).toLocaleDateString()}
                             </span>
                           </div>
@@ -1058,7 +1057,7 @@ export default function DashboardPage() {
                         </span>
                         <span className="font-medium text-emerald-900 dark:text-emerald-100">
                           {formatCurrency(
-                            policyLimits.bodilyInjury.perAccident
+                            policyLimits.bodilyInjury.perAccident,
                           )}
                         </span>
                       </div>
@@ -1092,7 +1091,7 @@ export default function DashboardPage() {
                         </span>
                         <span className="font-medium text-green-900 dark:text-green-100">
                           {formatCurrency(
-                            policyLimits.personalInjuryProtection
+                            policyLimits.personalInjuryProtection,
                           )}
                         </span>
                       </div>

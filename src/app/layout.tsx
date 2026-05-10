@@ -3,9 +3,9 @@ import { Geist, Geist_Mono, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/navbar";
 import I18nProvider from "@/components/i18n-provider";
-import SessionManager from "@/components/session-manager";
 import { ClerkProvider } from "@clerk/nextjs";
 import Footer from "@/components/footer";
+import { getPublicSiteUrl } from "@/lib/site-url";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,19 +30,24 @@ export const viewport: Viewport = {
   viewportFit: "cover",
 };
 
+const siteUrl = getPublicSiteUrl();
+
 export const metadata: Metadata = {
-  metadataBase: new URL("https://claimsaverplus.net"),
+  metadataBase: new URL(siteUrl),
   title: {
     default: "ClaimSaver+ — Florida PIP claim software",
     template: "%s | ClaimSaver+",
   },
   description:
     "Self-service software for Florida no-fault (PIP) claims: guided forms, secure storage, and tracking.",
+  alternates: {
+    canonical: siteUrl,
+  },
   openGraph: {
     title: "ClaimSaver+ — Florida PIP claim software",
     description:
       "Self-service software for Florida no-fault (PIP) claims: guided forms, secure storage, and tracking.",
-    url: "https://claimsaverplus.net",
+    url: siteUrl,
     siteName: "ClaimSaver+",
     images: [
       {
@@ -110,7 +115,6 @@ export default function RootLayout({
           className={`${geistSans.variable} ${geistMono.variable} ${plusJakarta.variable} antialiased`}
         >
           <I18nProvider>
-            <SessionManager />
             <div className="min-h-screen min-w-0 bg-gradient-to-br from-gray-50 via-white to-emerald-50/80 dark:from-gray-950 dark:via-gray-900 dark:to-emerald-950/30">
               <Navbar />
               <main className="min-w-0 w-full overflow-x-hidden pt-16 pb-[max(0px,env(safe-area-inset-bottom))]">

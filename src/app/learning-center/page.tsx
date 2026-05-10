@@ -5,9 +5,10 @@ import { PageHeroBackdrop } from "@/components/page-hero-backdrop";
 import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { BookOpen } from "lucide-react";
+import { getLearningArticleParagraphs, type ArticleKey } from "@/data/learningCenter";
 
 export default function LearningCenterPage() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const articles = [
     "pipSteps",
@@ -15,7 +16,7 @@ export default function LearningCenterPage() {
     "needLawyer",
     "documents",
     "mistakes",
-  ] as const;
+  ] as const satisfies readonly ArticleKey[];
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-950">
@@ -48,10 +49,17 @@ export default function LearningCenterPage() {
                 {t(`pages.learningCenter.articles.${key}.title`)}
               </CardTitle>
             </CardHeader>
-            <CardContent>
-              <p className="text-gray-600 dark:text-gray-300">
+            <CardContent className="space-y-4">
+              <p className="text-gray-600 dark:text-gray-300 font-medium">
                 {t(`pages.learningCenter.articles.${key}.summary`)}
               </p>
+              <div className="space-y-4 text-gray-700 dark:text-gray-300 leading-relaxed">
+                {getLearningArticleParagraphs(i18n.language, key).map(
+                  (paragraph, i) => (
+                    <p key={i}>{paragraph}</p>
+                  )
+                )}
+              </div>
               <p className="text-xs text-gray-500 dark:text-gray-400 mt-4 italic">
                 {t("pages.learningCenter.footerDisclaimer")}
               </p>

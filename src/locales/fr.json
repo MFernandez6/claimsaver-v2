@@ -17,7 +17,8 @@
     "getStarted": "Commencer",
     "contactUs": "Nous Contacter",
     "privacyPolicy": "Politique de Confidentialité",
-    "termsOfService": "Conditions de Service"
+    "termsOfService": "Conditions de Service",
+    "lastUpdated": "Dernière mise à jour"
   },
   "navigation": {
     "home": "Accueil",
@@ -38,7 +39,8 @@
     "signOut": "Se Déconnecter",
     "ourStory": "Notre Histoire",
     "howWeHelp": "Comment Nous Aidons",
-    "getStarted": "Commencer"
+    "getStarted": "Commencer",
+    "dataHandling": "Traitement des données"
   },
   "home": {
     "hero": {
@@ -255,11 +257,11 @@
     }
   },
   "pricing": {
-    "title": "Transparent, Équitable et Rentable",
-    "headlinePart1": "Transparent.",
-    "headlinePart2": "Équitable",
-    "headlinePart3": "Rentable.",
-    "subtitle": "Un forfait pour des outils guidés—afin de conserver le plus possible d'une prestation PIP typique",
+    "title": "Tarification — logiciel de réclamation PIP en Floride | ClaimSaver+",
+    "headlinePart1": "PIP en Floride.",
+    "headlinePart2": "Logiciel guidé.",
+    "headlinePart3": "Accès à 500 $.",
+    "subtitle": "Le même produit que sur le reste du site : un logiciel pour préparer vos éléments de réclamation sans égard à la faute (PIP) en Floride—vous les envoyez à votre assureur. 500 $ couvrent uniquement l’accès à la plateforme. La notarisation en ligne facultative (~25 $) est un ajout distinct. ClaimSaver+ n’est pas un cabinet ; nous ne négocions pas avec les assureurs et ne sommes pas votre représentant.",
     "startClaim": "Commencer à remplir votre dossier",
     "learnMore": "En Savoir Plus",
     "selectServices": "Sélectionnez Vos Services et Paiement",
@@ -277,16 +279,16 @@
       }
     },
     "traditionalCosts": {
-      "title": "Coûts Traditionnels",
-      "averagePolicy": "Police d'auto moyenne : 10 000,00 $",
-      "attorneyFee": "Frais de service traditionnels : 33%",
-      "netToVictim": "Net pour la victime : Moins de 7 000,00 $",
-      "additionalCosts": "Coûts de traitement supplémentaires",
-      "hiddenFees": "Frais et charges cachés"
+      "title": "Illustratif : modèle d’honoraires de contingence",
+      "averagePolicy": "Exemple de prestation PIP utilisé pour les comparaisons : 10 000 $ (votre police peut différer)",
+      "attorneyFee": "Exemple d’honoraires de 33 % sur cette prestation : 3 300 $",
+      "netToVictim": "Montant illustratif restant avant autres coûts : moins de 7 000 $ sur cet exemple",
+      "additionalCosts": "D’autres frais professionnels ou judiciaires peuvent s’appliquer selon la voie choisie",
+      "hiddenFees": "Les structures de contingence varient selon les cabinets—demandez par écrit les conditions à tout avocat que vous mandatez"
     },
     "claimSaverAdvantages": {
       "title": "Avantage ClaimSaver+",
-      "keep95Percent": "Conservez plus de 95 % d'une prestation PIP typique de 10 k$ après un forfait de 500 $ (illustratif—aucun résultat garanti)",
+      "keep95Percent": "Illustratif seulement : pour une prestation PIP de 10 000 $, un forfait logiciel de 500 $ laisse davantage de prestation qu’honoraires de 33 % sur le même exemple—sans préjuger de votre résultat",
       "noContingency": "Pas de structure d'honoraires de 33 % sur notre plateforme",
       "transparentPricing": "Forfait transparent pour l'accès à la plateforme",
       "professionalService": "Outils et information—vous décidez et soumettez",
@@ -315,10 +317,6 @@
         "description": "Rappels et listes pour compléter les formulaires et les délais habituels."
       }
     },
-    "testimonials": {
-      "title": "Ce Que Disent Nos Clients",
-      "subtitle": "Histoires réelles de vraies personnes qui ont économisé des milliers avec ClaimSaver+"
-    },
     "cta": {
       "title": "Prêt à faire avancer votre dossier ?",
       "subtitle": "Outils guidés pour 500 $. Vous préparez et soumettez vos éléments PIP—pas d'honoraires de contingence vers ClaimSaver+.",
@@ -328,16 +326,16 @@
       "complexClaimLead": "Dossier complexe ou couverture contestée ?",
       "complexClaimMid": "Si votre situation peut exiger un avis juridique ou une représentation,",
       "complexClaimLink": "voir quand appeler un avocat",
-      "comparisonTitleLead": "L’",
-      "comparisonTitleAccent": "avantage ClaimSaver+",
-      "comparisonSubtitle": "Découvrez comment notre tarification transparente vous laisse plus d’argent",
+      "comparisonTitleLead": "Comparaison illustrative :",
+      "comparisonTitleAccent": "Contingence contre logiciel à forfait",
+      "comparisonSubtitle": "Calcul d’exemple pour une limite PIP courante—aucune garantie sur votre dossier ou règlement.",
       "averageFeesCaption": "Frais et coûts moyens",
       "recommendedBadge": "RECOMMANDÉ",
       "advantageCallout": "Illustratif : sur une prestation PIP de 10 k$, un forfait de 500 $ laisse bien plus dans votre poche qu’honoraires de 33 % à la contingence—vos résultats peuvent varier.",
       "whyChooseLead": "Pourquoi choisir",
       "whyChooseAccent": "ClaimSaver+ ?",
       "whyParagraph1": "En Floride, le paiement moyen d’une police auto est de 10 000 $. Avec les méthodes classiques, après 33 % d’honoraires de contingence, il reste souvent moins de 7 000 $ avant autres frais.",
-      "whyParagraph2": "ClaimSaver+ change la donne avec un forfait de 500 $, ce qui vous permet de conserver environ 95 % de votre règlement.",
+      "whyParagraph2": "ClaimSaver+ facture 500 $ pour l’accès au logiciel : formulaires guidés, stockage, rappels et contenu éducatif. Nous ne prélevons pas de pourcentage sur vos prestations et ne gérons pas votre dossier à votre place—vous restez la personne qui dépose et correspond avec l’assureur.",
       "savingsCalculator": "Calculateur d’économies",
       "calcTraditionalFee": "Honoraires de service traditionnels (33 %)",
       "calcFlatFee": "Forfait ClaimSaver+",
@@ -358,7 +356,31 @@
       "totalLabel": "Total",
       "processing": "Traitement…",
       "proceedToPayment": "Procéder au paiement",
-      "securePaymentStripe": "Paiement sécurisé par Stripe"
+      "securePaymentStripe": "Paiement sécurisé par Stripe",
+      "supportEmailLine": "Questions sur le paiement ou la facturation ? Utilisez la page Contact (lien dans le pied de page).",
+      "faqTitle": "Questions sur les tarifs",
+      "faqSubtitle": "Réponses factuelles—ClaimSaver+ vend l’accès à un logiciel de préparation de dossiers, pas des services juridiques.",
+      "faq1q": "À quoi sert le paiement de 500 $ ?",
+      "faq1a": "L’accès aux parcours PIP guidés, au stockage de documents, aux rappels et au contenu éducatif de ClaimSaver+ pour préparer vos propres pièces. Ce n’est pas un honoraire de représentation, de négociation ou de communication avec votre assureur en votre nom.",
+      "faq2q": "Pourquoi comparer 33 % et 500 $ ?",
+      "faq2a": "Nombre de personnes comparent un pourcentage de contingence typique à un forfait logiciel—nous montrons uniquement une illustration. Le choix d’un avocat vous appartient ; nous ne le remplaçons pas lorsque votre situation exige un conseil agréé.",
+      "faq3q": "ClaimSaver+ garantit-il que je récupérerai plus d’argent ?",
+      "faq3a": "Non. Nous ne garantissons aucun résultat financier. Les tableaux de cette page utilisent des exemples simplifiés. Les résultats dépendent de votre couverture, des faits et du traitement par l’assureur.",
+      "faq4q": "Qui contacter pour les frais ou reçus ?",
+      "faq4a": "Pour la facturation et l’assistance plateforme, utilisez la page Contact (pied de page). Nous ne pouvons pas conseiller sur le fond juridique de votre dossier.",
+      "faq5q": "La notarisation est-elle incluse dans les 500 $ ?",
+      "faq5a": "Non. La notarisation en ligne facultative via DocuSign est une ligne distincte (~25 $) si vous l’ajoutez au paiement. Elle n’est pas requise pour les outils guidés.",
+      "modalServicesTitle": "Nos services",
+      "modalServicesSavingsHeading": "Comparaison illustrative (exemple chiffré seulement)",
+      "modalServicesSavingsDifferenceLabel": "Écart illustratif sur cet exemple",
+      "modalPricingTitle": "Illustration tarifaire",
+      "modalPricingSavingsBreakdown": "Comparaison illustrative des honoraires (exemple)",
+      "modalPricingTotalDifferenceLabel": "Écart illustratif sur l’exemple",
+      "notaryBulletAvailability": "Les créneaux dépendent des notaires disponibles sur le réseau DocuSign",
+      "notaryBulletCompletion": "La durée de session varie—ce n’est pas instantané",
+      "btnClose": "Fermer",
+      "btnStartYourClaim": "Commencer votre dossier",
+      "modalSelectServices": "Sélectionner les services"
     }
   },
   "claimForm": {
@@ -675,8 +697,8 @@
         "description": "Utilisez calendriers et rappels pour les échéances et suivis. Les rappels reflètent des délais courants (comme la règle des 14 jours) à titre d'information générale—pas de conseil juridique sur ce que vous devez faire."
       },
       "step4": {
-        "title": "Transmettre votre dossier",
-        "description": "Lorsque vous êtes prêt, rassemblez vos documents en un dossier complet et transmettez-le à votre assureur. Rester organisé aide à déposer un dossier complet—vous communiquez directement avec votre compagnie d'assurance."
+        "title": "Envoyer le dossier à votre assureur (vous déposez)",
+        "description": "Lorsque vous êtes prêt, rassemblez vos documents en un dossier complet et transmettez-le vous-même à votre assureur. Vous échangez directement avec votre compagnie ; ClaimSaver+ ne transmet pas à un expert, ne négocie pas et ne parle pas en votre nom."
       }
     },
     "faq": {
@@ -692,7 +714,7 @@
       },
       "security": {
         "question": "À quel point mes informations personnelles sont-elles sécurisées?",
-        "answer": "Nous utilisons une sécurité de niveau bancaire avec un chiffrement de bout en bout pour toutes les données. Notre plateforme est conforme à la HIPAA et suit des protocoles de sécurité stricts pour protéger vos informations personnelles, dossiers médicaux et documents de cas. Votre vie privée et votre sécurité sont nos priorités absolues."
+        "answer": "Nous appliquons des protections standard : chiffrement en transit (HTTPS/TLS) et stockage sécurisé pour les fichiers que vous téléchargez. ClaimSaver+ est un logiciel de préparation de dossier—pas un établissement de santé ni un régime « couvert » HIPAA—et nous ne prétendons pas à une certification HIPAA formelle. Coordonnez les informations médicales sensibles avec vos professionnels ; nous ne fournissons pas de conseil médical ni juridique."
       },
       "mobile": {
         "question": "Puis-je accéder aux informations de mon cas sur mon téléphone?",
@@ -704,7 +726,7 @@
       },
       "timeline": {
         "question": "Combien de temps prend tout le processus?",
-        "answer": "L'échéancier varie selon la complexité de votre cas et l'état où l'accident s'est produit. En général, le dépôt initial de formulaires peut se faire en 24 à 48 heures. L'ensemble du parcours peut prendre plusieurs mois selon les faits et l'assureur."
+        "answer": "Le délai dépend de votre situation, de l’assureur et de la rapidité à laquelle vous complétez les étapes sur la plateforme. ClaimSaver+ ne fournit que des outils et des rappels—nous ne contrôlons pas les délais de l’assureur, les soins ni les obligations juridiques."
       },
       "guarantee": {
         "question": "Garantissez-vous une compensation?",

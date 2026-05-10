@@ -635,9 +635,7 @@ export default function Notarization() {
             </span>
           </h2>
           <p className="text-lg text-gray-600 dark:text-gray-300 mb-6 leading-relaxed max-w-2xl mx-auto">
-            Experience the convenience of remote notarization with bank-level
-            security, 24/7 availability, and instant processing through our
-            DocuSign-powered platform.
+            {t("notarization.promoSection.description")}
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
@@ -646,10 +644,10 @@ export default function Notarization() {
                 <Shield className="w-6 h-6 text-teal-600 dark:text-teal-400" />
               </div>
               <h3 className="text-sm font-semibold text-gray-900 dark:text-white mb-1">
-                Bank-Level Security
+                {t("notarization.promoSection.pillar1Title")}
               </h3>
               <p className="text-xs text-gray-600 dark:text-gray-400 text-center">
-                256-bit encryption & secure document storage
+                {t("notarization.promoSection.pillar1Desc")}
               </p>
             </div>
             <div className="flex flex-col items-center">
@@ -657,10 +655,10 @@ export default function Notarization() {
                 <Clock className="w-6 h-6 text-emerald-600 dark:text-emerald-400" />
               </div>
               <h3 className="text-sm font-semibold text-gray-900 dark:text-white mb-1">
-                24/7 Availability
+                {t("notarization.promoSection.pillar2Title")}
               </h3>
               <p className="text-xs text-gray-600 dark:text-gray-400 text-center">
-                Get notarized anytime, anywhere
+                {t("notarization.promoSection.pillar2Desc")}
               </p>
             </div>
             <div className="flex flex-col items-center">
@@ -668,10 +666,10 @@ export default function Notarization() {
                 <Zap className="w-6 h-6 text-green-600 dark:text-green-400" />
               </div>
               <h3 className="text-sm font-semibold text-gray-900 dark:text-white mb-1">
-                Instant Processing
+                {t("notarization.promoSection.pillar3Title")}
               </h3>
               <p className="text-xs text-gray-600 dark:text-gray-400 text-center">
-                Complete notarization in under 10 minutes
+                {t("notarization.promoSection.pillar3Desc")}
               </p>
             </div>
           </div>
@@ -839,8 +837,8 @@ export default function Notarization() {
                     notarization laws
                   </li>
                   <li>
-                    • <strong>Digital Security:</strong> Bank-level encryption
-                    and security
+                    • <strong>Digital Security:</strong>{" "}
+                    {t("notarization.learnMoreModal.digitalSecurityBullet")}
                   </li>
                   <li>
                     • <strong>Audit Trail:</strong> Complete digital record of

@@ -7,6 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
 import { useTranslation } from "react-i18next";
 import { CheckCircle, ArrowRight, Mail, LayoutDashboard } from "lucide-react";
+import { ObfuscatedMailtoButton } from "@/components/obfuscated-support-email";
 
 function SuccessContent() {
   const { t } = useTranslation();
@@ -88,15 +89,9 @@ function SuccessContent() {
                   {t("success.assistance.description")}
                 </p>
                 <div className="flex flex-col sm:flex-row gap-3">
-                  <Button
-                    asChild
-                    size="sm"
-                    className="bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-700 hover:to-emerald-700 text-white"
-                  >
-                    <a href="mailto:support@claimsaverplus.com">
-                      {t("success.assistance.email")}
-                    </a>
-                  </Button>
+                  <ObfuscatedMailtoButton className="inline-flex items-center justify-center rounded-md text-sm font-medium h-9 px-4 bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-700 hover:to-emerald-700 text-white">
+                    {t("success.assistance.email")}
+                  </ObfuscatedMailtoButton>
                   <Button variant="outline" size="sm" asChild>
                     <Link href="/dashboard">
                       {t("success.assistance.dashboard")}

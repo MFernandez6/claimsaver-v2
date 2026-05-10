@@ -1,10 +1,11 @@
 "use client";
 
 import Link from "next/link";
+import { Mail } from "lucide-react";
 import { PageHeroBackdrop } from "@/components/page-hero-backdrop";
 import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
-import { Mail } from "lucide-react";
+import { ObfuscatedSupportEmail } from "@/components/obfuscated-support-email";
 
 export default function ContactPage() {
   const { t } = useTranslation();
@@ -45,15 +46,12 @@ export default function ContactPage() {
           <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">
             {t("pages.contact.emailLabel")}
           </p>
-          <a
-            href="mailto:support@claimsaverplus.com"
-            className="text-xl font-semibold text-teal-600 dark:text-teal-400 hover:underline"
-          >
-            support@claimsaverplus.com
-          </a>
+          <ObfuscatedSupportEmail className="text-xl font-semibold text-teal-600 dark:text-teal-400 hover:underline" />
           <div className="mt-12">
             <Button asChild variant="outline">
-              <Link href="/when-to-call-an-attorney">When to call an attorney</Link>
+              <Link href="/when-to-call-an-attorney">
+                When to call an attorney
+              </Link>
             </Button>
           </div>
         </div>

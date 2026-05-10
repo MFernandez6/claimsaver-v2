@@ -18,6 +18,7 @@ import {
   CreditCard,
   FileText,
 } from "lucide-react";
+import FAQ from "@/components/faq";
 
 export default function Pricing() {
   const { t } = useTranslation();
@@ -72,6 +73,29 @@ export default function Pricing() {
     },
   ];
 
+  const pricingFaqItems = [
+    {
+      question: t("pricing.ui.faq1q"),
+      answer: t("pricing.ui.faq1a"),
+    },
+    {
+      question: t("pricing.ui.faq2q"),
+      answer: t("pricing.ui.faq2a"),
+    },
+    {
+      question: t("pricing.ui.faq3q"),
+      answer: t("pricing.ui.faq3a"),
+    },
+    {
+      question: t("pricing.ui.faq4q"),
+      answer: t("pricing.ui.faq4a"),
+    },
+    {
+      question: t("pricing.ui.faq5q"),
+      answer: t("pricing.ui.faq5a"),
+    },
+  ];
+
   const services = [
     {
       id: "no-fault-assistance",
@@ -93,7 +117,7 @@ export default function Pricing() {
     setSelectedServices((prev) =>
       prev.includes(serviceId)
         ? prev.filter((id) => id !== serviceId)
-        : [...prev, serviceId]
+        : [...prev, serviceId],
     );
   };
 
@@ -114,7 +138,7 @@ export default function Pricing() {
 
     try {
       const selectedItems = services.filter((service) =>
-        selectedServices.includes(service.id)
+        selectedServices.includes(service.id),
       );
 
       console.log("Sending checkout request with items:", selectedItems);
@@ -141,7 +165,7 @@ export default function Pricing() {
       if (!response.ok) {
         throw new Error(
           responseData.error ||
-          `HTTP ${response.status}: ${response.statusText}`
+            `HTTP ${response.status}: ${response.statusText}`,
         );
       }
 
@@ -274,7 +298,9 @@ export default function Pricing() {
                 </span>
                 <span className="text-gray-900 dark:text-white">.</span>
               </span>{" "}
-              <span className="block sm:inline">{t("pricing.headlinePart3")}</span>
+              <span className="block sm:inline">
+                {t("pricing.headlinePart3")}
+              </span>
             </h1>
             <p className="text-xl sm:text-2xl text-gray-600 dark:text-gray-300 mb-8 leading-relaxed max-w-3xl mx-auto">
               {t("pricing.subtitle")}
@@ -327,10 +353,11 @@ export default function Pricing() {
                     {services.map((service) => (
                       <Card
                         key={service.id}
-                        className={`cursor-pointer transition-all duration-300 hover:shadow-lg ${selectedServices.includes(service.id)
-                          ? "ring-2 ring-teal-500 bg-teal-50 dark:bg-teal-950/30"
-                          : "hover:bg-gray-50 dark:hover:bg-gray-800/50"
-                          }`}
+                        className={`cursor-pointer transition-all duration-300 hover:shadow-lg ${
+                          selectedServices.includes(service.id)
+                            ? "ring-2 ring-teal-500 bg-teal-50 dark:bg-teal-950/30"
+                            : "hover:bg-gray-50 dark:hover:bg-gray-800/50"
+                        }`}
                         onClick={() => toggleService(service.id)}
                       >
                         <CardContent className="p-4">
@@ -358,10 +385,11 @@ export default function Pricing() {
                                 </div>
                               </div>
                               <div
-                                className={`w-5 h-5 shrink-0 rounded-full border-2 flex items-center justify-center ${selectedServices.includes(service.id)
-                                  ? "bg-teal-500 border-teal-500"
-                                  : "border-gray-300 dark:border-gray-600"
-                                  }`}
+                                className={`w-5 h-5 shrink-0 rounded-full border-2 flex items-center justify-center ${
+                                  selectedServices.includes(service.id)
+                                    ? "bg-teal-500 border-teal-500"
+                                    : "border-gray-300 dark:border-gray-600"
+                                }`}
                               >
                                 {selectedServices.includes(service.id) && (
                                   <CheckCircle className="w-3 h-3 text-white" />
@@ -389,7 +417,7 @@ export default function Pricing() {
                         ) : (
                           selectedServices.map((serviceId) => {
                             const service = services.find(
-                              (s) => s.id === serviceId
+                              (s) => s.id === serviceId,
                             );
                             return service ? (
                               <div
@@ -473,6 +501,9 @@ export default function Pricing() {
                 </a>
                 .
               </div>
+              <p className="mt-4 text-center text-sm text-gray-600 dark:text-gray-400">
+                {t("pricing.ui.supportEmailLine")}
+              </p>
             </div>
           </div>
         </div>
@@ -487,14 +518,13 @@ export default function Pricing() {
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white mb-6">
-              The{" "}
+              {t("pricing.ui.comparisonTitleLead")}{" "}
               <span className="bg-gradient-to-r from-teal-600 to-emerald-600 bg-clip-text text-transparent">
-                ClaimSaver+ Advantage
+                {t("pricing.ui.comparisonTitleAccent")}
               </span>
             </h2>
             <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-              See how our transparent pricing puts more money back in your
-              pocket
+              {t("pricing.ui.comparisonSubtitle")}
             </p>
           </div>
 
@@ -658,6 +688,16 @@ export default function Pricing() {
         </div>
       </section>
 
+      <section className="py-16 bg-white dark:bg-gray-950 border-t border-slate-200/80 dark:border-slate-800">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+          <FAQ
+            title={t("pricing.ui.faqTitle")}
+            subtitle={t("pricing.ui.faqSubtitle")}
+            items={pricingFaqItems}
+          />
+        </div>
+      </section>
+
       {/* CTA Section */}
       <section className="py-24 bg-gradient-to-br from-teal-600 to-emerald-600 relative overflow-hidden">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -720,11 +760,11 @@ export default function Pricing() {
                 </h3>
                 <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
                   ClaimSaver+ provides software and education so you can prepare
-                  and file your no-fault claim—you are the filer. We do not negotiate with
-                  insurers or provide legal advice. A flat $500 fee buys platform
-                  access—compared to typical attorney contingency percentages on
-                  the same benefit amount, many users keep more after fees, but
-                  your situation may differ.
+                  and file your no-fault claim—you are the filer. We do not
+                  negotiate with insurers or provide legal advice. A flat $500
+                  fee buys platform access—compared to typical attorney
+                  contingency percentages on the same benefit amount, many users
+                  keep more after fees, but your situation may differ.
                 </p>
               </div>
 
@@ -745,10 +785,10 @@ export default function Pricing() {
                     ClaimSaver+ Method
                   </h4>
                   <ul className="text-sm text-green-800 dark:text-green-200 space-y-1">
-                    <li>• Flat $500.00 fee</li>
-                    <li>• No hidden costs</li>
-                    <li>• Streamlined process</li>
-                    <li>• Faster results</li>
+                    <li>• Flat $500.00 software access</li>
+                    <li>• No contingency fee to ClaimSaver+</li>
+                    <li>• Guided workflows—you choose when to complete steps</li>
+                    <li>• You communicate with your insurer directly</li>
                   </ul>
                 </div>
               </div>
@@ -781,8 +821,8 @@ export default function Pricing() {
                         Organize &amp; validate
                       </h4>
                       <p className="text-sm text-gray-600 dark:text-gray-300">
-                        Upload documents and use validation—you submit the
-                        claim package
+                        Upload documents and use validation—you submit the claim
+                        package
                       </p>
                     </div>
                   </div>
@@ -834,7 +874,7 @@ export default function Pricing() {
                 variant="outline"
                 className="flex-1"
               >
-                Close
+                {t("pricing.ui.btnClose")}
               </Button>
               <Button
                 onClick={() => {
@@ -843,7 +883,7 @@ export default function Pricing() {
                 }}
                 className="flex-1 bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-700 hover:to-emerald-700"
               >
-                Start Your Claim
+                {t("pricing.ui.btnStartYourClaim")}
               </Button>
             </div>
           </div>
@@ -856,7 +896,7 @@ export default function Pricing() {
           <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-2xl max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto">
             <div className="flex justify-between items-start mb-6">
               <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
-                Our Services
+                {t("pricing.ui.modalServicesTitle")}
               </h2>
               <button
                 onClick={() => setShowServicesModal(false)}
@@ -896,11 +936,19 @@ export default function Pricing() {
                       </p>
                       <ul className="text-sm text-gray-600 dark:text-gray-300 space-y-1">
                         <li>• Guided PIP-related information entry</li>
-                        <li>• Secure upload and organization of your documents</li>
+                        <li>
+                          • Secure upload and organization of your documents
+                        </li>
                         <li>• Field validation and formatting checks</li>
-                        <li>• Expense logging and deadline reminders (general)</li>
-                        <li>• Educational content (not case-specific advice)</li>
-                        <li>• Email support for platform/technical questions</li>
+                        <li>
+                          • Expense logging and deadline reminders (general)
+                        </li>
+                        <li>
+                          • Educational content (not case-specific advice)
+                        </li>
+                        <li>
+                          • Email support for platform/technical questions
+                        </li>
                       </ul>
                     </div>
                   </div>
@@ -923,8 +971,8 @@ export default function Pricing() {
                         <li>• Remote online notarization</li>
                         <li>• Secure digital signatures</li>
                         <li>• Legal document verification</li>
-                        <li>• 24/7 availability</li>
-                        <li>• Instant completion</li>
+                        <li>• {t("pricing.ui.notaryBulletAvailability")}</li>
+                        <li>• {t("pricing.ui.notaryBulletCompletion")}</li>
                       </ul>
                     </div>
                   </div>
@@ -933,7 +981,7 @@ export default function Pricing() {
 
               <div className="bg-green-50 dark:bg-green-950/30 p-4 rounded-lg">
                 <h3 className="text-lg font-semibold text-green-900 dark:text-green-100 mb-2">
-                  💰 Savings Calculator
+                  💰 {t("pricing.ui.modalServicesSavingsHeading")}
                 </h3>
                 <div className="space-y-2 text-sm">
                   <div className="flex justify-between">
@@ -949,7 +997,9 @@ export default function Pricing() {
                     </span>
                   </div>
                   <div className="border-t pt-2 flex justify-between font-bold">
-                    <span>Your Additional Savings</span>
+                    <span>
+                      {t("pricing.ui.modalServicesSavingsDifferenceLabel")}
+                    </span>
                     <span className="text-green-600">+$2,800.00</span>
                   </div>
                 </div>
@@ -962,13 +1012,13 @@ export default function Pricing() {
                 variant="outline"
                 className="flex-1"
               >
-                Close
+                {t("pricing.ui.btnClose")}
               </Button>
               <Button
                 onClick={() => setShowServicesModal(false)}
                 className="flex-1 bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-700 hover:to-emerald-700"
               >
-                Select Services
+                {t("pricing.ui.modalSelectServices")}
               </Button>
             </div>
           </div>
@@ -981,7 +1031,7 @@ export default function Pricing() {
           <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-2xl max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto">
             <div className="flex justify-between items-start mb-6">
               <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
-                Pricing & Savings
+                {t("pricing.ui.modalPricingTitle")}
               </h2>
               <button
                 onClick={() => setShowPricingModal(false)}
@@ -997,10 +1047,10 @@ export default function Pricing() {
                   Understanding our pricing
                 </h3>
                 <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-                  You pay a flat fee for guided platform access—not a
-                  percentage of your claim. Compare total costs to other options
-                  that may charge contingency fees; your net outcome depends on
-                  your facts and coverage.
+                  You pay a flat fee for guided platform access—not a percentage
+                  of your claim. Compare total costs to other options that may
+                  charge contingency fees; your net outcome depends on your
+                  facts and coverage.
                 </p>
               </div>
 
@@ -1033,7 +1083,7 @@ export default function Pricing() {
 
               <div className="bg-gradient-to-r from-teal-50 to-emerald-50 dark:from-teal-950/30 dark:to-emerald-950/30 p-6 rounded-lg">
                 <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
-                  💰 Your Savings Breakdown
+                  💰 {t("pricing.ui.modalPricingSavingsBreakdown")}
                 </h3>
                 <div className="space-y-3">
                   <div className="flex justify-between items-center">
@@ -1054,7 +1104,7 @@ export default function Pricing() {
                   </div>
                   <div className="border-t pt-3 flex justify-between items-center font-bold text-lg">
                     <span className="text-gray-900 dark:text-white">
-                      Your Total Savings
+                      {t("pricing.ui.modalPricingTotalDifferenceLabel")}
                     </span>
                     <span className="text-green-600">+$2,800.00</span>
                   </div>
@@ -1069,7 +1119,8 @@ export default function Pricing() {
                   <div className="flex items-start gap-3">
                     <CheckCircle className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" />
                     <span className="text-gray-700 dark:text-gray-300">
-                      Guided digital workflows for information you enter yourself
+                      Guided digital workflows for information you enter
+                      yourself
                     </span>
                   </div>
                   <div className="flex items-start gap-3">
@@ -1105,28 +1156,14 @@ export default function Pricing() {
                 </div>
               </div>
 
-              <div className="bg-yellow-50 dark:bg-yellow-950/30 p-4 rounded-lg">
-                <h3 className="text-lg font-semibold text-yellow-900 dark:text-yellow-100 mb-2">
-                  ⚡ Why Our Pricing Works
-                </h3>
-                <ul className="text-sm text-yellow-800 dark:text-yellow-200 space-y-1">
-                  <li>
-                    • <strong>Volume Efficiency:</strong> We process many claims
-                    efficiently
-                  </li>
-                  <li>
-                    • <strong>Technology:</strong> Automated systems reduce
-                    overhead costs
-                  </li>
-                  <li>
-                    • <strong>No Contingency:</strong> We don&apos;t take a
-                    percentage of your settlement
-                  </li>
-                  <li>
-                    • <strong>Transparency:</strong> You know exactly what
-                    you&apos;re paying for
-                  </li>
-                </ul>
+              <div className="bg-amber-50 dark:bg-amber-950/30 p-4 rounded-lg border border-amber-200/80 dark:border-amber-900/50">
+                <p className="text-sm text-amber-950 dark:text-amber-100 leading-relaxed">
+                  ClaimSaver+ charges a flat fee for access to claim-preparation
+                  software. We are not a law firm and we do not process claims,
+                  negotiate with insurers, or take a percentage of benefits. The
+                  comparison above is for education only—your costs and outcome
+                  depend on your facts and coverage.
+                </p>
               </div>
             </div>
 
@@ -1136,7 +1173,7 @@ export default function Pricing() {
                 variant="outline"
                 className="flex-1"
               >
-                Close
+                {t("pricing.ui.btnClose")}
               </Button>
               <Button
                 onClick={() => {
@@ -1145,7 +1182,7 @@ export default function Pricing() {
                 }}
                 className="flex-1 bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-700 hover:to-emerald-700"
               >
-                Start Your Claim
+                {t("pricing.ui.btnStartYourClaim")}
               </Button>
             </div>
           </div>
