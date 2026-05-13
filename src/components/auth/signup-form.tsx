@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
+import { formatSupabaseClientAuthError } from "@/lib/supabase/auth-errors";
 import { getBrowserSupabase } from "@/lib/supabase/browser";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -45,7 +46,7 @@ export function SignupForm() {
         );
       }
     } catch (e) {
-      setMessage(e instanceof Error ? e.message : "Could not sign up");
+      setMessage(formatSupabaseClientAuthError(e, "Could not sign up"));
     } finally {
       setLoading(false);
     }
@@ -62,7 +63,7 @@ export function SignupForm() {
       });
       if (error) throw error;
     } catch (e) {
-      setMessage(e instanceof Error ? e.message : "Google sign-up failed");
+      setMessage(formatSupabaseClientAuthError(e, "Google sign-up failed"));
       setLoading(false);
     }
   };

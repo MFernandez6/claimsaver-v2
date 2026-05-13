@@ -13,7 +13,7 @@ let client: ReturnType<typeof createBrowserClient> | undefined;
 export function getBrowserSupabase() {
   if (!isSupabaseBrowserConfigured()) {
     throw new Error(
-      "Supabase env missing: NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY",
+      "Supabase browser env missing. Set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY (anon/public key from Supabase → Settings → API — not the service_role secret).",
     );
   }
   if (!client) {

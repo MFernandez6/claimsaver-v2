@@ -8,6 +8,7 @@ import { useSupabaseUser } from "@/components/auth/use-supabase-user";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { formatSupabaseClientAuthError } from "@/lib/supabase/auth-errors";
 import { Loader2 } from "lucide-react";
 
 export function LoginForm() {
@@ -45,7 +46,7 @@ export function LoginForm() {
       router.replace(next.startsWith("/") ? next : "/dashboard");
       router.refresh();
     } catch (e) {
-      setMessage(e instanceof Error ? e.message : "Could not sign in");
+      setMessage(formatSupabaseClientAuthError(e, "Could not sign in"));
     } finally {
       setLoading(false);
     }
@@ -64,7 +65,7 @@ export function LoginForm() {
       });
       if (error) throw error;
     } catch (e) {
-      setMessage(e instanceof Error ? e.message : "Google sign-in failed");
+      setMessage(formatSupabaseClientAuthError(e, "Google sign-in failed"));
       setLoading(false);
     }
   };
@@ -88,7 +89,7 @@ export function LoginForm() {
       if (error) throw error;
       setMessage("Check your email for the sign-in link.");
     } catch (e) {
-      setMessage(e instanceof Error ? e.message : "Could not send link");
+      setMessage(formatSupabaseClientAuthError(e, "Could not send link"));
     } finally {
       setLoading(false);
     }
