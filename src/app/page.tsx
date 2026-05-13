@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useUser } from "@clerk/nextjs";
+import { useSupabaseUser } from "@/components/auth/use-supabase-user";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
@@ -31,7 +31,7 @@ import {
 import { cn } from "@/lib/utils";
 
 export default function Home() {
-  const { user, isLoaded } = useUser();
+  const { user, isLoaded } = useSupabaseUser();
   const router = useRouter();
   const { t } = useTranslation();
   const [showWelcomeBanner, setShowWelcomeBanner] = useState(true);
@@ -114,8 +114,10 @@ export default function Home() {
               <HomeIcon className="w-5 h-5 shrink-0 mt-0.5 sm:mt-0" />
               <span className="font-medium text-sm sm:text-base break-words">
                 Welcome back,{" "}
-                {user.firstName || user.emailAddresses[0]?.emailAddress}! Ready
-                to manage your claims?
+                {(typeof user.user_metadata?.first_name === "string" &&
+                  user.user_metadata.first_name) ||
+                  user.email?.split("@")[0]}
+                ! Ready to manage your claims?
               </span>
             </div>
             <div className="flex shrink-0 flex-wrap items-center gap-2 sm:justify-end">

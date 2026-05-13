@@ -1,7 +1,7 @@
 import type { NextConfig } from "next";
 
 /**
- * Production Content-Security-Policy: Stripe + Clerk + Supabase + fonts.
+ * Production Content-Security-Policy: Stripe + Supabase + Google OAuth + fonts.
  * Set DISABLE_CSP=1 to skip (debugging only). Tighten `unsafe-inline` when migrating to nonces.
  */
 function buildContentSecurityPolicy(): string {
@@ -17,9 +17,8 @@ function buildContentSecurityPolicy(): string {
       "'unsafe-eval'",
       "https://js.stripe.com",
       "https://*.stripe.com",
-      "https://*.clerk.accounts.dev",
-      "https://*.clerk.com",
       "https://challenges.cloudflare.com",
+      "https://accounts.google.com",
     ].join(" "),
     [
       "style-src",
@@ -47,11 +46,10 @@ function buildContentSecurityPolicy(): string {
       "wss://*.supabase.co",
       "https://api.stripe.com",
       "https://*.stripe.com",
-      "https://*.clerk.accounts.dev",
-      "https://*.clerk.com",
       "https://*.claimsaverplus.com",
-      "https://*.claimsaverplus.net",
-      "https://api.clerk.com",
+      "https://accounts.google.com",
+      "https://oauth2.googleapis.com",
+      "https://www.googleapis.com",
       "https://challenges.cloudflare.com",
     ].join(" "),
     [
@@ -60,7 +58,8 @@ function buildContentSecurityPolicy(): string {
       "https://js.stripe.com",
       "https://hooks.stripe.com",
       "https://*.stripe.com",
-      "https://*.clerk.accounts.dev",
+      "https://accounts.google.com",
+      "https://*.google.com",
       "https://challenges.cloudflare.com",
     ].join(" "),
     "form-action 'self' https://checkout.stripe.com https://*.stripe.com",
@@ -70,6 +69,15 @@ function buildContentSecurityPolicy(): string {
 }
 
 const nextConfig: NextConfig = {
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "lh3.googleusercontent.com",
+        pathname: "/**",
+      },
+    ],
+  },
   // Tree-shake icon and Radix barrels so unused modules stay out of client bundles.
   experimental: {
     optimizePackageImports: [

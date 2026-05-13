@@ -4,7 +4,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
-import { useClerk } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
 import { useTranslation } from "react-i18next";
 import {
   ArrowRight,
@@ -18,11 +18,11 @@ import {
 import { PageHeroBackdrop } from "@/components/page-hero-backdrop";
 
 export default function WhoWeAre() {
-  const { openSignIn } = useClerk();
+  const router = useRouter();
   const { t } = useTranslation();
 
   const handleStartClaim = () => {
-    openSignIn();
+    router.push("/login?next=%2Fclaim-form");
   };
 
   const values = [

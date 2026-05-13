@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { auth } from "@clerk/nextjs/server";
+import { getAuthUserId } from "@/lib/supabase/auth-session";
 import dbConnect from "@/lib/db";
 import User from "@/models/User";
 
@@ -15,7 +15,7 @@ interface UserDocument {
 
 export async function GET() {
   try {
-    const { userId } = await auth();
+    const userId = await getAuthUserId();
 
     if (!userId) {
       return NextResponse.json({

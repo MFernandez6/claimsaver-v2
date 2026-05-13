@@ -1,6 +1,8 @@
 "use client";
 
-import { useUser, SignInButton, SignOutButton } from "@clerk/nextjs";
+import { useSupabaseUser } from "@/components/auth/use-supabase-user";
+import { getBrowserSupabase } from "@/lib/supabase/browser";
+import { isSupabaseBrowserConfigured } from "@/lib/supabase/env-public";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -30,7 +32,7 @@ interface SupabaseDebugPayload {
 }
 
 export default function IntegrationDebugPage() {
-  const { user, isLoaded } = useUser();
+  const { user, isLoaded } = useSupabaseUser();
   const [data, setData] = useState<SupabaseDebugPayload | null>(null);
   const [err, setErr] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
@@ -68,7 +70,7 @@ export default function IntegrationDebugPage() {
         </div>
         <p className="text-slate-600 dark:text-slate-400 text-sm">
           Verifies env, Supabase tables, storage bucket, and (when signed in)
-          whether your Clerk user has a row in{" "}
+          whether your Supabase Auth user has a row in{" "}
           <code className="text-xs bg-slate-200 dark:bg-slate-800 px-1 rounded">
             profiles
           </code>
@@ -81,18 +83,23 @@ export default function IntegrationDebugPage() {
             {loading ? "Loading…" : "Re-run checks"}
           </Button>
           {!user && (
-            <SignInButton mode="modal">
-              <Button size="sm" variant="secondary">
-                Sign in
-              </Button>
-            </SignInButton>
+            <Button size="sm" variant="secondary" asChild>
+              <Link href="/login?next=%2Fdebug%2Fintegration">Sign in</Link>
+            </Button>
           )}
           {user && (
-            <SignOutButton>
-              <Button size="sm" variant="secondary">
-                Sign out
-              </Button>
-            </SignOutButton>
+            <Button
+              size="sm"
+              variant="secondary"
+              type="button"
+              onClick={async () => {
+                if (!isSupabaseBrowserConfigured()) return;
+                await getBrowserSupabase().auth.signOut();
+                load();
+              }}
+            >
+              Sign out
+            </Button>
           )}
         </div>
 
@@ -179,7 +186,7 @@ export default function IntegrationDebugPage() {
             {data.clerk && (
               <div className="rounded-lg border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4">
                 <h2 className="font-medium text-slate-900 dark:text-white mb-2">
-                  Clerk + profiles
+                  Supabase Auth + profiles
                 </h2>
                 {!data.clerk.signedIn && (
                   <p className="text-sm text-slate-600 dark:text-slate-400">
@@ -200,7 +207,7 @@ export default function IntegrationDebugPage() {
                       >
                         {data.clerk.profileRow === "found"
                           ? "found"
-                          : "missing (open app after sign-in or hit /api/webhooks/clerk)"}
+                          : "missing (sign in, or open /api/debug/user-info)"}
                       </strong>
                     </li>
                     {data.clerk.email && (

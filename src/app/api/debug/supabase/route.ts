@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { auth } from "@clerk/nextjs/server";
+import { getAuthUserId } from "@/lib/supabase/auth-session";
 import { getSupabaseAdmin, isSupabaseConfigured } from "@/lib/supabase/admin";
 
 /**
@@ -46,7 +46,7 @@ export async function GET() {
   const storageOk = !bucketError;
   const hasClaimDocumentsBucket = bucketNames.includes("claim-documents");
 
-  const { userId } = await auth();
+  const userId = await getAuthUserId();
   let profileCheck:
     | { signedIn: false }
     | {

@@ -2,7 +2,8 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { SignInButton, SignUpButton, useUser } from "@clerk/nextjs";
+import Link from "next/link";
+import { useSupabaseUser } from "@/components/auth/use-supabase-user";
 import {
   ArrowLeft,
   ArrowRight,
@@ -43,7 +44,7 @@ const FRAUD_NOTICE =
 type SigModal = null | "insurance" | "hipaa" | "main";
 
 export function ClaimFormWizard() {
-  const { user, isLoaded } = useUser();
+  const { user, isLoaded } = useSupabaseUser();
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState<FloridaNoFaultFormData>(() =>
     getInitialFloridaNoFaultFormData(),
@@ -69,13 +70,20 @@ export function ClaimFormWizard() {
   useEffect(() => {
     if (isLoaded && user) {
       setAuthGateOpen(false);
+      const meta = (user.user_metadata || {}) as Record<string, unknown>;
+      const full =
+        (typeof meta.full_name === "string" && meta.full_name) ||
+        [
+          typeof meta.first_name === "string" ? meta.first_name : "",
+          typeof meta.last_name === "string" ? meta.last_name : "",
+        ]
+          .filter(Boolean)
+          .join(" ");
       setFormData((prev) => ({
         ...prev,
-        claimantName: user.fullName || prev.claimantName,
-        claimantEmail:
-          user.primaryEmailAddress?.emailAddress || prev.claimantEmail,
-        claimantPhone:
-          user.phoneNumbers?.[0]?.phoneNumber || prev.claimantPhone,
+        claimantName: full || prev.claimantName,
+        claimantEmail: user.email || prev.claimantEmail,
+        claimantPhone: prev.claimantPhone,
       }));
     }
   }, [isLoaded, user]);
@@ -361,27 +369,20 @@ export function ClaimFormWizard() {
               create your account so you can use the dashboard.
             </p>
             <p className="mt-2 text-xs text-slate-600 dark:text-slate-400">
-              If you clicked &quot;Sign in&quot; and don&apos;t have an account
-              yet, you&apos;re in the right place: finish the form and save to
-              register. Already registered?
+              Sign in or create an account, then return here — your in-progress
+              worksheet can resume after login.
             </p>
             <div className="mt-4 flex flex-wrap items-center justify-center gap-3">
-              <SignInButton
-                mode="modal"
-                forceRedirectUrl="/claim-form?resume=1"
-              >
+              <Link href="/login?next=%2Fclaim-form%3Fresume%3D1">
                 <Button type="button" variant="outline" size="sm">
                   Sign in
                 </Button>
-              </SignInButton>
-              <SignUpButton
-                mode="modal"
-                forceRedirectUrl="/claim-form?resume=1"
-              >
+              </Link>
+              <Link href="/signup?next=%2Fclaim-form%3Fresume%3D1">
                 <Button type="button" size="sm">
                   Create account
                 </Button>
-              </SignUpButton>
+              </Link>
             </div>
           </div>
         </div>
@@ -1416,20 +1417,14 @@ export function ClaimFormWizard() {
               >
                 Cancel
               </Button>
-              <SignInButton
-                mode="modal"
-                forceRedirectUrl="/claim-form?resume=1"
-              >
+              <Link href="/login?next=%2Fclaim-form%3Fresume%3D1">
                 <Button type="button" variant="outline">
                   Sign in
                 </Button>
-              </SignInButton>
-              <SignUpButton
-                mode="modal"
-                forceRedirectUrl="/claim-form?resume=1"
-              >
+              </Link>
+              <Link href="/signup?next=%2Fclaim-form%3Fresume%3D1">
                 <Button type="button">Create account</Button>
-              </SignUpButton>
+              </Link>
             </div>
           </div>
         </div>

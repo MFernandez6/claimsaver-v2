@@ -268,7 +268,7 @@
       "section4Title": "Payments (Stripe)",
       "section4Body": "Card payments are processed by Stripe. Card data is handled on Stripe’s systems under their PCI DSS program; for typical hosted Checkout flows, your deployment may fall under PCI SAQ A scope—confirm with your own compliance advisor. We do not store full card numbers on ClaimSaver+ servers for those flows.",
       "section5Title": "Accounts and authentication",
-      "section5Body": "Sign-in is provided through Clerk. Clerk supports strong passwords and optional multi-factor authentication depending on how your organization or our project settings are configured. Check your account security settings in the profile menu. We recommend enabling MFA when available. Account lockout and risk controls are implemented by Clerk according to their platform defaults; refer to Clerk’s documentation for details.",
+      "section5Body": "Sign-in uses Supabase Auth (email/password, magic link, or OAuth such as Google, depending on how your project is configured). Configure email verification, password reset, and branded templates in the Supabase dashboard. We recommend strong passwords and enabling MFA in your provider settings when available. Refer to Supabase’s documentation for session duration and security defaults.",
       "section6Title": "Email and domain mail policy",
       "section6Body": "Public support email is sent from our claimsaverplus.com domain. Organization administrators should configure SPF, DKIM, and DMARC for that domain with your DNS host so recipients can authenticate legitimate mail and reject spoofing; we cannot set DNS on your behalf.",
       "section7Title": "Retention and deletion",

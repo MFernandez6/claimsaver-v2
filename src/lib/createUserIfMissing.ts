@@ -1,4 +1,4 @@
-import { auth } from "@clerk/nextjs/server";
+import { createSupabaseServerClient } from "@/lib/supabase/server";
 import { getSupabaseAdmin, isSupabaseConfigured } from "@/lib/supabase/admin";
 import { profileRowToLegacy } from "@/lib/supabase/mappers";
 
@@ -17,14 +17,27 @@ const defaultStats = {
   totalSettlements: 0,
 };
 
+/**
+ * Ensures a `profiles` row exists for the current Supabase Auth user.
+ * Stores auth user id in `clerk_id` (legacy column name).
+ */
 export async function createUserIfMissing() {
   try {
-    const { userId } = await auth();
-
-    if (!userId || !isSupabaseConfigured()) {
+    if (!isSupabaseConfigured()) {
       return null;
     }
 
+    const authClient = await createSupabaseServerClient();
+    const {
+      data: { user },
+      error: authErr,
+    } = await authClient.auth.getUser();
+
+    if (authErr || !user) {
+      return null;
+    }
+
+    const userId = user.id;
     const supabase = getSupabaseAdmin();
 
     const { data: existing, error: readErr } = await supabase
@@ -42,23 +55,29 @@ export async function createUserIfMissing() {
       return profileRowToLegacy(existing as Record<string, unknown>);
     }
 
-    const clerkUser = await fetch(
-      `https://api.clerk.com/v1/users/${userId}`,
-      {
-        headers: {
-          Authorization: `Bearer ${process.env.CLERK_SECRET_KEY}`,
-          "Content-Type": "application/json",
-        },
-      }
-    ).then((res) => res.json());
+    const meta = (user.user_metadata || {}) as Record<string, unknown>;
+    const email =
+      user.email ||
+      (typeof meta.email === "string" ? meta.email : "") ||
+      "";
+    const firstName =
+      (typeof meta.first_name === "string" && meta.first_name) ||
+      (typeof meta.full_name === "string"
+        ? meta.full_name.split(" ")[0]
+        : null) ||
+      email.split("@")[0] ||
+      "Unknown";
+    const lastName =
+      (typeof meta.last_name === "string" && meta.last_name) ||
+      (typeof meta.full_name === "string"
+        ? meta.full_name.split(" ").slice(1).join(" ")
+        : "") ||
+      "User";
 
-    if (!clerkUser?.id) return null;
-
-    const email = clerkUser.email_addresses?.[0]?.email_address;
-    const firstName = clerkUser.first_name || "Unknown";
-    const lastName = clerkUser.last_name || "User";
-
-    if (!email) return null;
+    if (!email) {
+      console.warn("createUserIfMissing: no email on auth user", userId);
+      return null;
+    }
 
     const now = new Date().toISOString();
 

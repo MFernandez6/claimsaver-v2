@@ -10,7 +10,7 @@ export function isSupabaseConfigured(): boolean {
 
 /**
  * Server-only client with the service role key. Never import in client components.
- * Authorization is enforced by Clerk in Next.js API routes before calling Supabase.
+ * API routes verify the user with Supabase Auth before using this client.
  */
 export function getSupabaseAdmin(): SupabaseClient {
   if (cached) return cached;

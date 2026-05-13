@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { PageHeroBackdrop } from "@/components/page-hero-backdrop";
 import { Button } from "@/components/ui/button";
-import { useClerk } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
 import { getStripe } from "@/lib/stripe";
 import { useTranslation } from "react-i18next";
 import {
@@ -22,7 +22,7 @@ import FAQ from "@/components/faq";
 
 export default function Pricing() {
   const { t } = useTranslation();
-  const { openSignIn } = useClerk();
+  const router = useRouter();
   const [selectedServices, setSelectedServices] = useState<string[]>([]);
   const [isProcessing, setIsProcessing] = useState(false);
   const [isValidating, setIsValidating] = useState(false);
@@ -31,7 +31,7 @@ export default function Pricing() {
   const [showPricingModal, setShowPricingModal] = useState(false);
 
   const handleStartClaim = () => {
-    openSignIn();
+    router.push("/login?next=%2Fdashboard");
   };
 
   const traditionalCosts = [

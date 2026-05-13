@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useUser } from "@clerk/nextjs";
+import { useSupabaseUser } from "@/components/auth/use-supabase-user";
 import { useRouter } from "next/navigation";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -270,7 +270,7 @@ const claimsJourneySteps: JourneyStep[] = [
 ];
 
 export default function DashboardPage() {
-  const { user, isLoaded } = useUser();
+  const { user, isLoaded } = useSupabaseUser();
   const router = useRouter();
   const [claims, setClaims] = useState<UserClaim[]>([]);
   const [documents, setDocuments] = useState<Document[]>([]);
@@ -337,10 +337,10 @@ export default function DashboardPage() {
     return claimsJourneySteps;
   });
 
-  // Redirect unauthenticated users to home
+  // Redirect unauthenticated users (middleware should also enforce)
   useEffect(() => {
     if (isLoaded && !user) {
-      router.push("/");
+      router.push("/login?next=%2Fdashboard");
     }
   }, [isLoaded, user, router]);
 
@@ -676,7 +676,12 @@ export default function DashboardPage() {
       <PageHeroBackdrop />
       <div className="relative z-10 mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         <DashboardOverviewPanels
-          welcomeName={user.firstName || user.username || "User"}
+          welcomeName={
+            (typeof user?.user_metadata?.first_name === "string" &&
+              user.user_metadata.first_name) ||
+            user?.email?.split("@")[0] ||
+            "User"
+          }
           completedSteps={completedSteps}
           totalSteps={totalSteps}
           documentsCount={documents.length}

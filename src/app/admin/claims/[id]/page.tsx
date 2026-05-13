@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { useUser } from "@clerk/nextjs";
+import { useSupabaseUser } from "@/components/auth/use-supabase-user";
 import { useRouter, useParams } from "next/navigation";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -37,7 +37,7 @@ import {
 } from "@/lib/api";
 
 export default function ClaimDetailPage() {
-  const { user, isLoaded } = useUser();
+  const { user, isLoaded } = useSupabaseUser();
   const router = useRouter();
   const params = useParams();
   const [claim, setClaim] = useState<Claim | null>(null);
@@ -85,7 +85,7 @@ export default function ClaimDetailPage() {
   useEffect(() => {
     if (!isLoaded) return;
     if (!user) {
-      router.push("/");
+      router.push("/login?next=%2Fadmin");
       return;
     }
 
@@ -170,7 +170,11 @@ export default function ClaimDetailPage() {
     try {
       const note = {
         content: newNote,
-        author: user?.fullName || "Admin User",
+        author:
+          (typeof user?.user_metadata?.full_name === "string" &&
+            user.user_metadata.full_name) ||
+          user?.email?.split("@")[0] ||
+          "Admin User",
         timestamp: new Date().toISOString(),
       };
 

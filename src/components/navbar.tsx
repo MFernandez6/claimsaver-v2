@@ -1,59 +1,98 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { UserButton, useUser, useClerk } from "@clerk/nextjs";
+import { useSupabaseUser } from "@/components/auth/use-supabase-user";
+import { getBrowserSupabase } from "@/lib/supabase/browser";
+import { isSupabaseBrowserConfigured } from "@/lib/supabase/env-public";
 import { Sun, Moon, X, Menu, LayoutDashboard } from "lucide-react";
 import LanguageSwitcher from "./language-switcher";
 import { BrandLogo } from "./brand-logo";
 import { useTranslation } from "react-i18next";
 import { isDesignatedAdminEmail } from "@/lib/adminAccess";
 
-// Wrapper component to handle Clerk authentication
+// Authentication: Supabase Auth — avatar + name when signed in; Sign in / Get started when not.
 function AuthSection() {
   const { t } = useTranslation();
-  const { isSignedIn, isLoaded } = useUser();
-  const { signOut } = useClerk();
+  const { user, isLoaded, isSignedIn } = useSupabaseUser();
+
+  const signOut = async () => {
+    if (!isSupabaseBrowserConfigured()) return;
+    const supabase = getBrowserSupabase();
+    await supabase.auth.signOut();
+    window.location.href = "/";
+  };
+
+  const display =
+    (typeof user?.user_metadata?.full_name === "string" &&
+      user.user_metadata.full_name) ||
+    (typeof user?.user_metadata?.name === "string" &&
+      user.user_metadata.name) ||
+    user?.email?.split("@")[0] ||
+    "Account";
+
+  const avatarUrl =
+    typeof user?.user_metadata?.avatar_url === "string"
+      ? user.user_metadata.avatar_url
+      : null;
 
   if (!isLoaded) {
     return (
-      <div className="w-20 h-10 bg-gray-200 dark:bg-gray-700 rounded-lg animate-pulse"></div>
+      <div className="h-10 w-20 animate-pulse rounded-lg bg-gray-200 dark:bg-gray-700" />
     );
   }
 
   return (
     <div className="flex items-center gap-2">
-      {isSignedIn ? (
+      {isSignedIn && user ? (
         <>
-          <UserButton
-            appearance={{
-              elements: {
-                avatarBox: "w-9 h-9",
-                userButtonPopoverCard:
-                  "shadow-xl border border-gray-200 dark:border-gray-700 rounded-xl",
-              },
-            }}
-          />
+          <div className="flex items-center gap-2 rounded-lg border border-gray-200 bg-white/90 px-2 py-1 dark:border-gray-700 dark:bg-gray-800/80">
+            {avatarUrl ? (
+              <Image
+                src={avatarUrl}
+                alt=""
+                width={36}
+                height={36}
+                className="h-9 w-9 rounded-full object-cover"
+              />
+            ) : (
+              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-teal-600 text-sm font-semibold text-white">
+                {display.slice(0, 1).toUpperCase()}
+              </div>
+            )}
+            <span className="hidden max-w-[10rem] truncate text-sm text-gray-800 dark:text-gray-100 sm:inline">
+              {display}
+            </span>
+          </div>
           <Button
             size="sm"
             variant="outline"
-            onClick={() => signOut()}
-            className="border-red-300 text-red-600 hover:bg-red-50 hover:border-red-400 dark:border-red-600 dark:text-red-400 dark:hover:bg-red-950/30 px-3 py-1.5 rounded-lg transition-all duration-300 text-xs"
+            type="button"
+            onClick={() => void signOut()}
+            className="border-red-300 px-3 py-1.5 text-xs text-red-600 hover:border-red-400 hover:bg-red-50 dark:border-red-600 dark:text-red-400 dark:hover:bg-red-950/30"
           >
             Sign Out
           </Button>
         </>
       ) : (
-        <Link href="/claim-form#claim-auth">
-          <Button
-            size="sm"
-            className="bg-gradient-to-r from-teal-500 to-teal-700 hover:from-teal-600 hover:to-teal-800 text-white px-4 py-2 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5"
-          >
-            {t("navigation.signIn")}
-          </Button>
-        </Link>
+        <div className="flex flex-wrap items-center justify-end gap-2">
+          <Link href="/login?next=%2Fdashboard">
+            <Button size="sm" variant="outline" className="px-3">
+              {t("navigation.signIn")}
+            </Button>
+          </Link>
+          <Link href="/signup?next=%2Fdashboard">
+            <Button
+              size="sm"
+              className="bg-gradient-to-r from-teal-500 to-teal-700 px-4 text-white shadow-lg hover:from-teal-600 hover:to-teal-800"
+            >
+              {t("navigation.getStarted")}
+            </Button>
+          </Link>
+        </div>
       )}
     </div>
   );
@@ -62,7 +101,7 @@ function AuthSection() {
 // Dashboard link component
 function DashboardLink({ pathname }: { pathname: string }) {
   const { t } = useTranslation();
-  const { isSignedIn, isLoaded, user } = useUser();
+  const { isSignedIn, isLoaded, user } = useSupabaseUser();
   const [isAdmin, setIsAdmin] = useState(false);
   const [checkingRole, setCheckingRole] = useState(true);
 
@@ -70,8 +109,8 @@ function DashboardLink({ pathname }: { pathname: string }) {
     async function checkAdminRole() {
       if (isLoaded && isSignedIn && user) {
         try {
-          const userEmail = user.primaryEmailAddress?.emailAddress;
-          setIsAdmin(isDesignatedAdminEmail(userEmail));
+          const userEmail = user.email;
+          setIsAdmin(isDesignatedAdminEmail(userEmail ?? undefined));
         } catch (error) {
           console.error("Error checking admin role:", error);
           setIsAdmin(false);
@@ -114,52 +153,91 @@ function DashboardLink({ pathname }: { pathname: string }) {
 // Mobile auth section
 function MobileAuthSection({ onNavigate }: { onNavigate?: () => void }) {
   const { t } = useTranslation();
-  const { isSignedIn, isLoaded } = useUser();
-  const { signOut } = useClerk();
+  const { isSignedIn, isLoaded, user } = useSupabaseUser();
+
+  const signOut = async () => {
+    if (!isSupabaseBrowserConfigured()) return;
+    const supabase = getBrowserSupabase();
+    await supabase.auth.signOut();
+    onNavigate?.();
+    window.location.href = "/";
+  };
+
+  const display =
+    (typeof user?.user_metadata?.full_name === "string" &&
+      user.user_metadata.full_name) ||
+    user?.email?.split("@")[0] ||
+    "Account";
+
+  const avatarUrl =
+    typeof user?.user_metadata?.avatar_url === "string"
+      ? user.user_metadata.avatar_url
+      : null;
 
   if (!isLoaded) {
     return (
-      <div className="w-full h-10 bg-gray-200 dark:bg-gray-700 rounded-lg animate-pulse"></div>
+      <div className="h-10 w-full animate-pulse rounded-lg bg-gray-200 dark:bg-gray-700" />
     );
   }
 
   return (
     <>
-      {isSignedIn ? (
+      {isSignedIn && user ? (
         <div className="space-y-3">
           <div className="flex justify-center">
-            <UserButton
-              appearance={{
-                elements: {
-                  avatarBox: "w-10 h-10",
-                  userButtonPopoverCard:
-                    "shadow-xl border border-gray-200 dark:border-gray-700 rounded-xl",
-                },
-              }}
-            />
+            <div className="flex items-center gap-2 rounded-lg border border-gray-200 px-2 py-1 dark:border-gray-700">
+              {avatarUrl ? (
+                <Image
+                  src={avatarUrl}
+                  alt=""
+                  width={40}
+                  height={40}
+                  className="h-10 w-10 rounded-full object-cover"
+                />
+              ) : (
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-teal-600 text-sm font-semibold text-white">
+                  {display.slice(0, 1).toUpperCase()}
+                </div>
+              )}
+            </div>
           </div>
+          <p className="text-center text-sm text-gray-600 dark:text-gray-400">
+            {display}
+          </p>
           <Button
             size="sm"
             variant="outline"
-            onClick={() => signOut()}
-            className="w-full border-red-300 text-red-600 hover:bg-red-50 hover:border-red-400 dark:border-red-600 dark:text-red-400 dark:hover:bg-red-950/30 px-4 py-2 rounded-lg transition-all duration-300"
+            type="button"
+            onClick={() => void signOut()}
+            className="w-full border-red-300 text-red-600 hover:bg-red-50 dark:border-red-600 dark:text-red-400 dark:hover:bg-red-950/30"
           >
             Sign Out
           </Button>
         </div>
       ) : (
-        <Link
-          href="/claim-form#claim-auth"
-          className="block w-full"
-          onClick={onNavigate}
-        >
-          <Button
-            size="sm"
-            className="w-full bg-gradient-to-r from-teal-500 to-teal-700 hover:from-teal-600 hover:to-teal-800 text-white px-4 py-2 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300"
+        <div className="space-y-2">
+          <Link
+            href="/login?next=%2Fdashboard"
+            className="block w-full"
+            onClick={onNavigate}
           >
-            {t("navigation.signIn")}
-          </Button>
-        </Link>
+            <Button size="sm" variant="outline" className="w-full">
+              {t("navigation.signIn")}
+            </Button>
+          </Link>
+          <Link
+            href="/signup?next=%2Fdashboard"
+            className="block w-full"
+            onClick={onNavigate}
+          >
+            <Button
+              size="sm"
+              className="w-full bg-gradient-to-r from-teal-500 to-teal-700 text-white shadow-lg"
+            >
+              {t("navigation.getStarted")}
+            </Button>
+          </Link>
+        </div>
       )}
     </>
   );
@@ -176,7 +254,7 @@ function MobileDashboardLink({
   navItemsLength: number;
 }) {
   const { t } = useTranslation();
-  const { isSignedIn, isLoaded, user } = useUser();
+  const { isSignedIn, isLoaded, user } = useSupabaseUser();
   const [isAdmin, setIsAdmin] = useState(false);
   const [checkingRole, setCheckingRole] = useState(true);
 
@@ -184,8 +262,8 @@ function MobileDashboardLink({
     async function checkAdminRole() {
       if (isLoaded && isSignedIn && user) {
         try {
-          const userEmail = user.primaryEmailAddress?.emailAddress;
-          setIsAdmin(isDesignatedAdminEmail(userEmail));
+          const userEmail = user.email;
+          setIsAdmin(isDesignatedAdminEmail(userEmail ?? undefined));
         } catch (error) {
           console.error("Error checking admin role:", error);
           setIsAdmin(false);
@@ -277,16 +355,14 @@ function ThemeToggle() {
 
 export default function Navbar() {
   const { t } = useTranslation();
-  const { isSignedIn } = useUser();
+  const { isSignedIn } = useSupabaseUser();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
-  const [isClerkAvailable, setIsClerkAvailable] = useState(true);
   const pathname = usePathname();
   const mobileMenuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setIsMounted(true);
-    setIsClerkAvailable(true);
   }, []);
 
   // Handle click outside mobile menu
@@ -417,7 +493,7 @@ export default function Navbar() {
               )}
 
               {/* Dashboard Link */}
-              {isClerkAvailable && <DashboardLink pathname={pathname} />}
+              <DashboardLink pathname={pathname} />
 
               {/* Divider */}
               <div
@@ -429,7 +505,7 @@ export default function Navbar() {
               <LanguageSwitcher />
 
               {/* Authentication */}
-              {isClerkAvailable && <AuthSection />}
+              <AuthSection />
 
               {/* Theme Toggle */}
               <div className="hover:scale-105 transition-all duration-300 ml-2">
@@ -532,13 +608,11 @@ export default function Navbar() {
                 )}
 
                 {/* Dashboard Link */}
-                {isClerkAvailable && (
-                  <MobileDashboardLink
-                    pathname={pathname}
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    navItemsLength={4}
-                  />
-                )}
+                <MobileDashboardLink
+                  pathname={pathname}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  navItemsLength={4}
+                />
 
                 {/* Divider */}
                 <div className="border-t border-gray-200 dark:border-gray-700 my-4"></div>
@@ -561,11 +635,9 @@ export default function Navbar() {
 
                   {/* Authentication */}
                   <div className="pt-2">
-                    {isClerkAvailable && (
-                      <MobileAuthSection
-                        onNavigate={() => setIsMobileMenuOpen(false)}
-                      />
-                    )}
+                    <MobileAuthSection
+                      onNavigate={() => setIsMobileMenuOpen(false)}
+                    />
                   </div>
                 </div>
               </div>

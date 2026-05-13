@@ -1,10 +1,10 @@
 import { NextResponse } from "next/server";
-import { auth } from "@clerk/nextjs/server";
+import { getAuthUserId } from "@/lib/supabase/auth-session";
 import { createUserIfMissing } from "@/lib/createUserIfMissing";
 
 export async function GET() {
   try {
-    const { userId } = await auth();
+    const userId = await getAuthUserId();
 
     if (!userId) {
       return NextResponse.json({

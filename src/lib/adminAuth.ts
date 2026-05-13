@@ -1,4 +1,4 @@
-import { auth } from "@clerk/nextjs/server";
+import { getAuthUserId } from "@/lib/supabase/auth-session";
 import { createUserIfMissing } from "./createUserIfMissing";
 import { isDesignatedAdminEmail } from "./adminAccess";
 
@@ -19,11 +19,11 @@ export async function checkAdminAuth(): Promise<AuthResult> {
   try {
     console.log("🔍 Checking admin authentication...");
 
-    const { userId } = await auth();
-    console.log("📋 Clerk user ID:", userId);
+    const userId = await getAuthUserId();
+    console.log("📋 Auth user ID:", userId);
 
     if (!userId) {
-      console.log("❌ No Clerk user ID found");
+      console.log("❌ No auth user ID found");
       return { isAuthorized: false, error: "Unauthorized", status: 401 };
     }
 
@@ -68,7 +68,7 @@ export async function checkAdminAuth(): Promise<AuthResult> {
       if (error.message.includes("authentication")) {
         errorMessage = "Authentication error. Please sign in again.";
         statusCode = 401;
-      } else if (error.message.includes("CLERK")) {
+      } else if (error.message.includes("SUPABASE")) {
         errorMessage = "Authentication service error. Please try again.";
         statusCode = 503;
       } else {

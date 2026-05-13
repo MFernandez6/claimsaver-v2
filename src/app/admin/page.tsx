@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
-import { useUser } from "@clerk/nextjs";
+import { useSupabaseUser } from "@/components/auth/use-supabase-user";
 import { useRouter } from "next/navigation";
 import {
   Card,
@@ -44,7 +44,7 @@ import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 
 export default function AdminPage() {
-  const { user, isLoaded } = useUser();
+  const { user, isLoaded } = useSupabaseUser();
   const router = useRouter();
   const [activeTab, setActiveTab] = useState("overview");
   const [claims, setClaims] = useState<Claim[]>([]);
@@ -440,7 +440,7 @@ export default function AdminPage() {
   useEffect(() => {
     if (!isLoaded) return;
     if (!user) {
-      router.push("/");
+      router.push("/login?next=%2Fadmin");
       return;
     }
 

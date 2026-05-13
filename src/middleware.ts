@@ -1,37 +1,35 @@
-import { clerkMiddleware } from "@clerk/nextjs/server";
-import { NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
+import { updateSession } from "@/lib/supabase/middleware";
 
-// Check if Clerk is properly configured
-const isClerkConfigured =
-  process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY && process.env.CLERK_SECRET_KEY;
+const AUTH_REQUIRED_PREFIXES = ["/dashboard", "/admin", "/claim/"];
 
-// Only use Clerk middleware if it's properly configured
-const middleware = isClerkConfigured
-  ? clerkMiddleware((auth, req) => {
-      // Check if user is accessing a protected page
-      const protectedPages = ["/dashboard", "/claim", "/claim-form"];
-      const isProtectedPage = protectedPages.some((page) =>
-        req.url.includes(page)
-      );
+export async function middleware(request: NextRequest) {
+  const { user, supabaseResponse } = await updateSession(request);
 
-      if (isProtectedPage) {
-        // For protected pages, check if user has an active session
-        // This will be handled by the client-side components
-        return NextResponse.next();
-      }
+  const { pathname } = request.nextUrl;
 
-      return NextResponse.next();
-    })
-  : () => NextResponse.next();
+  const needsAuth = AUTH_REQUIRED_PREFIXES.some((p) =>
+    p.endsWith("/") ? pathname.startsWith(p) : pathname.startsWith(p),
+  );
 
-export default middleware;
+  if (needsAuth && !user) {
+    const url = request.nextUrl.clone();
+    url.pathname = "/login";
+    url.searchParams.set(
+      "next",
+      `${pathname}${request.nextUrl.search}`,
+    );
+    return NextResponse.redirect(url);
+  }
 
-// See "Matching Paths" below to learn more
+  return supabaseResponse;
+}
+
 export const config = {
   matcher: [
-    // Skip all internal paths (_next)
-    "/((?!_next|.*\\..*).*)",
-    // Optional: Match API routes
-    "/(api|trpc)(.*)",
+    /*
+     * Match all paths except static assets and image optimization.
+     */
+    "/((?!_next/static|_next/image|favicon.ico|icon.svg|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
   ],
 };

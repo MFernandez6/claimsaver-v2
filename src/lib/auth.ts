@@ -1,4 +1,4 @@
-import { auth } from "@clerk/nextjs/server";
+import { getAuthUserId } from "@/lib/supabase/auth-session";
 import { getSupabaseAdmin, isSupabaseConfigured } from "@/lib/supabase/admin";
 import { profileRowToLegacy } from "@/lib/supabase/mappers";
 import { isDesignatedAdminEmail } from "@/lib/adminAccess";
@@ -27,7 +27,7 @@ interface UserDocument {
 
 export async function getCurrentUser(): Promise<UserDocument | null> {
   try {
-    const { userId } = await auth();
+    const userId = await getAuthUserId();
 
     if (!userId || !isSupabaseConfigured()) {
       return null;

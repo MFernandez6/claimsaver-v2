@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import { useUser } from "@clerk/nextjs";
+import { useSupabaseUser } from "@/components/auth/use-supabase-user";
 import { useRouter, useParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import {
@@ -110,7 +110,7 @@ interface ClaimData {
 }
 
 export default function ClaimDetailPage() {
-  const { user, isLoaded } = useUser();
+  const { user, isLoaded } = useSupabaseUser();
   const router = useRouter();
   const params = useParams();
   const [claim, setClaim] = useState<ClaimData | null>(null);

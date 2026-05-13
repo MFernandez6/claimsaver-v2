@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { auth } from "@clerk/nextjs/server";
+import { getAuthUserId } from "@/lib/supabase/auth-session";
 import dbConnect from "@/lib/db";
 import User from "@/models/User";
 
@@ -61,7 +61,7 @@ export async function GET() {
 
     // Check Clerk authentication
     try {
-      const { userId } = await auth();
+      const userId = await getAuthUserId();
       debugInfo.authentication.clerkUserId = userId;
 
       if (userId) {
