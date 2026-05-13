@@ -114,7 +114,7 @@
     "whyChoose": {
       "title": "Why Choose",
       "brand": "ClaimSaver+",
-      "description": "Professional-grade claim filing tools for Florida no-fault (PIP): guided forms, secure storage, expense tracking, and education—so you can file and manage your claim with confidence.",
+      "description": "Purpose-built guided claim tools for Florida no-fault (PIP): forms, secure storage, expense tracking, and education—so you can file and manage your claim with confidence.",
       "getStarted": "Get Started Today",
       "flatFee": "Flat $500 platform access",
       "freeConsultation": "Educational resources & platform walkthrough",
@@ -134,7 +134,7 @@
       "statsIllustrativeBadge": "Illustrative comparison—not your claim"
     },
     "story": {
-      "heroBannerAlt": "ClaimSaver+ — professional guidance for Florida PIP claims",
+      "heroBannerAlt": "ClaimSaver+ — guided tools for Florida PIP claims",
       "pipStepsAlt": "Illustrated five-step overview of the Florida PIP claim process",
       "whatYouGetAlt": "Overview of tools and benefits included with ClaimSaver+",
       "beforeAfterAlt": "Before and after: scattered records versus an organized claim workflow",
@@ -330,8 +330,8 @@
         "description": "Compared to typical contingency percentages, a flat fee can leave more in your pocket on standard PIP claims you manage with the platform."
       },
       "professionalService": {
-        "title": "Guided claim tools",
-        "description": "Step-by-step workflows and validation—without negotiating with insurers or speaking for you."
+        "title": "Platform guidance",
+        "description": "Step-by-step software workflows and validation—not an adjuster negotiating with insurers or speaking for you."
       },
       "fasterProcessing": {
         "title": "Stay on Track",
@@ -401,7 +401,9 @@
       "notaryBulletCompletion": "Session length varies—not instantaneous",
       "btnClose": "Close",
       "btnStartYourClaim": "Start Your Claim",
-      "modalSelectServices": "Select Services"
+      "modalSelectServices": "Select Services",
+      "stickyBarLead": "flat platform access",
+      "stickyBarCta": "Start for $500"
     }
   },
   "claimForm": {
@@ -636,7 +638,7 @@
       },
       "vision": {
         "title": "Our Vision",
-        "description": "A trusted alternative for drivers who don’t need an attorney for a standard PIP claim—professional-grade organization and education when you choose to manage the filing directly."
+        "description": "A trusted alternative for drivers who don’t need an attorney for a standard PIP claim—structured organization and education when you choose to manage the filing directly."
       },
       "values": {
         "title": "Our Values",
@@ -662,7 +664,7 @@
     "hero": {
       "title": "Your Claim.",
       "subtitle": "Your Control. Our Tools.",
-      "description": "ClaimSaver+ gives Florida drivers professional-grade tools, forms, and guidance to file no-fault PIP claims. A flat $500 platform fee—no contingency percentage to us.",
+      "description": "ClaimSaver+ gives Florida drivers full-featured guided tools, forms, and education to file no-fault PIP claims. A flat $500 platform fee—no contingency percentage to us.",
       "startRecovery": "See How It Works",
       "fileClaim": "Start Filing Your Claim",
       "imageAlt": "ClaimSaver+ Background"

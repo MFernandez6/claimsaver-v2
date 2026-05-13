@@ -114,7 +114,7 @@
     "whyChoose": {
       "title": "¿Por Qué Elegir",
       "brand": "ClaimSaver+",
-      "description": "Herramientas de nivel profesional para reclamos PIP sin culpa en Florida: formularios guiados, almacenamiento seguro, seguimiento de gastos y educación para que presentes y gestiones tu reclamo con confianza.",
+      "description": "Herramientas guiadas para reclamos PIP sin culpa en Florida: formularios, almacenamiento seguro, seguimiento de gastos y educación para presentar y gestionar tu reclamo con confianza.",
       "getStarted": "Comienza Hoy",
       "flatFee": "Acceso a la plataforma por $500",
       "freeConsultation": "Recursos educativos y recorrido de la plataforma",
@@ -134,7 +134,7 @@
       "statsIllustrativeBadge": "Comparación ilustrativa—no es tu reclamo"
     },
     "story": {
-      "heroBannerAlt": "ClaimSaver+ — orientación profesional para reclamos PIP en Florida",
+      "heroBannerAlt": "ClaimSaver+ — herramientas guiadas para reclamos PIP en Florida",
       "pipStepsAlt": "Ilustración de cinco pasos del proceso de reclamo PIP en Florida",
       "whatYouGetAlt": "Resumen de herramientas y beneficios incluidos en ClaimSaver+",
       "beforeAfterAlt": "Antes y después: registros dispersos frente a un flujo de reclamo organizado",
@@ -309,8 +309,8 @@
         "description": "Frente a porcentajes de contingencia típicos, una tarifa plana puede dejarle más en reclamos PIP estándar que usted gestiona."
       },
       "professionalService": {
-        "title": "Herramientas de reclamo guiadas",
-        "description": "Flujos paso a paso y validación—sin negociar con aseguradoras ni hablar por usted."
+        "title": "Guía de la plataforma",
+        "description": "Flujos de software paso a paso y validación—no es un perito negociando con aseguradoras ni hablando por usted."
       },
       "fasterProcessing": {
         "title": "Manténgase al día",
@@ -380,7 +380,9 @@
       "notaryBulletCompletion": "La duración de la sesión varía; no es instantánea",
       "btnClose": "Cerrar",
       "btnStartYourClaim": "Comenzar su reclamo",
-      "modalSelectServices": "Seleccionar servicios"
+      "modalSelectServices": "Seleccionar servicios",
+      "stickyBarLead": "acceso plano a la plataforma",
+      "stickyBarCta": "Empezar por $500"
     }
   },
   "notarization": {
@@ -577,7 +579,7 @@
       },
       "vision": {
         "title": "Nuestra Visión",
-        "description": "Una opción confiable para quienes no necesitan un abogado para un PIP estándar: organización y educación de nivel profesional cuando elige gestionar la presentación directamente."
+        "description": "Una opción confiable para quienes no necesitan un abogado para un PIP estándar: organización estructurada y educación cuando elige gestionar la presentación usted mismo."
       },
       "values": {
         "title": "Nuestros Valores",
@@ -603,7 +605,7 @@
     "hero": {
       "title": "Su reclamo.",
       "subtitle": "Su control. Nuestras herramientas.",
-      "description": "ClaimSaver+ ofrece a los conductores en Florida herramientas de nivel profesional, formularios y orientación para presentar reclamos PIP sin culpa. Tarifa plana de $500 por la plataforma—sin porcentaje de contingencia para nosotros.",
+      "description": "ClaimSaver+ ofrece a los conductores en Florida herramientas guiadas completas, formularios y orientación para presentar reclamos PIP sin culpa. Tarifa plana de $500 por la plataforma—sin porcentaje de contingencia para nosotros.",
       "startRecovery": "Ver cómo funciona",
       "fileClaim": "Presentar Reclamo",
       "imageAlt": "Fondo ClaimSaver+"

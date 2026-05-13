@@ -73,6 +73,7 @@ export function calendarRowToLegacy(row: Record<string, unknown>) {
   return {
     _id: row.id,
     userId: row.user_id,
+    claimId: row.claim_id ?? null,
     title: row.title,
     date: row.date,
     time: row.time,

@@ -236,7 +236,7 @@ export default function Pricing() {
   };
 
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-950">
+    <div className="min-h-screen bg-white pb-24 dark:bg-gray-950 md:pb-0">
       {/* Loading Overlay */}
       {isValidating && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
@@ -1188,6 +1188,29 @@ export default function Pricing() {
           </div>
         </div>
       )}
+
+      <div
+        className="fixed bottom-0 left-0 right-0 z-40 border-t border-teal-200/90 bg-white/95 pb-[max(0.75rem,env(safe-area-inset-bottom))] pt-3 shadow-[0_-8px_32px_rgba(0,0,0,0.08)] backdrop-blur-md md:hidden dark:border-teal-900/40 dark:bg-gray-950/95"
+        role="region"
+        aria-label="Pricing actions"
+      >
+        <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4">
+          <p className="min-w-0 flex-1 text-xs text-gray-600 dark:text-gray-400">
+            <span className="font-semibold text-teal-700 dark:text-teal-300">
+              $500
+            </span>{" "}
+            {t("pricing.ui.stickyBarLead")}
+          </p>
+          <Button
+            type="button"
+            size="sm"
+            className="shrink-0 bg-gradient-to-r from-teal-600 to-emerald-600 text-white hover:from-teal-700 hover:to-emerald-700"
+            onClick={handleStartClaim}
+          >
+            {t("pricing.ui.stickyBarCta")}
+          </Button>
+        </div>
+      </div>
     </div>
   );
 }

@@ -25,6 +25,16 @@ import { FormReplicaLayout } from "./FormReplicaLayout";
 import { SignatureCaptureModal } from "./SignatureCaptureModal";
 import { SupplementalFormsStep } from "./SupplementalFormsStep";
 
+const DRAFT_AUTOSAVE_MS = 30_000;
+
+function mergeFormFromDraft(
+  partial: Partial<FloridaNoFaultFormData> | undefined | null,
+): FloridaNoFaultFormData {
+  const base = getInitialFloridaNoFaultFormData();
+  if (!partial || typeof partial !== "object") return base;
+  return { ...base, ...partial } as FloridaNoFaultFormData;
+}
+
 const TOTAL_STEPS = 8;
 
 const FRAUD_NOTICE =
@@ -47,6 +57,14 @@ export function ClaimFormWizard() {
   } | null>(null);
   const [authGateOpen, setAuthGateOpen] = useState(false);
   const resumeHandled = useRef(false);
+  const [draftClaimId, setDraftClaimId] = useState<string | null>(null);
+  const [draftSaveStatus, setDraftSaveStatus] = useState<
+    "idle" | "saving" | "saved" | "error"
+  >("idle");
+  const [draftSavedAtLabel, setDraftSavedAtLabel] = useState<string | null>(
+    null,
+  );
+  const allowDraftAutosave = useRef(false);
 
   useEffect(() => {
     if (isLoaded && user) {
@@ -63,14 +81,22 @@ export function ClaimFormWizard() {
   }, [isLoaded, user]);
 
   const submitClaim = useCallback(
-    async (data: FloridaNoFaultFormData): Promise<boolean> => {
+    async (
+      data: FloridaNoFaultFormData,
+      options?: { finalizeDraftId?: string | null },
+    ): Promise<boolean> => {
       setLoading(true);
       setError(null);
       try {
+        const payload: FloridaNoFaultFormData & { finalizeDraftId?: string } =
+          { ...data };
+        const fin = options?.finalizeDraftId ?? draftClaimId;
+        if (fin) payload.finalizeDraftId = fin;
+
         const res = await fetch("/api/claims", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(data),
+          body: JSON.stringify(payload),
         });
         const responseData = await res.json();
         if (!res.ok) {
@@ -85,6 +111,7 @@ export function ClaimFormWizard() {
           );
         }
         setDone({ claimId, claimNumber });
+        setDraftClaimId(null);
         return true;
       } catch (e) {
         setError(e instanceof Error ? e.message : "Could not save");
@@ -93,7 +120,7 @@ export function ClaimFormWizard() {
         setLoading(false);
       }
     },
-    [],
+    [draftClaimId],
   );
 
   useEffect(() => {
@@ -129,16 +156,105 @@ export function ClaimFormWizard() {
     });
   }, [isLoaded, user, submitClaim]);
 
+  useEffect(() => {
+    if (!isLoaded || !user) return;
+    const raw = sessionStorage.getItem("pendingClaimForm");
+    const sp = new URLSearchParams(window.location.search);
+    const resuming =
+      raw &&
+      (sp.get("resume") === "1" ||
+        sessionStorage.getItem("pendingClaimResume") === "1");
+    if (resuming) return;
+
+    let cancelled = false;
+    void (async () => {
+      try {
+        const res = await fetch("/api/claims/draft");
+        if (!res.ok || cancelled) return;
+        const data = (await res.json()) as {
+          draft?: Record<string, unknown> | null;
+        };
+        if (cancelled || !data.draft) return;
+        const d = data.draft;
+        const ws = d.noFaultWorksheet as
+          | Partial<FloridaNoFaultFormData>
+          | undefined;
+        if (ws) {
+          setFormData(mergeFormFromDraft(ws));
+          const id = String(d._id ?? "");
+          if (id) setDraftClaimId(id);
+        }
+      } catch {
+        // ignore
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [isLoaded, user]);
+
+  useEffect(() => {
+    if (!isLoaded || !user || !allowDraftAutosave.current) return;
+    const timer = window.setTimeout(() => {
+      void (async () => {
+        setDraftSaveStatus("saving");
+        try {
+          const body = JSON.stringify(formData);
+          if (draftClaimId) {
+            const res = await fetch(`/api/claims/${draftClaimId}`, {
+              method: "PATCH",
+              headers: { "Content-Type": "application/json" },
+              body,
+            });
+            if (!res.ok) {
+              const err = await res.json().catch(() => ({}));
+              throw new Error(
+                typeof err.error === "string" ? err.error : "Save failed",
+              );
+            }
+          } else {
+            const res = await fetch("/api/claims/draft", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body,
+            });
+            const result = (await res.json()) as {
+              error?: string;
+              claim?: { _id?: string };
+            };
+            if (!res.ok) {
+              throw new Error(result.error || "Could not create draft");
+            }
+            const id = result.claim?._id;
+            if (id) setDraftClaimId(String(id));
+          }
+          setDraftSaveStatus("saved");
+          setDraftSavedAtLabel(
+            new Date().toLocaleTimeString(undefined, {
+              hour: "numeric",
+              minute: "2-digit",
+            }),
+          );
+        } catch {
+          setDraftSaveStatus("error");
+        }
+      })();
+    }, DRAFT_AUTOSAVE_MS);
+    return () => window.clearTimeout(timer);
+  }, [formData, user, isLoaded, draftClaimId]);
+
   const handleChange = (
     field: keyof FloridaNoFaultFormData,
     value: string | boolean | string[],
   ) => {
+    allowDraftAutosave.current = true;
     setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
   const today = () => new Date().toISOString().split("T")[0];
 
   const onSignatureSaved = (dataUrl: string) => {
+    allowDraftAutosave.current = true;
     if (sigModal === "insurance") {
       setFormData((prev) => ({
         ...prev,
@@ -301,6 +417,17 @@ export function ClaimFormWizard() {
           <p className="mt-4 text-sm font-medium text-slate-700 dark:text-slate-200">
             Step {currentStep} of {TOTAL_STEPS}: {stepTitle(currentStep)}
           </p>
+          {user && (
+            <p className="mt-2 text-xs text-slate-500 dark:text-slate-400">
+              {draftSaveStatus === "saving"
+                ? "Saving draft…"
+                : draftSaveStatus === "error"
+                  ? "Could not save draft. Check your connection and try editing again."
+                  : draftSaveStatus === "saved" && draftSavedAtLabel
+                    ? `Draft saved at ${draftSavedAtLabel}`
+                    : "While signed in, drafts save automatically about every 30 seconds after you edit."}
+            </p>
+          )}
         </div>
       </div>
 
