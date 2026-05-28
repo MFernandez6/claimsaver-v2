@@ -41,59 +41,63 @@ function AuthSection() {
 
   if (!isLoaded) {
     return (
-      <div className="h-10 w-20 animate-pulse rounded-lg bg-gray-200 dark:bg-gray-700" />
+      <div className="h-9 w-36 animate-pulse rounded-lg bg-gray-200 dark:bg-gray-700" />
+    );
+  }
+
+  if (isSignedIn && user) {
+    return (
+      <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 rounded-lg border border-gray-200 bg-white/90 px-2 py-1 dark:border-gray-700 dark:bg-gray-800/80">
+          {avatarUrl ? (
+            <Image
+              src={avatarUrl}
+              alt=""
+              width={32}
+              height={32}
+              className="h-8 w-8 rounded-full object-cover"
+            />
+          ) : (
+            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-teal-600 text-sm font-semibold text-white">
+              {display.slice(0, 1).toUpperCase()}
+            </div>
+          )}
+          <span className="hidden max-w-[8rem] truncate text-sm text-gray-800 dark:text-gray-100 xl:inline">
+            {display}
+          </span>
+        </div>
+        <Button
+          size="sm"
+          variant="outline"
+          type="button"
+          onClick={() => void signOut()}
+          className="h-9 border-red-200 px-3 text-red-600 hover:border-red-300 hover:bg-red-50 dark:border-red-800 dark:text-red-400 dark:hover:bg-red-950/30"
+        >
+          Sign Out
+        </Button>
+      </div>
     );
   }
 
   return (
     <div className="flex items-center gap-2">
-      {isSignedIn && user ? (
-        <>
-          <div className="flex items-center gap-2 rounded-lg border border-gray-200 bg-white/90 px-2 py-1 dark:border-gray-700 dark:bg-gray-800/80">
-            {avatarUrl ? (
-              <Image
-                src={avatarUrl}
-                alt=""
-                width={36}
-                height={36}
-                className="h-9 w-9 rounded-full object-cover"
-              />
-            ) : (
-              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-teal-600 text-sm font-semibold text-white">
-                {display.slice(0, 1).toUpperCase()}
-              </div>
-            )}
-            <span className="hidden max-w-[10rem] truncate text-sm text-gray-800 dark:text-gray-100 sm:inline">
-              {display}
-            </span>
-          </div>
-          <Button
-            size="sm"
-            variant="outline"
-            type="button"
-            onClick={() => void signOut()}
-            className="border-red-300 px-3 py-1.5 text-xs text-red-600 hover:border-red-400 hover:bg-red-50 dark:border-red-600 dark:text-red-400 dark:hover:bg-red-950/30"
-          >
-            Sign Out
-          </Button>
-        </>
-      ) : (
-        <div className="flex flex-wrap items-center justify-end gap-2">
-          <Link href="/login?next=%2Fdashboard">
-            <Button size="sm" variant="outline" className="px-3">
-              {t("navigation.signIn")}
-            </Button>
-          </Link>
-          <Link href="/signup?next=%2Fdashboard">
-            <Button
-              size="sm"
-              className="bg-gradient-to-r from-teal-500 to-teal-700 px-4 text-white shadow-lg hover:from-teal-600 hover:to-teal-800"
-            >
-              {t("navigation.getStarted")}
-            </Button>
-          </Link>
-        </div>
-      )}
+      <Button
+        variant="outline"
+        size="sm"
+        asChild
+        className="h-9 min-w-[5.5rem] border-gray-200 px-4 font-medium dark:border-gray-600"
+      >
+        <Link href="/login?next=%2Fdashboard">{t("navigation.signIn")}</Link>
+      </Button>
+      <Button
+        size="sm"
+        asChild
+        className="h-9 min-w-[6.5rem] bg-gradient-to-r from-teal-600 to-teal-700 px-4 font-semibold text-white shadow-sm hover:from-teal-700 hover:to-teal-800"
+      >
+        <Link href="/signup?next=%2Fclaim-form">
+          {t("navigation.getStarted")}
+        </Link>
+      </Button>
     </div>
   );
 }
@@ -130,19 +134,16 @@ function DashboardLink({ pathname }: { pathname: string }) {
   }
 
   return (
-    <div className="hover:-translate-y-0.5 transition-all duration-300">
+    <div className="shrink-0">
       <Link
         href={isAdmin ? "/admin" : "/dashboard"}
-        className={`relative px-4 py-2 text-sm font-medium rounded-lg transition-all duration-300 ${
+        className={`inline-flex items-center rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
           pathname === "/admin" || pathname === "/dashboard"
-            ? "text-teal-600 bg-teal-50 dark:text-teal-400 dark:bg-teal-950/30"
-            : "text-gray-700 hover:text-teal-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-teal-400 dark:hover:bg-gray-800/50"
+            ? "bg-teal-50 text-teal-700 dark:bg-teal-950/40 dark:text-teal-300"
+            : "text-gray-700 hover:bg-gray-50 hover:text-teal-700 dark:text-gray-300 dark:hover:bg-gray-800/60 dark:hover:text-teal-400"
         }`}
       >
         {isAdmin ? "Admin" : t("navigation.dashboard")}
-        {(pathname === "/admin" || pathname === "/dashboard") && (
-          <div className="absolute inset-0 bg-gradient-to-r from-teal-500/10 to-teal-700/10 rounded-lg" />
-        )}
       </Link>
     </div>
   );
@@ -215,28 +216,21 @@ function MobileAuthSection({ onNavigate }: { onNavigate?: () => void }) {
           </Button>
         </div>
       ) : (
-        <div className="space-y-2">
-          <Link
-            href="/login?next=%2Fdashboard"
-            className="block w-full"
-            onClick={onNavigate}
-          >
-            <Button size="sm" variant="outline" className="w-full">
+        <div className="grid grid-cols-2 gap-2">
+          <Button variant="outline" size="sm" asChild className="h-10 w-full">
+            <Link href="/login?next=%2Fdashboard" onClick={onNavigate}>
               {t("navigation.signIn")}
-            </Button>
-          </Link>
-          <Link
-            href="/signup?next=%2Fdashboard"
-            className="block w-full"
-            onClick={onNavigate}
+            </Link>
+          </Button>
+          <Button
+            size="sm"
+            asChild
+            className="h-10 w-full bg-gradient-to-r from-teal-600 to-teal-700 font-semibold text-white"
           >
-            <Button
-              size="sm"
-              className="w-full bg-gradient-to-r from-teal-500 to-teal-700 text-white shadow-lg"
-            >
+            <Link href="/signup?next=%2Fclaim-form" onClick={onNavigate}>
               {t("navigation.getStarted")}
-            </Button>
-          </Link>
+            </Link>
+          </Button>
         </div>
       )}
     </>
@@ -339,9 +333,10 @@ function ThemeToggle() {
   return (
     <Button
       variant="ghost"
-      size="sm"
+      size="icon"
+      type="button"
       onClick={toggleTheme}
-      className="w-9 h-9 p-0 rounded-lg bg-white/80 backdrop-blur-sm border border-gray-200 hover:bg-white hover:border-teal-300 dark:bg-gray-800/80 dark:border-gray-700 dark:hover:bg-gray-800 dark:hover:border-teal-600 transition-all duration-300 hover:scale-105 hover:-translate-y-0.5"
+      className="size-9 shrink-0 rounded-lg border border-gray-200 bg-white/80 text-gray-700 hover:border-teal-300 hover:bg-white dark:border-gray-700 dark:bg-gray-800/80 dark:text-gray-300 dark:hover:border-teal-600"
       aria-label="Toggle theme"
     >
       {theme === "light" ? (
@@ -388,24 +383,20 @@ export default function Navbar() {
   // Don't render until mounted to prevent hydration issues
   if (!isMounted) {
     return (
-      <nav className="fixed top-0 left-0 right-0 z-[60] transition-all duration-500">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            {/* Logo placeholder */}
-            <div className="w-32 h-8 bg-gray-200 dark:bg-gray-700 rounded-lg animate-pulse"></div>
-
-            {/* Navigation placeholder */}
-            <div className="hidden md:flex items-center space-x-4">
-              {Array.from({ length: 4 }).map((_, index) => (
-                <div
-                  key={index}
-                  className="w-16 h-8 bg-gray-200 dark:bg-gray-700 rounded-lg animate-pulse"
-                ></div>
-              ))}
-            </div>
-
-            {/* Mobile menu button placeholder */}
-            <div className="md:hidden w-8 h-8 bg-gray-200 dark:bg-gray-700 rounded-lg animate-pulse"></div>
+      <nav className="fixed top-0 left-0 right-0 z-[60] border-b border-gray-200 bg-white/95 dark:border-gray-800 dark:bg-gray-900/95">
+        <div className="mx-auto flex h-16 max-w-7xl items-center gap-3 px-4 sm:px-6 lg:px-8">
+          <div className="h-8 w-32 animate-pulse rounded-lg bg-gray-200 dark:bg-gray-700" />
+          <div className="hidden flex-1 justify-center gap-2 lg:flex">
+            {Array.from({ length: 5 }).map((_, i) => (
+              <div
+                key={i}
+                className="h-8 w-16 animate-pulse rounded-lg bg-gray-200 dark:bg-gray-700"
+              />
+            ))}
+          </div>
+          <div className="ml-auto flex items-center gap-2 lg:ml-0">
+            <div className="h-9 w-[5.5rem] animate-pulse rounded-md bg-gray-200 dark:bg-gray-700" />
+            <div className="h-9 w-[6.5rem] animate-pulse rounded-md bg-gray-200 dark:bg-gray-700" />
           </div>
         </div>
       </nav>
@@ -414,122 +405,103 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className="bg-white dark:bg-gray-900 shadow-lg border-b border-gray-200 dark:border-gray-800 fixed top-0 left-0 right-0 z-[60]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            {/* Logo/Brand */}
-            <div className="flex-shrink-0 hover:opacity-90 transition-opacity duration-300">
-              <Link href="/" className="flex items-center">
-                <BrandLogo variant="navbar" />
-              </Link>
-            </div>
+      <nav className="fixed top-0 left-0 right-0 z-[60] border-b border-gray-200 bg-white/95 shadow-sm backdrop-blur-md dark:border-gray-800 dark:bg-gray-900/95">
+        <div className="mx-auto flex h-16 max-w-7xl items-center gap-3 px-4 sm:px-6 lg:px-8">
+          {/* Logo */}
+          <div className="shrink-0">
+            <Link href="/" className="flex items-center hover:opacity-90">
+              <BrandLogo variant="navbar" />
+            </Link>
+          </div>
 
-            {/* Desktop Navigation */}
-            <div className="hidden lg:flex items-center space-x-1">
-              {/* Direct Navigation Links */}
+          {/* Center: primary nav (desktop) */}
+          <div className="hidden min-w-0 flex-1 items-center justify-center lg:flex">
+            <div className="flex items-center gap-0.5">
               <Link
                 href="/who-we-are"
-                className={`px-4 py-2 text-sm font-medium rounded-lg transition-all duration-300 ${
+                className={`rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
                   pathname === "/who-we-are"
-                    ? "text-teal-600 bg-teal-50 dark:text-teal-400 dark:bg-teal-950/30"
-                    : "text-gray-700 hover:text-teal-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-teal-400 dark:hover:bg-gray-800/50"
+                    ? "bg-teal-50 text-teal-700 dark:bg-teal-950/40 dark:text-teal-300"
+                    : "text-gray-700 hover:bg-gray-50 hover:text-teal-700 dark:text-gray-300 dark:hover:bg-gray-800/60 dark:hover:text-teal-400"
                 }`}
               >
                 {t("navigation.whoWeAre")}
               </Link>
-
               <Link
                 href="/what-we-do"
-                className={`px-4 py-2 text-sm font-medium rounded-lg transition-all duration-300 ${
+                className={`rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
                   pathname === "/what-we-do"
-                    ? "text-teal-600 bg-teal-50 dark:text-teal-400 dark:bg-teal-950/30"
-                    : "text-gray-700 hover:text-teal-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-teal-400 dark:hover:bg-gray-800/50"
+                    ? "bg-teal-50 text-teal-700 dark:bg-teal-950/40 dark:text-teal-300"
+                    : "text-gray-700 hover:bg-gray-50 hover:text-teal-700 dark:text-gray-300 dark:hover:bg-gray-800/60 dark:hover:text-teal-400"
                 }`}
               >
                 {t("navigation.whatWeDo")}
               </Link>
-
               <Link
                 href="/how-it-works"
-                className={`px-4 py-2 text-sm font-medium rounded-lg transition-all duration-300 ${
+                className={`rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
                   pathname === "/how-it-works"
-                    ? "text-teal-600 bg-teal-50 dark:text-teal-400 dark:bg-teal-950/30"
-                    : "text-gray-700 hover:text-teal-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-teal-400 dark:hover:bg-gray-800/50"
+                    ? "bg-teal-50 text-teal-700 dark:bg-teal-950/40 dark:text-teal-300"
+                    : "text-gray-700 hover:bg-gray-50 hover:text-teal-700 dark:text-gray-300 dark:hover:bg-gray-800/60 dark:hover:text-teal-400"
                 }`}
               >
                 {t("navigation.howItWorks")}
               </Link>
-
               <Link
                 href="/when-to-call-an-attorney"
-                className={`hidden xl:inline-flex px-4 py-2 text-sm font-medium rounded-lg transition-all duration-300 ${
+                className={`hidden rounded-lg px-3 py-2 text-sm font-medium transition-colors xl:inline-flex ${
                   pathname === "/when-to-call-an-attorney"
-                    ? "text-teal-600 bg-teal-50 dark:text-teal-400 dark:bg-teal-950/30"
-                    : "text-gray-700 hover:text-teal-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-teal-400 dark:hover:bg-gray-800/50"
+                    ? "bg-teal-50 text-teal-700 dark:bg-teal-950/40 dark:text-teal-300"
+                    : "text-gray-700 hover:bg-gray-50 hover:text-teal-700 dark:text-gray-300 dark:hover:bg-gray-800/60 dark:hover:text-teal-400"
                 }`}
               >
                 {t("navigation.needHelpShort")}
               </Link>
-
               <Link
                 href="/pricing"
-                className={`px-4 py-2 text-sm font-medium rounded-lg transition-all duration-300 ${
+                className={`rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
                   pathname === "/pricing"
-                    ? "text-teal-600 bg-teal-50 dark:text-teal-400 dark:bg-teal-950/30"
-                    : "text-gray-700 hover:text-teal-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:text-teal-400 dark:hover:bg-gray-800/50"
+                    ? "bg-teal-50 text-teal-700 dark:bg-teal-950/40 dark:text-teal-300"
+                    : "text-gray-700 hover:bg-gray-50 hover:text-teal-700 dark:text-gray-300 dark:hover:bg-gray-800/60 dark:hover:text-teal-400"
                 }`}
               >
                 {t("navigation.pricing")}
               </Link>
-
-              {/* File Claim CTA — hidden when signed in (use Dashboard / claim flow from there) */}
-              {!isSignedIn && (
-                <Link
-                  href="/claim-form"
-                  className="ml-2 px-5 py-2 text-sm font-semibold rounded-lg bg-gradient-to-r from-teal-600 to-teal-700 hover:from-teal-700 hover:to-teal-800 text-white shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-0.5"
-                >
-                  {t("navigation.submitClaim")}
-                </Link>
-              )}
-
-              {/* Dashboard Link */}
               <DashboardLink pathname={pathname} />
-
-              {/* Divider */}
-              <div
-                className="w-px h-5 bg-gray-300 dark:bg-gray-600 mx-1 shrink-0"
-                aria-hidden
-              />
-
-              {/* Language Switcher */}
-              <LanguageSwitcher />
-
-              {/* Authentication */}
-              <AuthSection />
-
-              {/* Theme Toggle */}
-              <div className="hover:scale-105 transition-all duration-300 ml-2">
-                <ThemeToggle />
-              </div>
-            </div>
-
-            {/* Mobile menu button */}
-            <div className="lg:hidden">
-              <button
-                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="p-2 rounded-lg text-gray-700 hover:text-teal-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:text-teal-400 dark:hover:bg-gray-800 transition-all duration-300"
-              >
-                {isMobileMenuOpen ? (
-                  <X className="w-6 h-6" />
-                ) : (
-                  <Menu className="w-6 h-6" />
-                )}
-              </button>
             </div>
           </div>
 
-          {/* Mobile Navigation */}
-          {isMobileMenuOpen && (
+          {/* Right: utilities + auth (desktop) */}
+          <div className="hidden shrink-0 items-center gap-2 lg:flex">
+            <LanguageSwitcher />
+            <ThemeToggle />
+            <div
+              className="mx-1 h-6 w-px bg-gray-200 dark:bg-gray-700"
+              aria-hidden
+            />
+            <AuthSection />
+          </div>
+
+          {/* Mobile menu toggle */}
+          <div className="ml-auto lg:hidden">
+            <button
+              type="button"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="inline-flex h-10 w-10 items-center justify-center rounded-lg text-gray-700 transition-colors hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800"
+              aria-expanded={isMobileMenuOpen}
+              aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+            >
+              {isMobileMenuOpen ? (
+                <X className="h-5 w-5" />
+              ) : (
+                <Menu className="h-5 w-5" />
+              )}
+            </button>
+          </div>
+        </div>
+
+        {/* Mobile Navigation */}
+        {isMobileMenuOpen && (
             <div
               ref={mobileMenuRef}
               className="lg:hidden border-t border-gray-200 dark:border-gray-700 animate-in slide-in-from-top-2 duration-300 bg-white/95 backdrop-blur-xl dark:bg-gray-950/95 shadow-xl max-h-[calc(100vh-4rem)] overflow-y-auto overscroll-contain"
@@ -596,14 +568,13 @@ export default function Navbar() {
                   {t("navigation.pricing")}
                 </Link>
 
-                {/* File Claim CTA — hidden when signed in */}
                 {!isSignedIn && (
                   <Link
-                    href="/claim-form"
+                    href="/signup?next=%2Fclaim-form"
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="flex items-center justify-center gap-3 px-3 py-3 rounded-lg text-base font-semibold bg-gradient-to-r from-teal-600 to-teal-700 hover:from-teal-700 hover:to-teal-800 text-white shadow-md transition-all duration-300"
+                    className="flex items-center justify-center rounded-lg bg-gradient-to-r from-teal-600 to-teal-700 px-3 py-3 text-base font-semibold text-white shadow-sm"
                   >
-                    {t("navigation.submitClaim")}
+                    {t("navigation.getStarted")}
                   </Link>
                 )}
 
@@ -643,7 +614,6 @@ export default function Navbar() {
               </div>
             </div>
           )}
-        </div>
       </nav>
     </>
   );
