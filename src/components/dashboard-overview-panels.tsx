@@ -16,8 +16,8 @@ export type DashboardOverviewPanelsProps = {
   documentsCount: number;
   /** Next upcoming calendar event (optional) */
   nextEvent: { title: string; dateLabel: string } | null;
-  /** Dashboard only: shows a prominent welcome; homepage preview omits this */
-  welcomeName?: string;
+  /** Dashboard only: welcome banner; omit on homepage preview */
+  welcomeName?: string | null;
   /** Homepage hero: label as illustrative mock so it is not mistaken for a live dashboard */
   variant?: "live" | "preview";
 };
@@ -84,7 +84,7 @@ export function DashboardOverviewPanels({
         />
 
         <div className="relative">
-        {welcomeName ? (
+        {welcomeName != null ? (
           <div
             className="mb-6 overflow-hidden rounded-2xl border border-teal-300/60 bg-gradient-to-br from-teal-100/90 via-white to-emerald-50/90 p-1 shadow-[0_12px_40px_-8px_rgba(20,184,166,0.45)] ring-2 ring-teal-500/25 dark:border-teal-700/50 dark:from-teal-950/80 dark:via-slate-900 dark:to-emerald-950/50 dark:shadow-[0_12px_40px_-8px_rgba(20,184,166,0.2)] dark:ring-teal-400/20"
             role="status"
@@ -95,15 +95,19 @@ export function DashboardOverviewPanels({
                 <LayoutDashboard className="h-7 w-7" aria-hidden />
               </div>
               <p className="text-lg font-semibold leading-snug tracking-tight text-slate-900 dark:text-slate-100 sm:text-xl">
-                <Trans
-                  i18nKey="dashboard.overviewWelcome"
-                  values={{ name: welcomeName }}
-                  components={{
-                    name: (
-                      <span className="font-semibold text-teal-700 dark:text-teal-400" />
-                    ),
-                  }}
-                />
+                {welcomeName ? (
+                  <Trans
+                    i18nKey="dashboard.overviewWelcome"
+                    values={{ name: welcomeName }}
+                    components={{
+                      name: (
+                        <span className="font-semibold text-teal-700 dark:text-teal-400" />
+                      ),
+                    }}
+                  />
+                ) : (
+                  t("dashboard.welcome")
+                )}
               </p>
             </div>
           </div>

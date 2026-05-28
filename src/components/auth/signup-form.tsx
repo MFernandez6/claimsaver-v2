@@ -16,6 +16,7 @@ export function SignupForm() {
   const next = searchParams.get("next") ?? "/dashboard";
 
   const [email, setEmail] = useState("");
+  const [firstName, setFirstName] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
@@ -33,6 +34,9 @@ export function SignupForm() {
         email,
         password,
         options: {
+          data: firstName.trim()
+            ? { first_name: firstName.trim() }
+            : undefined,
           emailRedirectTo: `${site}/auth/confirm?next=${encodeURIComponent(next.startsWith("/") ? next : "/dashboard")}`,
         },
       });
@@ -75,7 +79,11 @@ export function SignupForm() {
           Create your account
         </CardTitle>
         <p className="text-sm text-slate-600 dark:text-slate-400">
-          Then continue to your dashboard and claim tools.
+          Your account is your secure claim workspace — all your forms,
+          documents, and progress are saved here.
+        </p>
+        <p className="text-sm text-slate-500 dark:text-slate-500">
+          Then continue to your dashboard and guided PIP worksheet.
         </p>
       </CardHeader>
       <CardContent className="space-y-6">
@@ -88,6 +96,19 @@ export function SignupForm() {
         )}
 
         <form onSubmit={signUp} className="space-y-4">
+          <div>
+            <label className="mb-1 block text-sm font-medium text-slate-700 dark:text-slate-300">
+              First name (optional)
+            </label>
+            <Input
+              type="text"
+              autoComplete="given-name"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+              className="h-11"
+              placeholder="How we greet you on the dashboard"
+            />
+          </div>
           <div>
             <label className="mb-1 block text-sm font-medium text-slate-700 dark:text-slate-300">
               Email

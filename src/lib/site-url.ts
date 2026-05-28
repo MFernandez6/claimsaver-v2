@@ -5,7 +5,7 @@
 export function getPublicSiteUrl(): string {
   const raw =
     typeof process !== "undefined"
-      ? process.env.NEXT_PUBLIC_SITE_URL || "https://claimsaverplus.com"
-      : "https://claimsaverplus.com";
+      ? process.env.NEXT_PUBLIC_SITE_URL || "https://www.claimsaverplus.com"
+      : "https://www.claimsaverplus.com";
   return raw.endsWith("/") ? raw.slice(0, -1) : raw;
 }

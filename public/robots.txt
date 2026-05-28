@@ -1,0 +1,15 @@
+User-agent: *
+Allow: /
+
+Disallow: /api/
+Disallow: /dashboard
+Disallow: /dashboard/
+Disallow: /claim-form
+Disallow: /claim-form/
+Disallow: /admin
+Disallow: /admin/
+Disallow: /account/
+Disallow: /_next/
+Disallow: /auth/
+
+Sitemap: https://www.claimsaverplus.com/sitemap.xml

@@ -1,0 +1,24 @@
+<!-- Supabase Dashboard: Authentication → Email Templates → Confirm signup -->
+<div style="font-family:sans-serif;max-width:480px;margin:0 auto;padding:32px">
+  <div style="background:#0D9488;padding:20px;border-radius:8px 8px 0 0;text-align:center">
+    <h1 style="color:white;margin:0;font-size:22px">ClaimSaver+</h1>
+    <p style="color:#CCFBF1;margin:6px 0 0;font-size:13px">Florida PIP Guided Platform</p>
+  </div>
+  <div style="border:1px solid #E2E8F0;border-top:none;padding:28px;border-radius:0 0 8px 8px">
+    <h2 style="color:#0F172A;font-size:18px">Confirm your email</h2>
+    <p style="color:#334155;line-height:1.6">
+      You're one step away from your guided PIP claim workspace.
+      Click the button below to verify your email and access your dashboard.
+    </p>
+    <a href="{{ .ConfirmationURL }}"
+      style="display:inline-block;background:#0D9488;color:white;
+      padding:12px 28px;border-radius:6px;text-decoration:none;
+      font-weight:600;margin:16px 0">
+      Verify Email &amp; Continue
+    </a>
+    <p style="color:#64748B;font-size:12px;margin-top:20px">
+      This link expires in 24 hours. If you did not create a ClaimSaver+ account,
+      you can safely ignore this email.
+    </p>
+  </div>
+</div>

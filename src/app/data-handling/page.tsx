@@ -53,6 +53,23 @@ export default function DataHandlingPage() {
           </article>
         ))}
       </section>
+
+      <section className="max-w-3xl mx-auto px-4 pb-24">
+        <div className="rounded-xl border border-teal-200 bg-teal-50/80 p-5 dark:border-teal-800 dark:bg-teal-950/30">
+          <p className="text-sm text-teal-900 dark:text-teal-100">
+            <strong>Account security:</strong> We recommend enabling multi-factor
+            authentication (MFA) for accounts that store medical and insurance
+            documents.{" "}
+            <a
+              href="/account/security"
+              className="font-medium underline hover:text-teal-700 dark:hover:text-teal-300"
+            >
+              Set up MFA in Account security
+            </a>
+            .
+          </p>
+        </div>
+      </section>
     </div>
   );
 }

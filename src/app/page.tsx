@@ -37,7 +37,7 @@ export default function Home() {
   const [showWelcomeBanner, setShowWelcomeBanner] = useState(true);
 
   const handleGetStarted = () => {
-    router.push("/claim-form");
+    router.push("/signup?next=/claim-form");
   };
 
   const handleGoToDashboard = () => {
@@ -181,7 +181,7 @@ export default function Home() {
                       className="h-14 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-800 px-8 text-base font-semibold text-white shadow-[0_12px_40px_-8px_rgba(13,148,136,0.55)] hover:from-emerald-700 hover:to-teal-900 hover:shadow-[0_16px_48px_-8px_rgba(13,148,136,0.6)] transition-all duration-300"
                     >
                       <Link
-                        href="/how-it-works"
+                        href="/signup?next=/claim-form"
                         className="inline-flex items-center gap-2"
                       >
                         {t("home.hero.cta")}
@@ -191,10 +191,10 @@ export default function Home() {
                     <Button
                       size="lg"
                       variant="outline"
-                      onClick={handleGetStarted}
+                      asChild
                       className="h-14 rounded-xl border-2 border-slate-200 bg-white/90 px-8 text-base font-semibold text-slate-900 shadow-sm backdrop-blur-sm hover:border-teal-400/80 hover:bg-white dark:border-slate-600 dark:bg-slate-900/90 dark:text-slate-100 dark:hover:border-teal-500/50"
                     >
-                      {t("home.hero.ctaSecondary")}
+                      <Link href="/how-it-works">{t("home.hero.ctaSecondary")}</Link>
                     </Button>
                   </>
                 ) : (

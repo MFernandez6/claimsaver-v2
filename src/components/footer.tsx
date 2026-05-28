@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 import { X, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -179,13 +180,13 @@ export default function Footer() {
                   </a>
                 </li>
                 <li>
-                  <a
+                  <Link
                     href="/learning-center"
                     className="text-teal-100/60 hover:text-white transition-all duration-300 text-sm flex items-center gap-2 group"
                   >
                     <span className="w-0 group-hover:w-2 h-[1px] bg-teal-400 transition-all duration-300"></span>
                     Learning Center
-                  </a>
+                  </Link>
                 </li>
                 <li>
                   <a
@@ -224,22 +225,22 @@ export default function Footer() {
                   </a>
                 </li>
                 <li>
-                  <button
-                    onClick={() => setActiveModal("privacy")}
-                    className="text-teal-100/60 hover:text-white transition-all duration-300 text-sm flex items-center gap-2 group text-left"
+                  <Link
+                    href="/privacy-policy"
+                    className="text-teal-100/60 hover:text-white transition-all duration-300 text-sm flex items-center gap-2 group"
                   >
                     <span className="w-0 group-hover:w-2 h-[1px] bg-teal-400 transition-all duration-300"></span>
                     Privacy Policy
-                  </button>
+                  </Link>
                 </li>
                 <li>
-                  <button
-                    onClick={() => setActiveModal("terms")}
-                    className="text-teal-100/60 hover:text-white transition-all duration-300 text-sm flex items-center gap-2 group text-left"
+                  <Link
+                    href="/terms-of-service"
+                    className="text-teal-100/60 hover:text-white transition-all duration-300 text-sm flex items-center gap-2 group"
                   >
                     <span className="w-0 group-hover:w-2 h-[1px] bg-teal-400 transition-all duration-300"></span>
                     Terms of Service
-                  </button>
+                  </Link>
                 </li>
               </ul>
             </div>

@@ -1,10 +1,21 @@
 import { type NextRequest, NextResponse } from "next/server";
 import { updateSession } from "@/lib/supabase/middleware";
+import {
+  applySecurityHeaders,
+  withRequestNonce,
+} from "@/lib/middleware-security";
 
-const AUTH_REQUIRED_PREFIXES = ["/dashboard", "/admin", "/claim/"];
+const AUTH_REQUIRED_PREFIXES = [
+  "/dashboard",
+  "/admin",
+  "/claim/",
+  "/claim-form",
+  "/account",
+];
 
 export async function middleware(request: NextRequest) {
-  const { user, supabaseResponse } = await updateSession(request);
+  const requestWithNonce = withRequestNonce(request);
+  const { user, supabaseResponse } = await updateSession(requestWithNonce);
 
   const { pathname } = request.nextUrl;
 
@@ -19,10 +30,11 @@ export async function middleware(request: NextRequest) {
       "next",
       `${pathname}${request.nextUrl.search}`,
     );
-    return NextResponse.redirect(url);
+    const redirect = NextResponse.redirect(url);
+    return applySecurityHeaders(requestWithNonce, redirect);
   }
 
-  return supabaseResponse;
+  return applySecurityHeaders(requestWithNonce, supabaseResponse);
 }
 
 export const config = {

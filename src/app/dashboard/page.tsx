@@ -33,6 +33,7 @@ import {
 } from "lucide-react";
 import { PageHeroBackdrop } from "@/components/page-hero-backdrop";
 import { DashboardOverviewPanels } from "@/components/dashboard-overview-panels";
+import { OnboardingBanner } from "@/components/dashboard/onboarding-banner";
 import ClaimDetail from "@/components/ClaimDetail";
 import { Modal } from "@/components/ui/modal";
 import { generateClaimPDF } from "@/utils/pdfGenerator";
@@ -675,12 +676,22 @@ export default function DashboardPage() {
     <div className="relative min-h-screen overflow-hidden bg-gradient-to-br from-slate-50 via-white to-emerald-50 pt-16 dark:from-slate-950 dark:via-gray-900 dark:to-slate-900">
       <PageHeroBackdrop />
       <div className="relative z-10 mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+        <OnboardingBanner
+          completedSteps={completedSteps}
+          documentCount={documents.length}
+          onUploadClick={() => setShowUploadModal(true)}
+          onAddMilestoneClick={() => {
+            document
+              .getElementById("dashboard-calendar")
+              ?.scrollIntoView({ behavior: "smooth" });
+            setShowAddEvent(true);
+          }}
+        />
         <DashboardOverviewPanels
           welcomeName={
             (typeof user?.user_metadata?.first_name === "string" &&
-              user.user_metadata.first_name) ||
-            user?.email?.split("@")[0] ||
-            "User"
+              user.user_metadata.first_name.trim()) ||
+            ""
           }
           completedSteps={completedSteps}
           totalSteps={totalSteps}
@@ -962,7 +973,10 @@ export default function DashboardPage() {
             </Card>
 
             {/* Upcoming Events */}
-            <Card className="rounded-2xl border border-slate-200/90 bg-white/90 shadow-[0_24px_80px_-12px_rgba(15,23,42,0.12)] backdrop-blur-xl dark:border-slate-700/80 dark:bg-slate-900/85 dark:shadow-[0_24px_80px_-12px_rgba(0,0,0,0.45)]">
+            <Card
+              id="dashboard-calendar"
+              className="rounded-2xl border border-slate-200/90 bg-white/90 shadow-[0_24px_80px_-12px_rgba(15,23,42,0.12)] backdrop-blur-xl dark:border-slate-700/80 dark:bg-slate-900/85 dark:shadow-[0_24px_80px_-12px_rgba(0,0,0,0.45)]"
+            >
               <CardHeader>
                 <CardTitle className="flex items-center justify-between text-lg font-bold text-gray-900 dark:text-white">
                   <div className="flex items-center gap-2">

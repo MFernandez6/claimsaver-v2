@@ -5,10 +5,11 @@ import { PageHeroBackdrop } from "@/components/page-hero-backdrop";
 import { useTranslation } from "react-i18next";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { BookOpen } from "lucide-react";
-import { getLearningArticleParagraphs, type ArticleKey } from "@/data/learningCenter";
+import { type ArticleKey } from "@/data/learningCenter";
+import { articlePath } from "@/data/learningCenter/slugs";
 
 export default function LearningCenterPage() {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   const articles = [
     "pipSteps",
@@ -53,13 +54,12 @@ export default function LearningCenterPage() {
               <p className="text-gray-600 dark:text-gray-300 font-medium">
                 {t(`pages.learningCenter.articles.${key}.summary`)}
               </p>
-              <div className="space-y-4 text-gray-700 dark:text-gray-300 leading-relaxed">
-                {getLearningArticleParagraphs(i18n.language, key).map(
-                  (paragraph, i) => (
-                    <p key={i}>{paragraph}</p>
-                  )
-                )}
-              </div>
+              <Link
+                href={articlePath(key)}
+                className="inline-flex text-sm font-medium text-teal-700 hover:underline dark:text-teal-400"
+              >
+                Read full article →
+              </Link>
               <p className="text-xs text-gray-500 dark:text-gray-400 mt-4 italic">
                 {t("pages.learningCenter.footerDisclaimer")}
               </p>

@@ -88,6 +88,7 @@ export default function DocumentUploadModal({
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [isUploading, setIsUploading] = useState(false);
   const [uploadError, setUploadError] = useState<string | null>(null);
+  const [fileError, setFileError] = useState<string | null>(null);
   const [uploadSuccess, setUploadSuccess] = useState(false);
   const [isDragOver, setIsDragOver] = useState(false);
 
@@ -147,6 +148,7 @@ export default function DocumentUploadModal({
       name: file.name,
     }));
     setUploadError(null);
+    setFileError(null);
   };
 
   const handleFileInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -177,13 +179,19 @@ export default function DocumentUploadModal({
   }, []);
 
   const handleUpload = async () => {
-    if (!formData.file || !formData.name || !formData.category) {
-      setUploadError("Please fill in all required fields and select a file.");
+    setFileError(null);
+    setUploadError(null);
+
+    if (!formData.file) {
+      setFileError("Please select a file before uploading.");
+      return;
+    }
+    if (!formData.name.trim() || !formData.category) {
+      setUploadError("Please fill in document name and category.");
       return;
     }
 
     setIsUploading(true);
-    setUploadError(null);
 
     try {
       const uploadFormData = new FormData();
@@ -225,6 +233,7 @@ export default function DocumentUploadModal({
       file: null,
     });
     setUploadError(null);
+    setFileError(null);
     setUploadSuccess(false);
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
@@ -340,6 +349,11 @@ export default function DocumentUploadModal({
                   accept=".pdf,.jpg,.jpeg,.png,.gif,.txt,.doc,.docx"
                 />
               </div>
+              {fileError && (
+                <p className="text-sm text-red-600 dark:text-red-400 mt-2">
+                  {fileError}
+                </p>
+              )}
             </div>
 
             {/* Form Fields */}
@@ -452,12 +466,7 @@ export default function DocumentUploadModal({
               </Button>
               <Button
                 onClick={handleUpload}
-                disabled={
-                  isUploading ||
-                  !formData.file ||
-                  !formData.name ||
-                  !formData.category
-                }
+                disabled={isUploading}
                 className="bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-700 hover:to-emerald-700"
               >
                 {isUploading ? (
