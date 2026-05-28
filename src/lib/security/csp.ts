@@ -1,5 +1,5 @@
-/** Production CSP with per-request nonce (set in middleware). */
-export function buildContentSecurityPolicy(nonce: string): string {
+/** Production CSP — must allow Next.js `/_next/static` chunks (no nonce pipeline yet). */
+export function buildContentSecurityPolicy(): string {
   const directives = [
     "default-src 'self'",
     "base-uri 'self'",
@@ -8,8 +8,7 @@ export function buildContentSecurityPolicy(nonce: string): string {
     [
       "script-src",
       "'self'",
-      `'nonce-${nonce}'`,
-      "'strict-dynamic'",
+      "'unsafe-inline'",
       "https://js.stripe.com",
       "https://*.stripe.com",
       "https://challenges.cloudflare.com",
@@ -31,6 +30,8 @@ export function buildContentSecurityPolicy(nonce: string): string {
       "https://api.stripe.com",
       "https://*.stripe.com",
       "https://*.claimsaverplus.com",
+      "https://claimsaverplus.com",
+      "https://www.claimsaverplus.com",
       "https://accounts.google.com",
       "https://oauth2.googleapis.com",
       "https://www.googleapis.com",
