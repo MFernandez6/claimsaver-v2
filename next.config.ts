@@ -1,6 +1,8 @@
 import type { NextConfig } from "next";
-
-/** CSP + security headers are applied in src/middleware.ts (nonce-based). */
+import {
+  buildContentSecurityPolicy,
+  SECURITY_HEADERS,
+} from "./src/lib/security/csp";
 
 const nextConfig: NextConfig = {
   images: {
@@ -20,6 +22,24 @@ const nextConfig: NextConfig = {
       "@radix-ui/react-tabs",
       "@radix-ui/react-slot",
     ],
+  },
+  async headers() {
+    if (
+      process.env.DISABLE_CSP === "1" ||
+      process.env.NODE_ENV !== "production"
+    ) {
+      return [];
+    }
+    const csp = buildContentSecurityPolicy();
+    return [
+      {
+        source: "/:path*",
+        headers: [
+          ...SECURITY_HEADERS,
+          { key: "Content-Security-Policy", value: csp },
+        ],
+      },
+    ];
   },
   async redirects() {
     return [
